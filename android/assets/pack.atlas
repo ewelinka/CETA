@@ -18,6 +18,13 @@ bruno
   orig: 73, 72
   offset: 0, 0
   index: -1
+circle
+  rotate: false
+  xy: 210, 194
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
 cloud
   rotate: false
   xy: 76, 150

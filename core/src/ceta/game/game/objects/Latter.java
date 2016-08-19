@@ -1,55 +1,56 @@
 package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
+import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+
 
 /**
- * Created by ewe on 8/1/16.
+ * Created by ewe on 8/8/16.
  */
-public class Latter extends AbstractLatter {
-    public static final String TAG = Latter.class.getName();
+public class Latter extends AbstractGameObject {
+    private short latterValue;
+    boolean blocked = false;
 
-
-    public Latter(){}
-
-    public void init(){
-        dimension.set(5.0f,5.0f);
-        regLatter = Assets.instance.latter.latter;
-        Gdx.app.debug(TAG, "in init() "+ dimension.y);
-
-        velocity.y = 2.0f;
-
-        latter_state = LATTER_STATE.HIDDEN;
-        super.init();
-
-    }
-    @Override
-    public void render(SpriteBatch batch) {
-        //batch.draw(regLatter.getTexture(),position.x,position.y);
-        batch.draw(regLatter.getTexture(), position.x, position.y, origin.x, origin.y, dimension.x , dimension.y , scale.x, scale.y,
-                rotation,
-                regLatter.getRegionX(), regLatter.getRegionY(),
-                regLatter.getRegionWidth(), regLatter.getRegionHeight(), false,false);
-
-    }
-
-    @Override
-    protected void updateMotionY (float deltaTime) {
-        switch (latter_state) {
-            case GROUNDED:
+    public Latter(short val){
+        latterValue =val;
+        switch(latterValue){
+            case 1:
+                regTex = Assets.instance.latter.latter;
+                this.setColor(1,0,0,1);
                 break;
-            case RISING:
-                super.updateMotionY(deltaTime);
+            case 2:
+                regTex = Assets.instance.latterDouble.latter;
+                this.setColor(1,1,0,1);
                 break;
-            case FALLING:
-                break;
-            case HIDDEN:
+            default:
+                regTex = Assets.instance.latter.latter;
                 break;
         }
 
-        //super.updateMotionY(deltaTime);
+        init();
+    }
+
+    public void init(){
+
+        this.setSize(Constants.BASE,Constants.BASE*latterValue);
+        Gdx.app.log(TAG,this.getWidth()+" "+this.getHeight()+" "+latterValue);
+        super.init();
+
+
 
     }
+
+
+    public short getLatterValue(){
+        return latterValue;
+    }
+
+
+
+
+
+
+
 }

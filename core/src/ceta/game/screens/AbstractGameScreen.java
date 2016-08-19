@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 7/25/16.
  */
-public abstract class AbstractGameScreen  extends Stage implements Screen {
+public abstract class AbstractGameScreen  implements Screen {
     protected DirectedGame game;
 
     public AbstractGameScreen (DirectedGame game) {

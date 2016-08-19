@@ -2,6 +2,7 @@ package ceta.game.screens;
 
 import ceta.game.transitions.ScreenTransition;
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,7 +11,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 /**
  * Created by ewe on 7/25/16.
  */
-public abstract class DirectedGame implements ApplicationListener {
+public abstract class DirectedGame extends Game {
 
     private boolean init;
     private AbstractGameScreen currScreen;
@@ -112,4 +113,8 @@ public abstract class DirectedGame implements ApplicationListener {
         this.screenTransition = screenTransition;
         t = 0;
     }
+
+
+
+
 }

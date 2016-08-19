@@ -29,8 +29,8 @@ public class CetaGame extends DirectedGame {
 		// Load assets
 		Assets.instance.init(new AssetManager());
 		ScreenTransition transition = ScreenTransitionFade.init(1);
-		//setScreen(new MenuScreen(this),transition);
-		setScreen(new LevelOneScreen(this),transition);
+		setScreen(new MenuScreen(this),transition);
+		//setScreen(new LevelOneScreen(this),transition);
 	}
 
 }

@@ -1,6 +1,8 @@
 package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
+import ceta.game.util.Constants;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,13 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class Bruno extends AbstractGameObject {
     public static final String TAG = Bruno.class.getName();
-    public enum VIEW_DIRECTION { LEFT, RIGHT }
-    private TextureRegion regBody;
-    public VIEW_DIRECTION viewDirection;
-    public enum BRUNO_STATE {
-        GROUNDED, FALLING, RISING
-    }
-    public BRUNO_STATE bruno_state;
+
 
     public Bruno () {
         init();
@@ -24,37 +20,12 @@ public class Bruno extends AbstractGameObject {
 
 
     public void init () {
-        dimension.set(5.0f, 5.0f);
-        regBody = Assets.instance.bruno.body;
-        // Center image on game object
-        origin.set(dimension.x / 2, dimension.y / 2);
-        // Bounding box for collision detection
-        bounds.set(0, 0, dimension.x, dimension.y);
-        // View direction
-        viewDirection = VIEW_DIRECTION.RIGHT;
-        bruno_state = BRUNO_STATE.GROUNDED;
-    }
-
-    @Override
-    public void render (SpriteBatch batch) {
-        // Draw image
-        batch.draw(regBody.getTexture(), position.x, position.y, origin.x, origin.y, dimension.x , dimension.y , scale.x, scale.y,
-                rotation,
-                regBody.getRegionX(), regBody.getRegionY(),
-                regBody.getRegionWidth(), regBody.getRegionHeight(),
-                viewDirection == VIEW_DIRECTION.LEFT, false);
+        regTex = Assets.instance.bruno.body;
+        this.setSize(Constants.BASE,Constants.BASE);
+        Gdx.app.log(TAG,this.getWidth()+" "+this.getHeight());
+        super.init();
 
     }
 
-    @Override
-    protected void updateMotionY (float deltaTime) {
-        switch (bruno_state) {
-            case GROUNDED:
-                bruno_state = BRUNO_STATE.FALLING;
-                break;
-            default:
-                super.updateMotionY(deltaTime);
-        }
-    }
 
 }

@@ -22,6 +22,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetBruno bruno;
     public AssetLatter latter;
     public AssetLatterDouble latterDouble;
+    public AssetBox box;
+    public AssetCoin coin;
     // singleton: prevent instantiation from other classes
     private Assets() {
     }
@@ -42,11 +44,16 @@ public class Assets implements Disposable, AssetErrorListener {
         // enable texture filtering for pixel smoothing
         for (Texture t : atlas.getTextures()) {
             t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            //t.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+
+
         }
 
         bruno = new AssetBruno(atlas);
         latter  = new AssetLatter(atlas);
         latterDouble = new AssetLatterDouble(atlas);
+        box = new AssetBox(atlas);
+        coin = new AssetCoin(atlas);
     }
 
     @Override
@@ -57,6 +64,15 @@ public class Assets implements Disposable, AssetErrorListener {
     @Override
     public void error(AssetDescriptor asset, Throwable throwable) {
         Gdx.app.error(TAG, "Couldn't load asset '" +  asset.fileName + "'", (Exception) throwable);
+    }
+
+    public class AssetBox {
+        public final TextureAtlas.AtlasRegion box;
+
+        public AssetBox (TextureAtlas atlas) {
+            box = atlas.findRegion("box");
+
+        }
     }
 
     public class AssetBruno {
@@ -82,6 +98,15 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public AssetLatterDouble (TextureAtlas atlas) {
             latter = atlas.findRegion("latter-double");
+
+        }
+    }
+
+    public class AssetCoin{
+        public final TextureAtlas.AtlasRegion coin;
+
+        public AssetCoin (TextureAtlas atlas) {
+            coin = atlas.findRegion("circle");
 
         }
     }

@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 /**
@@ -36,6 +37,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     @Override
     public void buildStage() {
+
         stage.addActor(buildPlayMenu());
     }
 
@@ -46,9 +48,13 @@ public class MenuScreen extends AbstractGameScreen {
         stage.draw();
 
     };
-    public void resize (int width, int height){};
+    public void resize (int width, int height){
+        stage.getViewport().update(width, height, true);
+        buildStage();
+    };
     public void show (){
-        stage = new Stage(new StretchViewport(Constants.VIEWPORT_GUI_WIDTH, Constants.VIEWPORT_GUI_HEIGHT));
+        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
+
         buildStage();
     };
     public void hide (){
@@ -89,7 +95,7 @@ public class MenuScreen extends AbstractGameScreen {
         Table tbl = new Table();
         //tbl.left().bottom();
         tbl.add(btnStartGame);
-        tbl.setPosition(Constants.VIEWPORT_GUI_WIDTH/2 - tbl.getWidth() , Constants.VIEWPORT_GUI_HEIGHT/2);
+        tbl.setPosition(Constants.VIEWPORT_WIDTH/2 - tbl.getWidth() , Constants.VIEWPORT_HEIGHT/2);
         btnStartGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
