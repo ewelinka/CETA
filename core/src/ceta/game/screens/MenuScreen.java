@@ -35,7 +35,7 @@ public class MenuScreen extends AbstractGameScreen {
         super(game);
     }
 
-    @Override
+
     public void buildStage() {
 
         stage.addActor(buildPlayMenu());
