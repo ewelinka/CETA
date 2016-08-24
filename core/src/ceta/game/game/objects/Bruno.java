@@ -14,6 +14,7 @@ public class Bruno extends AbstractGameObject {
     public static final String TAG = Bruno.class.getName();
 
 
+
     public Bruno () {
         init();
     }
@@ -21,7 +22,7 @@ public class Bruno extends AbstractGameObject {
 
     public void init () {
         regTex = Assets.instance.bruno.body;
-        this.setSize(Constants.BASE,Constants.BASE);
+        this.setSize(Constants.BASE*2,Constants.BASE*2);
         Gdx.app.log(TAG,this.getWidth()+" "+this.getHeight());
         super.init();
 

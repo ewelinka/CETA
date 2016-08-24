@@ -1,73 +1,35 @@
-package ceta.game.game;
+package ceta.game.game.controllers;
 
 import ceta.game.game.levels.Level;
-import ceta.game.game.levels.LevelOne;
-import ceta.game.game.objects.Bruno;
-import ceta.game.game.objects.Latter;
-import ceta.game.screens.DirectedGame;
 import ceta.game.util.CameraHelper;
-import ceta.game.util.Constants;
-import ceta.game.util.LatterManager;
-import ceta.game.util.VirtualBlocksManager;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
-import java.util.Arrays;
-
-
 /**
- * Created by ewe on 7/25/16.
+ * Created by ewe on 8/23/16.
  */
-public class WorldController extends InputAdapter implements Disposable {
-    private static final String TAG = WorldController.class.getName();
-    private DirectedGame game;
+public abstract class  AbstractWorldController extends InputAdapter implements Disposable {
+    private static final String TAG = AbstractWorldController.class.getName();
     public CameraHelper cameraHelper;
-    public LevelOne level;
-    //public Level level;
-    // Rectangles for collision detection
-    private Rectangle r1 = new Rectangle();
-    private Rectangle r2 = new Rectangle();
+    public Level level;
 
-    private LatterManager latterManager;
-    private VirtualBlocksManager virtualBlocksManager;
+    public short [] detected_numbers;
+    public short [] previous_detected;
+    public short [] remove;
+    public short [] add;
+    public short toRemove;
+    public short toAdd;
+    public short currentDiff;
 
-    private short [] detected_numbers;
-    private short [] previous_detected;
-    private short [] remove;
-    private short [] add;
-    private short toRemove;
-    private short toAdd;
-    private short currentDiff;
-
-    private Stage stage;
-
-    public WorldController (DirectedGame game, Stage stage) {
-        this.game = game;
-        this.stage = stage;
-        latterManager = new LatterManager(stage);
-        virtualBlocksManager = new VirtualBlocksManager(stage);
-        init();
-    }
-
-    private void init () {
+    public void init () {
         cameraHelper = new CameraHelper();
-        initLevel();
         initValues();
-        virtualBlocksManager.init();
-        latterManager.init();
     }
 
-    private void initLevel(){
-        //it will load level data
-        level = new LevelOne(stage);
-        cameraHelper.setTarget(null);
-
-    }
+    public abstract void update(float delta);
 
     private void initValues(){
         detected_numbers = new short [5];
@@ -87,45 +49,7 @@ public class WorldController extends InputAdapter implements Disposable {
         currentDiff = 0;
     }
 
-    public void update (float deltaTime) {
-        handleDebugInput(deltaTime);
-        level.update(deltaTime);
-        virtualBlocksManager.updateDetected();
-        //previous_detected = previous_detected;
-        previous_detected = Arrays.copyOf(detected_numbers, detected_numbers.length);
-        // System.arraycopy( detected_numbers, 0, previous_detected, 0, detected_numbers.length );
-        detected_numbers = virtualBlocksManager.getDetectedBlocks();
-        findDifferences();
-        updateLatters();
-
-        // TODO check if it should goes to the end
-        testCollisions();
-
-        cameraHelper.update(deltaTime);
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
-
-    private void testCollisions () {
-        // TODO check for top Y and x range
-        // now if the coin passes by the middle if also works (make sense! but not for us!)
-        Latter l = getLastLatter();
-        if(l != null){
-            r1.set(l.getX(), l.getY()+l.getHeight() - 4, l.getWidth(), 8);
-            //Gdx.app.debug(TAG, "latter! ");
-            r2.set(level.coin.getX(), level.coin.getY(), level.coin.bounds.width, level.coin.bounds.height);
-
-            if (r1.overlaps(r2))
-                Gdx.app.debug(TAG, "collision coin - latter! ");
-        }
-
-    }
-
-    private void findDifferences(){
+    public void findDifferences(){
         // ojo!!! lo que se corresponde a la pieza 1 esta en la posicion 0 !!
         toRemove = 0;
         toAdd = 0;
@@ -153,21 +77,6 @@ public class WorldController extends InputAdapter implements Disposable {
 
     }
 
-    public Latter getLastLatter(){
-        return latterManager.getLastLatter();
-    }
-
-    private void updateLatters(){
-        // set "to add" and "to remove" in latter manager
-        latterManager.update(toRemove,toAdd,remove,add);
-    }
-
-    private void moveCamera (float x, float y) {
-        x += cameraHelper.getPosition().x;
-        y += cameraHelper.getPosition().y;
-        cameraHelper.setPosition(x, y);
-    }
-
     @Override
     public boolean keyUp (int keycode) {
         // Reset game world
@@ -187,7 +96,7 @@ public class WorldController extends InputAdapter implements Disposable {
         return false;
     }
 
-    private void handleDebugInput (float deltaTime) {
+    public void handleDebugInput (float deltaTime) {
         if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
         if (!cameraHelper.hasTarget(level.bruno)) {
 
@@ -213,4 +122,9 @@ public class WorldController extends InputAdapter implements Disposable {
     }
 
 
+    private void moveCamera (float x, float y) {
+        x += cameraHelper.getPosition().x;
+        y += cameraHelper.getPosition().y;
+        cameraHelper.setPosition(x, y);
+    }
 }

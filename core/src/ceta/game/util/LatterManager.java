@@ -33,30 +33,6 @@ public class LatterManager {
 
     public void init(){
 
-        //initLatters();
-    }
-
-    private void initLatters(){
-
-        Latter latter;
-        // ojo!!! de 1 a 5!! es el value
-        for(short i = 1;i<6;i++){
-            latter = new Latter(i);
-            //we "hide" the latter below the ground level
-            latter.setPosition(initialX, -latter.getHeight() - Constants.BASE );
-            stage.addActor(latter);
-            latters.add(latter);
-        }
-//        Latter latter = new Latter((short)1);
-//        latter.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X + Constants.BASE*2, -Constants.BASE );
-//        stage.addActor(latter);
-//        latters.add(latter);
-//
-//
-//        Latter latterDouble = new Latter((short)2);
-//        latterDouble.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X+ Constants.BASE*4 , -Constants.BASE);
-//        stage.addActor(latterDouble);
-//        latters.add(latterDouble);
     }
 
 
@@ -66,36 +42,17 @@ public class LatterManager {
         this.remove = remove;
         this.add = add;
 
-        updatePositions();
+        updatePositionsIfRemoved();
+        updatePositionOnAdded();
     }
 
 
 
-    private void updatePositions(){
+    private void updatePositionsIfRemoved(){
         // we have to remove something. perhaps more than one thing.
         if(toRemove > 0){
             Gdx.app.debug(TAG,"to remove! "+toRemove);
-            short removed = 0;
-            // we start at the end
-            for(short i=(short)(latters.size()-1);i>=0;i--){
-                // we have to adjust the value of the latter to array range
-                // latter of value 1 should be in index 0
-                short currentLatterValueIndex = (short)(latters.get(i).getLatterValue() - 1);
-
-                if(remove[currentLatterValueIndex] > 0){
-                    Gdx.app.debug(TAG, "we found latter to remove!! index: "+currentLatterValueIndex+" value: "+(currentLatterValueIndex+1));
-                    // we delete this latter
-                    latters.get(i).setColor(1,0,0,1);
-                    // remove Actor
-                    latters.get(i).remove();
-                    //remove from latters
-                    latters.remove(i);
-                    // we update remove[]
-                    remove[currentLatterValueIndex]-=1;
-                    // we update removed
-                    removed+=1;
-                }
-            }
+            removeLatters(toRemove);
 
             // we update the positions of the latters that are still there
             lastY = -Constants.BASE;
@@ -107,12 +64,15 @@ public class LatterManager {
                     moveToAction.setPosition(initialX,lastY);
                     moveToAction.setDuration(1f);
                     latters.get(i).addAction(moveToAction);
-                    Gdx.app.debug(TAG," we added action to latter number "+i+" and moved it to "+lastY);
+                    //Gdx.app.debug(TAG," we added action to latter number "+i+" and moved it to "+lastY);
                 }
-
                 lastY += latters.get(i).getHeight();
             }
+
         }
+    }
+
+    private void updatePositionOnAdded(){
         if(toAdd>0){
             Gdx.app.debug(TAG,"to add! "+toAdd + Arrays.toString(add));
             for(short i = 0;i<add.length;i++){
@@ -140,6 +100,39 @@ public class LatterManager {
                 }
             }
         }
+
+    }
+
+    private void removeLatters(short shouldRemove){
+        short removed = 0;
+        // we start at the end and check
+        // if the latter that we are checking should be removed
+        for(short i=(short)(latters.size()-1);i>=0;i--){
+            // we have to adjust the value of the latter to array range
+            // latter of value 1 should be in index 0
+            short currentLatterValueIndex = (short)(latters.get(i).getLatterValue() - 1);
+
+            if(remove[currentLatterValueIndex] > 0){
+                Gdx.app.debug(TAG, "we found latter to remove!! index: "+currentLatterValueIndex+" value: "+(currentLatterValueIndex+1));
+                removeOne(i,currentLatterValueIndex);
+                // we update removed
+                removed+=1;
+                // check if we should end looping
+                // TODO end looping if we already deleted all latters that we should remove
+                if(removed >= shouldRemove) Gdx.app.log(TAG, "we removed all "+shouldRemove+" latters");
+            }
+        }
+
+
+    }
+
+    private void removeOne(short which, short valueIndex){
+        // remove Actor
+        latters.get(which).remove();
+        //remove from latters
+        latters.remove(which);
+        // we update remove[]
+        remove[valueIndex]-=1;
     }
 
     public Latter getLastLatter(){

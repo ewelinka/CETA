@@ -1,11 +1,9 @@
 package ceta.game.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import ceta.game.game.Assets;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Created by ewe on 7/25/16.

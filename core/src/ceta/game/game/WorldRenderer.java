@@ -1,15 +1,15 @@
 package ceta.game.game;
 
+import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.game.controllers.Level1Controller;
+import ceta.game.game.controllers.WorldController;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
  * Created by ewe on 7/25/16.
@@ -19,10 +19,11 @@ public class WorldRenderer implements Disposable {
     private OrthographicCamera cameraGUI;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
-    private WorldController worldController;
+    private AbstractWorldController worldController;
     private Stage stage;
+    private short linesRange;
 
-    public WorldRenderer (WorldController worldController, Stage stage) {
+    public WorldRenderer (AbstractWorldController worldController, Stage stage) {
         this.stage = stage;
         this.worldController = worldController;
         init();
@@ -30,6 +31,8 @@ public class WorldRenderer implements Disposable {
     private void init () {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
+
+        linesRange = (short)(Constants.VIEWPORT_HEIGHT/Constants.BASE/2)*Constants.BASE;
 
 
         //stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
@@ -76,18 +79,17 @@ public class WorldRenderer implements Disposable {
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(1, 1, 1, 1);
-        for(int i = -500; i<=500;i+=50){
+
+
+
+        for(int i = -linesRange; i<=linesRange;i+=Constants.BASE){
             //shapeRenderer.line(i, 20,i,0);
-            shapeRenderer.line(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X, i,
-                    Constants.VIEWPORT_WIDTH/2 - Constants.OFFSET_X,i);
-            shapeRenderer.line(i , -Constants.VIEWPORT_HEIGHT/2+ Constants.OFFSET_X,
-                    i,Constants.VIEWPORT_HEIGHT/2- Constants.OFFSET_X);
+            shapeRenderer.line(-Constants.VIEWPORT_WIDTH/2 , i, Constants.VIEWPORT_WIDTH/2,i);
+            shapeRenderer.line(i , -Constants.VIEWPORT_HEIGHT/2, i,Constants.VIEWPORT_HEIGHT/2);
         }
         shapeRenderer.setColor(1, 0, 0, 1);
-        shapeRenderer.line(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X, 0,
-                Constants.VIEWPORT_WIDTH/2 - Constants.OFFSET_X,0);
-        shapeRenderer.line(0 , -Constants.VIEWPORT_HEIGHT/2+ Constants.OFFSET_X,
-                0,Constants.VIEWPORT_HEIGHT/2- Constants.OFFSET_X);
+        shapeRenderer.line(-Constants.VIEWPORT_WIDTH/2, 0, Constants.VIEWPORT_WIDTH/2,0);
+        shapeRenderer.line(0 , -Constants.VIEWPORT_HEIGHT/2, 0,Constants.VIEWPORT_HEIGHT/2);
         shapeRenderer.end();
     }
 
@@ -102,7 +104,7 @@ public class WorldRenderer implements Disposable {
 //        cameraGUI.position.set(cameraGUI.viewportWidth / 2, cameraGUI.viewportHeight / 2, 0);
 //        cameraGUI.update();
 
-        // called from LevelOneScreen on resize
+        // called from TestScreen on resize
         stage.getViewport().update(width, height, true);
         camera.position.set(0,0,0);
     }

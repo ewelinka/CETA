@@ -1,45 +1,31 @@
 package ceta.game.screens;
 
-//import ceta.game.game.WorldController;
-//import ceta.game.game.WorldRenderer;
-//import ceta.game.game.levels.Level;
 
-import ceta.game.game.WorldController;
+
 import ceta.game.game.WorldRenderer;
-import ceta.game.game.objects.Bruno;
-import ceta.game.game.objects.Coin;
-import ceta.game.game.objects.Latter;
+import ceta.game.game.controllers.Level1Controller;
+import ceta.game.game.controllers.WorldController;
 import ceta.game.util.Constants;
-import ceta.game.util.LatterManager;
-import ceta.game.util.VirtualBlocksManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.ColorAction;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
  * Created by ewe on 7/25/16.
  */
-public class LevelOneScreen  extends AbstractGameScreen {
-    private static final String TAG = LevelOneScreen.class.getName();
+public class TestScreen extends AbstractGameScreen {
+    private static final String TAG = TestScreen.class.getName();
     private WorldController worldController;
     private WorldRenderer worldRenderer;
     private OrthographicCamera camera;
     private Stage stage;
 
-    // Rectangles for collision detection
-    private Rectangle r1 = new Rectangle();
-    private Rectangle r2 = new Rectangle();
-
     private boolean paused;
 
-    public LevelOneScreen (DirectedGame game) {
+    public TestScreen(DirectedGame game) {
 
         super(game);
     }
@@ -60,7 +46,6 @@ public class LevelOneScreen  extends AbstractGameScreen {
     }
 
 
-
     @Override
     public void resize(int width, int height) {
         worldRenderer.resize(width, height);
@@ -74,6 +59,8 @@ public class LevelOneScreen  extends AbstractGameScreen {
         worldController = new WorldController(game, stage);
         // Todo here we should make camera stuff and fitviewport
         worldRenderer = new WorldRenderer(worldController,stage);
+        // android back key
+        Gdx.input.setCatchBackKey(true);
     }
 
     @Override
@@ -81,6 +68,7 @@ public class LevelOneScreen  extends AbstractGameScreen {
         worldController.dispose();
         worldRenderer.dispose();
         stage.dispose();
+        Gdx.input.setCatchBackKey(false);
     }
 
     @Override

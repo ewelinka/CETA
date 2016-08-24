@@ -22,8 +22,8 @@ public abstract class AbstractGameObject extends Actor {
     public static final String TAG = AbstractGameObject.class.getName();
 
     public Rectangle bounds;
-
     public TextureRegion regTex;
+    public boolean isVertical = true;
 
 
     public AbstractGameObject () {
