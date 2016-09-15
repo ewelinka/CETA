@@ -21,7 +21,6 @@ public class Coin extends AbstractGameObject {
         regTex = Assets.instance.coin.coin;
         velocity = -100;
         this.setSize(Constants.BASE,Constants.BASE);
-        Gdx.app.log(TAG,this.getWidth()+" "+this.getHeight());
         super.init();
 
     }

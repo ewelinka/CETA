@@ -35,7 +35,6 @@ public class Latter extends AbstractGameObject {
     public void init(){
 
         this.setSize(Constants.BASE,Constants.BASE*latterValue);
-        Gdx.app.log(TAG,this.getWidth()+" "+this.getHeight()+" "+latterValue);
         // now we can set the values that depend on size
         super.init();
 

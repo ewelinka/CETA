@@ -31,7 +31,8 @@ public class RoboticArmManager {
         this.stage = stage;
         armPieces = new ArrayList<ArmPiece>();
         // starts where BigBruno ended
-        initialX = -(short)Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X + Constants.BASE*2;
+        initialX = -240;
+        //initialX = -(short)Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X + Constants.BASE*2;
         initialY = Constants.BASE;
 
     }

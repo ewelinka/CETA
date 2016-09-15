@@ -13,6 +13,7 @@ public class Constants {
 
     public static final short BASE = 40;
     public static final short OFFSET_X = 20;
+    public static final short DETECTION_LIMIT = -6 * BASE;
 
 
 }

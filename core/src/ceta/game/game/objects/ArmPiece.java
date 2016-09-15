@@ -14,15 +14,15 @@ public class ArmPiece extends AbstractGameObject {
         armValue = val;
         switch(armValue){
             case 1:
-                regTex = Assets.instance.latter.latter;
+                regTex = Assets.instance.box.box;
 
                 break;
             case 2:
-                regTex = Assets.instance.latter.latter;
+                regTex = Assets.instance.box.box;
 
                 break;
             default:
-                regTex = Assets.instance.latter.latter;
+                regTex = Assets.instance.box.box;
                 break;
         }
 
@@ -32,7 +32,6 @@ public class ArmPiece extends AbstractGameObject {
     public void init(){
 
         this.setSize(Constants.BASE*armValue,Constants.BASE);
-        Gdx.app.log(TAG,this.getWidth()+" "+this.getHeight()+" "+armValue);
         // now we can set the values that depend on size
         super.init();
 

@@ -22,6 +22,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetLatterDouble latterDouble;
     public AssetBox box;
     public AssetCoin coin;
+    public AssetBackground background;
     // singleton: prevent instantiation from other classes
     private Assets() {
     }
@@ -52,6 +53,7 @@ public class Assets implements Disposable, AssetErrorListener {
         latterDouble = new AssetLatterDouble(atlas);
         box = new AssetBox(atlas);
         coin = new AssetCoin(atlas);
+        background = new AssetBackground(atlas);
     }
 
     @Override
@@ -73,11 +75,20 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+    public class AssetBackground {
+        public final TextureAtlas.AtlasRegion back;
+
+        public AssetBackground (TextureAtlas atlas) {
+            back = atlas.findRegion("fondoC");
+
+        }
+    }
+
     public class AssetBruno {
         public final TextureAtlas.AtlasRegion body;
 
         public AssetBruno (TextureAtlas atlas) {
-            body = atlas.findRegion("bruno");
+            body = atlas.findRegion("robot02");
 
         }
     }

@@ -22,8 +22,7 @@ public class Bruno extends AbstractGameObject {
 
     public void init () {
         regTex = Assets.instance.bruno.body;
-        this.setSize(Constants.BASE*2,Constants.BASE*2);
-        Gdx.app.log(TAG,this.getWidth()+" "+this.getHeight());
+        this.setSize(Constants.BASE,Constants.BASE*2);
         super.init();
 
     }

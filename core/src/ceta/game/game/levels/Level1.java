@@ -1,13 +1,16 @@
 package ceta.game.game.levels;
 
+import ceta.game.game.Assets;
 import ceta.game.game.objects.Bruno;
 import ceta.game.game.objects.Coin;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
  * Created by ewe on 8/23/16.
@@ -17,6 +20,7 @@ public class Level1 extends Level{
 //    public BigBruno bruno;
 //    public Coin coin;
     private Stage stage;
+    private Image back;
 
     public Level1(Stage stage){
         this.stage = stage;
@@ -25,6 +29,12 @@ public class Level1 extends Level{
 
     @Override
     public void init() {
+
+        TextureRegion regTexBack = Assets.instance.background.back;
+        back = new Image(regTexBack);
+        back.setPosition(-Constants.VIEWPORT_WIDTH/2, 0);
+        stage.addActor(back);
+
         bruno = new Bruno();
         bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X ,0);
         stage.addActor(bruno);
@@ -49,4 +59,6 @@ public class Level1 extends Level{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
     }
+
+
 }

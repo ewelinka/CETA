@@ -55,23 +55,7 @@ public class Level1Controller extends AbstractWorldController{
 
     }
 
-    private void initValues(){
-        detected_numbers = new short [5];
-        previous_detected = new short [5];
-        remove = new short [5];
-        add = new short [5];
 
-        for(short i = 0; i<5;i++){
-            detected_numbers[i] = 0;
-            previous_detected[i] = 0;
-            remove[i] = 0;
-            add[i] = 0;
-        }
-
-        toRemove = 0;
-        toAdd = 0;
-        currentDiff = 0;
-    }
     @Override
     public void update (float deltaTime) {
         handleDebugInput(deltaTime);

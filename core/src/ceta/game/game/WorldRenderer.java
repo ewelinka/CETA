@@ -7,6 +7,7 @@ import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
@@ -21,6 +22,7 @@ public class WorldRenderer implements Disposable {
     private ShapeRenderer shapeRenderer;
     private AbstractWorldController worldController;
     private Stage stage;
+
     private short linesRange;
 
     public WorldRenderer (AbstractWorldController worldController, Stage stage) {
@@ -30,6 +32,7 @@ public class WorldRenderer implements Disposable {
     }
     private void init () {
         batch = new SpriteBatch();
+
         shapeRenderer = new ShapeRenderer();
 
         linesRange = (short)(Constants.VIEWPORT_HEIGHT/Constants.BASE/2)*Constants.BASE;
@@ -55,12 +58,18 @@ public class WorldRenderer implements Disposable {
         renderHelperLines();
     }
 
+
+
     private void renderWorld (SpriteBatch batch) {
         worldController.cameraHelper.applyTo(camera);
-        batch.setProjectionMatrix(camera.combined);
+        //batch.setProjectionMatrix(camera.combined);
+       // batch.begin();
+       // stage.getBatch().draw(regTexBack.getTexture(), -Constants.VIEWPORT_WIDTH/2, 0, 600,512);
+       // renderHelperNumbers();
+
+
         batch.begin();
         worldController.level.render(batch);
-       // renderHelperNumbers();
         batch.end();
     }
     private void renderGui (SpriteBatch batch) {
@@ -90,6 +99,10 @@ public class WorldRenderer implements Disposable {
         shapeRenderer.setColor(1, 0, 0, 1);
         shapeRenderer.line(-Constants.VIEWPORT_WIDTH/2, 0, Constants.VIEWPORT_WIDTH/2,0);
         shapeRenderer.line(0 , -Constants.VIEWPORT_HEIGHT/2, 0,Constants.VIEWPORT_HEIGHT/2);
+        // and detection limit
+        shapeRenderer.setColor(0, 0, 1, 1);
+        shapeRenderer.line(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT, Constants.VIEWPORT_WIDTH/2,Constants.DETECTION_LIMIT);
+
         shapeRenderer.end();
     }
 
