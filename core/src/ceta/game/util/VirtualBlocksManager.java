@@ -39,19 +39,8 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     private void initBlocks(){
         // we initialise first 5 blocks (numbres 1-5)
         for(short i=1;i<=5;i++){
-            VirtualBlock virtualBlock = new VirtualBlock(i,this);
-            // this works for vertical blocks
-            virtualBlock.setPosition(-260 + 2*Constants.BASE*i ,-Constants.BASE*12);
+            addVirtualBlock(i);
 
-//            virtualBlock.setPosition(
-//                    -virtualBlock.getWidth()/2,
-//                    -linesRange - Constants.BASE*i - Constants.BASE/4*i
-//            );
-            stage.addActor(virtualBlock);
-            // set home so that we can come back
-            virtualBlock.setHome(virtualBlock.getX(),virtualBlock.getY());
-
-            virtualBlocksOnStage.add(virtualBlock);
         }
     }
 
@@ -81,9 +70,12 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 if(vBlock.getWasDetected()){
                     if( polygon.getTransformedVertices()[7] < Constants.DETECTION_LIMIT){
                         // was detected but now gone
-                        vBlock.goHome();
-                        vBlock.setWasDetected(false);
+                        // TODO here we should delete not go home (perhaps change alpha and die...)
                         blockRemoved(vBlock.getBlockValue());
+                        removeVirtualBlock(i);
+//                        vBlock.goHome();
+//                        vBlock.setWasDetected(false);
+//                        blockRemoved(vBlock.getBlockValue());
                     }
                 }else{
                     if( polygon.getTransformedVertices()[7] - vBlock.getHeight()/2 - vBlock.getWidth()/2 > Constants.DETECTION_LIMIT){
@@ -91,6 +83,8 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                         vBlock.rotate90();
                         vBlock.setWasDetected(true);
                         addBlock(vBlock.getBlockValue());
+                        // TODO new virtual block in empty space
+                        addVirtualBlock(vBlock.getBlockValue());
                     }
                     else{
                         vBlock.goHome();
@@ -145,6 +139,33 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                     (-polygon.getTransformedVertices()[6] - Constants.VIEWPORT_WIDTH/2 + margin)
             );
         }
+
+    }
+
+    private void removeVirtualBlock(int which){
+        // remove Actor
+        virtualBlocksOnStage.get(which).remove();
+        //remove from armPieces
+        virtualBlocksOnStage.remove(which);
+
+    }
+
+    private void addVirtualBlock(short val){
+        // TODO create or take from pool!!
+        VirtualBlock virtualBlock = new VirtualBlock(val,this);
+        // this works for vertical blocks
+        virtualBlock.setPosition(-260 + 2*Constants.BASE*val ,-Constants.BASE*12);
+
+//            virtualBlock.setPosition(
+//                    -virtualBlock.getWidth()/2,
+//                    -linesRange - Constants.BASE*i - Constants.BASE/4*i
+//            );
+        stage.addActor(virtualBlock);
+        // set home so that we can come back
+        virtualBlock.setHome(virtualBlock.getX(),virtualBlock.getY());
+
+        virtualBlocksOnStage.add(virtualBlock);
+
 
     }
 

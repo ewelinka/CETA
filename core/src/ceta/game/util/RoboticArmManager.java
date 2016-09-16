@@ -30,9 +30,8 @@ public class RoboticArmManager {
     public RoboticArmManager(Stage stage){
         this.stage = stage;
         armPieces = new ArrayList<ArmPiece>();
-        // starts where BigBruno ended
+        // hardcoded
         initialX = -240;
-        //initialX = -(short)Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X + Constants.BASE*2;
         initialY = Constants.BASE;
 
     }
@@ -90,10 +89,20 @@ public class RoboticArmManager {
                 // TODO we should add it left and move to right all the arm pieces
                 if(armPieces.size()>0){
                     Gdx.app.debug(TAG,"we add one latter at the end!");
-                    armToAdd.setPosition(lastX, initialY);
+                    armToAdd.setPosition(lastX-armToAdd.getWidth(), initialY);
+                    //test
+                    moveToAction = new MoveToAction();
+                    moveToAction.setPosition(lastX,initialY);
+                    moveToAction.setDuration(1f);
+                    armToAdd.addAction(moveToAction);
+
                 }else{
                     Gdx.app.debug(TAG,"we add the first latter ever!!");
-                    armToAdd.setPosition(initialX,initialY );
+                    armToAdd.setPosition(initialX -armToAdd.getWidth(),initialY );
+                    moveToAction = new MoveToAction();
+                    moveToAction.setPosition(initialX,initialY);
+                    moveToAction.setDuration(1f);
+                    armToAdd.addAction(moveToAction);
                     lastX = initialX;
 
                 }
