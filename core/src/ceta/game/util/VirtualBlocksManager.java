@@ -73,9 +73,6 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                         // TODO here we should delete not go home (perhaps change alpha and die...)
                         blockRemoved(vBlock.getBlockValue());
                         removeVirtualBlock(i);
-//                        vBlock.goHome();
-//                        vBlock.setWasDetected(false);
-//                        blockRemoved(vBlock.getBlockValue());
                     }
                 }else{
                     if( polygon.getTransformedVertices()[7] - vBlock.getHeight()/2 - vBlock.getWidth()/2 > Constants.DETECTION_LIMIT){
