@@ -6,69 +6,96 @@ filter: Nearest,Nearest
 repeat: none
 box
   rotate: false
-  xy: 2, 2
+  xy: 112, 883
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 bruno
   rotate: false
-  xy: 76, 148
+  xy: 186, 883
   size: 73, 72
   orig: 73, 72
   offset: 0, 0
   index: -1
 circle
   rotate: false
-  xy: 151, 190
+  xy: 2, 925
   size: 30, 30
   orig: 30, 30
   offset: 0, 0
   index: -1
 cloud
   rotate: false
-  xy: 604, 660
+  xy: 335, 881
   size: 132, 74
   orig: 132, 74
   offset: 0, 0
   index: -1
+coin
+  rotate: false
+  xy: 34, 915
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+excelente
+  rotate: false
+  xy: 2, 516
+  size: 625, 293
+  orig: 625, 293
+  offset: 0, 0
+  index: -1
 fondoA
   rotate: false
-  xy: 2, 222
+  xy: 2, 2
   size: 600, 512
   orig: 600, 512
   offset: 0, 0
   index: -1
 latter
   rotate: false
-  xy: 604, 586
+  xy: 261, 883
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 latter-double
   rotate: false
-  xy: 2, 76
+  xy: 511, 811
   size: 72, 144
   orig: 72, 144
   offset: 0, 0
   index: -1
 robot01
   rotate: false
-  xy: 738, 694
+  xy: 76, 915
   size: 34, 40
   orig: 34, 40
   offset: 0, 0
   index: -1
 robot02
   rotate: false
-  xy: 76, 66
+  xy: 469, 875
   size: 40, 80
   orig: 40, 80
   offset: 0, 0
   index: -1
 
 pack2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+fondoD
+  rotate: false
+  xy: 2, 2
+  size: 600, 752
+  orig: 600, 752
+  offset: 0, 0
+  index: -1
+
+pack3.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -81,7 +108,7 @@ fondoB
   offset: 0, 0
   index: -1
 
-pack3.png
+pack4.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest

@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import ceta.game.util.VirtualBlocksManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.sin;
@@ -25,6 +27,7 @@ public class VirtualBlock extends AbstractGameObject {
     public Vector2 home;
     private boolean wasDetected;
     public float[] vertices;
+
 
     private boolean wasMoved;
     private VirtualBlocksManager virtualBlocksManager;
@@ -54,6 +57,7 @@ public class VirtualBlock extends AbstractGameObject {
                 0,bounds.height
         };
 
+        setMyColor();
 
 
 
@@ -126,6 +130,28 @@ public class VirtualBlock extends AbstractGameObject {
 
     }
 
+    private void setMyColor(){
+       // amarillo, rojo, verde, naranja y celeste
+
+        switch (blockValue){
+            case 1:
+                setColor(Color.LIME);
+                break;
+            case 2:
+                setColor(Color.RED);
+                break;
+            case 3:
+                setColor(Color.GREEN);
+                break;
+            case 4:
+                setColor(Color.ORANGE);
+                break;
+            case 5:
+                setColor(Color.CYAN);
+                break;
+        }
+    }
+
 
 
     public boolean getWasDetected(){
@@ -154,9 +180,14 @@ public class VirtualBlock extends AbstractGameObject {
 
     public void goHome(){
         addAction(Actions.moveTo(home.x,home.y,1f));
-        //setRotation();
-        if(blockValue>1)
-            addAction(Actions.rotateTo(0,0.5f));
+    }
+
+    public void goHomeAndRemove(){
+        addAction(sequence(Actions.moveTo(home.x,home.y,0.5f),run(new Runnable() {
+                                                                      public void run() {
+                                                                          remove();
+                                                                      }
+                                                                  })));
     }
 
     public void rotate90(){

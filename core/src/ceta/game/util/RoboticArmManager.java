@@ -31,7 +31,7 @@ public class RoboticArmManager {
         this.stage = stage;
         armPieces = new ArrayList<ArmPiece>();
         // hardcoded
-        initialX = -240;
+        initialX = -200;
         initialY = Constants.BASE;
 
     }

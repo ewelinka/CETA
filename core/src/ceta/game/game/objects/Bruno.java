@@ -22,7 +22,7 @@ public class Bruno extends AbstractGameObject {
 
     public void init () {
         regTex = Assets.instance.bruno.body;
-        this.setSize(Constants.BASE,Constants.BASE*2);
+        this.setSize(Constants.BASE*2,Constants.BASE*4);
         super.init();
 
     }

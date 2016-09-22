@@ -71,12 +71,13 @@ public class MenuScreen extends AbstractGameScreen {
         /// ------------------ start -- just to create a simple button!! what a caos!!
         skin = new Skin();
         // Generate a 1x1 white texture and store it in the skin named "white".
-        Pixmap pixmap = new Pixmap(10, 10, Pixmap.Format.RGBA8888);
+        Pixmap pixmap = new Pixmap(140, 70, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.GREEN);
         pixmap.fill();
         skin.add("white", new Texture(pixmap));
         // Store the default libgdx font under the name "default".
         BitmapFont bfont=new BitmapFont();
+        bfont.getData().scale(2);
         // bfont.scale(1);
         skin.add("default",bfont);
         // Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
@@ -88,7 +89,7 @@ public class MenuScreen extends AbstractGameScreen {
         textButtonStyle.font = skin.getFont("default");
         skin.add("default", textButtonStyle);
         /// ------------------ end --
-        btnStartGame =new TextButton("PLAY",textButtonStyle);
+        btnStartGame =new TextButton("JUGAR",textButtonStyle);
 
         Table tbl = new Table();
         //tbl.left().bottom();

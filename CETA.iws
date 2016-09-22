@@ -5,27 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9206e0d-a096-48a3-92a9-ff427c863fff" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/assets/imgs/box.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/assets/imgs/bruno.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/assets/imgs/circle.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/assets/imgs/cloud.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/assets/imgs/latter-double.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/android/assets/imgs/latter.png" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/ceta/game/screens/FinishScreen.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/ceta/game/util/AudioManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android/assets/pack.png" afterPath="$PROJECT_DIR$/android/assets/pack.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android/assets/pack2.png" afterPath="$PROJECT_DIR$/android/assets/pack2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android/assets/pack3.png" afterPath="$PROJECT_DIR$/android/assets/pack3.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CETA.iws" afterPath="$PROJECT_DIR$/CETA.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android/assets/pack.atlas" afterPath="$PROJECT_DIR$/android/assets/pack.atlas" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/CetaGame.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/CetaGame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/Assets.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/Assets.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/WorldRenderer.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/WorldRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/controllers/AbstractWorldController.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/controllers/AbstractWorldController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/controllers/Level1Controller.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/controllers/Level1Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/controllers/WorldController.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/controllers/WorldController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/levels/Level1.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/levels/Level1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/objects/ArmPiece.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/objects/ArmPiece.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/objects/Bruno.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/objects/Bruno.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/objects/Coin.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/objects/Coin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/objects/Latter.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/objects/Latter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/game/objects/VirtualBlock.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/game/objects/VirtualBlock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/util/AbstractBlocksManager.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/util/AbstractBlocksManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/util/Constants.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/util/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/screens/MenuScreen.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/screens/MenuScreen.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/util/RoboticArmManager.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/util/RoboticArmManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ceta/game/util/VirtualBlocksManager.java" afterPath="$PROJECT_DIR$/core/src/ceta/game/util/VirtualBlocksManager.java" />
     </list>
@@ -121,24 +118,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CetaGame.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/CetaGame.java">
+      <file leaf-file-name="CameraHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/CameraHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WorldController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/WorldController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="25" column="28" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="28" />
+            <state relative-caret-position="105">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
               <folding>
-                <element signature="e#2877#2878#0" expanded="true" />
-                <element signature="e#2929#2930#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#1105#1106#0" expanded="false" />
+                <element signature="e#1144#1145#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -147,42 +135,25 @@
       <file leaf-file-name="Level1Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/Level1Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+            <state relative-caret-position="165">
+              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding>
-                <element signature="e#2883#2884#0" expanded="true" />
-                <element signature="e#2941#2942#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#3331#3332#0" expanded="false" />
+                <element signature="e#3389#3390#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractBlocksManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/AbstractBlocksManager.java">
+      <file leaf-file-name="Level1.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/levels/Level1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="573">
-              <caret line="45" column="29" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RoboticArmManager.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/RoboticArmManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LwjglApplication.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.9.3/7b68e24f28daece0760c36360cfa9da18057a443/gdx-backend-lwjgl-1.9.3-sources.jar!/com/badlogic/gdx/backends/lwjgl/LwjglApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="223" column="0" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="735">
+              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -190,39 +161,92 @@
       <file leaf-file-name="AbstractWorldController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/AbstractWorldController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-225">
-              <caret line="18" column="36" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="36" />
+            <state relative-caret-position="135">
+              <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VirtualBlocksManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/VirtualBlocksManager.java">
+      <file leaf-file-name="VirtualBlock.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/VirtualBlock.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
-              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state relative-caret-position="256">
+              <caret line="136" column="19" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Level1Screen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/screens/Level1Screen.java">
+      <file leaf-file-name="AbstractGameObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/AbstractGameObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="463">
+              <caret line="52" column="36" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DirectedGame.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/screens/DirectedGame.java">
+      <file leaf-file-name="MenuScreen.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/screens/MenuScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1095">
+              <caret line="91" column="43" selection-start-line="91" selection-start-column="43" selection-end-line="91" selection-end-column="43" />
+              <folding>
+                <element signature="e#1083#1084#0" expanded="false" />
+                <element signature="e#1110#1111#0" expanded="false" />
+                <element signature="e#3632#3633#0" expanded="false" />
+                <element signature="e#3679#3680#0" expanded="false" />
+                <element signature="e#3780#3781#0" expanded="false" />
+                <element signature="e#3808#3809#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FinishScreen.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/screens/FinishScreen.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="80" column="37" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
+              <folding>
+                <element signature="e#1199#1200#0" expanded="false" />
+                <element signature="e#1226#1227#0" expanded="false" />
+                <element signature="e#4120#4121#0" expanded="false" />
+                <element signature="e#4167#4168#0" expanded="false" />
+                <element signature="e#4268#4269#0" expanded="false" />
+                <element signature="e#4296#4297#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bruno.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/Bruno.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#439#440#0" expanded="false" />
+                <element signature="e#461#462#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Assets.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/Assets.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1350">
+              <caret line="101" column="43" selection-start-line="101" selection-start-column="43" selection-end-line="101" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#2967#2968#0" expanded="false" />
+                <element signature="e#3005#3006#0" expanded="false" />
+                <marker date="1474493051000" expanded="true" signature="1613:1747" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2542,31 +2566,33 @@
         <option value="$PROJECT_DIR$/core/src/ceta/game/screens/AbstractGameScreen.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/screens/DirectedGame.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/screens/LevelOneScreen.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/screens/MenuScreen.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/game/controllers/Level1Contoller.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/AbstractGameObject.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/screens/TestScreen.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/screens/Level1Screen.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/game/controllers/WorldController.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/game/controllers/AbstractWorldController.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/game/levels/Level.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/game/levels/Test.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/BigBruno.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/game/controllers/Level1Controller.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/util/LatterManager.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/util/Constants.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/Latter.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/Coin.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/ArmPiece.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/util/AbstractBlocksManager.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/Bruno.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/game/Assets.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/game/WorldRenderer.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/game/levels/Level1.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/VirtualBlock.java" />
-        <option value="$PROJECT_DIR$/core/src/ceta/game/CetaGame.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/util/VirtualBlocksManager.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/Bruno.java" />
         <option value="$PROJECT_DIR$/core/src/ceta/game/util/RoboticArmManager.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/util/AudioManager.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/Coin.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/screens/Level1Screen.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/game/controllers/Level1Controller.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/game/controllers/WorldController.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/CetaGame.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/screens/MenuScreen.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/screens/FinishScreen.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/game/Assets.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/game/levels/Level1.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/game/WorldRenderer.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/game/controllers/AbstractWorldController.java" />
+        <option value="$PROJECT_DIR$/core/src/ceta/game/game/objects/VirtualBlock.java" />
       </list>
     </option>
   </component>
@@ -2622,8 +2648,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2852,7 +2877,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3197,7 +3223,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277849" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.064020485" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19206145" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -3246,27 +3272,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/core/src/ceta/game/util/RoboticArmManager.java</url>
-          <line>58</line>
-          <properties />
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/core/src/ceta/game/util/RoboticArmManager.java</url>
-          <line>80</line>
-          <properties />
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/AbstractWorldController.java</url>
-          <line>65</line>
-          <properties />
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="31" />
+      <option name="time" value="35" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -3279,7 +3285,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3304,8 +3309,9 @@
         <state relative-caret-position="1140">
           <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
           <folding>
-            <element signature="e#2883#2884#0" expanded="true" />
-            <element signature="e#2941#2942#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3331#3332#0" expanded="false" />
+            <element signature="e#3389#3390#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3314,7 +3320,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3323,8 +3328,12 @@
         <state relative-caret-position="2220">
           <caret line="164" column="12" selection-start-line="164" selection-start-column="12" selection-end-line="164" selection-end-column="12" />
           <folding>
-            <element signature="e#5223#5224#0" expanded="false" />
-            <element signature="e#5256#5257#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#5584#5585#0" expanded="false" />
+            <element signature="e#5643#5644#0" expanded="false" />
+            <element signature="e#6076#6077#0" expanded="false" />
+            <element signature="e#6231#6232#0" expanded="false" />
+            <element signature="e#6264#6265#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3333,7 +3342,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="40" column="14" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3341,7 +3349,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="44" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3349,7 +3356,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="975">
           <caret line="74" column="9" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3357,7 +3363,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
           <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3365,7 +3370,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3390,8 +3394,9 @@
         <state relative-caret-position="1140">
           <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
           <folding>
-            <element signature="e#2883#2884#0" expanded="true" />
-            <element signature="e#2941#2942#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3331#3332#0" expanded="false" />
+            <element signature="e#3389#3390#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3400,7 +3405,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3409,8 +3413,12 @@
         <state relative-caret-position="2220">
           <caret line="164" column="12" selection-start-line="164" selection-start-column="12" selection-end-line="164" selection-end-column="12" />
           <folding>
-            <element signature="e#5223#5224#0" expanded="false" />
-            <element signature="e#5256#5257#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#5584#5585#0" expanded="false" />
+            <element signature="e#5643#5644#0" expanded="false" />
+            <element signature="e#6076#6077#0" expanded="false" />
+            <element signature="e#6231#6232#0" expanded="false" />
+            <element signature="e#6264#6265#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3419,7 +3427,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3444,8 +3451,9 @@
         <state relative-caret-position="1140">
           <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
           <folding>
-            <element signature="e#2883#2884#0" expanded="true" />
-            <element signature="e#2941#2942#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3331#3332#0" expanded="false" />
+            <element signature="e#3389#3390#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3454,7 +3462,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3463,8 +3470,12 @@
         <state relative-caret-position="2220">
           <caret line="164" column="12" selection-start-line="164" selection-start-column="12" selection-end-line="164" selection-end-column="12" />
           <folding>
-            <element signature="e#5223#5224#0" expanded="false" />
-            <element signature="e#5256#5257#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#5584#5585#0" expanded="false" />
+            <element signature="e#5643#5644#0" expanded="false" />
+            <element signature="e#6076#6077#0" expanded="false" />
+            <element signature="e#6231#6232#0" expanded="false" />
+            <element signature="e#6264#6265#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3473,15 +3484,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="44" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/Assets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="74" column="9" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3489,26 +3491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
           <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/VirtualBlock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="166" column="30" selection-start-line="166" selection-start-column="17" selection-end-line="166" selection-end-column="30" />
-          <folding>
-            <element signature="e#5223#5224#0" expanded="false" />
-            <element signature="e#5256#5257#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/AbstractGameObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3516,7 +3498,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3524,11 +3505,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
           <caret line="378" column="0" selection-start-line="378" selection-start-column="0" selection-end-line="378" selection-end-column="0" />
-          <folding>
-            <element signature="e#14772#14773#0" expanded="false" />
-            <element signature="e#20339#20340#0" expanded="false" />
-            <element signature="e#20367#20368#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3536,7 +3512,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
           <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3544,25 +3519,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="74" column="38" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/levels/Level1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="44" column="22" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/WorldRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3570,92 +3526,214 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/WorldController.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.9.3/7b68e24f28daece0760c36360cfa9da18057a443/gdx-backend-lwjgl-1.9.3-sources.jar!/com/badlogic/gdx/backends/lwjgl/LwjglApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="25" column="28" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="28" />
-          <folding>
-            <element signature="e#2877#2878#0" expanded="true" />
-            <element signature="e#2929#2930#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2805">
+          <caret line="223" column="0" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/CetaGame.java">
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/ArmPiece.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/Level1Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding>
-            <element signature="e#2883#2884#0" expanded="true" />
-            <element signature="e#2941#2942#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/screens/Level1Screen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/ceta/game/screens/DirectedGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
+        <state relative-caret-position="360">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.9.3/7b68e24f28daece0760c36360cfa9da18057a443/gdx-backend-lwjgl-1.9.3-sources.jar!/com/badlogic/gdx/backends/lwjgl/LwjglApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="223" column="0" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/AbstractWorldController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-225">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/AbstractBlocksManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="45" column="29" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/VirtualBlocksManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state relative-caret-position="285">
+          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/RoboticArmManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        <state relative-caret-position="1173">
+          <caret line="151" column="5" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/AbstractBlocksManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="35" column="28" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/AudioManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/Coin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="56" column="45" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
+          <folding>
+            <element signature="e#1320#1321#0" expanded="false" />
+            <element signature="e#1350#1351#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/screens/Level1Screen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-164">
+          <caret line="58" column="33" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/WorldController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="27" column="6" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/CetaGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/WorldRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="60" column="27" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/util/CameraHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1105#1106#0" expanded="false" />
+            <element signature="e#1144#1145#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/Level1Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#3331#3332#0" expanded="false" />
+            <element signature="e#3389#3390#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/levels/Level1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/screens/MenuScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1095">
+          <caret line="91" column="43" selection-start-line="91" selection-start-column="43" selection-end-line="91" selection-end-column="43" />
+          <folding>
+            <element signature="e#1083#1084#0" expanded="false" />
+            <element signature="e#1110#1111#0" expanded="false" />
+            <element signature="e#3632#3633#0" expanded="false" />
+            <element signature="e#3679#3680#0" expanded="false" />
+            <element signature="e#3780#3781#0" expanded="false" />
+            <element signature="e#3808#3809#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/screens/FinishScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="80" column="37" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
+          <folding>
+            <element signature="e#1199#1200#0" expanded="false" />
+            <element signature="e#1226#1227#0" expanded="false" />
+            <element signature="e#4120#4121#0" expanded="false" />
+            <element signature="e#4167#4168#0" expanded="false" />
+            <element signature="e#4268#4269#0" expanded="false" />
+            <element signature="e#4296#4297#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/Bruno.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#439#440#0" expanded="false" />
+            <element signature="e#461#462#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/Assets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="101" column="43" selection-start-line="101" selection-start-column="43" selection-end-line="101" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#2967#2968#0" expanded="false" />
+            <element signature="e#3005#3006#0" expanded="false" />
+            <marker date="1474493051000" expanded="true" signature="1613:1747" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/AbstractGameObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="52" column="36" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/controllers/AbstractWorldController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/ceta/game/game/objects/VirtualBlock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="136" column="19" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
           <folding />
         </state>
       </provider>

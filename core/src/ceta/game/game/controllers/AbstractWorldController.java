@@ -1,11 +1,16 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.levels.Level;
+import ceta.game.screens.DirectedGame;
+import ceta.game.screens.MenuScreen;
+import ceta.game.transitions.ScreenTransition;
+import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.CameraHelper;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
@@ -15,6 +20,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     private static final String TAG = AbstractWorldController.class.getName();
     public CameraHelper cameraHelper;
     public Level level;
+    public short score;
+    public DirectedGame game;
 
     public short [] detected_numbers;
     public short [] previous_detected;
@@ -24,9 +31,17 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public short toAdd;
     public short currentDiff;
 
-    public void init () {
+    public void init (DirectedGame game) {
         cameraHelper = new CameraHelper();
+        this.game = game;
         initValues();
+        adjustCamera();
+    }
+
+    private void adjustCamera(){
+        if (Gdx.app.getType() == Application.ApplicationType.Android){
+            //moveCamera(0, -512/2);
+        }
     }
 
     public abstract void update(float delta);
@@ -81,7 +96,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public boolean keyUp (int keycode) {
         // Reset game world
         if (keycode == Input.Keys.R) {
-            init();
+            initValues();
             Gdx.app.debug(TAG, "Game world resetted");
         }
         // Toggle camera follow
@@ -90,10 +105,18 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
         }
         // Back to Menu
-//        else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
-//            backToMenu();
-//        }
+        else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
+            backToMenu();
+        }
         return false;
+    }
+
+    private void backToMenu () {
+        // switch to menu screen
+        ScreenTransition transition = ScreenTransitionFade.init(1);
+
+        game.setScreen(new MenuScreen(game), transition);
+
     }
 
     public void handleDebugInput (float deltaTime) {

@@ -25,7 +25,7 @@ import java.util.Arrays;
  */
 public class WorldController extends AbstractWorldController {
     private static final String TAG = WorldController.class.getName();
-    private DirectedGame game;
+    //private DirectedGame game;
     private Rectangle r1 = new Rectangle();
     private Rectangle r2 = new Rectangle();
 
@@ -35,15 +35,15 @@ public class WorldController extends AbstractWorldController {
     private Stage stage;
 
     public WorldController (DirectedGame game, Stage stage) {
-        this.game = game;
+        //this.game = game;
         this.stage = stage;
         latterManager = new LatterManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
+        super.init(game);
         localInit();
     }
 
     private void localInit(){
-        super.init();
         initLevel();
         virtualBlocksManager.init();
         latterManager.init();

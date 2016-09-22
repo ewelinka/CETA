@@ -30,17 +30,19 @@ public class Level1 extends Level{
     @Override
     public void init() {
 
-        TextureRegion regTexBack = Assets.instance.background.back;
-        back = new Image(regTexBack);
-        back.setPosition(-Constants.VIEWPORT_WIDTH/2, 0);
+        back = new Image(Assets.instance.background.back);
+       // back.setPosition(-Constants.VIEWPORT_WIDTH/2, 0);
+        back.setPosition(-Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2 + (Constants.VIEWPORT_HEIGHT - back.getHeight()));
         stage.addActor(back);
+
+
 
         bruno = new Bruno();
         bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X ,0);
         stage.addActor(bruno);
         //TODO change to robotic stuff
         coin = new Coin();
-        coin.setPosition(bruno.getX()+ (int)(MathUtils.random(1,10))*Constants.BASE, Constants.BASE );
+        coin.setNewPosition(bruno.getX()+bruno.getWidth());
         coin.setVelocity((short)0);
         stage.addActor(coin);
     }
@@ -54,9 +56,8 @@ public class Level1 extends Level{
     @Override
     public void render(SpriteBatch batch) {
         // Sets the clear screen color to: Cornflower Blue
-        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
-        // Clears the screen
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+       // Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
+
         stage.draw();
     }
 

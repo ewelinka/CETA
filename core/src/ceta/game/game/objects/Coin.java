@@ -3,6 +3,7 @@ package ceta.game.game.objects;
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 
 /**
  * Created by ewe on 8/12/16.
@@ -26,6 +27,7 @@ public class Coin extends AbstractGameObject {
     }
 
     public void update(float deltaTime){
+
         if(isVertical)
             updateVertical(deltaTime);
         else
@@ -50,5 +52,9 @@ public class Coin extends AbstractGameObject {
 
     public void setVelocity(short vel){
         velocity = vel;
+    }
+
+    public void setNewPosition(float startX){
+        setPosition( startX + (int)(MathUtils.random(1,10))*Constants.BASE - getWidth()/2, Constants.BASE );
     }
 }

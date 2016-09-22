@@ -1,8 +1,11 @@
 package ceta.game.game.controllers;
 
+import ceta.game.game.Assets;
 import ceta.game.game.levels.Level1;
 import ceta.game.game.objects.ArmPiece;
+import ceta.game.game.objects.Coin;
 import ceta.game.screens.DirectedGame;
+import ceta.game.util.AudioManager;
 import ceta.game.util.CameraHelper;
 import ceta.game.util.RoboticArmManager;
 import ceta.game.util.VirtualBlocksManager;
@@ -21,7 +24,8 @@ import java.util.Arrays;
  */
 public class Level1Controller extends AbstractWorldController{
     private static final String TAG = Level1Controller.class.getName();
-    private DirectedGame game;
+    //private DirectedGame game;
+
 
     private Rectangle r1 = new Rectangle();
     private Rectangle r2 = new Rectangle();
@@ -33,15 +37,15 @@ public class Level1Controller extends AbstractWorldController{
     private Stage stage;
 
     public Level1Controller (DirectedGame game, Stage stage) {
-        this.game = game;
+       // game = game;
         this.stage = stage;
         roboticArmManager = new RoboticArmManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
+        super.init(game);
         localInit();
     }
 
     private void localInit () {
-        super.init();
         initLevel();
         virtualBlocksManager.init();
         roboticArmManager.init();
@@ -52,6 +56,7 @@ public class Level1Controller extends AbstractWorldController{
         //it will load level data
         level = new Level1(stage);
         cameraHelper.setTarget(null);
+        score = 0;
 
     }
 
@@ -61,9 +66,7 @@ public class Level1Controller extends AbstractWorldController{
         handleDebugInput(deltaTime);
         level.update(deltaTime);
         virtualBlocksManager.updateDetected();
-        //previous_detected = previous_detected;
         previous_detected = Arrays.copyOf(detected_numbers, detected_numbers.length);
-        // System.arraycopy( detected_numbers, 0, previous_detected, 0, detected_numbers.length );
         detected_numbers = virtualBlocksManager.getDetectedBlocks();
         findDifferences();
         updateArmPieces();
@@ -83,17 +86,26 @@ public class Level1Controller extends AbstractWorldController{
     private void testCollisions () {
         // TODO check for top Y and x range
         // now if the coin passes by the middle if also works (make sense! but not for us!)
-        ArmPiece l = getLastArmPiece();
-        if(l != null){
-            r1.set(l.getX()+l.getWidth()- 4, l.getY(), 8, l.getHeight());
-            //Gdx.app.debug(TAG, "latter! ");
-            r2.set(level.coin.getX(), level.coin.getY(), level.coin.bounds.width, level.coin.bounds.height);
+        ArmPiece lastArm = getLastArmPiece();
+        if(lastArm != null){
+            // we check first when the move action is over
+            // if not we have problems with pieces passing thought the coin
+            if (lastArm.getActions().size == 0){
+                r1.set(lastArm.getX()+lastArm.getWidth(), lastArm.getY(), 2, lastArm.getHeight());
 
-            if (r1.overlaps(r2))
-                Gdx.app.debug(TAG, "collision coin - arm! ");
+                r2.set(level.coin.getX(), level.coin.getY(), level.coin.bounds.width, level.coin.bounds.height);
+                if (r1.overlaps(r2))
+                    onCollisionBrunoWithGoldCoin(level.coin);
+            }
         }
-
     }
+
+    private void onCollisionBrunoWithGoldCoin(Coin goldcoin) {
+        //goldcoin.collected = true;
+        AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+        score += 1;
+        goldcoin.setNewPosition(level.bruno.getX()+level.bruno.getWidth());
+    };
 
 
 

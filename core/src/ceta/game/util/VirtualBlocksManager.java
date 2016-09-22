@@ -68,19 +68,18 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 // if it was detected before and is in detection zone we do nothing
                 // if it was detected before and is out of detection zone we make it disappear and reset
                 if(vBlock.getWasDetected()){
-                    if( polygon.getTransformedVertices()[7] < Constants.DETECTION_LIMIT){
+                    if( polygon.getTransformedVertices()[1] < Constants.DETECTION_LIMIT){
                         // was detected but now gone
-                        // TODO here we should delete not go home (perhaps change alpha and die...)
+                        // TODO perhaps change alpha and die...
                         blockRemoved(vBlock.getBlockValue());
                         removeVirtualBlock(i);
                     }
                 }else{
-                    if( polygon.getTransformedVertices()[7] - vBlock.getHeight()/2 - vBlock.getWidth()/2 > Constants.DETECTION_LIMIT){
+                    if( polygon.getTransformedVertices()[1] > Constants.DETECTION_LIMIT){
                         // new detected!
-                        vBlock.rotate90();
                         vBlock.setWasDetected(true);
                         addBlock(vBlock.getBlockValue());
-                        // TODO new virtual block in empty space
+                        // new virtual block in empty space
                         addVirtualBlock(vBlock.getBlockValue());
                     }
                     else{
@@ -140,9 +139,10 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     }
 
     private void removeVirtualBlock(int which){
+        // TODO go home and die
         // remove Actor
-        virtualBlocksOnStage.get(which).remove();
-        //remove from armPieces
+        virtualBlocksOnStage.get(which).goHomeAndRemove();
+        //remove from virtual block from array
         virtualBlocksOnStage.remove(which);
 
     }
