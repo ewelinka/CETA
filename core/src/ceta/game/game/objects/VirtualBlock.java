@@ -27,10 +27,14 @@ public class VirtualBlock extends AbstractGameObject {
     public Vector2 home;
     private boolean wasDetected;
     public float[] vertices;
+    //private float previousRotation =0;
+    private float baseRotation =0;
+    private float temporalRotation =0;
 
 
     private boolean wasMoved;
     private VirtualBlocksManager virtualBlocksManager;
+
 
 
     public VirtualBlock(short val, VirtualBlocksManager vbm){
@@ -78,15 +82,34 @@ public class VirtualBlock extends AbstractGameObject {
                 //the code below was working without rotation
                 //setPosition(getX()+deltaX,getY()+deltaY);
             }
+//
+            @Override
+            public void pinch(InputEvent event, Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)  {
+                //Actor actor = event.getListenerActor();
+
+                Vector2 a = initialPointer2.sub(initialPointer1);
+                Vector2 b = pointer2.sub(pointer1);
+                a = a.nor();
+                b = b.nor();
+                float deltaRot = (float)(Math.atan2(b.y,b.x) - Math.atan2(a.y,a.x));
+                float deltaRotDeg = (float)(((deltaRot*180)/Math.PI + 360) % 360);
+                temporalRotation = deltaRotDeg;
+
+                if(deltaRotDeg>0){
+                    setRotation((baseRotation + deltaRotDeg)%360);
+                    //Gdx.app.log(TAG,"--- "+deltaRot+" "+getRotation());
+                }
+            }
 
             @Override
             public void touchDown(InputEvent event, float x, float y, int pointer, int button){
-
+                baseRotation = getRotation();
                 Gdx.app.debug(TAG, "isTouched!!!");
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button){
+                baseRotation = (baseRotation + temporalRotation)%360;
                 wasMoved = true;
                 Gdx.app.debug(TAG, "wasMoved!!! " + blockValue);
             }
@@ -179,15 +202,21 @@ public class VirtualBlock extends AbstractGameObject {
     }
 
     public void goHome(){
+
         addAction(Actions.moveTo(home.x,home.y,1f));
     }
 
     public void goHomeAndRemove(){
-        addAction(sequence(Actions.moveTo(home.x,home.y,0.5f),run(new Runnable() {
-                                                                      public void run() {
-                                                                          remove();
-                                                                      }
-                                                                  })));
+//        addAction(sequence(Actions.moveTo(home.x,home.y,0.5f),run(new Runnable() {
+//                                                                      public void run() {
+//                                                                          remove();
+//                                                                      }
+//                                                                  })));
+        addAction(sequence(parallel(Actions.moveTo(home.x,home.y,1f),Actions.rotateTo(0,1f)),run(new Runnable() {
+            public void run() {
+                remove();
+            }
+        })));
     }
 
     public void rotate90(){
