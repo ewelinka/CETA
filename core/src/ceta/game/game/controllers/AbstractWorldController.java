@@ -40,7 +40,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     private void adjustCamera(){
         if (Gdx.app.getType() == Application.ApplicationType.Android){
-            //moveCamera(0, -512/2);
+            // moveCamera(0, -512/2);
+            // cameraHelper.addZoom(-0.3f);
         }
     }
 
