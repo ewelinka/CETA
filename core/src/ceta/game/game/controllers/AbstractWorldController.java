@@ -2,6 +2,7 @@ package ceta.game.game.controllers;
 
 import ceta.game.game.levels.Level;
 import ceta.game.screens.DirectedGame;
+import ceta.game.screens.FinalScreen;
 import ceta.game.screens.MenuScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
@@ -117,6 +118,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         ScreenTransition transition = ScreenTransitionFade.init(1);
 
         game.setScreen(new MenuScreen(game), transition);
+
+    }
+
+    public void goToFinalScreen () {
+        // switch to menu screen
+        ScreenTransition transition = ScreenTransitionFade.init(1);
+
+        game.setScreen(new FinalScreen(game), transition);
 
     }
 

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -20,10 +21,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
+
 /**
  * Created by ewe on 9/21/16.
  */
-public class FinishScreen extends AbstractGameScreen {
+public class FinalScreen extends AbstractGameScreen {
     private static final String TAG = MenuScreen.class.getName();
     private Stage stage;
     private Skin skin;
@@ -32,7 +37,7 @@ public class FinishScreen extends AbstractGameScreen {
     private Image imgBackground;
 
 
-    public FinishScreen (DirectedGame game) {
+    public FinalScreen (DirectedGame game) {
         super(game);
     }
 
@@ -47,7 +52,7 @@ public class FinishScreen extends AbstractGameScreen {
     }
 
     public void render (float deltaTime){
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(deltaTime);
         stage.draw();
@@ -78,6 +83,17 @@ public class FinishScreen extends AbstractGameScreen {
         Table layer = new Table();
         imgBackground = new Image(Assets.instance.finishBackGround.finishBack);
         layer.addActor(imgBackground);
+        imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
+        imgBackground.setPosition(0,300);
+        imgBackground.addAction(sequence(
+//                moveTo(135, -20),
+                scaleTo(0, 0),
+//                fadeOut(0),
+                delay(1.0f),
+                parallel(moveBy(0, 100, 1.5f, Interpolation.swingOut),
+                        scaleTo(1.0f, 1.0f, 0.25f, Interpolation.linear),
+                        alpha(1.0f, 0.5f))));
+
         //TODO add actions, movements
         return layer;
     }
@@ -87,19 +103,19 @@ public class FinishScreen extends AbstractGameScreen {
         skin = new Skin();
         // Generate a 1x1 white texture and store it in the skin named "white".
         Pixmap pixmap = new Pixmap(140, 70, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
+        pixmap.setColor(Color.BLUE);
         pixmap.fill();
         skin.add("white", new Texture(pixmap));
         // Store the default libgdx font under the name "default".
         BitmapFont bfont=new BitmapFont();
-        bfont.getData().scale(2);
+        bfont.getData().scale(1.5f);
 
         skin.add("default",bfont);
         // Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
+        textButtonStyle.up = skin.newDrawable("white", Color.CYAN);
+        textButtonStyle.down = skin.newDrawable("white", Color.CYAN);
+        textButtonStyle.checked = skin.newDrawable("white", Color.WHITE);
         textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
         textButtonStyle.font = skin.getFont("default");
         skin.add("default", textButtonStyle);
@@ -109,7 +125,9 @@ public class FinishScreen extends AbstractGameScreen {
         Table tbl = new Table();
         //tbl.left().bottom();
         tbl.add(btnStartGame);
-        tbl.setPosition(Constants.VIEWPORT_WIDTH/2 - tbl.getWidth() , Constants.VIEWPORT_HEIGHT/2);
+        // center of the screen
+        // tbl.setPosition(Constants.VIEWPORT_WIDTH/2 - tbl.getWidth() , Constants.VIEWPORT_HEIGHT/2);
+        tbl.setPosition(Constants.VIEWPORT_WIDTH/2 - tbl.getWidth() , 100);
         btnStartGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

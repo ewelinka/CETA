@@ -63,6 +63,11 @@ public class Level1Controller extends AbstractWorldController{
 
     @Override
     public void update (float deltaTime) {
+        // winning condition
+        if (score >= 3) {
+            goToFinalScreen();
+
+        }
         handleDebugInput(deltaTime);
         level.update(deltaTime);
         virtualBlocksManager.updateDetected();

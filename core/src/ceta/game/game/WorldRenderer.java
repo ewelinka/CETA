@@ -73,7 +73,7 @@ public class WorldRenderer implements Disposable {
 
         // detection zone
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.GREEN);
+        shapeRenderer.setColor(Color.LIGHT_GRAY);
         shapeRenderer.rect(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT,Constants.VIEWPORT_WIDTH, -Constants.DETECTION_LIMIT);
         shapeRenderer.end();
     }

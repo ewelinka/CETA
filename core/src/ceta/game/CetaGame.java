@@ -1,10 +1,7 @@
 package ceta.game;
 
 import ceta.game.game.Assets;
-import ceta.game.screens.DirectedGame;
-import ceta.game.screens.Level1Screen;
-import ceta.game.screens.MenuScreen;
-import ceta.game.screens.TestScreen;
+import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.AudioManager;
@@ -32,6 +29,7 @@ public class CetaGame extends DirectedGame {
 		//setScreen(new MenuScreen(this),transition);
 		//setScreen(new TestScreen(this),transition);
 		setScreen(new Level1Screen(this),transition);
+		//setScreen(new FinalScreen(this),transition);
 	}
 
 }
