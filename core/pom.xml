@@ -17,6 +17,12 @@
 			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx</artifactId>
 		</dependency>
+				<!-- https://mvnrepository.com/artifact/com.illposed.osc/javaosc-core -->
+		<dependency>
+			<groupId>com.illposed.osc</groupId>
+			<artifactId>javaosc-core</artifactId>
+			<version>0.3</version>
+	    </dependency>
 	</dependencies>
 
 	<build>
