@@ -1,8 +1,10 @@
 package ceta.game.screens;
 
+import ceta.game.CetaGame;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.Constants;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
@@ -16,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
@@ -27,10 +30,12 @@ public class MenuScreen extends AbstractGameScreen {
     private Skin skin;
 
     private TextButton btnStartGame;
-
+    private TextButton btnConfigOz;
+    private Level1Screen screen1;
 
     public MenuScreen (DirectedGame game) {
         super(game);
+        this.screen1 = new Level1Screen(game);
     }
 
 
@@ -64,8 +69,15 @@ public class MenuScreen extends AbstractGameScreen {
 
     private void onPlayClicked () {
         ScreenTransition transition = ScreenTransitionFade.init(0.75f);
-        game.setScreen(new Level1Screen(game), transition);
+        game.setScreen(screen1, transition);
     }
+    
+    private void onStartOzClicked(){
+    	((CetaGame)game).initReceiver(screen1); //Level1Screen implements OSCListener    	
+    	((CetaGame)game).startOSCReceiver();
+    	btnConfigOz.setText(((CetaGame)game).getLocalIp());
+    	//TODO Ewe: Display ((CetaGame)game).getLocalIp(); on screen. De momento cambio el texto del boton para poder ver la ip en algun lado    	
+   }
 
     private Table buildPlayMenu () {
         /// ------------------ start -- just to create a simple button!! what a caos!!
@@ -93,7 +105,7 @@ public class MenuScreen extends AbstractGameScreen {
 
         Table tbl = new Table();
         //tbl.left().bottom();
-        tbl.add(btnStartGame);
+        tbl.add(btnStartGame).align(Align.top);
         tbl.setPosition(Constants.VIEWPORT_WIDTH/2 - tbl.getWidth() , Constants.VIEWPORT_HEIGHT/2);
         btnStartGame.addListener(new ChangeListener() {
             @Override
@@ -101,6 +113,18 @@ public class MenuScreen extends AbstractGameScreen {
                 onPlayClicked();
             }
         });
+        
+        tbl.row();
+        btnConfigOz = new TextButton("START OZ", textButtonStyle);
+        tbl.add(btnConfigOz).align(Align.bottom);
+        btnConfigOz.addListener(new ChangeListener() {
+			
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				onStartOzClicked();
+			}
+		});
+        
         return tbl;
     }
 

@@ -15,30 +15,37 @@ public class OSCReceiver {
 	private OSCPortIn oscPortIn;
     private static final String TAG = OSCReceiver.class.getName();
 
-	public OSCReceiver(String address, int port) {
+	public OSCReceiver(String address, int port, OSCListener listener) {
 		this.address = address;
 		this.port = port;
 		
 		try{
 			// Connect to some IP address and port
 	    	oscPortIn = new OSCPortIn(this.port);
-	       	oscPortIn.addListener(this.address, new OSCListener() {
-				@Override
-				public void acceptMessage(Date arg0, OSCMessage arg1) {
-					  Gdx.app.log(TAG, "message received!!!");
-					
-					for(int i =0;i< arg1.getArguments().size();i++){
-						 Gdx.app.log(TAG,"arg("+i+")="+arg1.getArguments().get(i));
+	    	if(listener==null){
+		       	oscPortIn.addListener(this.address, new OSCListener() {
+					@Override
+					public void acceptMessage(Date arg0, OSCMessage arg1) {
+						  Gdx.app.log(TAG, "message received!!!");
+						
+						for(int i =0;i< arg1.getArguments().size();i++){
+							 Gdx.app.log(TAG,"arg("+i+")="+arg1.getArguments().get(i));
+						}
+						 Gdx.app.log(TAG, "----------- end of message ------------");
 					}
-					 Gdx.app.log(TAG, "----------- end of message ------------");
-				}
-			});
+				});
+	       	}else{
+	       		oscPortIn.addListener(this.address, listener);
+	       	}
     	}catch(SocketException e){
         	e.printStackTrace();
         	 Gdx.app.log(TAG,  null, e);
         }	
 	}
 	
+	public void addListener(String addressSelector, OSCListener listener){
+		this.oscPortIn.addListener(addressSelector, listener);
+	}
 	
 	public void start(){
 		oscPortIn.startListening();

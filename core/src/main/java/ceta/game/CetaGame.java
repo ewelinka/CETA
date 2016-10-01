@@ -13,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.illposed.osc.OSCListener;
 
 
 
@@ -20,9 +21,18 @@ public class CetaGame extends DirectedGame {
 	SpriteBatch batch;
 	Texture img;
 	private OSCReceiver receiver;
+	private String localIp;
 	
 	private Level1Screen level1Screen;
 	
+	
+	public CetaGame(){
+		this.localIp="";
+	}
+	
+	public CetaGame(String localIp){
+		this.localIp=localIp;
+	}
 	@Override
 	public void create () {
 		// Set Libgdx log level
@@ -40,8 +50,8 @@ public class CetaGame extends DirectedGame {
 	}
 	
 	
-	public void initReceiver(){
-		this.receiver =  new OSCReceiver("/wizardOfOz", 12345);
+	public void initReceiver(OSCListener listener){
+		this.receiver =  new OSCReceiver("/wizardOfOz", 12345, listener);
 		//TODO aqui hay que pasarle el level1Screen como OSCListener
 	}
 	
@@ -52,6 +62,13 @@ public class CetaGame extends DirectedGame {
 	public void stopOSCReceiver(){
 		this.receiver.stop();
 	}
+	public String getLocalIp() {
+		return localIp;
+	}
+	public void setLocalIp(String localIp) {
+		this.localIp = localIp;
+	}
 	
 
+	
 }

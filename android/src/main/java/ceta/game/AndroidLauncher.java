@@ -26,11 +26,11 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.hideStatusBar=false;
 		this.wizardOfOz = false;
 	    WifiManager wm = (WifiManager)getSystemService(WIFI_SERVICE);
 		this.localIp = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-		this.cetaGamte = new CetaGame();
-		this.cetaGamte.initReceiver(); //osc receiver initialized but not started yet
+		this.cetaGamte = new CetaGame(this.localIp);
 		initialize(cetaGamte, config);
 	}
 	
