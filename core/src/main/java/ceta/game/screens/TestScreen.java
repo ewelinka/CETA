@@ -20,8 +20,6 @@ public class TestScreen extends AbstractGameScreen {
     private static final String TAG = TestScreen.class.getName();
     private WorldController worldController;
     private WorldRenderer worldRenderer;
-    private OrthographicCamera camera;
-    private Stage stage;
 
     private boolean paused;
 

@@ -19,7 +19,7 @@ public class Level1 extends Level{
     public static final String TAG = Test.class.getName();
 //    public BigBruno bruno;
 //    public Coin coin;
-    private Stage stage;
+//    private Stage stage;
     private Image back;
 
     public Level1(Stage stage){
@@ -34,7 +34,6 @@ public class Level1 extends Level{
        // back.setPosition(-Constants.VIEWPORT_WIDTH/2, 0);
         back.setPosition(-Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2 + (Constants.VIEWPORT_HEIGHT - back.getHeight()));
         stage.addActor(back);
-
 
 
         bruno = new Bruno();

@@ -26,6 +26,7 @@ public class VirtualBlock extends AbstractGameObject {
     private short blockValue;
     public Vector2 home;
     private boolean wasDetected;
+    private boolean isAtHome;
     public float[] vertices;
     //private float previousRotation =0;
     private float baseRotation =0;
@@ -62,6 +63,7 @@ public class VirtualBlock extends AbstractGameObject {
         };
 
         setMyColor();
+        isAtHome = true;
 
 
 
@@ -115,41 +117,6 @@ public class VirtualBlock extends AbstractGameObject {
             }
 
         });
-//        this.addListener(new ClickListener() {
-//             @Override
-//             public void touchDragged(InputEvent event, float x, float y, int pointer){
-//                 //Gdx.app.log(TAG,"x: "+x+" y: "+y);
-//                 setPosition(getX()+x - getWidth()/2, getY()+y - getHeight()/2);
-//                 setColor(1,0,0,1);
-//             }
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-//                setColor(1,1,0,1);
-//                return true;
-//            }
-//
-//            @Override
-//            public void touchUp(InputEvent event, float x, float y, int pointer, int button){
-//                setColor(0,0,1,1);
-//            }
-//         });
-
-
-        // this later on won't be necessary because the detection will be based on the position not on click
-//        this.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//               // Gdx.app.log(TAG,event+" "+x+" "+y+" "+blockValue);
-//                //virtualBlocksManager.logDetected(blockValue);
-//                if(blockValue > 0)
-//                    virtualBlocksManager.blockAdded(blockValue);
-//                else
-//                    virtualBlocksManager.blockRemoved(blockValue);
-//
-//            }
-//
-//
-//        });
 
     }
 
@@ -204,6 +171,7 @@ public class VirtualBlock extends AbstractGameObject {
     public void goHome(){
 
         addAction(Actions.moveTo(home.x,home.y,1f));
+        setAtHome(true);
     }
 
     public void goHomeAndRemove(){
@@ -217,6 +185,7 @@ public class VirtualBlock extends AbstractGameObject {
                 remove();
             }
         })));
+        setAtHome(true);
     }
 
     public void rotate90(){
@@ -231,6 +200,13 @@ public class VirtualBlock extends AbstractGameObject {
     public void setHome(float x, float y){
         home.x = x;
         home.y = y;
+    }
+
+    public void setAtHome(boolean isAt){
+        isAtHome = isAt;
+    }
+    public boolean isAtHome(){
+        return isAtHome;
     }
 
 //

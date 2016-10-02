@@ -4,12 +4,14 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import ceta.game.game.Assets;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Created by ewe on 7/25/16.
  */
 public abstract class AbstractGameScreen  implements Screen {
     protected DirectedGame game;
+    protected Stage stage;
 
     public AbstractGameScreen (DirectedGame game) {
         this.game = game;

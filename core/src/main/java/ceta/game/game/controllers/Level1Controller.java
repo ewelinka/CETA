@@ -5,10 +5,7 @@ import ceta.game.game.levels.Level1;
 import ceta.game.game.objects.ArmPiece;
 import ceta.game.game.objects.Coin;
 import ceta.game.screens.DirectedGame;
-import ceta.game.util.AudioManager;
-import ceta.game.util.CameraHelper;
-import ceta.game.util.RoboticArmManager;
-import ceta.game.util.VirtualBlocksManager;
+import ceta.game.util.*;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -31,7 +28,7 @@ public class Level1Controller extends AbstractWorldController{
     private Rectangle r2 = new Rectangle();
 
     private RoboticArmManager roboticArmManager;
-    private VirtualBlocksManager virtualBlocksManager;
+    private VirtualBlocksManagerOSC virtualBlocksManager;
 
 
     private Stage stage;
@@ -40,7 +37,8 @@ public class Level1Controller extends AbstractWorldController{
        // game = game;
         this.stage = stage;
         roboticArmManager = new RoboticArmManager(stage);
-        virtualBlocksManager = new VirtualBlocksManager(stage);
+        // TODO change after wizard of oz
+        virtualBlocksManager = new VirtualBlocksManagerOSC(stage);
         super.init(game);
         localInit();
     }
@@ -121,6 +119,10 @@ public class Level1Controller extends AbstractWorldController{
     private void updateArmPieces(){
         // set "to add" and "to remove" in arm pieces manager
         roboticArmManager.update(toRemove,toAdd,remove,add);
+    }
+
+    public VirtualBlocksManagerOSC getVirtualBlocksManagerOSC(){
+        return virtualBlocksManager;
     }
 
 

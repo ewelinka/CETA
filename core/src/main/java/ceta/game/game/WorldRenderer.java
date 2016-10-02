@@ -21,7 +21,6 @@ import com.badlogic.gdx.utils.Disposable;
  */
 public class WorldRenderer implements Disposable {
     private OrthographicCamera camera;
-    private OrthographicCamera cameraGUI;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private BitmapFont font;

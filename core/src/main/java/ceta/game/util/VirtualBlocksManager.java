@@ -18,7 +18,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     short margin;
     Polygon polygon;
     VirtualBlock vBlock;
-    private ArrayList<VirtualBlock> virtualBlocksOnStage;
+    protected ArrayList<VirtualBlock> virtualBlocksOnStage;
 
     public VirtualBlocksManager(Stage stage){
         this.stage = stage;
@@ -93,7 +93,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     }
 
-    private void checkMargins(){
+    protected void checkMargins(){
         //check up
         if (polygon.getTransformedVertices()[5] + margin > 0){
             //if (virtualBlocksOnStage.get(i).getY() + virtualBlocksOnStage.get(i).getHeight() + margin > 0){
@@ -138,7 +138,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     }
 
-    private void removeVirtualBlock(int which){
+    protected void removeVirtualBlock(int which){
         // TODO go home and die
         // remove Actor
         virtualBlocksOnStage.get(which).goHomeAndRemove();
@@ -147,7 +147,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     }
 
-    private void addVirtualBlock(short val){
+    protected void addVirtualBlock(short val){
         // TODO create or take from pool!!
         VirtualBlock virtualBlock = new VirtualBlock(val,this);
         // this works for vertical blocks

@@ -30,7 +30,6 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
  */
 public class FinalScreen extends AbstractGameScreen {
     private static final String TAG = MenuScreen.class.getName();
-    private Stage stage;
     private Skin skin;
 
     private TextButton btnStartGame;

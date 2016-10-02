@@ -16,7 +16,7 @@ public class Test extends Level {
     public static final String TAG = Test.class.getName();
 //    public Bruno bruno;
 //    public Coin coin;
-    private Stage stage;
+//    private Stage stage;
 
 
 
