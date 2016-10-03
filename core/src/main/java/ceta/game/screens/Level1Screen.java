@@ -129,17 +129,19 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
     	     * blockId
              */
             worldController.getVirtualBlocksManagerOSC().oscAdd(
-                    Float.valueOf(arguments.get(1).toString()), //value
-                    Float.valueOf(arguments.get(2).toString()), //pos x
-                    Float.valueOf(arguments.get(3).toString()), // pos y
-                    Float.valueOf(arguments.get(4).toString()) // rotation
+                    Float.valueOf(arguments.get(1).toString()), // value
+                    Integer.valueOf(arguments.get(2).toString()), // id
+                    Float.valueOf(arguments.get(3).toString()), // pos x
+                    Float.valueOf(arguments.get(4).toString()), // pos y
+                    Float.valueOf(arguments.get(5).toString()) // rotation
             );
         }else if(arguments.get(0).equals("removeBlock")){
-            worldController.getVirtualBlocksManagerOSC().oscRemove( Float.valueOf(arguments.get(1).toString()));
+            worldController.getVirtualBlocksManagerOSC().oscRemove(
+                    Integer.valueOf(arguments.get(1).toString()) // id to remove
+            );
             /*
              * TODO Ewe: Formato nuevo del mensaje
              * "removeBlock"
-    		 * blockValue
     	     * blockId
              */
         }else if(arguments.get(0).equals("updateBlock")){
@@ -149,6 +151,12 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
     		 * blockValue
     	     * blockId
              */
+            worldController.getVirtualBlocksManagerOSC().oscUpdateBlock(
+                    Integer.valueOf(arguments.get(2).toString()), // id
+                    Float.valueOf(arguments.get(3).toString()), // pos x
+                    Float.valueOf(arguments.get(4).toString()), // pos y
+                    Float.valueOf(arguments.get(5).toString()) // rotation
+            );
         }
     }
 }

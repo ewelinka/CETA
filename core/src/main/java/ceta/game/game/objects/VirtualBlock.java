@@ -24,13 +24,12 @@ import static java.lang.Math.sin;
 public class VirtualBlock extends AbstractGameObject {
     public static final String TAG = VirtualBlock.class.getName();
     private short blockValue;
+    private int blockId;
     public Vector2 home;
     private boolean wasDetected;
     private boolean isAtHome;
     public float[] vertices;
-    //private float previousRotation =0;
-    private float baseRotation =0;
-    private float temporalRotation =0;
+    private float rotLast = 0;
 
 
     private boolean wasMoved;
@@ -64,7 +63,7 @@ public class VirtualBlock extends AbstractGameObject {
 
         setMyColor();
         isAtHome = true;
-
+        blockId = -1; // default value, we first set "real" id on addBlock event
 
 
         this.setTouchable(Touchable.enabled);
@@ -95,23 +94,20 @@ public class VirtualBlock extends AbstractGameObject {
                 b = b.nor();
                 float deltaRot = (float)(Math.atan2(b.y,b.x) - Math.atan2(a.y,a.x));
                 float deltaRotDeg = (float)(((deltaRot*180)/Math.PI + 360) % 360);
-                temporalRotation = deltaRotDeg;
+                if(deltaRotDeg>180) deltaRotDeg = -360 + deltaRotDeg;
 
-                if(deltaRotDeg>0){
-                    setRotation((baseRotation + deltaRotDeg)%360);
-                    //Gdx.app.log(TAG,"--- "+deltaRot+" "+getRotation());
-                }
+                rotateBy(deltaRotDeg - rotLast);
+                rotLast = deltaRotDeg;
             }
 
             @Override
             public void touchDown(InputEvent event, float x, float y, int pointer, int button){
-                baseRotation = getRotation();
                 Gdx.app.debug(TAG, "isTouched!!!");
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button){
-                baseRotation = (baseRotation + temporalRotation)%360;
+                rotLast = 0;
                 wasMoved = true;
                 Gdx.app.debug(TAG, "wasMoved!!! " + blockValue);
             }
@@ -196,6 +192,10 @@ public class VirtualBlock extends AbstractGameObject {
     public short getBlockValue(){
         return blockValue;
     }
+
+    public int getBlockId(){ return blockId; }
+
+    public void setBlockId(int id){ blockId = id;}
 
     public void setHome(float x, float y){
         home.x = x;

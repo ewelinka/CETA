@@ -26,17 +26,18 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
     }
 
 
-    public void oscAdd(float blockToAddVal, float px, float py, float rot) {
+    public void oscAdd(float blockToAddVal, int id, float px, float py, float rot) {
 
-        int s =virtualBlocksOnStage.size();
-        Gdx.app.log(TAG, "enter oscAdd "+ blockToAddVal +" "+px+" "+py+" "+rot+ " "+s);
+       // int s =virtualBlocksOnStage.size();
+        Gdx.app.log(TAG, "enter oscAdd "+ blockToAddVal +" "+px+" "+py+" "+rot+ " "+id);
 
-        for (int i = 0; i < s; i++) {
+        for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
             vBlock = virtualBlocksOnStage.get(i);
 
-            if((vBlock.getBlockValue() == blockToAddVal) && vBlock.isAtHome()){
-                Gdx.app.log(TAG, "add block of value: "+ blockToAddVal +" that was at home");
+            if((vBlock.getBlockValue() == blockToAddVal) && vBlock.isAtHome()){ // pieces in "stand-by" are atHome
+                Gdx.app.log(TAG, "add block of value: "+ blockToAddVal +" that was at home" + " with id "+id);
                 vBlock.setWasDetected(true);
+                vBlock.setBlockId(id);
                 vBlock.setAtHome(false);
                 vBlock.addAction(parallel(
                         Actions.moveTo(px,py,1f),
@@ -47,16 +48,31 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
                 addBlock(vBlock.getBlockValue());
                 // new virtual block in empty space
                 addVirtualBlock(vBlock.getBlockValue());
+                // we found block to move so we break for loop
+                break;
             }
         }
     }
 
-    public void oscRemove(float blockToRemoveVal) {
+    public void oscRemove(int blockToRemoveId) {
         for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
             vBlock = virtualBlocksOnStage.get(i);
-            if((vBlock.getBlockValue() == blockToRemoveVal) && !vBlock.isAtHome()){
+            if(vBlock.getBlockId() == blockToRemoveId){ // we remove indicated id
                 blockRemoved(vBlock.getBlockValue());
                 removeVirtualBlock(i);
+            }
+        }
+
+    }
+
+    public void oscUpdateBlock(int id, float px, float py, float rot){
+        for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
+            vBlock = virtualBlocksOnStage.get(i);
+            if(vBlock.getBlockId() == id){ // we update indicated id
+                vBlock.addAction(parallel(
+                        Actions.moveTo(px,py,1f),
+                        Actions.rotateTo(rot,1f)
+                ));
             }
         }
 
