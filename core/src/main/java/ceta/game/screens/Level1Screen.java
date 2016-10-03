@@ -122,6 +122,12 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
         List<Object> arguments = message.getArguments();
         if(arguments.get(0).equals("addBlock")) {
             Gdx.app.log(TAG, "add osc block "+ arguments.get(1).toString());
+            /*
+             * TODO Ewe: Formato nuevo del mensaje
+             * "addBlock"
+    		 * blockValue
+    	     * blockId
+             */
             worldController.getVirtualBlocksManagerOSC().oscAdd(
                     Float.valueOf(arguments.get(1).toString()), //value
                     Float.valueOf(arguments.get(2).toString()), //pos x
@@ -130,6 +136,19 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
             );
         }else if(arguments.get(0).equals("removeBlock")){
             worldController.getVirtualBlocksManagerOSC().oscRemove( Float.valueOf(arguments.get(1).toString()));
+            /*
+             * TODO Ewe: Formato nuevo del mensaje
+             * "removeBlock"
+    		 * blockValue
+    	     * blockId
+             */
+        }else if(arguments.get(0).equals("updateBlock")){
+        	/*
+             * TODO Ewe: Formato nuevo del mensaje
+             * "updateBlock"
+    		 * blockValue
+    	     * blockId
+             */
         }
     }
 }
