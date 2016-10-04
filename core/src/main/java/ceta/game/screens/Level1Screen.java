@@ -157,6 +157,15 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
                     Float.valueOf(arguments.get(4).toString()), // pos y
                     Float.valueOf(arguments.get(5).toString()) // rotation
             );
+        } else if(arguments.get(0).equals("startCountdown")){
+            worldController.setCountdownOn(true);
+
+
+        } else if(arguments.get(0).equals("cancelCountdown")){
+            worldController.setCountdownOn(false);
+
         }
+
+
     }
 }

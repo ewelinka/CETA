@@ -24,6 +24,7 @@ public class Level1Controller extends AbstractWorldController{
     //private DirectedGame game;
 
 
+
     private Rectangle r1 = new Rectangle();
     private Rectangle r2 = new Rectangle();
 
@@ -41,7 +42,10 @@ public class Level1Controller extends AbstractWorldController{
         virtualBlocksManager = new VirtualBlocksManagerOSC(stage);
         super.init(game);
         localInit();
+
     }
+
+
 
     private void localInit () {
         initLevel();
@@ -71,8 +75,26 @@ public class Level1Controller extends AbstractWorldController{
         virtualBlocksManager.updateDetected();
         previous_detected = Arrays.copyOf(detected_numbers, detected_numbers.length);
         detected_numbers = virtualBlocksManager.getDetectedBlocks();
-        findDifferences();
-        updateArmPieces();
+        findDifferences(previous_detected, detected_numbers);
+
+        if(actionSubmitDelayMode){
+            // if we are counting
+            if(countdownOn){
+                // if we reached the time
+                if(coutdownCurrentTime < 0 ){
+                    Gdx.app.log(TAG, "wowowoowow action submit!");
+                    updateArmPieces();
+                    countdownOn = false;
+                    coutdownCurrentTime = countdownMax;
+                }
+                else // we still count
+                    coutdownCurrentTime-=deltaTime;
+            }
+
+        }else{
+            updateArmPieces();
+        }
+
 
         // TODO check if it should goes to the end
         testCollisions();
@@ -118,10 +140,18 @@ public class Level1Controller extends AbstractWorldController{
 
     private void updateArmPieces(){
         // set "to add" and "to remove" in arm pieces manager
+        if(actionSubmitDelayMode){
+            // we have to calculate the difference between last sent and detected_numbers
+            findDifferences(last_sent, detected_numbers);
+            last_sent = Arrays.copyOf(detected_numbers, detected_numbers.length);
+
+        }
         roboticArmManager.update(toRemove,toAdd,remove,add);
+
     }
 
     public VirtualBlocksManagerOSC getVirtualBlocksManagerOSC(){
+        //  return  new VirtualBlocksManagerOSC(stage);
         return virtualBlocksManager;
     }
 

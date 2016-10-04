@@ -6,35 +6,56 @@ filter: Nearest,Nearest
 repeat: none
 box
   rotate: false
-  xy: 112, 883
+  xy: 112, 813
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+box01
+  rotate: false
+  xy: 186, 813
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+box02
+  rotate: false
+  xy: 260, 813
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+box03
+  rotate: false
+  xy: 334, 813
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 bruno
   rotate: false
-  xy: 186, 883
+  xy: 408, 813
   size: 73, 72
   orig: 73, 72
   offset: 0, 0
   index: -1
 circle
   rotate: false
-  xy: 2, 925
+  xy: 2, 855
   size: 30, 30
   orig: 30, 30
   offset: 0, 0
   index: -1
 cloud
   rotate: false
-  xy: 335, 881
+  xy: 557, 811
   size: 132, 74
   orig: 132, 74
   offset: 0, 0
   index: -1
 coin
   rotate: false
-  xy: 34, 915
+  xy: 34, 845
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -55,28 +76,28 @@ fondoA
   index: -1
 latter
   rotate: false
-  xy: 261, 883
+  xy: 483, 813
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 latter-double
   rotate: false
-  xy: 511, 811
+  xy: 733, 741
   size: 72, 144
   orig: 72, 144
   offset: 0, 0
   index: -1
 robot01
   rotate: false
-  xy: 76, 915
+  xy: 76, 845
   size: 34, 40
   orig: 34, 40
   offset: 0, 0
   index: -1
 robot02
   rotate: false
-  xy: 469, 875
+  xy: 691, 805
   size: 40, 80
   orig: 40, 80
   offset: 0, 0

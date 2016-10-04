@@ -60,6 +60,7 @@ public class WorldRenderer implements Disposable {
         renderWorld(batch);
         renderHelperNumberLines();
         renderHelperNumbers(batch);
+        renderCounter(batch);
         renderGui(batch);
         //renderHelperLines();
     }
@@ -75,6 +76,25 @@ public class WorldRenderer implements Disposable {
         shapeRenderer.setColor(Color.LIGHT_GRAY);
         shapeRenderer.rect(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT,Constants.VIEWPORT_WIDTH, -Constants.DETECTION_LIMIT);
         shapeRenderer.end();
+    }
+
+    private void renderCounter(SpriteBatch batch){
+        if (worldController.getCountdownOn()){
+            // we render countdown!
+            batch.setProjectionMatrix(camera.combined);
+            batch.begin();
+
+            String text = worldController.getCoutdownCurrentTime()+"";
+            GlyphLayout layout = new GlyphLayout(font, text);
+            font.getData().setScale(6);
+            font.setColor(Color.RED);
+            font.draw(batch, text+"", 0 - layout.width/2, Constants.DETECTION_LIMIT -100);
+            font.setColor(Color.WHITE);
+            font.getData().setScale(2);
+
+            batch.end();
+
+        }
     }
 
 

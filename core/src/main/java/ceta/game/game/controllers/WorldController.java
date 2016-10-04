@@ -65,7 +65,7 @@ public class WorldController extends AbstractWorldController {
         previous_detected = Arrays.copyOf(detected_numbers, detected_numbers.length);
         // System.arraycopy( detected_numbers, 0, previous_detected, 0, detected_numbers.length );
         detected_numbers = virtualBlocksManager.getDetectedBlocks();
-        findDifferences();
+        findDifferences(previous_detected,detected_numbers);
         updateLatters();
 
         // TODO check if it should goes to the end

@@ -128,8 +128,7 @@ public class RoboticArmManager {
                 // we update removed
                 removed+=1;
                 // check if we should end looping
-                // TODO end looping if we already deleted all latters that we should remove
-                if(removed >= shouldRemove) Gdx.app.log(TAG, "we removed all "+shouldRemove+" armPieces");
+                //if(removed >= shouldRemove) Gdx.app.log(TAG, "we removed all "+shouldRemove+" armPieces");
             }
         }
 

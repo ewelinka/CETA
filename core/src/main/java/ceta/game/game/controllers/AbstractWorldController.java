@@ -10,6 +10,7 @@ import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.CameraHelper;
 
+import ceta.game.util.VirtualBlocksManagerOSC;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -31,16 +32,23 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public short [] detected_numbers;
     public short [] previous_detected;
+    public short [] last_sent;
     public short [] remove;
     public short [] add;
     public short toRemove;
     public short toAdd;
     public short currentDiff;
 
+    protected boolean countdownOn;
+    protected float countdownMax;
+    protected float coutdownCurrentTime;
+    protected boolean actionSubmitDelayMode;
+
     public void init (DirectedGame game) {
         cameraHelper = new CameraHelper();
         this.game = game;
         initValues();
+        actionSubmitInit();
         adjustCamera();
     }
 
@@ -56,12 +64,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     private void initValues(){
         detected_numbers = new short [5];
         previous_detected = new short [5];
+        last_sent = new short [5];
         remove = new short [5];
         add = new short [5];
 
         for(short i = 0; i<5;i++){
             detected_numbers[i] = 0;
             previous_detected[i] = 0;
+            last_sent[i] = 0;
             remove[i] = 0;
             add[i] = 0;
         }
@@ -71,13 +81,22 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         currentDiff = 0;
     }
 
-    public void findDifferences(){
+    private void actionSubmitInit(){
+        countdownOn = false;
+        countdownMax = 5f;
+        coutdownCurrentTime = countdownMax;
+        actionSubmitDelayMode = true;
+
+
+    }
+
+    public void findDifferences(short [] p_detected, short [] detected){
         // ojo!!! lo que se corresponde a la pieza 1 esta en la posicion 0 !!
         toRemove = 0;
         toAdd = 0;
         for(short i = 0; i<5;i++){
             //if(i==0) Gdx.app.debug(TAG,previous_detected[i]+" "+detected_numbers[i]);
-            currentDiff = (short)(previous_detected[i] - detected_numbers[i]);
+            currentDiff = (short)(p_detected[i] - detected[i]);
             if ( currentDiff < 0){
                 Gdx.app.debug(TAG,"we should add "+currentDiff+" to:"+i+" position");
                 add[i] = (short)Math.abs(currentDiff);
@@ -179,7 +198,26 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 		}
 		 Gdx.app.log(TAG, "----------- end of message ------------");
 	}
-    
+
+    public boolean hasActionSubmitDelay(){
+        return actionSubmitDelayMode;
+    }
+
+    public boolean getCountdownOn(){
+        return countdownOn;
+    }
+
+    public int getCoutdownCurrentTime(){
+        return (int)(coutdownCurrentTime);
+    }
+
+
+
+    public void setCountdownOn(boolean isOn){
+
+        countdownOn = isOn;
+        coutdownCurrentTime = countdownMax;
+    }
     
     
 }
