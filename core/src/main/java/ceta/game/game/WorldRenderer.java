@@ -104,6 +104,7 @@ public class WorldRenderer implements Disposable {
 
         // we draw coin on the top
         worldController.level.coin.toFront();
+        worldController.level.bruno.toFront();
 
         batch.begin();
         worldController.level.render(batch);

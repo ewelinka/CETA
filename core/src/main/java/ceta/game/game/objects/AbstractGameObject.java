@@ -40,7 +40,7 @@ public abstract class AbstractGameObject extends Actor {
         // Bounding box for collision detection!!
         bounds.set(0, 0, this.getWidth(), this.getHeight());
         this.setBounds(this.getX(),this.getY(),this.getWidth(),this.getHeight());
-        this.setDebug(true);
+        this.setDebug(false);
 
 
     }

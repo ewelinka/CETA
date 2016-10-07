@@ -1,6 +1,7 @@
 package ceta.game.util;
 
 import ceta.game.game.objects.ArmPiece;
+import ceta.game.game.objects.VirtualBlock;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -16,7 +17,9 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
  * Created by ewe on 10/2/16.
  */
 public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
+
     public VirtualBlocksManagerOSC(Stage stage) {
+
         super(stage);
     }
 
@@ -41,7 +44,8 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
                 vBlock.setAtHome(false);
                 vBlock.addAction(parallel(
                         Actions.moveTo(px,py,1f),
-                        Actions.rotateTo(rot,1f)
+                        Actions.rotateTo(rot,1f),
+                        Actions.alpha(1,1f)
                 ));
 
                 //
@@ -77,4 +81,5 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
         }
 
     }
+
 }

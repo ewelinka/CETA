@@ -2,6 +2,7 @@ package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 import ceta.game.util.VirtualBlocksManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -30,6 +31,7 @@ public class VirtualBlock extends AbstractGameObject {
     private boolean isAtHome;
     public float[] vertices;
     private float rotLast = 0;
+    private float myAlpha;
 
 
     private boolean wasMoved;
@@ -45,6 +47,7 @@ public class VirtualBlock extends AbstractGameObject {
 
     public void init(){
         regTex = Assets.instance.box.box;
+        myAlpha = GamePreferences.instance.virtualBlocksAlpha;
         //horizontal
         //this.setSize(Constants.BASE*abs(blockValue),Constants.BASE);
         //vertical
@@ -64,6 +67,8 @@ public class VirtualBlock extends AbstractGameObject {
         setMyColor();
         isAtHome = true;
         blockId = -1; // default value, we first set "real" id on addBlock event
+
+
 
 
         this.setTouchable(Touchable.enabled);
@@ -136,6 +141,7 @@ public class VirtualBlock extends AbstractGameObject {
                 setColor(Color.CYAN);
                 break;
         }
+        getColor().a = myAlpha;
     }
 
 
@@ -176,7 +182,7 @@ public class VirtualBlock extends AbstractGameObject {
 //                                                                          remove();
 //                                                                      }
 //                                                                  })));
-        addAction(sequence(parallel(Actions.moveTo(home.x,home.y,1f),Actions.rotateTo(0,1f)),run(new Runnable() {
+        addAction(sequence(parallel(Actions.moveTo(home.x,home.y,1f),Actions.rotateTo(0,1f),Actions.alpha(0,1f)),run(new Runnable() {
             public void run() {
                 remove();
             }
@@ -208,6 +214,7 @@ public class VirtualBlock extends AbstractGameObject {
     public boolean isAtHome(){
         return isAtHome;
     }
+    public void setMyAlpha(float newAlpha){ myAlpha = newAlpha;}
 
 //
 //    @Override

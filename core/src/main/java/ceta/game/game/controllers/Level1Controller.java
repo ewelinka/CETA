@@ -77,7 +77,7 @@ public class Level1Controller extends AbstractWorldController{
         detected_numbers = virtualBlocksManager.getDetectedBlocks();
         findDifferences(previous_detected, detected_numbers);
 
-        if(actionSubmitDelayMode){
+        if(GamePreferences.instance.actionSubmit){
             // if we are counting
             if(countdownOn){
                 // if we reached the time
@@ -85,7 +85,7 @@ public class Level1Controller extends AbstractWorldController{
                     Gdx.app.log(TAG, "wowowoowow action submit!");
                     updateArmPieces();
                     countdownOn = false;
-                    coutdownCurrentTime = countdownMax;
+                    coutdownCurrentTime = GamePreferences.instance.countdownMax;
                 }
                 else // we still count
                     coutdownCurrentTime-=deltaTime;
@@ -140,12 +140,13 @@ public class Level1Controller extends AbstractWorldController{
 
     private void updateArmPieces(){
         // set "to add" and "to remove" in arm pieces manager
-        if(actionSubmitDelayMode){
+        if(GamePreferences.instance.actionSubmit){
             // we have to calculate the difference between last sent and detected_numbers
             findDifferences(last_sent, detected_numbers);
             last_sent = Arrays.copyOf(detected_numbers, detected_numbers.length);
 
         }
+
         roboticArmManager.update(toRemove,toAdd,remove,add);
 
     }

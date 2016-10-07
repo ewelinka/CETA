@@ -10,6 +10,7 @@ import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.CameraHelper;
 
+import ceta.game.util.GamePreferences;
 import ceta.game.util.VirtualBlocksManagerOSC;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
@@ -40,9 +41,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public short currentDiff;
 
     protected boolean countdownOn;
-    protected float countdownMax;
     protected float coutdownCurrentTime;
-    protected boolean actionSubmitDelayMode;
+
 
     public void init (DirectedGame game) {
         cameraHelper = new CameraHelper();
@@ -83,9 +83,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     private void actionSubmitInit(){
         countdownOn = false;
-        countdownMax = 5f;
-        coutdownCurrentTime = countdownMax;
-        actionSubmitDelayMode = true;
+        coutdownCurrentTime = GamePreferences.instance.countdownMax;
+
 
 
     }
@@ -199,9 +198,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 		 Gdx.app.log(TAG, "----------- end of message ------------");
 	}
 
-    public boolean hasActionSubmitDelay(){
-        return actionSubmitDelayMode;
-    }
+
 
     public boolean getCountdownOn(){
         return countdownOn;
@@ -216,7 +213,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void setCountdownOn(boolean isOn){
 
         countdownOn = isOn;
-        coutdownCurrentTime = countdownMax;
+        coutdownCurrentTime = GamePreferences.instance.countdownMax;
     }
     
     

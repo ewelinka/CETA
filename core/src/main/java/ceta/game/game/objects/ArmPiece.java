@@ -3,6 +3,7 @@ package ceta.game.game.objects;
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 
 /**
  * Created by ewe on 8/23/16.
@@ -12,19 +13,24 @@ public class ArmPiece extends AbstractGameObject {
 
     public ArmPiece(short val){
         armValue = val;
-        switch(armValue){
+        switch (armValue){
             case 1:
-                regTex = Assets.instance.box.box;
-
+                setColor(Color.LIME);
                 break;
             case 2:
-                regTex = Assets.instance.box.box;
-
+                setColor(Color.RED);
                 break;
-            default:
-                regTex = Assets.instance.box.box;
+            case 3:
+                setColor(Color.GREEN);
+                break;
+            case 4:
+                setColor(Color.ORANGE);
+                break;
+            case 5:
+                setColor(Color.CYAN);
                 break;
         }
+        regTex = Assets.instance.box.box; // will be changed when we have more parts
 
         init();
     }
