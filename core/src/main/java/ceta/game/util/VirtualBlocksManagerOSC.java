@@ -38,7 +38,7 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
             vBlock = virtualBlocksOnStage.get(i);
 
             if((vBlock.getBlockValue() == blockToAddVal) && vBlock.isAtHome()){ // pieces in "stand-by" are atHome
-                Gdx.app.log(TAG, "add block of value: "+ blockToAddVal +" that was at home" + " with id "+id);
+                Gdx.app.log(TAG, "add block of value: "+ blockToAddVal +" that was at home with id "+id);
                 vBlock.setWasDetected(true);
                 vBlock.setBlockId(id);
                 vBlock.setAtHome(false);

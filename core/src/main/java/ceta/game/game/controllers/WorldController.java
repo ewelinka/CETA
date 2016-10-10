@@ -87,7 +87,7 @@ public class WorldController extends AbstractWorldController {
         if(l != null){
             r1.set(l.getX(), l.getY()+l.getHeight() - 4, l.getWidth(), 8);
             //Gdx.app.debug(TAG, "latter! ");
-            r2.set(level.coin.getX(), level.coin.getY(), level.coin.bounds.width, level.coin.bounds.height);
+            r2.set(level.price.getX(), level.price.getY(), level.price.bounds.width, level.price.bounds.height);
 
             if (r1.overlaps(r2))
                 Gdx.app.debug(TAG, "collision coin - latter! ");

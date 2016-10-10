@@ -83,7 +83,7 @@ latter
   index: -1
 latter-double
   rotate: false
-  xy: 733, 741
+  xy: 815, 741
   size: 72, 144
   orig: 72, 144
   offset: 0, 0
@@ -100,6 +100,13 @@ robot02
   xy: 691, 805
   size: 40, 80
   orig: 40, 80
+  offset: 0, 0
+  index: -1
+screw
+  rotate: false
+  xy: 733, 805
+  size: 80, 80
+  orig: 80, 80
   offset: 0, 0
   index: -1
 
