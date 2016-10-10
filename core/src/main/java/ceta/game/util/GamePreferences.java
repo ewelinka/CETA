@@ -14,6 +14,7 @@ public class GamePreferences {
     public boolean actionSubmit;
     public float countdownMax;
     public float virtualBlocksAlpha;
+    public float collectedToWin;
 
     private GamePreferences () {
         prefs = Gdx.app.getPreferences(Constants.PREFERENCES);
@@ -23,6 +24,7 @@ public class GamePreferences {
         actionSubmit = prefs.getBoolean("actionSubmit", true);
         virtualBlocksAlpha = MathUtils.clamp(prefs.getFloat("virtualBlocksAlpha", 1.0f), 0.0f, 1.0f);
         countdownMax = MathUtils.clamp(prefs.getFloat("countdownMax", 5), 0, 10);
+        collectedToWin = MathUtils.clamp(prefs.getFloat("collectedToWin", 5), 1, 10);
 
     }
 
@@ -30,6 +32,7 @@ public class GamePreferences {
         prefs.putBoolean("actionSubmit", actionSubmit);
         prefs.putFloat("virtualBlocksAlpha", virtualBlocksAlpha);
         prefs.putFloat("countdownMax", countdownMax);
+        prefs.putFloat("collectedToWin",collectedToWin);
         prefs.flush();
     }
 }

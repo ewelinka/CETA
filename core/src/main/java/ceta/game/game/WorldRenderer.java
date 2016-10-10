@@ -13,8 +13,12 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Disposable;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
  * Created by ewe on 7/25/16.
@@ -26,6 +30,8 @@ public class WorldRenderer implements Disposable {
     private BitmapFont font;
     private AbstractWorldController worldController;
     private Stage stage;
+    private Image imgBackground;
+
 
     private short linesRange;
 
@@ -49,6 +55,8 @@ public class WorldRenderer implements Disposable {
         camera.update();
         stage.getViewport().setCamera(camera);
 
+
+
 //        cameraGUI = new OrthographicCamera(Constants.VIEWPORT_GUI_WIDTH, Constants.VIEWPORT_GUI_HEIGHT);
 //        cameraGUI.position.set(0, 0, 0);
 //        cameraGUI.setToOrtho(true); // flip y-axis
@@ -62,6 +70,11 @@ public class WorldRenderer implements Disposable {
         renderHelperNumbers(batch);
         renderCounter(batch);
         renderGui(batch);
+        if(worldController.getWeWon()){
+            renderWin();
+            worldController.setWeWon(false);
+            worldController.resetScore();
+        }
         //renderHelperLines();
     }
 
@@ -196,6 +209,25 @@ public class WorldRenderer implements Disposable {
         stage.getViewport().update(width, height, true);
         camera.position.set(0,0,0);
     }
+
+    private void renderWin(){
+        imgBackground = new Image(Assets.instance.finishBackGround.finishBack);
+        stage.addActor(imgBackground);
+        imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
+        imgBackground.setPosition(-Constants.VIEWPORT_WIDTH/2,-400);
+        imgBackground.addAction(sequence(
+//                moveTo(135, -20),
+                scaleTo(0, 0),
+//                fadeOut(0),
+                delay(0.5f),
+                parallel(moveBy(0, 100, 1.5f, Interpolation.swingOut),
+                        scaleTo(1.0f, 1.0f, 0.25f, Interpolation.linear),
+                        alpha(1.0f, 0.5f)),
+                alpha(0,1f),
+                removeActor()
+        ));
+    }
+
 
     @Override public void dispose () {
         batch.dispose();

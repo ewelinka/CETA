@@ -48,6 +48,7 @@ public class Level1Controller extends AbstractWorldController{
 
 
     private void localInit () {
+        Gdx.app.log(TAG," local init");
         initLevel();
         virtualBlocksManager.init();
         roboticArmManager.init();
@@ -66,8 +67,10 @@ public class Level1Controller extends AbstractWorldController{
     @Override
     public void update (float deltaTime) {
         // winning condition
-        if (score >= 3) {
-            goToFinalScreen();
+        if (score >= GamePreferences.instance.collectedToWin) {
+            // this will be checked in renderer
+            weWon = true;
+            //goToFinalScreen();
 
         }
         handleDebugInput(deltaTime);
