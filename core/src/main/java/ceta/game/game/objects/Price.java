@@ -3,6 +3,7 @@ package ceta.game.game.objects;
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 /**
  * Created by ewe on 8/12/16.
@@ -55,5 +56,9 @@ public class Price extends AbstractGameObject {
 
     public void setNewPosition(float startX){
         setPosition( startX + (int)(MathUtils.random(1,10))*Constants.BASE - getWidth()/2, Constants.BASE );
+    }
+    public void moveToNewPosition(float startX){
+        addAction(Actions.moveTo(startX + (int)(MathUtils.random(1,10))*Constants.BASE - getWidth()/2, Constants.BASE,0.6f));
+        //setPosition( );
     }
 }

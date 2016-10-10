@@ -6,105 +6,133 @@ filter: Nearest,Nearest
 repeat: none
 box
   rotate: false
-  xy: 112, 813
+  xy: 604, 694
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 box01
   rotate: false
-  xy: 186, 813
+  xy: 136, 4
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 box02
   rotate: false
-  xy: 260, 813
+  xy: 326, 86
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 box03
   rotate: false
-  xy: 334, 813
+  xy: 678, 766
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 bruno
   rotate: false
-  xy: 408, 813
+  xy: 678, 840
   size: 73, 72
   orig: 73, 72
   offset: 0, 0
   index: -1
 circle
   rotate: false
-  xy: 2, 855
+  xy: 400, 128
   size: 30, 30
   orig: 30, 30
   offset: 0, 0
   index: -1
 cloud
   rotate: false
-  xy: 557, 811
+  xy: 2, 2
   size: 132, 74
   orig: 132, 74
   offset: 0, 0
   index: -1
 coin
   rotate: false
-  xy: 34, 845
+  xy: 210, 36
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
-excelente
+copper
   rotate: false
-  xy: 2, 516
-  size: 625, 293
-  orig: 625, 293
+  xy: 926, 914
+  size: 80, 80
+  orig: 80, 80
   offset: 0, 0
   index: -1
-fondoA
+copper2
   rotate: false
-  xy: 2, 2
-  size: 600, 512
-  orig: 600, 512
+  xy: 404, 160
+  size: 160, 80
+  orig: 160, 80
+  offset: 0, 0
+  index: -1
+copper3
+  rotate: false
+  xy: 2, 78
+  size: 240, 80
+  orig: 240, 80
+  offset: 0, 0
+  index: -1
+copper4
+  rotate: false
+  xy: 604, 914
+  size: 320, 80
+  orig: 320, 80
+  offset: 0, 0
+  index: -1
+copper5
+  rotate: false
+  xy: 2, 160
+  size: 400, 80
+  orig: 400, 80
+  offset: 0, 0
+  index: -1
+fondoD
+  rotate: false
+  xy: 2, 242
+  size: 600, 752
+  orig: 600, 752
   offset: 0, 0
   index: -1
 latter
   rotate: false
-  xy: 483, 813
+  xy: 753, 840
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 latter-double
   rotate: false
-  xy: 815, 741
+  xy: 604, 768
   size: 72, 144
   orig: 72, 144
   offset: 0, 0
   index: -1
 robot01
   rotate: false
-  xy: 76, 845
+  xy: 566, 200
   size: 34, 40
   orig: 34, 40
   offset: 0, 0
   index: -1
 robot02
   rotate: false
-  xy: 691, 805
+  xy: 604, 612
   size: 40, 80
   orig: 40, 80
   offset: 0, 0
   index: -1
 screw
   rotate: false
-  xy: 733, 805
+  xy: 244, 78
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
@@ -115,11 +143,18 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-fondoD
+excelente
   rotate: false
   xy: 2, 2
-  size: 600, 752
-  orig: 600, 752
+  size: 625, 293
+  orig: 625, 293
+  offset: 0, 0
+  index: -1
+fondoA
+  rotate: false
+  xy: 2, 297
+  size: 600, 512
+  orig: 600, 512
   offset: 0, 0
   index: -1
 
