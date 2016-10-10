@@ -2,13 +2,9 @@ package ceta.game.game.levels;
 
 import ceta.game.game.Assets;
 import ceta.game.game.objects.Bruno;
-import ceta.game.game.objects.Coin;
+import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -40,10 +36,10 @@ public class Level1 extends Level{
         bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X ,0);
         stage.addActor(bruno);
         //TODO change to robotic stuff
-        coin = new Coin();
-        coin.setNewPosition(bruno.getX()+bruno.getWidth());
-        coin.setVelocity((short)0);
-        stage.addActor(coin);
+        price = new Price();
+        price.setNewPosition(bruno.getX()+bruno.getWidth());
+        price.setVelocity((short)0);
+        stage.addActor(price);
     }
 
     @Override

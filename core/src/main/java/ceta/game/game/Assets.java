@@ -25,6 +25,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetBox box;
     public AssetCoin coin;
     public AssetBackground background;
+    public AssetObjectsToCollect toCollect;
 
     public AssetSounds sounds;
     public AssetMusic music;
@@ -72,6 +73,7 @@ public class Assets implements Disposable, AssetErrorListener {
         background = new AssetBackground(atlas);
         sounds = new AssetSounds(assetManager);
         music = new AssetMusic(assetManager);
+        toCollect = new AssetObjectsToCollect(atlas);
 
         finishBackGround = new AssetFinishBackground(atlas);
     }
@@ -136,6 +138,19 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public AssetCoin (TextureAtlas atlas) {
             coin = atlas.findRegion("coin");
+
+        }
+    }
+
+    public class AssetObjectsToCollect {
+        public final TextureAtlas.AtlasRegion coin;
+        public final TextureAtlas.AtlasRegion screw;
+
+
+        public AssetObjectsToCollect (TextureAtlas atlas) {
+            coin = atlas.findRegion("coin");
+            screw = atlas.findRegion("screw");
+
 
         }
     }

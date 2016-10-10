@@ -2,7 +2,7 @@ package ceta.game.game.levels;
 
 
 import ceta.game.game.objects.Bruno;
-import ceta.game.game.objects.Coin;
+import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -32,14 +32,14 @@ public class Test extends Level {
         bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 ,-Constants.BASE);
         stage.addActor(bruno);
 
-        coin = new Coin();
-        coin.setPosition(Constants.VIEWPORT_WIDTH/2,Constants.BASE*7);
-        stage.addActor(coin);
+        price = new Price();
+        price.setPosition(Constants.VIEWPORT_WIDTH/2,Constants.BASE*7);
+        stage.addActor(price);
     }
 
     public void update (float deltaTime) {
         // update!!
-        coin.update(deltaTime);
+        price.update(deltaTime);
         stage.act(deltaTime);
     }
 

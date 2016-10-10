@@ -68,7 +68,9 @@ public class WorldRenderer implements Disposable {
         renderWorld(batch);
         renderHelperNumberLines();
         renderHelperNumbers(batch);
-        renderCounter(batch);
+        if (worldController.getCountdownOn()) {
+            renderCounter(batch);
+        }
         renderGui(batch);
         if(worldController.getWeWon()){
             renderWin();
@@ -92,22 +94,22 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderCounter(SpriteBatch batch){
-        if (worldController.getCountdownOn()){
-            // we render countdown!
-            batch.setProjectionMatrix(camera.combined);
-            batch.begin();
 
-            String text = worldController.getCoutdownCurrentTime()+"";
-            GlyphLayout layout = new GlyphLayout(font, text);
-            font.getData().setScale(6);
-            font.setColor(Color.RED);
-            font.draw(batch, text+"", 0 - layout.width/2, Constants.DETECTION_LIMIT -100);
-            font.setColor(Color.WHITE);
-            font.getData().setScale(2);
+        // we render countdown!
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
 
-            batch.end();
+        String text = worldController.getCoutdownCurrentTime()+"";
+        GlyphLayout layout = new GlyphLayout(font, text);
+        font.getData().setScale(6);
+        font.setColor(Color.RED);
+        font.draw(batch, text+"", 0 - layout.width/2, Constants.DETECTION_LIMIT -100);
+        font.setColor(Color.WHITE);
+        font.getData().setScale(2);
 
-        }
+        batch.end();
+
+
     }
 
 
@@ -116,7 +118,7 @@ public class WorldRenderer implements Disposable {
         worldController.cameraHelper.applyTo(camera);
 
         // we draw coin on the top
-        worldController.level.coin.toFront();
+        worldController.level.price.toFront();
         worldController.level.bruno.toFront();
 
         batch.begin();
@@ -192,7 +194,7 @@ public class WorldRenderer implements Disposable {
         float x =  -Constants.VIEWPORT_WIDTH/2 + 10;
         float y = Constants.VIEWPORT_HEIGHT/2 - 50;
 
-        batch.draw(Assets.instance.coin.coin,x,y,40,40);
+        batch.draw(Assets.instance.toCollect.screw,x,y,40,40);
         // TODO hardcoded position!
         font.draw(batch, worldController.score+"",x+50,y+30);
     }

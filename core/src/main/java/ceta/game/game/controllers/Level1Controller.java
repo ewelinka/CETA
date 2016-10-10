@@ -3,16 +3,12 @@ package ceta.game.game.controllers;
 import ceta.game.game.Assets;
 import ceta.game.game.levels.Level1;
 import ceta.game.game.objects.ArmPiece;
-import ceta.game.game.objects.Coin;
+import ceta.game.game.objects.Price;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.*;
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Disposable;
 
 import java.util.Arrays;
 
@@ -121,14 +117,14 @@ public class Level1Controller extends AbstractWorldController{
             if (lastArm.getActions().size == 0){
                 r1.set(lastArm.getX()+lastArm.getWidth(), lastArm.getY(), 2, lastArm.getHeight());
 
-                r2.set(level.coin.getX(), level.coin.getY(), level.coin.bounds.width, level.coin.bounds.height);
+                r2.set(level.price.getX(), level.price.getY(), level.price.bounds.width, level.price.bounds.height);
                 if (r1.overlaps(r2))
-                    onCollisionBrunoWithGoldCoin(level.coin);
+                    onCollisionBrunoWithGoldCoin(level.price);
             }
         }
     }
 
-    private void onCollisionBrunoWithGoldCoin(Coin goldcoin) {
+    private void onCollisionBrunoWithGoldCoin(Price goldcoin) {
         //goldcoin.collected = true;
         AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
         score += 1;

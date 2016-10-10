@@ -29,12 +29,12 @@ public abstract class AbstractBlocksManager {
 
     public void addBlock(short val){
         // if we detected new block of value 4, we add up 1 in index 3(!)
-        //Gdx.app.log(TAG,"detected: "+val+" at position "+(val-1));
+        Gdx.app.log(TAG,"addBlock: "+val);
         detected_blocks[val-1]+=1;
     }
 
     public void blockRemoved(short val){
-        Gdx.app.log(TAG,"removed: "+val+" at position "+(Math.abs(val)-1));
+        Gdx.app.log(TAG,"removed: "+val);
         detected_blocks[Math.abs(val)-1]-=1;
     }
 

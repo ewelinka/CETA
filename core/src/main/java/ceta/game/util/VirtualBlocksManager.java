@@ -148,6 +148,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     }
 
     protected void addVirtualBlock(short val){
+        Gdx.app.log(TAG, "we creat new vistual block of valua "+val);
         // TODO create or take from pool!!
         VirtualBlock virtualBlock = new VirtualBlock(val,this);
         // this works for vertical blocks

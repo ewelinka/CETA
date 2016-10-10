@@ -60,6 +60,7 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
 
     @Override
     public void show() {
+        Gdx.app.log(TAG," we start the show!");
         // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1Controller(game, stage);

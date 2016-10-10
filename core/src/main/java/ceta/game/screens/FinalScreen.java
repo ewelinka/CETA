@@ -1,5 +1,6 @@
 package ceta.game.screens;
 
+import ceta.game.CetaGame;
 import ceta.game.game.Assets;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
@@ -75,6 +76,7 @@ public class FinalScreen extends AbstractGameScreen {
 
     private void onPlayClicked () {
         ScreenTransition transition = ScreenTransitionFade.init(0.75f);
+        //game.setScreen(((CetaGame)game).getLevel1Screen(), transition);
         game.setScreen(new Level1Screen(game), transition);
     }
 

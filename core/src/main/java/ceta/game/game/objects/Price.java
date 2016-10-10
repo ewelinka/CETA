@@ -2,24 +2,23 @@ package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
  * Created by ewe on 8/12/16.
  */
-public class Coin extends AbstractGameObject {
-    public static final String TAG = Coin.class.getName();
+public class Price extends AbstractGameObject {
+    public static final String TAG = Price.class.getName();
     private short velocity;
 
 
-    public Coin () {
+    public Price() {
         init();
     }
 
 
     public void init () {
-        regTex = Assets.instance.coin.coin;
+        regTex = Assets.instance.toCollect.screw;
         velocity = -100;
         this.setSize(Constants.BASE,Constants.BASE);
         super.init();
