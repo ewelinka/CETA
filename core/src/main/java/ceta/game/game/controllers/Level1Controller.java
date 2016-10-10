@@ -65,7 +65,7 @@ public class Level1Controller extends AbstractWorldController{
         // winning condition
         if (score >= GamePreferences.instance.collectedToWin) {
             // this will be checked in renderer
-            weWon = true;
+            //weWon = true;
             //goToFinalScreen();
 
         }
@@ -125,10 +125,14 @@ public class Level1Controller extends AbstractWorldController{
     }
 
     private void onCollisionBrunoWithGoldCoin(Price goldcoin) {
-        //goldcoin.collected = true;
-        AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-        score += 1;
-        goldcoin.setNewPosition(level.bruno.getX()+level.bruno.getWidth());
+        if(goldcoin.getActions().size == 0){ // we act just one time!
+            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+            Gdx.app.log(TAG,"score before: "+score);
+            score += 1;
+            Gdx.app.log(TAG,"score after: "+score);
+            goldcoin.moveToNewPosition(level.bruno.getX()+level.bruno.getWidth());
+        }
+
     };
 
 
@@ -151,7 +155,7 @@ public class Level1Controller extends AbstractWorldController{
     }
 
     public VirtualBlocksManagerOSC getVirtualBlocksManagerOSC(){
-        //  return  new VirtualBlocksManagerOSC(stage);
+        //return  new VirtualBlocksManagerOSC(stage);
         return virtualBlocksManager;
     }
 

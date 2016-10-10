@@ -131,7 +131,8 @@ public class RoboticArmManager {
 
     private void removeOne(short which, short valueIndex){
         // remove Actor
-        armPieces.get(which).remove();
+        //armPieces.get(which).remove();
+        armPieces.get(which).goBackAndRemove();
         //remove from armPieces
         armPieces.remove(which);
         // we update remove[]
