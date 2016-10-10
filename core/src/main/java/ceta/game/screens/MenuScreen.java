@@ -45,10 +45,12 @@ public class MenuScreen extends AbstractGameScreen {
     private CheckBox chkActionSubmit;
     private Slider sldCountdownMax;
     private Slider sldVirtualBlocksAlpha;
+    private Slider sldCollectedToWin;
     private Image imgBackground;
 
     private Label visibilityValueLabel;
     private Label countdownMaxValueLabel;
+    private Label collectedToWinValueLabel;
     private DecimalFormat formatter = new DecimalFormat("0.0##");
 
 
@@ -64,7 +66,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     public MenuScreen (DirectedGame game) {
         super(game);
-        this.screen1 = new Level1Screen(game);
+        this.screen1 = ((CetaGame)game).getLevel1Screen();
     }
 
 
@@ -117,7 +119,7 @@ public class MenuScreen extends AbstractGameScreen {
     }
     
     private void onStartOzClicked(){
-    	((CetaGame)game).initReceiver(screen1); //Level1Screen implements OSCListener    	
+    	((CetaGame)game).initReceiver(screen1); //Level1Screen implements OSCListener
     	((CetaGame)game).startOSCReceiver();
     	btnConfigOz.setText(((CetaGame)game).getLocalIp());
     	//TODO Ewe: Display ((CetaGame)game).getLocalIp(); on screen. De momento cambio el texto del boton para poder ver la ip en algun lado    	
@@ -267,11 +269,27 @@ public class MenuScreen extends AbstractGameScreen {
 
         tbl.row();
         sldVirtualBlocksAlpha = new Slider(0.0f, 1.0f, 0.1f, false, skin);
-        tbl.add(sldVirtualBlocksAlpha).padBottom(10);
+        tbl.add(sldVirtualBlocksAlpha).padBottom(15);
         sldVirtualBlocksAlpha.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 visibilityValueLabel.setText("Visibilidad  (0 a 1), ahora: " + formatter.format(sldVirtualBlocksAlpha.getValue()));
+            }
+        });
+
+
+        tbl.row();
+        // collected coins slider
+        collectedToWinValueLabel = new Label("Recolactar para ganar (1 a 10), ahora: 10.0", skin);
+        tbl.add(collectedToWinValueLabel);
+
+        tbl.row();
+        sldCollectedToWin = new Slider (1.0f,10.0f,1.0f,false,skin);
+        tbl.add(sldCollectedToWin).padBottom(10);
+        sldCollectedToWin.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                collectedToWinValueLabel.setText("Recolactar para ganar (1 a 10), ahora: " + formatter.format(sldCollectedToWin.getValue()));
             }
         });
 
@@ -309,9 +327,10 @@ public class MenuScreen extends AbstractGameScreen {
         chkActionSubmit.setChecked(prefs.actionSubmit);
         sldCountdownMax.setValue(prefs.countdownMax);
         sldVirtualBlocksAlpha.setValue(prefs.virtualBlocksAlpha);
+        sldCollectedToWin.setValue(prefs.collectedToWin);
         visibilityValueLabel.setText("Visibilidad (0 to 1), ahora: "+prefs.virtualBlocksAlpha);
         countdownMaxValueLabel.setText("Countdown (0 a 10), ahora: "+prefs.countdownMax);
-
+        collectedToWinValueLabel.setText("Recolactar para ganar (1 a 10), ahora:"+prefs.collectedToWin);
     }
 
     private void saveSettings() {
@@ -320,6 +339,7 @@ public class MenuScreen extends AbstractGameScreen {
         prefs.actionSubmit = chkActionSubmit.isChecked();
         prefs.countdownMax = sldCountdownMax.getValue();
         prefs.virtualBlocksAlpha = sldVirtualBlocksAlpha.getValue();
+        prefs.collectedToWin = sldCollectedToWin.getValue();
         prefs.save();
     }
 

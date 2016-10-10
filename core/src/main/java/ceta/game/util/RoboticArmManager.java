@@ -32,6 +32,7 @@ public class RoboticArmManager {
         armPieces = new ArrayList<ArmPiece>();
         // hardcoded
         initialX = -200;
+        lastX = initialX;
         initialY = Constants.BASE;
 
     }
@@ -81,35 +82,28 @@ public class RoboticArmManager {
 
         for(short i = 0;i<add.length;i++){
             if(add[i]>0){
-                // TODO we should check how many should we add, perhaps there are 2 to add..
+
                 // TODO here we should check if we can re-use an arm piece
-                // but now we just create a new one
-                ArmPiece armToAdd = new ArmPiece((short)(i+1));
-
-                // TODO we should add it left and move to right all the arm pieces
-                if(armPieces.size()>0){
-                    Gdx.app.debug(TAG,"we add one latter at the end!");
-                    armToAdd.setPosition(lastX-armToAdd.getWidth(), initialY);
-                    //test
-                    moveToAction = new MoveToAction();
-                    moveToAction.setPosition(lastX,initialY);
-                    moveToAction.setDuration(1f);
-                    armToAdd.addAction(moveToAction);
-
-                }else{
-                    Gdx.app.debug(TAG,"we add the first latter ever!!");
-                    armToAdd.setPosition(initialX -armToAdd.getWidth(),initialY );
-                    moveToAction = new MoveToAction();
-                    moveToAction.setPosition(initialX,initialY);
-                    moveToAction.setDuration(1f);
-                    armToAdd.addAction(moveToAction);
-                    lastX = initialX;
-
-                }
-                lastX += armToAdd.getWidth();
-                stage.addActor(armToAdd);
-                armPieces.add(armToAdd);
+                // but now we just create a new ones
+                addArms((short)(i+1),add[i]);
             }
+        }
+    }
+
+    private void addArms(short val, short howMany){
+        for(short i=0; i< howMany;i++){
+            Gdx.app.debug(TAG,"we add new arm piece number "+i+ " of value "+val);
+            ArmPiece armToAdd = new ArmPiece((short)(val));
+            armToAdd.setPosition(lastX - armToAdd.getWidth(),initialY );
+            moveToAction = new MoveToAction();
+            moveToAction.setPosition(lastX,initialY);
+            moveToAction.setDuration(1f);
+            armToAdd.addAction(moveToAction);
+
+            lastX += armToAdd.getWidth();
+            stage.addActor(armToAdd);
+            armPieces.add(armToAdd);
+
         }
     }
 

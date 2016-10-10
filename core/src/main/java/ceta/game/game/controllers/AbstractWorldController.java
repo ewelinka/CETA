@@ -43,6 +43,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected boolean countdownOn;
     protected float coutdownCurrentTime;
 
+    public boolean weWon;
+
 
     public void init (DirectedGame game) {
         cameraHelper = new CameraHelper();
@@ -50,6 +52,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         initValues();
         actionSubmitInit();
         adjustCamera();
+        weWon = false;
     }
 
     private void adjustCamera(){
@@ -215,6 +218,17 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         countdownOn = isOn;
         coutdownCurrentTime = GamePreferences.instance.countdownMax;
     }
-    
+
+    public boolean getWeWon(){
+        return weWon;
+    }
+
+    public void setWeWon(boolean toSet){
+        weWon = toSet;
+    }
+
+    public void resetScore(){
+        score = 0;
+    }
     
 }
