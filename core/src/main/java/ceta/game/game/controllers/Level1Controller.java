@@ -79,6 +79,8 @@ public class Level1Controller extends AbstractWorldController{
         if(GamePreferences.instance.actionSubmit){
             // if we are counting
             if(countdownOn){
+                // we shake bruno
+                level.bruno.shake();
                 // if we reached the time
                 if(coutdownCurrentTime < 0 ){
                     Gdx.app.log(TAG, "wowowoowow action submit!");

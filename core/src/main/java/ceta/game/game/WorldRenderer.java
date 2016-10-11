@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
@@ -28,6 +29,7 @@ public class WorldRenderer implements Disposable {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private BitmapFont font;
+    private BitmapFont counterFont;
     private AbstractWorldController worldController;
     private Stage stage;
     private Image imgBackground;
@@ -42,8 +44,10 @@ public class WorldRenderer implements Disposable {
     }
     private void init () {
         batch = new SpriteBatch();
-        font = new BitmapFont();
-        font.getData().setScale(2);
+
+        //font = new BitmapFont();
+        font = Assets.instance.fonts.defaultSmall;
+        counterFont = Assets.instance.fonts.defaultBig;
 
         shapeRenderer = new ShapeRenderer();
         linesRange = (short)(Constants.VIEWPORT_HEIGHT/Constants.BASE/2)*Constants.BASE;
@@ -100,12 +104,11 @@ public class WorldRenderer implements Disposable {
         batch.begin();
 
         String text = worldController.getCoutdownCurrentTime()+"";
-        GlyphLayout layout = new GlyphLayout(font, text);
-        font.getData().setScale(6);
-        font.setColor(Color.RED);
-        font.draw(batch, text+"", 0 - layout.width/2, Constants.DETECTION_LIMIT -100);
-        font.setColor(Color.WHITE);
-        font.getData().setScale(2);
+        GlyphLayout layout = new GlyphLayout(counterFont, text);
+
+        counterFont.setColor(Color.RED);
+        counterFont.draw(batch, text+"", 0 - layout.width/2, Constants.DETECTION_LIMIT -100);
+
 
         batch.end();
 
@@ -183,7 +186,9 @@ public class WorldRenderer implements Disposable {
         for(int i = -200; i<240;i+=Constants.BASE){
             String text = counter+"";
             GlyphLayout layout = new GlyphLayout(font, text);
-            font.draw(batch, counter+"", i - layout.width/2, 0);
+            //font.draw(batch, counter+"", i - layout.width/2, 0);
+            font.draw(batch, counter+"", i, 0,0,Align.center,false);
+
             counter+=1;
         }
         batch.end();
