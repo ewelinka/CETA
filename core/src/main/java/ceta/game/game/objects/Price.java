@@ -2,6 +2,7 @@ package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
@@ -11,6 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 public class Price extends AbstractGameObject {
     public static final String TAG = Price.class.getName();
     private short velocity;
+    // number line limits
+    private short startNumber;
+    private short endNumber;
+    private short currentNumber;
+
 
 
     public Price() {
@@ -54,11 +60,24 @@ public class Price extends AbstractGameObject {
         velocity = vel;
     }
 
+    public void setStartAndEnd(short s, short e){
+        startNumber = s;
+        endNumber = e;
+    }
+
     public void setNewPosition(float startX){
-        setPosition( startX + (int)(MathUtils.random(1,10))*Constants.BASE - getWidth()/2, Constants.BASE );
+        currentNumber = (short)(MathUtils.random(startNumber+1,endNumber));
+        setPosition( startX + currentNumber*Constants.BASE - getWidth()/2, Constants.BASE );
     }
     public void moveToNewPosition(float startX){
-        addAction(Actions.moveTo(startX + (int)(MathUtils.random(1,10))*Constants.BASE - getWidth()/2, Constants.BASE,0.6f));
+        short newPosition = (short)MathUtils.random(startNumber+1,endNumber);
+        while (newPosition == currentNumber){
+            newPosition = (short)MathUtils.random(startNumber+1,endNumber);
+        }
+        currentNumber = newPosition;
+
+
+        addAction(Actions.moveTo(startX + newPosition*Constants.BASE - getWidth()/2, Constants.BASE,0.6f));
         //setPosition( );
     }
 }
