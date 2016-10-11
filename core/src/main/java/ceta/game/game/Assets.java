@@ -8,6 +8,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -18,6 +19,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final String TAG = Assets.class.getName();
     public static final Assets instance = new Assets();
     private AssetManager assetManager;
+
+    public AssetFonts fonts;
 
     public AssetBruno bruno;
     public AssetLatter latter;
@@ -65,6 +68,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         }
+        fonts = new AssetFonts();
 
         bruno = new AssetBruno(atlas);
         latter  = new AssetLatter(atlas);
@@ -83,11 +87,34 @@ public class Assets implements Disposable, AssetErrorListener {
     @Override
     public void dispose() {
         assetManager.dispose();
+        fonts.defaultSmall.dispose();
+        fonts.defaultNormal.dispose();
+        fonts.defaultBig.dispose();
     }
 
     @Override
     public void error(AssetDescriptor asset, Throwable throwable) {
         Gdx.app.error(TAG, "Couldn't load asset '" +  asset.fileName + "'", (Exception) throwable);
+    }
+
+    public class AssetFonts {
+        public final BitmapFont defaultSmall;
+        public final BitmapFont defaultNormal;
+        public final BitmapFont defaultBig;
+        public AssetFonts () {
+            // create three fonts using Libgdx's 15px bitmap font
+            defaultSmall = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
+            defaultNormal = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
+            defaultBig = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
+            // set font sizes
+            defaultSmall.getData().setScale(0.75f);
+            defaultNormal.getData().setScale(1.0f);
+            defaultBig.getData().setScale(2.5f);
+            // enable linear texture filtering for smooth fonts
+            defaultSmall.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            defaultNormal.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            defaultBig.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        }
     }
 
     public class AssetBox {

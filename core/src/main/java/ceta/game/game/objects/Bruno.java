@@ -4,14 +4,18 @@ import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 
 /**
  * Created by ewe on 7/26/16.
  */
 public class Bruno extends AbstractGameObject {
     public static final String TAG = Bruno.class.getName();
+    private float offsetX = 0;
+    private float offsetY = 0;
 
 
 
@@ -25,6 +29,34 @@ public class Bruno extends AbstractGameObject {
         this.setSize(Constants.BASE*2,Constants.BASE*4);
         super.init();
 
+    }
+
+    public void shake(){
+
+        long shakeAlpha = System.currentTimeMillis() % 360;
+        float shakeDist = 1.5f;
+        offsetX += MathUtils.sinDeg(shakeAlpha * 2.2f) * shakeDist;
+        offsetY += MathUtils.sinDeg(shakeAlpha * 2.9f) * shakeDist;
+
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        //batch.setProjectionMatrix(camera.combined);
+        // batch.draw(regTex,this.getX(),this.getY());
+        batch.setColor(this.getColor());
+        batch.draw(regTex.getTexture(),
+                this.getX()+offsetX, this.getY()+offsetY,
+                this.getOriginX(), this.getOriginY(),
+                this.getWidth() ,this.getHeight(),
+                this.getScaleX(), this.getScaleY(),
+                this.getRotation(),
+                regTex.getRegionX(), regTex.getRegionY(),
+                regTex.getRegionWidth(), regTex.getRegionHeight(), false,false);
+        batch.setColor(1,1,1,1);
+
+        offsetX = 0;
+        offsetY = 0;
     }
 
 
