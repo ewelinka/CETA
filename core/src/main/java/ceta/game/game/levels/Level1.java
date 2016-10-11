@@ -37,6 +37,7 @@ public class Level1 extends Level{
         stage.addActor(bruno);
         //TODO change to robotic stuff
         price = new Price();
+        price.setStartAndEnd((short)0,(short)10);
         price.setNewPosition(bruno.getX()+bruno.getWidth());
         price.setVelocity((short)0);
         stage.addActor(price);
