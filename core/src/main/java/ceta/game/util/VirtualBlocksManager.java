@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
@@ -15,43 +16,41 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     public static final String TAG = VirtualBlocksManager.class.getName();
     Stage stage;
     short linesRange;
+    short nowId;
     short margin;
     Polygon polygon;
-    VirtualBlock vBlock;
     protected ArrayList<VirtualBlock> virtualBlocksOnStage;
 
     public VirtualBlocksManager(Stage stage){
         this.stage = stage;
     }
 
-
     public void init(){
         //TODO ojo que este hardcoded no es lindo
         linesRange = 6 * Constants.BASE;
         margin = 20;
-        virtualBlocksOnStage = new ArrayList<VirtualBlock>();
-        // polygon and vBlock will be set for checks
+        nowId = 0;
         polygon = new Polygon();
-        vBlock = new VirtualBlock((short)1,this);
+        virtualBlocksOnStage = new ArrayList<VirtualBlock>();
+        // polygon will be set for checks
+        polygon = new Polygon();
         initBlocks();
     }
 
     private void initBlocks(){
-        // we initialise first 5 blocks (numbres 1-5)
+        // we initialise first 5 blocks (numbers 1-5)
         for(short i=1;i<=5;i++){
-            addVirtualBlock(i);
-
+            addVirtualBlockInEmptySpace(i);
         }
     }
 
     @Override
     public void updateDetected() {
-        // reset the values
-        //resetDetected();
-
+        // first - clean!
+        resetDetectedAndRemoved();
+        // we check what changed
         for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
-
-            vBlock = virtualBlocksOnStage.get(i);
+            VirtualBlock vBlock = virtualBlocksOnStage.get(i);
             // set polygon for collision detection
             polygon.setVertices(vBlock.getVertices());
             polygon.setOrigin(vBlock.bounds.width/2, vBlock.bounds.height/2);
@@ -59,7 +58,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
             polygon.setRotation(vBlock.getRotation());
             // check if we are above zero or below screen height
             // vBlock is already set
-            checkMargins();
+            checkMargins(vBlock);
 
             // if the kid is touching/moving we ignore;
             // we just act when the piece is left free [we set wasMoved=true on release]
@@ -70,17 +69,20 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 if(vBlock.getWasDetected()){
                     if( polygon.getTransformedVertices()[1] < Constants.DETECTION_LIMIT){
                         // was detected but now gone
-                        // TODO perhaps change alpha and die...
-                        blockRemoved(vBlock.getBlockValue());
-                        removeVirtualBlock(i);
+                       // blockRemoved(vBlock.getBlockValue());
+                        blockRemovedWithId(vBlock.getBlockId());
+                        //blockRemovedById(vBlock.getBlockId());
+                        removeFromStageByIndex(i); // we remove it from detection zone
                     }
                 }else{
                     if( polygon.getTransformedVertices()[1] > Constants.DETECTION_LIMIT){
                         // new detected!
                         vBlock.setWasDetected(true);
-                        addBlock(vBlock.getBlockValue());
+                       // addBlock(vBlock.getBlockValue());
+                        addBlockWithId(vBlock.getBlockValue(),vBlock.getBlockId());
                         // new virtual block in empty space
-                        addVirtualBlock(vBlock.getBlockValue());
+                        addVirtualBlockInEmptySpace(vBlock.getBlockValue());
+
                     }
                     else{
                         vBlock.goHome();
@@ -93,26 +95,30 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     }
 
-    protected void checkMargins(){
+    protected void addVirtualBlockInEmptySpace(short val){
+        //Gdx.app.log(TAG, "we creat new vistual block of valua "+val);
+        // TODO create or take from pool!!
+        VirtualBlock virtualBlock = new VirtualBlock(val);
+        // this works for vertical blocks
+        virtualBlock.setPosition(-260 + 2*Constants.BASE*val ,-Constants.BASE*12);
+
+        stage.addActor(virtualBlock);
+        // set home so that we can come back
+        virtualBlock.setHome(virtualBlock.getX(),virtualBlock.getY());
+
+        virtualBlock.setBlockId(nowId);
+        nowId+=1;
+
+        virtualBlocksOnStage.add(virtualBlock);
+
+    }
+
+    protected void checkMargins(VirtualBlock vBlock){
         //check up
         if (polygon.getTransformedVertices()[5] + margin > 0){
             //if (virtualBlocksOnStage.get(i).getY() + virtualBlocksOnStage.get(i).getHeight() + margin > 0){
             // we have to adjust Y
             vBlock.setY(vBlock.getY() - (polygon.getTransformedVertices()[5] + margin));
-//            Gdx.app.log(TAG,"y: "+ vBlock.getY()+
-//                    " height: "+vBlock.getHeight()+
-//                    "x: "+ vBlock.getX());
-//
-//            Gdx.app.log(TAG,"POLYGON transformed: "+"\n"
-//                    +" 0 "+polygon.getTransformedVertices()[0]+" "+polygon.getTransformedVertices()[1] +"\n"
-//                    +" 1: "+polygon.getTransformedVertices()[2]+" "+polygon.getTransformedVertices()[3]+"\n"
-//                    +" 2: "+polygon.getTransformedVertices()[4]+" "+polygon.getTransformedVertices()[5]+"\n"
-//                    +" 3: "+polygon.getTransformedVertices()[6]+" "+polygon.getTransformedVertices()[7]
-//
-//            );
-//            Gdx.app.log(TAG,"BOUNDS X: "+ vBlock.bounds.getX()+
-//                    " y: "+vBlock.bounds.getY()+
-//                    "height: "+ vBlock.bounds.getHeight());
 
         }
         //check down
@@ -138,33 +144,31 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     }
 
-    protected void removeVirtualBlock(int which){
-        // TODO go home and die
+    protected void removeFromStageById(int whichId){
         // remove Actor
-        virtualBlocksOnStage.get(which).goHomeAndRemove();
-        //remove from virtual block from array
-        virtualBlocksOnStage.remove(which);
+        Gdx.app.log(TAG,"we should remove id: "+whichId);
+        for(int i=0;i<virtualBlocksOnStage.size();i++){
+            Gdx.app.log(TAG,"we are chacking block "+i+" id: "+virtualBlocksOnStage.get(i).getBlockId());
+            if(virtualBlocksOnStage.get(i).getBlockId() == whichId){
+                //remove actor
+                virtualBlocksOnStage.get(i).goHomeAndRemove();
+                // remove from array
+                virtualBlocksOnStage.remove(i);
+                return;
+            }
+        }
 
     }
 
-    protected void addVirtualBlock(short val){
-        Gdx.app.log(TAG, "we creat new vistual block of valua "+val);
-        // TODO create or take from pool!!
-        VirtualBlock virtualBlock = new VirtualBlock(val,this);
-        // this works for vertical blocks
-        virtualBlock.setPosition(-260 + 2*Constants.BASE*val ,-Constants.BASE*12);
+    protected void removeFromStageByIndex(int index){
+        // remove Actor
+        Gdx.app.log(TAG,"we should remove index: "+index);
 
-//            virtualBlock.setPosition(
-//                    -virtualBlock.getWidth()/2,
-//                    -linesRange - Constants.BASE*i - Constants.BASE/4*i
-//            );
-        stage.addActor(virtualBlock);
-        // set home so that we can come back
-        virtualBlock.setHome(virtualBlock.getX(),virtualBlock.getY());
-
-        virtualBlocksOnStage.add(virtualBlock);
+        virtualBlocksOnStage.get(index).goHomeAndRemove();
 
 
     }
+
+
 
 }

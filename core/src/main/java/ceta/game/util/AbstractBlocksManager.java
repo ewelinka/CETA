@@ -1,51 +1,77 @@
 package ceta.game.util;
 
+import ceta.game.game.objects.VirtualBlock;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ewe on 8/11/16.
  */
 public abstract class AbstractBlocksManager {
     public static final String TAG = AbstractBlocksManager.class.getName();
-    private short [] detected_blocks = {0,0,0,0,0};
+   // private short [] detected_blocks = {0,0,0,0,0};
+    // a pair of shorts (id and value)
+    // Pair < Key , Value >
+    protected ArrayList<Pair<Short, Short>> newDetectedIds = new ArrayList<Pair<Short, Short>>();
+    protected ArrayList<Short> toRemoveFromDetectedIds = new ArrayList<Short>();
 
 
+    public void init(){
 
-    public short[] getDetectedBlocks() {
-        return Arrays.copyOf(detected_blocks,detected_blocks.length);
     }
 
-    public void logDetected(short val){
-        Gdx.app.log(TAG," "+val);
+    public void addBlockWithId(short val, short id){
+        newDetectedIds.add(new Pair<Short, Short>(id,val));
     }
 
-    public void blockAdded(short val){
-        // if we detected new block of value 4, we add up 1 in index 3(!)
-        Gdx.app.log(TAG,"added: "+val+" at position "+(val-1));
-        detected_blocks[val-1]+=1;
-    }
 
-    public void addBlock(short val){
-        // if we detected new block of value 4, we add up 1 in index 3(!)
-        Gdx.app.log(TAG,"addBlock: "+val);
-        detected_blocks[val-1]+=1;
-    }
+    public void blockRemovedWithId(short id){
+        toRemoveFromDetectedIds.add(id);
 
-    public void blockRemoved(short val){
-        Gdx.app.log(TAG,"removed: "+val);
-        detected_blocks[Math.abs(val)-1]-=1;
     }
 
     public void updateDetected(){
-        // ask tablet camera what it saw
+
 
     }
 
-    public void resetDetected(){
-        for (int i = 0;i<detected_blocks.length;i++)
-            detected_blocks[i] = 0;
+    public ArrayList getToRemove(){
+        // we return the array because until the update function we don't have to carry about this array
+        return toRemoveFromDetectedIds;
     }
+
+    public ArrayList getNewDetected(){
+        return newDetectedIds;
+    }
+
+    public void resetDetectedAndRemoved(){
+        resetDetectedIds();
+        resetRemoveIds();
+
+    }
+
+
+    private void resetDetectedIds(){
+        newDetectedIds.clear();
+    }
+    private void resetRemoveIds(){
+        toRemoveFromDetectedIds.clear();
+    }
+
+
+
+
+
+
+
+
+
 
 }

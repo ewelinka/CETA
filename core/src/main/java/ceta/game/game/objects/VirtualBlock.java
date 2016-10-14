@@ -3,7 +3,6 @@ package ceta.game.game.objects;
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
-import ceta.game.util.VirtualBlocksManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -25,7 +24,7 @@ import static java.lang.Math.sin;
 public class VirtualBlock extends AbstractGameObject {
     public static final String TAG = VirtualBlock.class.getName();
     private short blockValue;
-    private int blockId;
+    private short blockId;
     public Vector2 home;
     private boolean wasDetected;
     private boolean isAtHome;
@@ -33,15 +32,13 @@ public class VirtualBlock extends AbstractGameObject {
     private float rotLast = 0;
     private float myAlpha;
 
-
     private boolean wasMoved;
-    private VirtualBlocksManager virtualBlocksManager;
 
 
 
-    public VirtualBlock(short val, VirtualBlocksManager vbm){
+
+    public VirtualBlock(short val){
         blockValue = val;
-        this.virtualBlocksManager = vbm;
         init();
     }
 
@@ -67,6 +64,7 @@ public class VirtualBlock extends AbstractGameObject {
         setMyColor();
         isAtHome = true;
         blockId = -1; // default value, we first set "real" id on addBlock event
+
 
 
 
@@ -199,14 +197,16 @@ public class VirtualBlock extends AbstractGameObject {
         return blockValue;
     }
 
-    public int getBlockId(){ return blockId; }
+    public short getBlockId(){ return blockId; }
 
-    public void setBlockId(int id){ blockId = id;}
+    public void setBlockId(short id){ blockId = id;}
 
     public void setHome(float x, float y){
         home.x = x;
         home.y = y;
     }
+
+
 
     public void setAtHome(boolean isAt){
         isAtHome = isAt;

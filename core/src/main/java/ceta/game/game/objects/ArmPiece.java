@@ -4,7 +4,10 @@ import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
@@ -15,6 +18,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  */
 public class ArmPiece extends AbstractGameObject {
     private short armValue;
+    private short id;
+    private float terminalX;
 
     public ArmPiece(short val){
         armValue = val;
@@ -50,9 +55,22 @@ public class ArmPiece extends AbstractGameObject {
         this.setSize(Constants.BASE*armValue,Constants.BASE);
         // now we can set the values that depend on size
         super.init();
+    }
 
+    public short getId() {
+        return id;
+    }
 
+    public void setId(short idVal){
+        id = idVal;
+    }
 
+    public float getTerminalX(){
+        return terminalX;
+    }
+
+    public void setTerminalX(float newTerminalX){
+        terminalX = newTerminalX;
     }
 
     public short getArmValue(){
