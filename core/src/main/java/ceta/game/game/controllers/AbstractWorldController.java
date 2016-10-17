@@ -31,14 +31,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public short score;
     public DirectedGame game;
 
-    public short [] detected_numbers;
-    public short [] previous_detected;
-    public short [] last_sent;
-    public short [] remove;
-    public short [] add;
-    public short toRemove;
-    public short toAdd;
-    public short currentDiff;
 
     protected boolean countdownOn;
     protected float coutdownCurrentTime;
@@ -49,7 +41,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void init (DirectedGame game) {
         cameraHelper = new CameraHelper();
         this.game = game;
-        initValues();
+
         actionSubmitInit();
         adjustCamera();
         weWon = false;
@@ -64,67 +56,20 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public abstract void update(float delta);
 
-    private void initValues(){
-        detected_numbers = new short [5];
-        previous_detected = new short [5];
-        last_sent = new short [5];
-        remove = new short [5];
-        add = new short [5];
 
-        for(short i = 0; i<5;i++){
-            detected_numbers[i] = 0;
-            previous_detected[i] = 0;
-            last_sent[i] = 0;
-            remove[i] = 0;
-            add[i] = 0;
-        }
-
-        toRemove = 0;
-        toAdd = 0;
-        currentDiff = 0;
-    }
 
     private void actionSubmitInit(){
         countdownOn = false;
         coutdownCurrentTime = GamePreferences.instance.countdownMax;
-
-
-
     }
 
-    public void findDifferences(short [] p_detected, short [] detected){
-        // ojo!!! lo que se corresponde a la pieza 1 esta en la posicion 0 !!
-        toRemove = 0;
-        toAdd = 0;
-        for(short i = 0; i<5;i++){
-            //if(i==0) Gdx.app.debug(TAG,previous_detected[i]+" "+detected_numbers[i]);
-            currentDiff = (short)(p_detected[i] - detected[i]);
-            if ( currentDiff < 0){
-                Gdx.app.debug(TAG,"we should add "+currentDiff+" to:"+i+" position");
-                add[i] = (short)Math.abs(currentDiff);
-                remove[i] = 0;
-                toAdd +=1;
-            }
-            else if (currentDiff > 0){
-                Gdx.app.debug(TAG,"we should remove "+currentDiff+" to:"+i+" position");
-                remove[i] = currentDiff;
-                add[i] = 0;
-                toRemove +=1;
-            }
-            else{
-                remove[i] = 0;
-                add[i] = 0;
-            }
 
-        }
-
-    }
 
     @Override
     public boolean keyUp (int keycode) {
         // Reset game world
         if (keycode == Input.Keys.R) {
-            initValues();
+
             Gdx.app.debug(TAG, "Game world resetted");
         }
         // Toggle camera follow

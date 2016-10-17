@@ -7,7 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.illposed.osc.OSCListener;
 import com.illposed.osc.OSCMessage;
+import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +19,10 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
  * Created by ewe on 10/2/16.
  */
 public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
+    public static final String TAG = VirtualBlocksManagerOSC.class.getName();
+
+    private ArrayList<Pair<Short, Short>>  newDetectedOSC = new ArrayList<Pair<Short, Short>>();
+    protected ArrayList<Short> toRemoveOSC = new ArrayList<Short>();
 
     public VirtualBlocksManagerOSC(Stage stage) {
 
@@ -26,21 +32,23 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
     @Override
     public void updateDetected() {
         // detection via OSC
+        //resetDetectedAndRemoved();
     }
 
 
     public void oscAdd(float blockToAddVal, int id, float px, float py, float rot) {
 
        // int s =virtualBlocksOnStage.size();
-        Gdx.app.log(TAG, "enter oscAdd "+ blockToAddVal +" "+px+" "+py+" "+rot+ " "+id);
+        //Gdx.app.log(TAG, "enter oscAdd "+ blockToAddVal +" "+px+" "+py+" "+rot+ " "+id);
 
         for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
-            vBlock = virtualBlocksOnStage.get(i);
+            VirtualBlock vBlock = virtualBlocksOnStage.get(i);
 
             if((vBlock.getBlockValue() == blockToAddVal) && vBlock.isAtHome()){ // pieces in "stand-by" are atHome
-                Gdx.app.log(TAG, "add block of value: "+ blockToAddVal +" that was at home with id "+id);
+               // Gdx.app.log(TAG, "add block of value: "+ blockToAddVal +" that was at home with id "+id);
                 vBlock.setWasDetected(true);
-                vBlock.setBlockId(id);
+                vBlock.setBlockId((short)id);
+                Gdx.app.log(TAG,"setting block id to "+id);
                 vBlock.setAtHome(false);
                 vBlock.addAction(parallel(
                         Actions.moveTo(px,py,1f),
@@ -49,9 +57,10 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
                 ));
 
                 //
-                addBlock(vBlock.getBlockValue());
+               // addBlock(vBlock.getBlockValue());
+                addBlockWithId(vBlock.getBlockValue(),vBlock.getBlockId());
                 // new virtual block in empty space
-                addVirtualBlock(vBlock.getBlockValue());
+                addVirtualBlockInEmptySpace(vBlock.getBlockValue());
                 // we found block to move so we break for loop
                 break;
             }
@@ -59,19 +68,13 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
     }
 
     public void oscRemove(int blockToRemoveId) {
-        for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
-            vBlock = virtualBlocksOnStage.get(i);
-            if(vBlock.getBlockId() == blockToRemoveId){ // we remove indicated id
-                blockRemoved(vBlock.getBlockValue());
-                removeVirtualBlock(i);
-            }
-        }
-
+        blockRemovedWithId((short)blockToRemoveId); //we report to manager to update the counters that will be used to update the arms
+        removeFromStageById(blockToRemoveId); // remove from stage
     }
 
     public void oscUpdateBlock(int id, float px, float py, float rot){
         for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
-            vBlock = virtualBlocksOnStage.get(i);
+            VirtualBlock vBlock = virtualBlocksOnStage.get(i);
             if(vBlock.getBlockId() == id){ // we update indicated id
                 vBlock.addAction(parallel(
                         Actions.moveTo(px,py,1f),
@@ -81,5 +84,32 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
         }
 
     }
+
+    @Override
+    public void addBlockWithId(short val, short id){
+        newDetectedOSC.add(new Pair<Short, Short>(id,val));
+    }
+
+    @Override
+    public void blockRemovedWithId(short id){
+        toRemoveOSC.add(id);
+
+    }
+
+    @Override
+    public ArrayList getToRemove(){
+        // we cops osc-array to array to return and clean osc-array to collect the data
+        toRemoveFromDetectedIds =  new ArrayList(toRemoveOSC);
+        toRemoveOSC.clear();
+        return toRemoveFromDetectedIds;
+    }
+
+    @Override
+    public ArrayList getNewDetected(){
+        newDetectedIds = new ArrayList(newDetectedOSC);
+        newDetectedOSC.clear();
+        return new ArrayList(newDetectedIds);
+    }
+
 
 }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -17,17 +18,11 @@ import java.util.Arrays;
  */
 public class Level1Controller extends AbstractWorldController{
     private static final String TAG = Level1Controller.class.getName();
-    //private DirectedGame game;
-
-
-
     private Rectangle r1 = new Rectangle();
     private Rectangle r2 = new Rectangle();
 
     private RoboticArmManager roboticArmManager;
-    private VirtualBlocksManagerOSC virtualBlocksManager;
-
-
+    private VirtualBlocksManager virtualBlocksManager;
     private Stage stage;
 
     public Level1Controller (DirectedGame game, Stage stage) {
@@ -35,13 +30,11 @@ public class Level1Controller extends AbstractWorldController{
         this.stage = stage;
         roboticArmManager = new RoboticArmManager(stage);
         // TODO change after wizard of oz
-        virtualBlocksManager = new VirtualBlocksManagerOSC(stage);
+        virtualBlocksManager = new VirtualBlocksManager(stage);
         super.init(game);
         localInit();
 
     }
-
-
 
     private void localInit () {
         Gdx.app.log(TAG," local init");
@@ -56,7 +49,6 @@ public class Level1Controller extends AbstractWorldController{
         level = new Level1(stage);
         cameraHelper.setTarget(null);
         score = 0;
-
     }
 
 
@@ -70,11 +62,7 @@ public class Level1Controller extends AbstractWorldController{
 
         }
         handleDebugInput(deltaTime);
-        level.update(deltaTime);
-        virtualBlocksManager.updateDetected();
-        previous_detected = Arrays.copyOf(detected_numbers, detected_numbers.length);
-        detected_numbers = virtualBlocksManager.getDetectedBlocks();
-        findDifferences(previous_detected, detected_numbers);
+        level.update(deltaTime); //stage.act()
 
         if(GamePreferences.instance.actionSubmit){
             // if we are counting
@@ -84,7 +72,11 @@ public class Level1Controller extends AbstractWorldController{
                 // if we reached the time
                 if(coutdownCurrentTime < 0 ){
                     Gdx.app.log(TAG, "wowowoowow action submit!");
-                    updateArmPieces();
+                    virtualBlocksManager.updateDetected();
+                    // computer vision manager update detected
+                    // cvManager.update();
+
+                    updateArmPieces(virtualBlocksManager.getNewDetected(),virtualBlocksManager.getToRemove());
                     countdownOn = false;
                     coutdownCurrentTime = GamePreferences.instance.countdownMax;
                 }
@@ -93,7 +85,10 @@ public class Level1Controller extends AbstractWorldController{
             }
 
         }else{
-            updateArmPieces();
+            virtualBlocksManager.updateDetected();
+            // computer vision manager update detected
+            // cvManager.update();
+            updateArmPieces(virtualBlocksManager.getNewDetected(),virtualBlocksManager.getToRemove());
         }
 
 
@@ -138,27 +133,19 @@ public class Level1Controller extends AbstractWorldController{
     };
 
 
-
     public ArmPiece getLastArmPiece(){
         return roboticArmManager.getLastArmPiece();
     }
 
-    private void updateArmPieces(){
-        // set "to add" and "to remove" in arm pieces manager
-        if(GamePreferences.instance.actionSubmit){
-            // we have to calculate the difference between last sent and detected_numbers
-            findDifferences(last_sent, detected_numbers);
-            last_sent = Arrays.copyOf(detected_numbers, detected_numbers.length);
 
-        }
 
-        roboticArmManager.update(toRemove,toAdd,remove,add);
-
+    private void updateArmPieces(ArrayList toAdd, ArrayList toRemove){
+        roboticArmManager.update(toAdd,toRemove);
     }
 
     public VirtualBlocksManagerOSC getVirtualBlocksManagerOSC(){
-        //return  new VirtualBlocksManagerOSC(stage);
-        return virtualBlocksManager;
+        return  new VirtualBlocksManagerOSC(stage);
+        //return virtualBlocksManager;
     }
 
 
