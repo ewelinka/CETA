@@ -1,0 +1,12 @@
+{
+  level: 1,
+  type: "horizontal",
+  operationsNumber: 10,
+  numberMin: 0,
+  numberMax: 10,
+  numberOrOperation: "number",
+  isDynamic: false,
+  priceReturn: 0,
+  priceVelocity: 0,
+  visibleNumberLine: true
+}

@@ -4,9 +4,13 @@ import ceta.game.game.Assets;
 import ceta.game.game.objects.Bruno;
 import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 
 /**
  * Created by ewe on 8/23/16.
@@ -26,6 +30,7 @@ public class Level1 extends Level{
     @Override
     public void init() {
 
+        initLevelParams();
         back = new Image(Assets.instance.background.back);
        // back.setPosition(-Constants.VIEWPORT_WIDTH/2, 0);
         back.setPosition(-Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2 + (Constants.VIEWPORT_HEIGHT - back.getHeight()));
@@ -39,14 +44,20 @@ public class Level1 extends Level{
         price = new Price();
         price.setStartAndEnd((short)0,(short)10);
         price.setNewPosition(bruno.getX()+bruno.getWidth());
-        price.setVelocity((short)0);
+        price.setVelocity((short)-100);
         stage.addActor(price);
     }
 
     @Override
     public void update(float deltaTime) {
+        price.update(deltaTime);
         stage.act(deltaTime);
 
+    }
+
+    private void initLevelParams(){
+        Json json = new Json();
+        levelParams = json.fromJson(LevelParams.class, Gdx.files.internal(Constants.LEVELS_FOLDER+"/1.json"));
     }
 
     @Override

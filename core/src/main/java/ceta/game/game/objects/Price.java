@@ -26,7 +26,6 @@ public class Price extends AbstractGameObject {
 
     public void init () {
         regTex = Assets.instance.toCollect.screw;
-        velocity = -100;
         this.setSize(Constants.BASE,Constants.BASE);
         super.init();
 
@@ -50,7 +49,7 @@ public class Price extends AbstractGameObject {
 
     private void updateVertical(float deltaTime){
         // TODO perhaps a constant that defines where the ground is
-        if(this.getY() < 0)
+        if(this.getY() < -this.getHeight()) // when below number line
             this.setPosition(getX(),Constants.VIEWPORT_HEIGHT/2);
         else
             this.setPosition(getX(),getY()+velocity*deltaTime);

@@ -13,6 +13,8 @@ public abstract class Level {
     public Bruno bruno;
     public Price price;
 
+    public LevelParams levelParams;
+
     protected Stage stage;
     public abstract void init ();
     public abstract void update (float deltaTime);

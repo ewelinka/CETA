@@ -14,6 +14,8 @@ public class Constants {
 
     public static final String SKIN_UI = "visui/uiskin.json";
 
+    public static final String LEVELS_FOLDER = "levels";
+
     public static final short BASE = 40;
     public static final short OFFSET_X = 20;
     public static final short DETECTION_LIMIT = -6 * BASE;

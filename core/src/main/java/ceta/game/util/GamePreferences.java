@@ -15,6 +15,7 @@ public class GamePreferences {
     public float countdownMax;
     public float virtualBlocksAlpha;
     public float collectedToWin;
+    public int lastLevel;
 
     private GamePreferences () {
         prefs = Gdx.app.getPreferences(Constants.PREFERENCES);
@@ -25,6 +26,7 @@ public class GamePreferences {
         virtualBlocksAlpha = MathUtils.clamp(prefs.getFloat("virtualBlocksAlpha", 1.0f), 0.0f, 1.0f);
         countdownMax = MathUtils.clamp(prefs.getFloat("countdownMax", 5), 0, 10);
         collectedToWin = MathUtils.clamp(prefs.getFloat("collectedToWin", 5), 1, 10);
+        lastLevel = prefs.getInteger("lastLevel",0);
 
     }
 
