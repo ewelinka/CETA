@@ -76,7 +76,6 @@ public class FinalScreen extends AbstractGameScreen {
 
     private void onPlayClicked () {
         ScreenTransition transition = ScreenTransitionFade.init(0.75f);
-        //game.setScreen(((CetaGame)game).getLevel1Screen(), transition);
         game.setScreen(new Level1HorizontalScreen(game), transition);
     }
 
@@ -87,15 +86,11 @@ public class FinalScreen extends AbstractGameScreen {
         imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
         imgBackground.setPosition(0,300);
         imgBackground.addAction(sequence(
-//                moveTo(135, -20),
                 scaleTo(0, 0),
-//                fadeOut(0),
-                delay(1.0f),
+                delay(0.3f),
                 parallel(moveBy(0, 100, 1.5f, Interpolation.swingOut),
                         scaleTo(1.0f, 1.0f, 0.25f, Interpolation.linear),
                         alpha(1.0f, 0.5f))));
-
-        //TODO add actions, movements
         return layer;
     }
 

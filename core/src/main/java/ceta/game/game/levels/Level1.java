@@ -25,11 +25,10 @@ public class Level1 extends AbstractLevel {
     public void init() {
         initLevelParams();
 
-
         bruno = new Bruno();
         bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X ,0);
         stage.addActor(bruno);
-        //TODO change to robotic stuff
+        
         price = new Price();
         price.setStartAndEnd((short)levelParams.numberMin,(short)levelParams.numberMax);
         price.setNewPosition(bruno.getX()+bruno.getWidth());

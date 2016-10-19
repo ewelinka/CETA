@@ -50,11 +50,8 @@ public class Level1HorizontalController extends AbstractWorldController{
         // winning condition
         if (score >= level.getOperationsNumber()) {
             Gdx.app.log(TAG," yupiiiiii we won!");
-            // this will be checked in renderer
-            weWon = true;
-            //goToFinalScreen();
-            goToNextLevel();
-
+            GamePreferences.instance.addOnetoLastLevelAndSave();
+            goToFinalScreen();
         }
         handleDebugInput(deltaTime);
         level.update(deltaTime); //stage.act()
