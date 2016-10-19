@@ -3,14 +3,13 @@ package ceta.game.screens;
 import java.util.Date;
 import java.util.List;
 
-import ceta.game.game.WorldRenderer;
-import ceta.game.game.controllers.Level1Controller;
+import ceta.game.game.renderers.WorldRendererLevel1;
+import ceta.game.game.controllers.Level1HorizontalController;
 import ceta.game.util.Constants;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.illposed.osc.OSCListener;
@@ -19,17 +18,16 @@ import com.illposed.osc.OSCMessage;
 /**
  * Created by ewe on 8/23/16.
  */
-public class Level1Screen extends AbstractGameScreen implements OSCListener{
+public class Level1HorizontalScreen extends AbstractGameScreen implements OSCListener{
 	
-    private static final String TAG = Level1Screen.class.getName();
-    private Level1Controller worldController;
-    private WorldRenderer worldRenderer;
-    private OrthographicCamera camera;
+    private static final String TAG = Level1HorizontalScreen.class.getName();
+    private Level1HorizontalController worldController;
+    private WorldRendererLevel1 worldRendererLevel1;
     private Stage stage;
 
     private boolean paused;
 
-    public Level1Screen(DirectedGame game) {
+    public Level1HorizontalScreen(DirectedGame game) {
 
         super(game);
     }
@@ -44,14 +42,14 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
 
         }
         // Render game world to screen
-        worldRenderer.render();
+        worldRendererLevel1.render();
 
     }
 
 
     @Override
     public void resize(int width, int height) {
-        worldRenderer.resize(width, height);
+        worldRendererLevel1.resize(width, height);
 
     }
 
@@ -60,9 +58,9 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
         Gdx.app.log(TAG," we start the show!");
         // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
-        worldController = new Level1Controller(game, stage);
+        worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRenderer(worldController,stage);
+        worldRendererLevel1 = new WorldRendererLevel1(worldController,stage);
         // android back key
         Gdx.input.setCatchBackKey(true);
     }
@@ -70,7 +68,7 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
     @Override
     public void hide() {
         worldController.dispose();
-        worldRenderer.dispose();
+        worldRendererLevel1.dispose();
         stage.dispose();
         Gdx.input.setCatchBackKey(false);
     }
@@ -90,7 +88,7 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
     @Override
     public void dispose(){
         worldController.dispose();
-        worldRenderer.dispose();
+        worldRendererLevel1.dispose();
         stage.dispose();
 
     }
@@ -104,7 +102,7 @@ public class Level1Screen extends AbstractGameScreen implements OSCListener{
         return multiplexer;
     }
 
-    public Level1Controller getLevel1Controller(){
+    public Level1HorizontalController getLevel1Controller(){
         return worldController;
     }
 

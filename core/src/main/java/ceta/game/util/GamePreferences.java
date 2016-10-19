@@ -14,7 +14,6 @@ public class GamePreferences {
     public boolean actionSubmit;
     public float countdownMax;
     public float virtualBlocksAlpha;
-    public float collectedToWin;
     public int lastLevel;
 
     private GamePreferences () {
@@ -22,11 +21,12 @@ public class GamePreferences {
     }
 
     public void load () {
-        actionSubmit = prefs.getBoolean("actionSubmit", true);
+        actionSubmit = prefs.getBoolean("actionSubmit", false);
         virtualBlocksAlpha = MathUtils.clamp(prefs.getFloat("virtualBlocksAlpha", 1.0f), 0.0f, 1.0f);
         countdownMax = MathUtils.clamp(prefs.getFloat("countdownMax", 5), 0, 10);
-        collectedToWin = MathUtils.clamp(prefs.getFloat("collectedToWin", 5), 1, 10);
-        lastLevel = prefs.getInteger("lastLevel",0);
+        lastLevel = prefs.getInteger("lastLevel",1);
+        // TODO now start in 1 always, just for testing than remove!!
+        lastLevel = 1;
 
     }
 
@@ -34,7 +34,14 @@ public class GamePreferences {
         prefs.putBoolean("actionSubmit", actionSubmit);
         prefs.putFloat("virtualBlocksAlpha", virtualBlocksAlpha);
         prefs.putFloat("countdownMax", countdownMax);
-        prefs.putFloat("collectedToWin",collectedToWin);
+        prefs.putInteger("lastLevel",lastLevel);
         prefs.flush();
     }
+
+    public void addOnetoLastLevelAndSave(){
+        lastLevel+=1;
+        prefs.putInteger("lastLevel", lastLevel);
+        prefs.flush();
+    }
+
 }

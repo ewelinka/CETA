@@ -77,7 +77,7 @@ public class FinalScreen extends AbstractGameScreen {
     private void onPlayClicked () {
         ScreenTransition transition = ScreenTransitionFade.init(0.75f);
         //game.setScreen(((CetaGame)game).getLevel1Screen(), transition);
-        game.setScreen(new Level1Screen(game), transition);
+        game.setScreen(new Level1HorizontalScreen(game), transition);
     }
 
     private Table buildBackgroundLayer () {

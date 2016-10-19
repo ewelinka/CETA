@@ -29,19 +29,16 @@ public class RoboticArmManager {
 
     public RoboticArmManager(Stage stage){
         this.stage = stage;
-        armPieces = new ArrayList<ArmPiece>();
-        armsToAdd = new ArrayList<ArmPiece>();
         // hardcoded
         initialX = -200;
-
-        lastX = initialX;
         initialY = Constants.BASE;
 
     }
 
     public void init(){
-
-
+        lastX = initialX;
+        armPieces = new ArrayList<ArmPiece>();
+        armsToAdd = new ArrayList<ArmPiece>();
     }
 
 

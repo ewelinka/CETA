@@ -11,13 +11,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by ewe on 8/23/16.
  */
-public class Level1Controller extends AbstractWorldController{
-    private static final String TAG = Level1Controller.class.getName();
+public class Level1HorizontalController extends AbstractWorldController{
+    private static final String TAG = Level1HorizontalController.class.getName();
     private Rectangle r1 = new Rectangle();
     private Rectangle r2 = new Rectangle();
 
@@ -25,7 +24,7 @@ public class Level1Controller extends AbstractWorldController{
     private VirtualBlocksManager virtualBlocksManager;
     private Stage stage;
 
-    public Level1Controller (DirectedGame game, Stage stage) {
+    public Level1HorizontalController(DirectedGame game, Stage stage) {
        // game = game;
         this.stage = stage;
         roboticArmManager = new RoboticArmManager(stage);
@@ -38,27 +37,23 @@ public class Level1Controller extends AbstractWorldController{
 
     private void localInit () {
         Gdx.app.log(TAG," local init");
-        initLevel();
-        virtualBlocksManager.init();
-        roboticArmManager.init();
-    }
-
-
-    private void initLevel(){
-        //it will load level data
-        level = new Level1(stage);
+        level = new Level1(stage, GamePreferences.instance.lastLevel);
         cameraHelper.setTarget(null);
         score = 0;
+        virtualBlocksManager.init();
+        roboticArmManager.init();
     }
 
 
     @Override
     public void update (float deltaTime) {
         // winning condition
-        if (score >= GamePreferences.instance.collectedToWin) {
+        if (score >= level.getOperationsNumber()) {
+            Gdx.app.log(TAG," yupiiiiii we won!");
             // this will be checked in renderer
-            //weWon = true;
+            weWon = true;
             //goToFinalScreen();
+            goToNextLevel();
 
         }
         handleDebugInput(deltaTime);
@@ -70,7 +65,7 @@ public class Level1Controller extends AbstractWorldController{
                 // we shake bruno
                 level.bruno.shake();
                 // if we reached the time
-                if(coutdownCurrentTime < 0 ){
+                if(countdownCurrentTime < 0 ){
                     Gdx.app.log(TAG, "wowowoowow action submit!");
                     virtualBlocksManager.updateDetected();
                     // computer vision manager update detected
@@ -78,10 +73,10 @@ public class Level1Controller extends AbstractWorldController{
 
                     updateArmPieces(virtualBlocksManager.getNewDetected(),virtualBlocksManager.getToRemove());
                     countdownOn = false;
-                    coutdownCurrentTime = GamePreferences.instance.countdownMax;
+                    countdownCurrentTime = GamePreferences.instance.countdownMax;
                 }
                 else // we still count
-                    coutdownCurrentTime-=deltaTime;
+                    countdownCurrentTime -=deltaTime;
             }
 
         }else{
@@ -105,8 +100,6 @@ public class Level1Controller extends AbstractWorldController{
     }
 
     private void testCollisions () {
-        // TODO check for top Y and x range
-        // now if the coin passes by the middle if also works (make sense! but not for us!)
         ArmPiece lastArm = getLastArmPiece();
         if(lastArm != null){
             // we check first when the move action is over
@@ -114,7 +107,7 @@ public class Level1Controller extends AbstractWorldController{
             if (lastArm.getActions().size == 0){
                 r1.set(lastArm.getX()+lastArm.getWidth(), lastArm.getY(), 2, lastArm.getHeight());
 
-                r2.set(level.price.getX(), level.price.getY(), level.price.bounds.width, level.price.bounds.height);
+                r2.set(level.price.getX(), level.price.getY()+level.price.getHeight()/2, level.price.bounds.width, level.price.bounds.height);
                 if (r1.overlaps(r2))
                     onCollisionBrunoWithGoldCoin(level.price);
             }
@@ -124,14 +117,20 @@ public class Level1Controller extends AbstractWorldController{
     private void onCollisionBrunoWithGoldCoin(Price goldcoin) {
         if(goldcoin.getActions().size == 0){ // we act just one time!
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-            Gdx.app.log(TAG,"score before: "+score);
             score += 1;
-            Gdx.app.log(TAG,"score after: "+score);
-            goldcoin.moveToNewPosition(level.bruno.getX()+level.bruno.getWidth());
+            if(level.isDynamic())
+                goldcoin.moveToNewPositionStartAbove(level.bruno.getX()+level.bruno.getWidth());
+            else
+                goldcoin.moveToNewPosition(level.bruno.getX()+level.bruno.getWidth());
         }
 
     };
 
+    private void goToNextLevel(){
+        GamePreferences.instance.addOnetoLastLevelAndSave();
+        stage.clear();
+        localInit();
+    }
 
     public ArmPiece getLastArmPiece(){
         return roboticArmManager.getLastArmPiece();

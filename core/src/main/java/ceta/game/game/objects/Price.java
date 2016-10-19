@@ -79,4 +79,20 @@ public class Price extends AbstractGameObject {
         addAction(Actions.moveTo(startX + newPosition*Constants.BASE - getWidth()/2, Constants.BASE,0.6f));
         //setPosition( );
     }
+
+    public void moveToNewPositionStartAbove(float startX){
+        short newPosition = (short)MathUtils.random(startNumber+1,endNumber);
+        while (newPosition == currentNumber){
+            newPosition = (short)MathUtils.random(startNumber+1,endNumber);
+        }
+        currentNumber = newPosition;
+
+        setPosition(startX + newPosition*Constants.BASE - getWidth()/2,Constants.VIEWPORT_HEIGHT/2-getHeight());
+
+
+    }
+
+    public short getCurrentNumber(){
+        return currentNumber;
+    }
 }

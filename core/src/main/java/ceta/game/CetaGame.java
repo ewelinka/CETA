@@ -2,7 +2,7 @@ package ceta.game;
 
 import ceta.game.game.Assets;
 import ceta.game.screens.DirectedGame;
-import ceta.game.screens.Level1Screen;
+import ceta.game.screens.Level1HorizontalScreen;
 import ceta.game.screens.MenuScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
@@ -25,7 +25,7 @@ public class CetaGame extends DirectedGame {
 	private OSCReceiver receiver;
 	private String localIp;
 	
-	private Level1Screen level1Screen;
+	private Level1HorizontalScreen level1Screen;
 	
 	
 	public CetaGame(){
@@ -48,7 +48,7 @@ public class CetaGame extends DirectedGame {
 		ScreenTransition transition = ScreenTransitionFade.init(1);
 		//setScreen(new MenuScreen(this),transition);
 		//setScreen(new TestScreen(this),transition);
-		level1Screen = new Level1Screen(this);
+		level1Screen = new Level1HorizontalScreen(this);
 		//setScreen(new MenuScreen(this),transition);
 		setScreen(level1Screen,transition);
 		//setScreen(new FinalScreen(this),transition);
@@ -74,7 +74,7 @@ public class CetaGame extends DirectedGame {
 		this.localIp = localIp;
 	}
 
-	public Level1Screen getLevel1Screen(){
+	public Level1HorizontalScreen getLevel1HorizontalScreen(){
 		return level1Screen;
 	}
 	

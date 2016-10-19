@@ -32,6 +32,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         nowId = 0;
         polygon = new Polygon();
         virtualBlocksOnStage = new ArrayList<VirtualBlock>();
+        resetDetectedAndRemoved();
         // polygon will be set for checks
         polygon = new Polygon();
         initBlocks();

@@ -62,11 +62,11 @@ public class MenuScreen extends AbstractGameScreen {
 
 
 
-    private Level1Screen screen1;
+    private Level1HorizontalScreen screen1;
 
     public MenuScreen (DirectedGame game) {
         super(game);
-        this.screen1 = ((CetaGame)game).getLevel1Screen();
+        this.screen1 = ((CetaGame)game).getLevel1HorizontalScreen();
     }
 
 
@@ -327,10 +327,8 @@ public class MenuScreen extends AbstractGameScreen {
         chkActionSubmit.setChecked(prefs.actionSubmit);
         sldCountdownMax.setValue(prefs.countdownMax);
         sldVirtualBlocksAlpha.setValue(prefs.virtualBlocksAlpha);
-        sldCollectedToWin.setValue(prefs.collectedToWin);
         visibilityValueLabel.setText("Visibilidad (0 to 1), ahora: "+prefs.virtualBlocksAlpha);
         countdownMaxValueLabel.setText("Countdown (0 a 10), ahora: "+prefs.countdownMax);
-        collectedToWinValueLabel.setText("Recolactar para ganar (1 a 10), ahora:"+prefs.collectedToWin);
     }
 
     private void saveSettings() {
@@ -339,7 +337,6 @@ public class MenuScreen extends AbstractGameScreen {
         prefs.actionSubmit = chkActionSubmit.isChecked();
         prefs.countdownMax = sldCountdownMax.getValue();
         prefs.virtualBlocksAlpha = sldVirtualBlocksAlpha.getValue();
-        prefs.collectedToWin = sldCollectedToWin.getValue();
         prefs.save();
     }
 
