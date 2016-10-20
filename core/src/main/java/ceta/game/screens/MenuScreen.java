@@ -45,17 +45,11 @@ public class MenuScreen extends AbstractGameScreen {
     private CheckBox chkActionSubmit;
     private Slider sldCountdownMax;
     private Slider sldVirtualBlocksAlpha;
-
     private Image imgBackground;
-
     private Label visibilityValueLabel;
     private Label countdownMaxValueLabel;
-
     private DecimalFormat formatter = new DecimalFormat("0.0##");
-
-    private TextButton btnStartGame;
     private TextButton btnConfigOz;
-
 
     private Level1HorizontalScreen screen1;
 
@@ -216,22 +210,6 @@ public class MenuScreen extends AbstractGameScreen {
                 visibilityValueLabel.setText("Visibilidad  (0 a 1), ahora: " + formatter.format(sldVirtualBlocksAlpha.getValue()));
             }
         });
-
-//
-//        tbl.row();
-//        // collected coins slider
-//        collectedToWinValueLabel = new Label("Recolactar para ganar (1 a 10), ahora: 10.0", skin);
-//        tbl.add(collectedToWinValueLabel);
-//
-//        tbl.row();
-//        sldCollectedToWin = new Slider (1.0f,10.0f,1.0f,false,skin);
-//        tbl.add(sldCollectedToWin).padBottom(10);
-//        sldCollectedToWin.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent changeEvent, Actor actor) {
-//                collectedToWinValueLabel.setText("Recolactar para ganar (1 a 10), ahora: " + formatter.format(sldCollectedToWin.getValue()));
-//            }
-//        });
 
         // + Save Button with event handler
         tbl.row();

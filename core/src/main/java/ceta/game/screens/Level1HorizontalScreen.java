@@ -20,12 +20,7 @@ import com.illposed.osc.OSCMessage;
  * Created by ewe on 8/23/16.
  */
 public class Level1HorizontalScreen extends AbstractGameScreen implements OSCListener{
-	
     private static final String TAG = Level1HorizontalScreen.class.getName();
-//    private Level1HorizontalController worldController;
-//    private WorldRendererLevel1 worldRendererLevel1;
-    //private Stage stage;
-
     private boolean paused;
 
     public Level1HorizontalScreen(DirectedGame game) {
