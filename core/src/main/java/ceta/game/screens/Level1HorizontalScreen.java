@@ -24,7 +24,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
     private static final String TAG = Level1HorizontalScreen.class.getName();
 //    private Level1HorizontalController worldController;
 //    private WorldRendererLevel1 worldRendererLevel1;
-    private Stage stage;
+    //private Stage stage;
 
     private boolean paused;
 
