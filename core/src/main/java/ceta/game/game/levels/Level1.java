@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Json;
  * Created by ewe on 8/23/16.
  */
 public class Level1 extends AbstractLevel {
-    public static final String TAG = Test.class.getName();
+    public static final String TAG = Level1.class.getName();
     private int levelNr;
 
     public Level1(Stage stage, int level){
@@ -27,12 +27,33 @@ public class Level1 extends AbstractLevel {
 
         bruno = new Bruno();
         bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X ,0);
-        stage.addActor(bruno);
-        
+
         price = new Price();
-        price.setStartAndEnd((short)levelParams.numberMin,(short)levelParams.numberMax);
-        price.setNewPosition(bruno.getX()+bruno.getWidth());
         price.setVelocity((short)levelParams.priceVelocity);
+        price.setStartAndEnd((short)levelParams.numberMin,(short)levelParams.numberMax);
+
+        //TODO perhaps we should change more: size, position,...
+        Gdx.app.log(TAG,"..." + levelParams.type+"...");
+        if(levelParams.type.equals("horizontal")){
+            Gdx.app.log(TAG,"...horizontal");
+            price.setIsMovingVertical(true);
+            if(levelParams.isDynamic) {
+                Gdx.app.log(TAG,"...horizontal dynamic");
+                price.setNewPosition(bruno.getX() + bruno.getWidth(), Constants.VIEWPORT_HEIGHT / 2 - price.getHeight());
+            }
+            else{
+                Gdx.app.log(TAG,"... NOT dinamic");
+                price.setNewPosition(bruno.getX()+bruno.getWidth(), Constants.BASE);
+            }
+
+        } else if (levelParams.type.equals("vertical")){
+            Gdx.app.log(TAG,"...vertical");
+            price.setIsMovingVertical(false);
+
+        }
+
+        // add actors
+        stage.addActor(bruno);
         stage.addActor(price);
     }
 

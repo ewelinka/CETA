@@ -2,6 +2,7 @@ package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
+import ceta.game.util.RoboticArmManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,9 +21,12 @@ public class ArmPiece extends AbstractGameObject {
     private short armValue;
     private short id;
     private float terminalX;
+    private RoboticArmManager armsManager;
 
-    public ArmPiece(short val){
+    public ArmPiece(short val, RoboticArmManager armsMan){
         armValue = val;
+        armsManager = armsMan;
+
         switch (armValue){
             case 1:
                 setColor(Color.LIME);
@@ -80,7 +84,9 @@ public class ArmPiece extends AbstractGameObject {
     public void goBackAndRemove(){
         addAction(sequence(parallel(Actions.moveTo(getX()-getWidth(),getY(),1f),Actions.alpha(0,1f)),run(new Runnable() {
             public void run() {
+                armsManager.notificationArmGone(id);
                 remove();
+
             }
         })));
     }

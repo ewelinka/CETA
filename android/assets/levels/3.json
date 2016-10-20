@@ -1,6 +1,6 @@
 {
   level: 3,
-  type: "horizontal",
+  type: "vertical",
   operationsNumber: 10,
   numberMin: 0,
   numberMax: 10,

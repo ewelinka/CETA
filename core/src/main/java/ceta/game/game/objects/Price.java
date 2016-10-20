@@ -33,7 +33,7 @@ public class Price extends AbstractGameObject {
 
     public void update(float deltaTime){
 
-        if(isVertical)
+        if(isMovingVertical) // vertical falling = horizontal number line
             updateVertical(deltaTime);
         else
             updateHorizontal(deltaTime);
@@ -64,10 +64,12 @@ public class Price extends AbstractGameObject {
         endNumber = e;
     }
 
-    public void setNewPosition(float startX){
+    public void setNewPosition(float startX, float startY){
         currentNumber = (short)(MathUtils.random(startNumber+1,endNumber));
-        setPosition( startX + currentNumber*Constants.BASE - getWidth()/2, Constants.BASE );
+        setPosition( startX + currentNumber*Constants.BASE - getWidth()/2, startY );
     }
+
+
     public void moveToNewPosition(float startX){
         short newPosition = (short)MathUtils.random(startNumber+1,endNumber);
         while (newPosition == currentNumber){
@@ -91,6 +93,8 @@ public class Price extends AbstractGameObject {
 
 
     }
+
+
 
     public short getCurrentNumber(){
         return currentNumber;

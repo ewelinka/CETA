@@ -1,11 +1,13 @@
 package ceta.game.screens;
 
 import ceta.game.transitions.ScreenTransition;
+import ceta.game.util.LevelsManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Created by ewe on 7/25/16.
@@ -20,6 +22,9 @@ public abstract class DirectedGame extends Game {
     private SpriteBatch batch;
     private float t;
     private ScreenTransition screenTransition;
+
+    protected LevelsManager levelsManager;
+    protected Stage mainStage;
 
     @Override
     public void render () {
@@ -112,6 +117,15 @@ public abstract class DirectedGame extends Game {
         this.screenTransition = screenTransition;
         t = 0;
     }
+
+    public LevelsManager getLevelsManager(){
+        return levelsManager;
+    }
+
+    public Stage getMainStage(){
+        return mainStage;
+    }
+
 
 
 

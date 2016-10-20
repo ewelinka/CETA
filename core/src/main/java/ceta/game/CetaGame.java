@@ -8,6 +8,7 @@ import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.AudioManager;
 import ceta.game.util.GamePreferences;
+import ceta.game.util.LevelsManager;
 import ceta.game.util.osc.OSCReceiver;
 
 import com.badlogic.gdx.Application;
@@ -20,8 +21,7 @@ import com.illposed.osc.OSCListener;
 
 
 public class CetaGame extends DirectedGame {
-	SpriteBatch batch;
-	Texture img;
+
 	private OSCReceiver receiver;
 	private String localIp;
 	
@@ -43,6 +43,8 @@ public class CetaGame extends DirectedGame {
 		Assets.instance.init(new AssetManager());
 		// load preferences
 		GamePreferences.instance.load();
+		levelsManager = new LevelsManager(this);
+
 		// load music
 		AudioManager.instance.play(Assets.instance.music.song01);
 		ScreenTransition transition = ScreenTransitionFade.init(1);
@@ -52,6 +54,7 @@ public class CetaGame extends DirectedGame {
 		//setScreen(new MenuScreen(this),transition);
 		setScreen(level1Screen,transition);
 		//setScreen(new FinalScreen(this),transition);
+
 	}
 	
 	
@@ -73,6 +76,7 @@ public class CetaGame extends DirectedGame {
 	public void setLocalIp(String localIp) {
 		this.localIp = localIp;
 	}
+
 
 	public Level1HorizontalScreen getLevel1HorizontalScreen(){
 		return level1Screen;

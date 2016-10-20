@@ -38,10 +38,17 @@ public class GamePreferences {
         prefs.flush();
     }
 
-    public void addOnetoLastLevelAndSave(){
+    public void addOneToLastLevelAndSave(){
         lastLevel+=1;
         prefs.putInteger("lastLevel", lastLevel);
         prefs.flush();
+    }
+
+    public void setLastLevel(int newLastLevel){
+        lastLevel=newLastLevel;
+        prefs.putInteger("lastLevel", lastLevel);
+        prefs.flush();
+
     }
 
 }

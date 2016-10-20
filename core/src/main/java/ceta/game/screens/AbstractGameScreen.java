@@ -18,7 +18,9 @@ public abstract class AbstractGameScreen  implements Screen {
     protected AbstractWorldController worldController;
 
     public AbstractGameScreen (DirectedGame game) {
+
         this.game = game;
+        this.stage = game.getMainStage();
     }
 
     // Subclasses must load actors in this method

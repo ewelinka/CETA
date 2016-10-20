@@ -4,11 +4,16 @@ import ceta.game.game.objects.ArmPiece;
 import ceta.game.game.objects.Latter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
  * Created by ewe on 8/23/16.
@@ -46,7 +51,7 @@ public class RoboticArmManager {
         if(toRemove.size() > 0){
             Gdx.app.debug(TAG,"to remove! so many: "+toRemove.size());
             removeArms(toRemove);
-            updatePositionsIfRemoved();
+            //updatePositionsIfRemoved();
         }
 
         if(toAdd.size() > 0){
@@ -116,7 +121,7 @@ public class RoboticArmManager {
         int negativeInitX = initialX; // we reset the negativeInitX to bruno's position
         for(short i=0; i< toAdd.size();i++){
             Gdx.app.debug(TAG,"we add new arm piece id "+toAdd.get(i).getKey()+ " and value "+toAdd.get(i).getValue());
-            ArmPiece armToAdd = new ArmPiece(toAdd.get(i).getValue());
+            ArmPiece armToAdd = new ArmPiece(toAdd.get(i).getValue(),this);
             armToAdd.setId(toAdd.get(i).getKey());
             //armToAdd.setPosition(negativeInitX - armToAdd.getWidth(),initialY );
             negativeInitX -= armToAdd.getWidth();
@@ -131,23 +136,52 @@ public class RoboticArmManager {
         // we start at the beginning and check if the arm piece should be removed
         for(int i=armPieces.size()-1;i>=0;i--){
             if(shouldRemove.contains(armPieces.get(i).getId())){
-                removeOneByIndex((short)i);
+                //removeOneByIndex((short)i);
+                removeActorByIndex((short)i);
             }
         }
     }
 
     private void removeOneByIndex(short which){
         // remove Actor
-        //armPieces.get(which).remove();
         armPieces.get(which).goBackAndRemove();
         //remove from armPieces
         armPieces.remove(which);
 
     }
 
+    private void removeActorByIndex(short which){
+        armPieces.get(which).goBackAndRemove();
+    }
+
+    private void removeOneById(short id){
+        for(int i=armPieces.size()-1;i>=0;i--){
+            if(armPieces.get(i).getId() == id){
+                armPieces.get(i).goBackAndRemove(); // remove Actor
+                armPieces.remove(i); //remove from armPieces array
+            }
+        }
+    }
+
+    private void removeFromArrayByIdAndUpdatePositions(short id){
+        for(int i=armPieces.size()-1;i>=0;i--){
+            if(armPieces.get(i).getId() == id){
+                armPieces.remove(i); //remove from armPieces array
+                break;
+            }
+        }
+        updatePositionsIfRemoved();
+    }
+
+
     public ArmPiece getLastArmPiece(){
         if(armPieces.size()>0)
             return armPieces.get(armPieces.size()-1);
         return null;
     }
+
+    public void notificationArmGone(short armId){
+        removeFromArrayByIdAndUpdatePositions(armId);
+    }
+
 }

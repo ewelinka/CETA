@@ -3,6 +3,7 @@ package ceta.game.screens;
 import java.util.Date;
 import java.util.List;
 
+import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.game.renderers.WorldRendererLevel1;
 import ceta.game.game.controllers.Level1HorizontalController;
 import ceta.game.util.Constants;
@@ -21,8 +22,8 @@ import com.illposed.osc.OSCMessage;
 public class Level1HorizontalScreen extends AbstractGameScreen implements OSCListener{
 	
     private static final String TAG = Level1HorizontalScreen.class.getName();
-    private Level1HorizontalController worldController;
-    private WorldRendererLevel1 worldRendererLevel1;
+//    private Level1HorizontalController worldController;
+//    private WorldRendererLevel1 worldRendererLevel1;
     private Stage stage;
 
     private boolean paused;
@@ -30,6 +31,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
     public Level1HorizontalScreen(DirectedGame game) {
 
         super(game);
+
     }
 
 
@@ -42,14 +44,14 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
         }
         // Render game world to screen
-        worldRendererLevel1.render();
+        worldRenderer.render();
 
     }
 
 
     @Override
     public void resize(int width, int height) {
-        worldRendererLevel1.resize(width, height);
+        worldRenderer.resize(width, height);
 
     }
 
@@ -60,7 +62,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
-        worldRendererLevel1 = new WorldRendererLevel1(worldController,stage);
+        worldRenderer = new WorldRendererLevel1(worldController,stage);
         // android back key
         Gdx.input.setCatchBackKey(true);
     }
@@ -68,7 +70,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
     @Override
     public void hide() {
         worldController.dispose();
-        worldRendererLevel1.dispose();
+        worldRenderer.dispose();
         stage.dispose();
         Gdx.input.setCatchBackKey(false);
     }
@@ -88,7 +90,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
     @Override
     public void dispose(){
         worldController.dispose();
-        worldRendererLevel1.dispose();
+        worldRenderer.dispose();
         stage.dispose();
 
     }
@@ -102,7 +104,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
         return multiplexer;
     }
 
-    public Level1HorizontalController getLevel1Controller(){
+    public AbstractWorldController getLevel1Controller(){
         return worldController;
     }
 
@@ -124,7 +126,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
     		 * blockValue
     	     * blockId
              */
-            worldController.getVirtualBlocksManagerOSC().oscAdd(
+            ((Level1HorizontalController)worldController).getVirtualBlocksManagerOSC().oscAdd(
                     Float.valueOf(arguments.get(1).toString()), // value
                     Integer.valueOf(arguments.get(2).toString()), // id
                     Float.valueOf(arguments.get(3).toString()), // pos x
@@ -132,7 +134,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
                     Float.valueOf(arguments.get(5).toString()) // rotation
             );
         }else if(arguments.get(0).equals("removeBlock")){
-            worldController.getVirtualBlocksManagerOSC().oscRemove(
+            ((Level1HorizontalController)worldController).getVirtualBlocksManagerOSC().oscRemove(
                     Integer.valueOf(arguments.get(1).toString()) // id to remove
             );
             /*
@@ -147,7 +149,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
     		 * blockValue
     	     * blockId
              */
-            worldController.getVirtualBlocksManagerOSC().oscUpdateBlock(
+            ((Level1HorizontalController)worldController).getVirtualBlocksManagerOSC().oscUpdateBlock(
                     Integer.valueOf(arguments.get(2).toString()), // id
                     Float.valueOf(arguments.get(3).toString()), // pos x
                     Float.valueOf(arguments.get(4).toString()), // pos y

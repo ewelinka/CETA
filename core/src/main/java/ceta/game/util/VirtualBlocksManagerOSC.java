@@ -1,17 +1,12 @@
 package ceta.game.util;
 
-import ceta.game.game.objects.ArmPiece;
 import ceta.game.game.objects.VirtualBlock;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.illposed.osc.OSCListener;
-import com.illposed.osc.OSCMessage;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 
@@ -92,7 +87,22 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
 
     @Override
     public void blockRemovedWithId(short id){
-        toRemoveOSC.add(id);
+
+        boolean inDetected = false;
+        // TODO check if its not waiting to be added, add+remove = 0!
+        for(int i =0; i<newDetectedOSC.size();i++){
+            Gdx.app.log(TAG," id "+id + " key: "+newDetectedOSC.get(i).getKey());
+            if(newDetectedOSC.get(i).getKey() == id){
+                newDetectedOSC.remove(i);
+                inDetected = true;
+                break;
+            }
+        }
+        if(!inDetected)
+            toRemoveOSC.add(id);
+
+
+      //  toRemoveOSC.add(id);
 
     }
 

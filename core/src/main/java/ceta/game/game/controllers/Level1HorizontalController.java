@@ -21,18 +21,16 @@ public class Level1HorizontalController extends AbstractWorldController{
     private Rectangle r2 = new Rectangle();
 
     private RoboticArmManager roboticArmManager;
-    private VirtualBlocksManager virtualBlocksManager;
+    private VirtualBlocksManagerOSC virtualBlocksManager;
     private Stage stage;
 
     public Level1HorizontalController(DirectedGame game, Stage stage) {
-       // game = game;
         this.stage = stage;
         roboticArmManager = new RoboticArmManager(stage);
         // TODO change after wizard of oz
-        virtualBlocksManager = new VirtualBlocksManager(stage);
+        virtualBlocksManager = new VirtualBlocksManagerOSC(stage);
         super.init(game);
         localInit();
-
     }
 
     private void localInit () {
@@ -48,47 +46,41 @@ public class Level1HorizontalController extends AbstractWorldController{
     @Override
     public void update (float deltaTime) {
         // winning condition
-        if (score >= level.getOperationsNumber()) {
-            Gdx.app.log(TAG," yupiiiiii we won!");
-            GamePreferences.instance.addOnetoLastLevelAndSave();
-            goToFinalScreen();
-        }
+        testCollisions();
+//        if (score >= level.getOperationsNumber()) {
+//            Gdx.app.log(TAG," yupiiiiii we won!");
+//            goToFinalScreen();
+//        }
+
         handleDebugInput(deltaTime);
         level.update(deltaTime); //stage.act()
 
-        if(GamePreferences.instance.actionSubmit){
+        if (GamePreferences.instance.actionSubmit) {
             // if we are counting
-            if(countdownOn){
+            if (countdownOn) {
                 // we shake bruno
                 level.bruno.shake();
                 // if we reached the time
-                if(countdownCurrentTime < 0 ){
+                if (countdownCurrentTime < 0) {
                     Gdx.app.log(TAG, "wowowoowow action submit!");
                     virtualBlocksManager.updateDetected();
                     // computer vision manager update detected
                     // cvManager.update();
 
-                    updateArmPieces(virtualBlocksManager.getNewDetected(),virtualBlocksManager.getToRemove());
+                    updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
                     countdownOn = false;
                     countdownCurrentTime = GamePreferences.instance.countdownMax;
-                }
-                else // we still count
-                    countdownCurrentTime -=deltaTime;
+                } else // we still count
+                    countdownCurrentTime -= deltaTime;
             }
 
-        }else{
+        } else {
             virtualBlocksManager.updateDetected();
             // computer vision manager update detected
             // cvManager.update();
-            updateArmPieces(virtualBlocksManager.getNewDetected(),virtualBlocksManager.getToRemove());
+            updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
         }
-
-
-        // TODO check if it should goes to the end
-        testCollisions();
-
         cameraHelper.update(deltaTime);
-
     }
 
     @Override
@@ -98,36 +90,38 @@ public class Level1HorizontalController extends AbstractWorldController{
 
     private void testCollisions () {
         ArmPiece lastArm = getLastArmPiece();
-        if(lastArm != null){
+        if (lastArm != null) {
             // we check first when the move action is over
             // if not we have problems with pieces passing thought the coin
-            if (lastArm.getActions().size == 0){
-                r1.set(lastArm.getX()+lastArm.getWidth(), lastArm.getY(), 2, lastArm.getHeight());
+            if (lastArm.getActions().size == 0) {
+                r1.set(lastArm.getX() + lastArm.getWidth(), lastArm.getY(), 2, lastArm.getHeight());
+                r2.set(level.price.getX(), level.price.getY() + level.price.getHeight() / 2, level.price.bounds.width, level.price.bounds.height);
 
-                r2.set(level.price.getX(), level.price.getY()+level.price.getHeight()/2, level.price.bounds.width, level.price.bounds.height);
                 if (r1.overlaps(r2))
                     onCollisionBrunoWithGoldCoin(level.price);
             }
         }
+
     }
+
 
     private void onCollisionBrunoWithGoldCoin(Price goldcoin) {
         if(goldcoin.getActions().size == 0){ // we act just one time!
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
-            if(level.isDynamic())
-                goldcoin.moveToNewPositionStartAbove(level.bruno.getX()+level.bruno.getWidth());
+            //TODO some nice yupi animation
+            if(score<level.getOperationsNumber()) {
+                if (level.isDynamic())
+                    goldcoin.moveToNewPositionStartAbove(level.bruno.getX() + level.bruno.getWidth());
+                else
+                    goldcoin.moveToNewPosition(level.bruno.getX() + level.bruno.getWidth());
+            }
             else
-                goldcoin.moveToNewPosition(level.bruno.getX()+level.bruno.getWidth());
+                goToFinalScreen();
         }
 
     };
 
-    private void goToNextLevel(){
-        GamePreferences.instance.addOnetoLastLevelAndSave();
-        stage.clear();
-        localInit();
-    }
 
     public ArmPiece getLastArmPiece(){
         return roboticArmManager.getLastArmPiece();
@@ -140,8 +134,8 @@ public class Level1HorizontalController extends AbstractWorldController{
     }
 
     public VirtualBlocksManagerOSC getVirtualBlocksManagerOSC(){
-        return  new VirtualBlocksManagerOSC(stage);
-        //return virtualBlocksManager;
+        //return  new VirtualBlocksManagerOSC(stage);
+        return virtualBlocksManager;
     }
 
 

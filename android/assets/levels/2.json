@@ -7,6 +7,6 @@
   numberOrOperation: "number",
   isDynamic: true,
   priceReturn: 10,
-  priceVelocity: -50,
+  priceVelocity: -100,
   visibleNumberLine: true
 }

@@ -45,21 +45,16 @@ public class MenuScreen extends AbstractGameScreen {
     private CheckBox chkActionSubmit;
     private Slider sldCountdownMax;
     private Slider sldVirtualBlocksAlpha;
-    private Slider sldCollectedToWin;
+
     private Image imgBackground;
 
     private Label visibilityValueLabel;
     private Label countdownMaxValueLabel;
-    private Label collectedToWinValueLabel;
+
     private DecimalFormat formatter = new DecimalFormat("0.0##");
-
-
-
 
     private TextButton btnStartGame;
     private TextButton btnConfigOz;
-
-
 
 
     private Level1HorizontalScreen screen1;
@@ -83,11 +78,7 @@ public class MenuScreen extends AbstractGameScreen {
         stack.setSize(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2);
         stack.add(layerBackground);
         stack.add(layerControls);
-
         stage.addActor(layerOptionsWindow);
-
-
-
     }
 
     public void render (float deltaTime){
@@ -125,58 +116,8 @@ public class MenuScreen extends AbstractGameScreen {
     	//TODO Ewe: Display ((CetaGame)game).getLocalIp(); on screen. De momento cambio el texto del boton para poder ver la ip en algun lado    	
    }
 
-    private Table buildPlayMenu () {
-        /// ------------------ start -- just to create a simple button!! what a caos!!
-        skin = new Skin();
-        // Generate a 1x1 white texture and store it in the skin named "white".
-        Pixmap pixmap = new Pixmap(140, 70, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
-        pixmap.fill();
-        skin.add("white", new Texture(pixmap));
-        // Store the default libgdx font under the name "default".
-        BitmapFont bfont=new BitmapFont();
-        bfont.getData().scale(2);
-        // bfont.scale(1);
-        skin.add("default",bfont);
-        // Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
-        textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
-        textButtonStyle.font = skin.getFont("default");
-        skin.add("default", textButtonStyle);
-        /// ------------------ end --
-        btnStartGame =new TextButton("JUGAR",textButtonStyle);
-
-        Table tbl = new Table();
-        //tbl.left().bottom();
-        tbl.add(btnStartGame).align(Align.top);
-        tbl.setPosition(Constants.VIEWPORT_WIDTH/2 - tbl.getWidth() , Constants.VIEWPORT_HEIGHT/2);
-        btnStartGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                onPlayClicked();
-            }
-        });
-        
-        tbl.row();
-        btnConfigOz = new TextButton("START OZ", textButtonStyle);
-        tbl.add(btnConfigOz).align(Align.bottom);
-        btnConfigOz.addListener(new ChangeListener() {
-			
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				onStartOzClicked();
-			}
-		});
-        
-        return tbl;
-    }
-
     private Table buildOptionsWindowLayer () {
         winOptions = new Window("Opciones", skin);
-
         // + Separator and Buttons (Save, Cancel)
         winOptions.add(buildOptWinButtons()).pad(10, 0, 0, 0);
         // Make options window slightly transparent
@@ -196,7 +137,6 @@ public class MenuScreen extends AbstractGameScreen {
         layer.center().center();
         // + Play Button
         layer.pad(100, 0, 0, 10);
-
         btnMenuPlay = new TextButton("Jugar", skin);
         layer.add(btnMenuPlay).padBottom(10);
         btnMenuPlay.addListener(new ChangeListener() {
@@ -277,21 +217,21 @@ public class MenuScreen extends AbstractGameScreen {
             }
         });
 
-
-        tbl.row();
-        // collected coins slider
-        collectedToWinValueLabel = new Label("Recolactar para ganar (1 a 10), ahora: 10.0", skin);
-        tbl.add(collectedToWinValueLabel);
-
-        tbl.row();
-        sldCollectedToWin = new Slider (1.0f,10.0f,1.0f,false,skin);
-        tbl.add(sldCollectedToWin).padBottom(10);
-        sldCollectedToWin.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                collectedToWinValueLabel.setText("Recolactar para ganar (1 a 10), ahora: " + formatter.format(sldCollectedToWin.getValue()));
-            }
-        });
+//
+//        tbl.row();
+//        // collected coins slider
+//        collectedToWinValueLabel = new Label("Recolactar para ganar (1 a 10), ahora: 10.0", skin);
+//        tbl.add(collectedToWinValueLabel);
+//
+//        tbl.row();
+//        sldCollectedToWin = new Slider (1.0f,10.0f,1.0f,false,skin);
+//        tbl.add(sldCollectedToWin).padBottom(10);
+//        sldCollectedToWin.addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ChangeEvent changeEvent, Actor actor) {
+//                collectedToWinValueLabel.setText("Recolactar para ganar (1 a 10), ahora: " + formatter.format(sldCollectedToWin.getValue()));
+//            }
+//        });
 
         // + Save Button with event handler
         tbl.row();
@@ -305,7 +245,7 @@ public class MenuScreen extends AbstractGameScreen {
         });
         // + Cancel Button with event handler
         btnWinOptCancel = new TextButton("Cancel", skin);
-        tbl.add(btnWinOptCancel);
+        tbl.add(btnWinOptCancel).left();
         btnWinOptCancel.addListener(new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {

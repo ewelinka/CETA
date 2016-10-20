@@ -16,13 +16,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.utils.Disposable;
-import com.illposed.osc.OSCListener;
-import com.illposed.osc.OSCMessage;
+
 
 /**
  * Created by ewe on 8/23/16.
  */
-public abstract class  AbstractWorldController extends InputAdapter implements Disposable, OSCListener {
+public abstract class  AbstractWorldController extends InputAdapter implements Disposable {
     private static final String TAG = AbstractWorldController.class.getName();
     public CameraHelper cameraHelper;
     public AbstractLevel level;
@@ -120,16 +119,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         cameraHelper.setPosition(x, y);
     }
 
-    
-    @Override
-	public void acceptMessage(Date arg0, OSCMessage arg1) {
-	  Gdx.app.log(TAG, "message received!!!");
-	
-		for(int i =0;i< arg1.getArguments().size();i++){
-			 Gdx.app.log(TAG,"arg("+i+")="+arg1.getArguments().get(i));
-		}
-		 Gdx.app.log(TAG, "----------- end of message ------------");
-	}
+
 
     public boolean getCountdownOn(){
         return countdownOn;
