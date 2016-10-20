@@ -111,18 +111,21 @@ public class Level1HorizontalController extends AbstractWorldController{
 
 
     private void onCollisionBrunoWithGoldCoin(Price goldcoin) {
-        if(goldcoin.getActions().size == 0){ // we act just one time!
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-            score += 1;
-            //TODO some nice yupi animation
-            if(score<level.getOperationsNumber()) {
-                if (level.isDynamic())
-                    goldcoin.moveToNewPositionStartAbove(level.bruno.getX() + level.bruno.getWidth());
-                else
-                    goldcoin.moveToNewPosition(level.bruno.getX() + level.bruno.getWidth());
+        if(!roboticArmManager.isUpdatingArmPiecesPositions()) {
+            Gdx.app.log(TAG, "NO updates in progress!!");
+
+            if (goldcoin.getActions().size == 0) { // we act just one time!
+                AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+                score += 1;
+                //TODO some nice yupi animation
+                if (score < level.getOperationsNumber()) {
+                    if (level.isDynamic())
+                        goldcoin.moveToNewPositionStartAbove(level.bruno.getX() + level.bruno.getWidth());
+                    else
+                        goldcoin.moveToNewPosition(level.bruno.getX() + level.bruno.getWidth());
+                } else
+                    goToFinalScreen();
             }
-            else
-                goToFinalScreen();
         }
 
     };

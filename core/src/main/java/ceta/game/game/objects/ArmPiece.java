@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
@@ -79,6 +80,22 @@ public class ArmPiece extends AbstractGameObject {
 
     public short getArmValue(){
         return armValue;
+    }
+
+    public void moveMeToAndSetTerminalX(float x, float y){
+        MoveToAction moveToAction = new MoveToAction();
+        moveToAction.setPosition(x,y);
+        moveToAction.setDuration(1f);
+
+        setTerminalX(x);
+
+        addAction(sequence(moveToAction,
+                run(new Runnable() {
+                    public void run() {
+                        armsManager.notificationArmMoved(id);
+                    }
+                })
+        ));
     }
 
     public void goBackAndRemove(){

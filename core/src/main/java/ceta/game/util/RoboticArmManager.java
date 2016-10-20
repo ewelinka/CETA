@@ -24,6 +24,7 @@ public class RoboticArmManager {
 
     private ArrayList<ArmPiece> armPieces;
     private ArrayList<ArmPiece> armsToAdd;
+    private ArrayList<Short> inMovementIds = new ArrayList<Short>();
 
     private short initialX;
     private short initialY;
@@ -50,7 +51,7 @@ public class RoboticArmManager {
     public void update(ArrayList toAdd, ArrayList toRemove ){
         if(toRemove.size() > 0){
             Gdx.app.debug(TAG,"to remove! so many: "+toRemove.size());
-            removeArms(toRemove);
+            removeArms(toRemove); // removed arms notify the manager and we update the positions
             //updatePositionsIfRemoved();
         }
 
@@ -69,11 +70,8 @@ public class RoboticArmManager {
             // TODO see how to reuse the actions
             // http://www.gamefromscratch.com/post/2014/10/28/Re-using-actions-in-LibGDX.aspx
             if(armPieces.get(i).getX() != lastX){
-                moveToAction = new MoveToAction();
-                moveToAction.setPosition(lastX,initialY);
-                moveToAction.setDuration(1f);
-                armPieces.get(i).addAction(moveToAction);
-                armPieces.get(i).setTerminalX(lastX);
+                inMovementIds.add(armPieces.get(i).getId()); // we monitor this piece
+                armPieces.get(i).moveMeToAndSetTerminalX(lastX,initialY);
                 //Gdx.app.debug(TAG," we added action to arm piece number "+i+" and moved it to "+lastY);
             }
             lastX += armPieces.get(i).getWidth();
@@ -86,30 +84,19 @@ public class RoboticArmManager {
         for(short i=0;i<armPieces.size();i++){
             // TODO see how to reuse the actions
             // http://www.gamefromscratch.com/post/2014/10/28/Re-using-actions-in-LibGDX.aspx
-            moveToAction = new MoveToAction();
-            moveToAction.setPosition(armPieces.get(i).getTerminalX()+moveRight,armPieces.get(i).getY());
-            moveToAction.setDuration(1f);
-            armPieces.get(i).addAction(moveToAction);
-            armPieces.get(i).setTerminalX(armPieces.get(i).getTerminalX()+moveRight);
-            Gdx.app.debug(TAG," we added action to arm piece id "+armPieces.get(i).getId()+" and moved it TO "+armPieces.get(i).getTerminalX());
-
+            inMovementIds.add(armPieces.get(i).getId());
+            armPieces.get(i).moveMeToAndSetTerminalX(armPieces.get(i).getTerminalX()+moveRight,armPieces.get(i).getY());
         }
 
         // we update the positions of new arm pieces
         int moveTo = initialX;
         for(short i=0;i<armsToAdd.size();i++) {
+            inMovementIds.add(armsToAdd.get(i).getId());
             armsToAdd.get(i).setPosition(negativeInitX,initialY );
-            moveToAction = new MoveToAction();
-            moveToAction.setPosition(moveTo,initialY);
-            moveToAction.setDuration(1f);
-            armsToAdd.get(i).addAction(moveToAction);
-            armsToAdd.get(i).setTerminalX(moveTo);
-
-            Gdx.app.debug(TAG," we added action to arm piece id "+armsToAdd.get(i).getId()+" and moved it TO "+moveTo);
+            armsToAdd.get(i).moveMeToAndSetTerminalX(moveTo,initialY);
 
             moveTo+= armsToAdd.get(i).getWidth();
             negativeInitX+=armsToAdd.get(i).getWidth();
-
         }
         armsToAdd.addAll(armPieces);
         armPieces = new ArrayList(armsToAdd);
@@ -120,7 +107,6 @@ public class RoboticArmManager {
     private int addArmsFromLeftToRight(ArrayList<Pair<Short,Short>> toAdd){
         int negativeInitX = initialX; // we reset the negativeInitX to bruno's position
         for(short i=0; i< toAdd.size();i++){
-            Gdx.app.debug(TAG,"we add new arm piece id "+toAdd.get(i).getKey()+ " and value "+toAdd.get(i).getValue());
             ArmPiece armToAdd = new ArmPiece(toAdd.get(i).getValue(),this);
             armToAdd.setId(toAdd.get(i).getKey());
             //armToAdd.setPosition(negativeInitX - armToAdd.getWidth(),initialY );
@@ -136,6 +122,7 @@ public class RoboticArmManager {
         // we start at the beginning and check if the arm piece should be removed
         for(int i=armPieces.size()-1;i>=0;i--){
             if(shouldRemove.contains(armPieces.get(i).getId())){
+                inMovementIds.add(armPieces.get(i).getId()); // we have to now if something is going on
                 //removeOneByIndex((short)i);
                 removeActorByIndex((short)i);
             }
@@ -180,8 +167,21 @@ public class RoboticArmManager {
         return null;
     }
 
+    private void removeFromInMovementIds(short id){
+        inMovementIds.remove((Object)id);
+    }
+
     public void notificationArmGone(short armId){
+        removeFromInMovementIds(armId);
         removeFromArrayByIdAndUpdatePositions(armId);
+    }
+
+    public void notificationArmMoved(short armId){
+        removeFromInMovementIds(armId);
+    }
+
+    public boolean isUpdatingArmPiecesPositions(){
+        return inMovementIds.size() > 0;
     }
 
 }
