@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.JsonValue;
  * Created by ewe on 10/17/16.
  */
 public class LevelParams {
-    //JsonValue params;
     public int level;
     public String type;
     public int operationsNumber;
@@ -21,10 +20,4 @@ public class LevelParams {
     public int priceVelocity;
     public boolean visibleNumberLine;
 
-
-//    public LevelParams(int levelNr){
-//        params = new JsonReader().parse(Gdx.files.internal(Constants.LEVELS_FOLDER+"/"+levelNr+".json"));
-//
-//
-//    };
 }

@@ -32,6 +32,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         nowId = 0;
         polygon = new Polygon();
         virtualBlocksOnStage = new ArrayList<VirtualBlock>();
+        resetDetectedAndRemoved();
         // polygon will be set for checks
         polygon = new Polygon();
         initBlocks();
@@ -146,10 +147,10 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     protected void removeFromStageById(int whichId){
         // remove Actor
-        Gdx.app.log(TAG,"we should remove id: "+whichId);
+        Gdx.app.log(TAG,"we should remove id: "+whichId+" from stage");
         for(int i=0;i<virtualBlocksOnStage.size();i++){
-            Gdx.app.log(TAG,"we are chacking block "+i+" id: "+virtualBlocksOnStage.get(i).getBlockId());
-            if(virtualBlocksOnStage.get(i).getBlockId() == whichId){
+           // Gdx.app.log(TAG,"we are checking block "+i+" id: "+virtualBlocksOnStage.get(i).getBlockId());
+            if(virtualBlocksOnStage.get(i).getBlockId() == whichId && !virtualBlocksOnStage.get(i).isAtHome()){
                 //remove actor
                 virtualBlocksOnStage.get(i).goHomeAndRemove();
                 // remove from array

@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 7/25/16.
  */
-public class Test extends Level {
+public class Test extends AbstractLevel {
     public static final String TAG = Test.class.getName();
 //    public Bruno bruno;
 //    public Coin coin;

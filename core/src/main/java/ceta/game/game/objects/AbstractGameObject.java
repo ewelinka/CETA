@@ -23,7 +23,7 @@ public abstract class AbstractGameObject extends Actor {
 
     public Rectangle bounds;
     public TextureRegion regTex;
-    public boolean isVertical = true;
+    public boolean isMovingVertical = true;
 
 
     public AbstractGameObject () {
@@ -66,6 +66,9 @@ public abstract class AbstractGameObject extends Actor {
         super.act(delta);
     }
 
+    public void setIsMovingVertical(boolean isObjectVertical){
+        isMovingVertical = isObjectVertical;
+    }
 
 
 

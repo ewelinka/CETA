@@ -33,7 +33,20 @@ public abstract class AbstractBlocksManager {
 
 
     public void blockRemovedWithId(short id){
-        toRemoveFromDetectedIds.add(id);
+        //toRemoveFromDetectedIds.add(id);
+
+        boolean inDetected = false;
+        // TODO check if its not waiting to be added, add+remove = 0!
+        for(int i =0; i<newDetectedIds.size();i++){
+            Gdx.app.log(TAG," id "+id + " key: "+newDetectedIds.get(i).getKey());
+            if(newDetectedIds.get(i).getKey() == id){
+                newDetectedIds.remove(i);
+                inDetected = true;
+                break;
+            }
+        }
+        if(!inDetected)
+            toRemoveFromDetectedIds.add(id);
 
     }
 

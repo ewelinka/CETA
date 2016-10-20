@@ -1,5 +1,7 @@
 package ceta.game.screens;
 
+import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.game.renderers.AbstractWorldRenderer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
@@ -12,9 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public abstract class AbstractGameScreen  implements Screen {
     protected DirectedGame game;
     protected Stage stage;
+    protected AbstractWorldRenderer worldRenderer;
+    protected AbstractWorldController worldController;
 
     public AbstractGameScreen (DirectedGame game) {
+
         this.game = game;
+        this.stage = game.getMainStage();
     }
 
     // Subclasses must load actors in this method
