@@ -94,8 +94,13 @@ public class Level1HorizontalController extends AbstractWorldController{
             // we check first when the move action is over
             // if not we have problems with pieces passing thought the coin
             if (lastArm.getActions().size == 0) {
-                r1.set(lastArm.getX() + lastArm.getWidth(), lastArm.getY(), 2, lastArm.getHeight());
-                r2.set(level.price.getX(), level.price.getY() + level.price.getHeight() / 2, level.price.bounds.width, level.price.bounds.height);
+                // we set 4px x 4px box at the right end (X), in the middle (Y)
+                r1.set(lastArm.getX() + lastArm.getWidth(),
+                        lastArm.getY()+lastArm.getHeight()/2 - 2, // two pixels below the middle
+                        4, 4);
+                r2.set(level.price.getX(),
+                        level.price.getY() + level.price.getHeight() / 2 - 2,
+                        level.price.bounds.width, 4);
 
                 if (r1.overlaps(r2))
                     onCollisionBrunoWithGoldCoin(level.price);
