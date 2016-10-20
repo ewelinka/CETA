@@ -33,7 +33,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  */
 public class MenuScreen extends AbstractGameScreen {
     private static final String TAG = MenuScreen.class.getName();
-    private Stage stage;
+    //private Stage stage;
     private Skin skin;
 
     private Button btnMenuPlay;
