@@ -45,12 +45,8 @@ public class Level1HorizontalController extends AbstractWorldController{
 
     @Override
     public void update (float deltaTime) {
-        // winning condition
-        testCollisions();
-//        if (score >= level.getOperationsNumber()) {
-//            Gdx.app.log(TAG," yupiiiiii we won!");
-//            goToFinalScreen();
-//        }
+
+        testCollisions(); // winning condition checked
 
         handleDebugInput(deltaTime);
         level.update(deltaTime); //stage.act()
@@ -90,51 +86,42 @@ public class Level1HorizontalController extends AbstractWorldController{
 
     private void testCollisions () {
         ArmPiece lastArm = getLastArmPiece();
-        if (lastArm != null) {
-            // we check first when the move action is over
-            // if not we have problems with pieces passing thought the coin
-            if (lastArm.getActions().size == 0) {
-                // we set 4px x 4px box at the right end (X), in the middle (Y)
-                r1.set(lastArm.getX() + lastArm.getWidth(),
-                        lastArm.getY()+lastArm.getHeight()/2 - 2, // two pixels below the middle
-                        4, 4);
-                r2.set(level.price.getX(),
-                        level.price.getY() + level.price.getHeight() / 2 - 2,
-                        level.price.bounds.width, 4);
+        if (lastArm != null && !roboticArmManager.isUpdatingArmPiecesPositions()) {
+            // we set 4px x 4px box at the right end (X), in the middle (Y)
+            r1.set(lastArm.getX() + lastArm.getWidth(),
+                    lastArm.getY()+lastArm.getHeight()/2 - 2, // two pixels below the middle
+                    4, 4);
+            r2.set(level.price.getX(),
+                    level.price.getY() + level.price.getHeight() / 2 - 2,
+                    level.price.bounds.width, 4);
 
-                if (r1.overlaps(r2))
-                    onCollisionBrunoWithGoldCoin(level.price);
+            if (r1.overlaps(r2)) {
+                onCollisionBrunoWithGoldCoin(level.price);
             }
         }
-
     }
 
 
     private void onCollisionBrunoWithGoldCoin(Price goldcoin) {
-        if(!roboticArmManager.isUpdatingArmPiecesPositions()) {
-            Gdx.app.log(TAG, "NO updates in progress!!");
-
-            if (goldcoin.getActions().size == 0) { // we act just one time!
-                AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-                score += 1;
-                //TODO some nice yupi animation
-                if (score < level.getOperationsNumber()) {
-                    if (level.isDynamic())
-                        goldcoin.moveToNewPositionStartAbove(level.bruno.getX() + level.bruno.getWidth());
-                    else
-                        goldcoin.moveToNewPosition(level.bruno.getX() + level.bruno.getWidth());
-                } else
-                    goToFinalScreen();
-            }
+        Gdx.app.log(TAG, "NO updates in progress and collision!");
+        if (goldcoin.getActions().size == 0) { // we act just one time!
+            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+            score += 1;
+            //TODO some nice yupi animation
+            if (score < level.getOperationsNumber()) {
+                if (level.isDynamic())
+                    goldcoin.moveToNewPositionStartAbove(level.bruno.getX() + level.bruno.getWidth());
+                else
+                    goldcoin.moveToNewPosition(level.bruno.getX() + level.bruno.getWidth());
+            } else
+                goToFinalScreen();
         }
-
-    };
+    }
 
 
     public ArmPiece getLastArmPiece(){
         return roboticArmManager.getLastArmPiece();
     }
-
 
 
     private void updateArmPieces(ArrayList toAdd, ArrayList toRemove){

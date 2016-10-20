@@ -5,6 +5,7 @@ import ceta.game.screens.DirectedGame;
 import ceta.game.screens.Level1HorizontalScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
+import com.badlogic.gdx.Gdx;
 
 /**
  * Created by ewe on 10/19/16.
@@ -21,15 +22,15 @@ public class LevelsManager {
 
     public void goToNextLevel(){
         int lastLevel = GamePreferences.instance.lastLevel;
-        GamePreferences.instance.setLastLevel(lastLevel+1);
+        GamePreferences.instance.setLastLevel(lastLevel+1); // we need it to load the correct level-params
         switch(lastLevel){
             case 1:
                 //TODO change after wizard of oz
-                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition);
-               // game.setScreen(new Level1HorizontalScreen(game), transition); //level params sets in world.controller.level using GamePreferences
+                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition); // we go to level 2!
+               // game.setScreen(new Level1HorizontalScreen(game), transition);
                 break;
             case 2:
-                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition);
+                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition); // we go to level 3!
                 break;
             case 3:
                 game.setScreen(new Level1HorizontalScreen(game), transition);
