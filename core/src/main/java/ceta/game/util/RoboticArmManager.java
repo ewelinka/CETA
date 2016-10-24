@@ -10,6 +10,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
@@ -156,15 +157,21 @@ public class RoboticArmManager {
 
     }
 
+    private void removeAllIdsFromInMovementIds(short id){
+        inMovementIds.removeAll(Collections.singleton((Object)id));
+
+    }
+
     public void addToInMovementIds(short id){
         inMovementIds.add(id);
 
     }
 
-    public void notificationArmGone(short armId, boolean isMoving){
-        if(isMoving){
-            removeFromInMovementIds(armId); // we will interrupt a movemnt that won't notify to manager
-        }
+    public void notificationArmGone(short armId){
+//        if(isMoving){
+//            removeFromInMovementIds(armId); // we will interrupt a movement that won't notify to manager
+//        }
+        removeAllIdsFromInMovementIds(armId);
         removeFromArrayByIdAndUpdatePositions(armId);
     }
 
