@@ -145,5 +145,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void resetScore(){
         score = 0;
     }
+
+    public int getLevelMinimumNumber(){
+        return level.getMinimumNumber();
+    }
+
+    public boolean isLevelNumberLineVisible(){
+        return level.isNumberLineVisible();
+    }
     
 }

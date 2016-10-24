@@ -34,7 +34,7 @@ public class Level1HorizontalController extends AbstractWorldController{
     }
 
     private void localInit () {
-        Gdx.app.log(TAG," local init");
+        Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
         level = new Level1(stage, GamePreferences.instance.lastLevel);
         cameraHelper.setTarget(null);
         score = 0;
@@ -108,11 +108,9 @@ public class Level1HorizontalController extends AbstractWorldController{
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
             //TODO some nice yupi animation
-            if (score < level.getOperationsNumber()) {
-                if (level.isDynamic())
-                    goldcoin.moveToNewPositionStartAbove(level.bruno.getX() + level.bruno.getWidth());
-                else
-                    goldcoin.moveToNewPosition(level.bruno.getX() + level.bruno.getWidth());
+            if (score < level.getOperationsNumberToPass()) {
+                goldcoin.wasCollected();
+
             } else
                 goToFinalScreen();
         }

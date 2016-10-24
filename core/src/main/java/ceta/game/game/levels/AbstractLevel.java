@@ -20,12 +20,13 @@ public abstract class AbstractLevel {
     public abstract void update (float deltaTime);
     public abstract void render(SpriteBatch batch);
 
-    public int getOperationsNumber(){
-        return levelParams.operationsNumber;
+    public int getOperationsNumberToPass(){
+        return levelParams.operationsNumberToPass;
     }
 
-    public boolean isDynamic(){
-        return levelParams.isDynamic;
-    }
+
+    public int getMinimumNumber(){ return levelParams.numberMin;}
+
+    public boolean isNumberLineVisible(){ return levelParams.visibleNumberLine;}
 
 }

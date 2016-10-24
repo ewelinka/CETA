@@ -150,9 +150,9 @@ public class RoboticArmManager {
     }
 
     private void removeFromInMovementIds(short id){
-        Gdx.app.log(TAG, "BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
+        //Gdx.app.log(TAG, "BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
         inMovementIds.remove((Object)id);
-        Gdx.app.log(TAG, "AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
+        //Gdx.app.log(TAG, "AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
 
     }
 

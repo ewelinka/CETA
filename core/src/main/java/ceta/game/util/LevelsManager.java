@@ -33,10 +33,10 @@ public class LevelsManager {
                 game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition); // we go to level 3!
                 break;
             case 3:
-                game.setScreen(new Level1HorizontalScreen(game), transition);
+                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition);
                 break;
             case 4:
-                game.setScreen(new Level1HorizontalScreen(game), transition);
+                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition);
                 break;
 
         }
