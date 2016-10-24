@@ -27,30 +27,10 @@ public class Level1 extends AbstractLevel {
 
         bruno = new Bruno();
         bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X ,0);
+        // dafualt horizontal
+        price = new Price((short)levelParams.priceVelocity,(short)levelParams.numberMin, levelParams.priceReturn);
 
-        price = new Price();
-        price.setVelocity((short)levelParams.priceVelocity);
-        price.setStartAndEnd((short)levelParams.numberMin,(short)levelParams.numberMax);
 
-        //TODO perhaps we should change more: size, position,...
-        Gdx.app.log(TAG,"..." + levelParams.type+"...");
-        if(levelParams.type.equals("horizontal")){
-            Gdx.app.log(TAG,"...horizontal");
-            price.setIsMovingVertical(true);
-            if(levelParams.isDynamic) {
-                Gdx.app.log(TAG,"...horizontal dynamic");
-                price.setNewPosition(bruno.getX() + bruno.getWidth(), Constants.VIEWPORT_HEIGHT / 2 - price.getHeight());
-            }
-            else{
-                Gdx.app.log(TAG,"... NOT dinamic");
-                price.setNewPosition(bruno.getX()+bruno.getWidth(), Constants.BASE);
-            }
-
-        } else if (levelParams.type.equals("vertical")){
-            Gdx.app.log(TAG,"...vertical");
-            price.setIsMovingVertical(false);
-
-        }
 
         // add actors
         stage.addActor(bruno);

@@ -27,6 +27,8 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected Stage stage;
     protected Image imgBackground;
 
+    protected int levelMinimumNumber;
+
 
     public abstract void init();
     public abstract void render();

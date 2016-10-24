@@ -11,12 +11,11 @@ import com.badlogic.gdx.utils.JsonValue;
 public class LevelParams {
     public int level;
     public String type;
-    public int operationsNumber;
+    public int operationsNumberToPass;
     public int numberMin;
     public int numberMax;
     public String numberOrOperation;
-    public boolean isDynamic;
-    public int priceReturn;
+    public int priceReturn; // will define if dynamic or not
     public int priceVelocity;
     public boolean visibleNumberLine;
 

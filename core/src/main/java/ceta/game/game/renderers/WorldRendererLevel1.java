@@ -32,11 +32,11 @@ public class WorldRendererLevel1 extends AbstractWorldRenderer {
     }
 
     public void init () {
-        spriteBatch = new SpriteBatch();
+        levelMinimumNumber = worldController.getLevelMinimumNumber();
 
+        spriteBatch = new SpriteBatch();
         font = Assets.instance.fonts.defaultSmall;
         counterFont = Assets.instance.fonts.defaultBig;
-
         shapeRenderer = new ShapeRenderer();
 
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
@@ -55,7 +55,9 @@ public class WorldRendererLevel1 extends AbstractWorldRenderer {
         renderHelperNumberLines(shapeRenderer);
         renderWorld(spriteBatch);
 
-        renderHelperNumbersVertical(spriteBatch);
+        if(worldController.isLevelNumberLineVisible())
+            renderHelperNumbersVertical(spriteBatch);
+
         if (worldController.getCountdownOn()) {
             renderCounter(spriteBatch);
         }
@@ -128,7 +130,7 @@ public class WorldRendererLevel1 extends AbstractWorldRenderer {
             String text = counter+"";
            // GlyphLayout layout = new GlyphLayout(font, text);
             //font.draw(batch, counter+"", i - layout.width/2, 0);
-            font.draw(batch, counter+"", i, 0,0,Align.center,false);
+            font.draw(batch, (levelMinimumNumber+counter)+"", i, 0,0,Align.center,false);
 
             counter+=1;
         }
@@ -141,7 +143,7 @@ public class WorldRendererLevel1 extends AbstractWorldRenderer {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         font.setColor(Color.RED);
-        font.draw(batch, worldController.level.price.getCurrentNumber()+"",
+        font.draw(batch, worldController.level.price.getDisplayNumber()+"",
                 worldController.level.price.getX()+worldController.level.price.getWidth()/2,
                 worldController.level.price.getY()+worldController.level.price.getHeight()+10,
                 0,Align.center,false);
