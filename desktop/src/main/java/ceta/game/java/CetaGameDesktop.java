@@ -8,7 +8,7 @@ import ceta.game.CetaGame;
 public class CetaGameDesktop {
 	public static void main (String[] args) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = 768;
+		config.height = 732;
 		config.width = 450;
 		new LwjglApplication(new CetaGame(), config);
 	}
