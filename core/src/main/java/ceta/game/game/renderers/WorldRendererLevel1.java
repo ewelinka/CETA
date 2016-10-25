@@ -50,6 +50,7 @@ public class WorldRendererLevel1 extends AbstractWorldRenderer {
 
     public void render () {
         clearWhite();
+
         renderDetectionZone(shapeRenderer);
         renderBackgroundImg(spriteBatch);
         renderHelperNumberLines(shapeRenderer);
@@ -63,12 +64,7 @@ public class WorldRendererLevel1 extends AbstractWorldRenderer {
         }
         renderPriceValue(spriteBatch);
         renderGui(spriteBatch);
-        if(worldController.getWeWon()){
-            renderWin();
-            worldController.setWeWon(false);
-            worldController.resetScore();
-        }
-        //renderHelperLines();
+
     }
 
 

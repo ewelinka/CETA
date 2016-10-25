@@ -1,7 +1,7 @@
 {
   level: 5,
   type: "horizontal",
-  operationsNumberToPass: 2,
+  operationsNumberToPass: 20,
   numberMin: 20,
   numberMax: 30,
   numberOrOperation: "number",

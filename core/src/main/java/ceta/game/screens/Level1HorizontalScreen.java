@@ -27,6 +27,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
         super(game);
 
+
     }
 
 
@@ -46,13 +47,14 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
     @Override
     public void resize(int width, int height) {
+        Gdx.app.log(TAG," we start the RESIZE of the screen ! "+Gdx.graphics.getWidth());
         worldRenderer.resize(width, height);
 
     }
 
     @Override
     public void show() {
-        Gdx.app.log(TAG," we start the show!");
+        Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
         // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1HorizontalController(game, stage);
@@ -64,6 +66,8 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
     @Override
     public void hide() {
+        Gdx.app.log(TAG," we start the HIDE of the screen ! " +Gdx.graphics.getWidth());
+
         worldController.dispose();
         worldRenderer.dispose();
         stage.dispose();
@@ -72,11 +76,13 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
     @Override
     public void pause() {
+        Gdx.app.log(TAG," we start the PAUSE of the screen ! " +Gdx.graphics.getWidth());
         paused =true;
     }
 
     @Override
     public void resume () {
+        Gdx.app.log(TAG," we start the RESUME of the screen ! " +Gdx.graphics.getWidth());
         super.resume();
         // Only called on Android!
         paused = false;
@@ -84,6 +90,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
     @Override
     public void dispose(){
+        Gdx.app.log(TAG," we start the DISPOSE of the screen ! " +Gdx.graphics.getWidth());
         worldController.dispose();
         worldRenderer.dispose();
         stage.dispose();

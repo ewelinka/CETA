@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -55,6 +56,13 @@ public abstract class AbstractWorldRenderer implements Disposable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
+    protected void clearBlue(){
+        // Sets the clear screen color to: Cornflower Blue
+        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
+        // Clears the screen
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
     protected void renderDetectionZone(ShapeRenderer shRenderer){
         // detection zone in gray
         shRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -64,10 +72,16 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
     protected void renderBackgroundImg(SpriteBatch batch){
+        TextureAtlas.AtlasRegion b = Assets.instance.background.back;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        //batch.draw(Assets.instance.background.back.getTexture(), 10, 10);
-        batch.draw(Assets.instance.background.back.getTexture(),-Constants.VIEWPORT_WIDTH/2, 0, 0,0,600,512);
+        batch.draw(b.getTexture(),-Constants.VIEWPORT_WIDTH/2, 0,
+                b.getRegionWidth()/2, b.getRegionHeight()/2,
+                b.getRegionWidth(), b.getRegionHeight(),
+                1, 1,
+                0,
+                b.getRegionX(), b.getRegionY(),
+                b.getRegionWidth(), b.getRegionHeight(), false,false);
         batch.end();
     }
 

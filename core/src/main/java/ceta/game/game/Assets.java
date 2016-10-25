@@ -128,9 +128,14 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetBackground {
         public final TextureAtlas.AtlasRegion back;
+        public final TextureAtlas.AtlasRegion back2;
+        public final TextureAtlas.AtlasRegion back3;
+
 
         public AssetBackground (TextureAtlas atlas) {
             back = atlas.findRegion("fondoC");
+            back2 = atlas.findRegion("fondoA");
+            back3 = atlas.findRegion("fondoB");
 
         }
     }
