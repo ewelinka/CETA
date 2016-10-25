@@ -23,7 +23,7 @@ public abstract class AbstractGameObject extends Actor {
 
     public Rectangle bounds;
     public TextureRegion regTex;
-    public boolean isMovingVertical = true;
+    public float rotation;
 
 
     public AbstractGameObject () {
@@ -36,6 +36,7 @@ public abstract class AbstractGameObject extends Actor {
         this.setOrigin(this.getWidth()/2, this.getHeight()/ 2);
         //Gdx.app.log(TAG,this.getWidth()+" "+this.getHeight());
         this.setScale(1,1);
+        rotation = 0;
         this.setRotation(0);
         // Bounding box for collision detection!!
         bounds.set(0, 0, this.getWidth(), this.getHeight());
@@ -66,9 +67,6 @@ public abstract class AbstractGameObject extends Actor {
         super.act(delta);
     }
 
-    public void setIsMovingVertical(boolean isObjectVertical){
-        isMovingVertical = isObjectVertical;
-    }
 
 
 

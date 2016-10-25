@@ -15,14 +15,16 @@ public class Price extends AbstractGameObject {
     // number line limits
     private short startNumber;
     private short endNumber;
-    private short currentNumber;
+    private short currentNumber; // current position between 1 and 10
 
     private boolean isDynamic;
     private int maxReturn;
     private int returnCounter;
+    private boolean isMovingVertical;
 
     //TODO shouldn't be fixed val!!!
     private float myStartX;
+    private short rotationVelocity;
 
 
     public Price(short vel, short startNr, int priceReturn) {
@@ -45,6 +47,7 @@ public class Price extends AbstractGameObject {
 
     private void localInit(String type, short vel, short start, int priceReturn){
         myStartX = -200; // change!!
+        rotationVelocity = 30;
 
         if(type.equals("horizontal")){
             isMovingVertical = true;
@@ -68,6 +71,8 @@ public class Price extends AbstractGameObject {
 
     public void update(float deltaTime){
         if(isDynamic) {
+            rotation+=(deltaTime*rotationVelocity);
+            setRotation(rotation);
             if (isMovingVertical) // vertical falling = horizontal number line
                 updateVerticalFalling(deltaTime);
             else

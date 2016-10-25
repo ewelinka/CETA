@@ -23,7 +23,7 @@ public class ArmPiece extends AbstractGameObject {
     private short id;
     private float terminalX;
     private RoboticArmManager armsManager;
-    private boolean isMoving;
+
 
     public ArmPiece(short val, RoboticArmManager armsMan){
         armValue = val;
@@ -57,7 +57,6 @@ public class ArmPiece extends AbstractGameObject {
     }
 
     public void init(){
-        isMoving = false;
         this.setSize(Constants.BASE*armValue,Constants.BASE);
         // now we can set the values that depend on size
         super.init();
@@ -87,19 +86,14 @@ public class ArmPiece extends AbstractGameObject {
         MoveToAction moveToAction = new MoveToAction();
         moveToAction.setPosition(x,y);
         moveToAction.setDuration(1f);
-
         setTerminalX(x);
 
-        if(!isMoving){
-            armsManager.addToInMovementIds(id);
-            isMoving = true;
-        }
+        armsManager.addToInMovementIds(id);
 
         addAction(sequence(moveToAction,
                 run(new Runnable() {
                     public void run() {
                         armsManager.notificationArmMoved(id);
-                        isMoving = false;
                     }
                 })
         ));
@@ -108,7 +102,7 @@ public class ArmPiece extends AbstractGameObject {
     public void goBackAndRemove(){
         addAction(sequence(parallel(Actions.moveTo(getX()-getWidth(),getY(),1f),Actions.alpha(0,1f)),run(new Runnable() {
             public void run() {
-                armsManager.notificationArmGone(id,isMoving);
+                armsManager.notificationArmGone(id);
                 remove();
 
             }
@@ -116,15 +110,11 @@ public class ArmPiece extends AbstractGameObject {
     }
 
     public void disappearAndRemove(){
-        if(isMoving){
-            Gdx.app.log(TAG, "SHOULD disappear and it's moving! "+id);
-        }else{
-            armsManager.addToInMovementIds(id);
-            isMoving = true;
-        }
+        armsManager.addToInMovementIds(id);
+
         addAction(sequence(Actions.alpha(0,1f),run(new Runnable() {
             public void run() {
-                armsManager.notificationArmGone(id,isMoving);
+                armsManager.notificationArmGone(id);
                 remove();
             }
         })));
