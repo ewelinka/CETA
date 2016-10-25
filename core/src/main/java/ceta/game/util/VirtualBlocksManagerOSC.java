@@ -4,7 +4,7 @@ import ceta.game.game.objects.VirtualBlock;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import javafx.util.Pair;
+
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
     public static final String TAG = VirtualBlocksManagerOSC.class.getName();
 
-    private ArrayList<Pair<Short, Short>>  newDetectedOSC = new ArrayList<Pair<Short, Short>>();
+    private ArrayList<Pair>  newDetectedOSC = new ArrayList<Pair>();
     protected ArrayList<Short> toRemoveOSC = new ArrayList<Short>();
 
     public VirtualBlocksManagerOSC(Stage stage) {
@@ -82,7 +82,7 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
 
     @Override
     public void addBlockWithId(short val, short id){
-        newDetectedOSC.add(new Pair<Short, Short>(id,val));
+        newDetectedOSC.add(new Pair(id,val));
     }
 
     @Override
