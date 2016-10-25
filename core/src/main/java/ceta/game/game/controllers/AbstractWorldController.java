@@ -29,7 +29,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public DirectedGame game;
     protected boolean countdownOn;
     protected float countdownCurrentTime;
-    public boolean weWon;
+    private ScreenTransition oneSegFadeIn;
 
 
     public abstract void update(float delta);
@@ -37,10 +37,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void init (DirectedGame game) {
         cameraHelper = new CameraHelper();
         this.game = game;
+        oneSegFadeIn = ScreenTransitionFade.init(1);
+
 
         actionSubmitInit();
         adjustCamera();
-        weWon = false;
     }
 
     private void adjustCamera(){
@@ -75,17 +76,17 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         return false;
     }
 
-    private void backToMenu () {
+    public void backToMenu () {
         // switch to menu screen
-        ScreenTransition transition = ScreenTransitionFade.init(1);
-        game.setScreen(new MenuScreen(game), transition);
+       // ScreenTransition transition = ScreenTransitionFade.init(1);
+        game.setScreen(new MenuScreen(game), oneSegFadeIn);
     }
 
     public void goToFinalScreen () {
-        // switch to menu screen
-        ScreenTransition transition = ScreenTransitionFade.init(1);
+        // switch to final screen
+       // ScreenTransition transition = ScreenTransitionFade.init(1);
 
-        game.setScreen(new FinalScreen(game), transition);
+        game.setScreen(new FinalScreen(game), oneSegFadeIn);
 
     }
 
@@ -134,13 +135,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         countdownCurrentTime = GamePreferences.instance.countdownMax;
     }
 
-    public boolean getWeWon(){
-        return weWon;
-    }
-
-    public void setWeWon(boolean toSet){
-        weWon = toSet;
-    }
 
     public void resetScore(){
         score = 0;

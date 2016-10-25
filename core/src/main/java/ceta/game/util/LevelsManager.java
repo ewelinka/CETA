@@ -25,20 +25,16 @@ public class LevelsManager {
         GamePreferences.instance.setLastLevel(lastLevel+1); // we need it to load the correct level-params
         switch(lastLevel){
             case 1:
+            case 2:
+            case 3:
+            case 4:
                 //TODO change after wizard of oz
                 game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition); // we go to level 2!
                // game.setScreen(new Level1HorizontalScreen(game), transition);
                 break;
-            case 2:
-                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition); // we go to level 3!
-                break;
-            case 3:
+            default:
                 game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition);
                 break;
-            case 4:
-                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition);
-                break;
-
         }
     }
 }
