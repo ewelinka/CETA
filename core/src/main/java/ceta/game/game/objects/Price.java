@@ -83,7 +83,7 @@ public class Price extends AbstractGameObject {
 
     private void updateHorizontalFalling(float deltaTime){
         if(this.getX() < -Constants.VIEWPORT_WIDTH/2)
-            this.setPosition(Constants.VIEWPORT_WIDTH/2, getY());
+            this.setPosition(Constants.VIEWPORT_WIDTH/2, getY());//go back above
         else
             this.setPosition(getX()+velocity*deltaTime, getY());
     }
@@ -118,7 +118,7 @@ public class Price extends AbstractGameObject {
 
     private void setInitialPosition(){
         if(isDynamic) {
-            setNewPosition(myStartX, Constants.VIEWPORT_HEIGHT / 2 - getHeight());
+            setNewPosition(myStartX, Constants.VIEWPORT_HEIGHT / 2 );
         }
         else{
             setNewPosition(myStartX, Constants.BASE);
