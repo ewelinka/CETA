@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import javafx.util.Pair;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,7 +92,7 @@ public class RoboticArmManager {
     }
 
 
-    private int addArmsFromLeftToRight(ArrayList<Pair<Short,Short>> toAdd){
+    private int addArmsFromLeftToRight(ArrayList<Pair> toAdd){
         int negativeInitX = initialX; // we reset the negativeInitX to bruno's position
         for(short i=0; i< toAdd.size();i++){
             ArmPiece armToAdd = new ArmPiece(toAdd.get(i).getValue(),this);

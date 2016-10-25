@@ -1,15 +1,8 @@
 package ceta.game.util;
 
-import ceta.game.game.objects.VirtualBlock;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by ewe on 8/11/16.
@@ -19,7 +12,7 @@ public abstract class AbstractBlocksManager {
    // private short [] detected_blocks = {0,0,0,0,0};
     // a pair of shorts (id and value)
     // Pair < Key , Value >
-    protected ArrayList<Pair<Short, Short>> newDetectedIds = new ArrayList<Pair<Short, Short>>();
+    protected ArrayList<Pair> newDetectedIds = new ArrayList<Pair>();
     protected ArrayList<Short> toRemoveFromDetectedIds = new ArrayList<Short>();
 
 
@@ -28,7 +21,7 @@ public abstract class AbstractBlocksManager {
     }
 
     public void addBlockWithId(short val, short id){
-        newDetectedIds.add(new Pair<Short, Short>(id,val));
+        newDetectedIds.add(new Pair(id,val));
     }
 
 
