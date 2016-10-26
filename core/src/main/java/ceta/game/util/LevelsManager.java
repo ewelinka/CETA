@@ -33,6 +33,7 @@ public class LevelsManager {
                // game.setScreen(new Level1HorizontalScreen(game), transition);
                 break;
             default:
+                GamePreferences.instance.setLastLevel(1); // we go to the beginning
                 game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition);
                 break;
         }

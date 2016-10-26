@@ -103,11 +103,11 @@ public class Assets implements Disposable, AssetErrorListener {
         public final BitmapFont defaultBig;
         public AssetFonts () {
             // create three fonts using Libgdx's 15px bitmap font
-            defaultSmall = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
+            defaultSmall = new BitmapFont(Gdx.files.internal("fonts/YuantiBold-24.fnt"), false);
             defaultNormal = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
             defaultBig = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
             // set font sizes
-            defaultSmall.getData().setScale(0.75f);
+            defaultSmall.getData().setScale(1.0f);
             defaultNormal.getData().setScale(1.0f);
             defaultBig.getData().setScale(2.5f);
             // enable linear texture filtering for smooth fonts

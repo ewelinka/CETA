@@ -56,6 +56,7 @@ public class MenuScreen extends AbstractGameScreen {
     public MenuScreen (DirectedGame game) {
         super(game);
         this.screen1 = ((CetaGame)game).getLevel1HorizontalScreen();
+        GamePreferences.instance.setLastLevel(1); // TODO delete after wizard of oz
     }
 
 

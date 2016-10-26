@@ -36,6 +36,7 @@ public class WorldRendererLevel1 extends AbstractWorldRenderer {
 
         spriteBatch = new SpriteBatch();
         font = Assets.instance.fonts.defaultSmall;
+        bigFont = Assets.instance.fonts.defaultNormal;
         counterFont = Assets.instance.fonts.defaultBig;
         shapeRenderer = new ShapeRenderer();
 
@@ -152,7 +153,7 @@ public class WorldRendererLevel1 extends AbstractWorldRenderer {
         float y = Constants.VIEWPORT_HEIGHT/2 - 50;
         batch.draw(Assets.instance.toCollect.screw,x,y,40,40);
         // TODO hardcoded position!
-        font.draw(batch, worldController.score+"",x+50,y+30);
+        bigFont.draw(batch, worldController.score+"",x+50,y+30);
     }
 
 

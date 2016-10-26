@@ -23,6 +23,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected SpriteBatch spriteBatch;
     protected ShapeRenderer shapeRenderer;
     protected BitmapFont font;
+    protected BitmapFont bigFont;
     protected BitmapFont counterFont;
     protected AbstractWorldController worldController;
     protected Stage stage;
