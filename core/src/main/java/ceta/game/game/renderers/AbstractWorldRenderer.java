@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Disposable;
  * Created by ewe on 10/19/16.
  */
 public abstract class AbstractWorldRenderer implements Disposable {
+    public static final String TAG = AbstractWorldRenderer.class.getName();
     protected OrthographicCamera camera;
     protected SpriteBatch spriteBatch;
     protected ShapeRenderer shapeRenderer;

@@ -78,7 +78,7 @@ public class WorldRendererLevel1 extends AbstractWorldRenderer {
         String text = worldController.getCountdownCurrentTime()+"";
         GlyphLayout layout = new GlyphLayout(counterFont, text);
         counterFont.setColor(Color.RED);
-        counterFont.draw(batch, text+"", 0 - layout.width/2, Constants.DETECTION_LIMIT -100);
+        counterFont.draw(batch, text+"", 0 - layout.width/2, -6 * Constants.BASE-100);
         batch.end();
 
 

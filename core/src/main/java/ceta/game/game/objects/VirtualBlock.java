@@ -124,19 +124,19 @@ public class VirtualBlock extends AbstractGameObject {
 
         switch (blockValue){
             case 1:
-                setColor(Color.LIME);
+                setColor(Color.YELLOW);
                 break;
             case 2:
-                setColor(Color.RED);
+                setColor(Color.CYAN);
                 break;
             case 3:
-                setColor(Color.GREEN);
-                break;
-            case 4:
                 setColor(Color.ORANGE);
                 break;
+            case 4:
+                setColor(Color.VIOLET);
+                break;
             case 5:
-                setColor(Color.CYAN);
+                setColor(Color.GREEN);
                 break;
         }
         getColor().a = myAlpha;

@@ -47,7 +47,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
     @Override
     public void resize(int width, int height) {
-        Gdx.app.log(TAG," we start the RESIZE of the screen ! "+Gdx.graphics.getWidth());
+        Gdx.app.log(TAG," we start the RESIZE of the screen ! "+Gdx.graphics.getWidth()+" h "+Gdx.graphics.getHeight());
         worldRenderer.resize(width, height);
 
     }
@@ -66,7 +66,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
     @Override
     public void hide() {
-        Gdx.app.log(TAG," we start the HIDE of the screen ! " +Gdx.graphics.getWidth());
+        Gdx.app.log(TAG," we start the HIDE of the screen ! " +Gdx.graphics.getWidth()+" h "+Gdx.graphics.getHeight());
 
         worldController.dispose();
         worldRenderer.dispose();
@@ -76,13 +76,13 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
     @Override
     public void pause() {
-        Gdx.app.log(TAG," we start the PAUSE of the screen ! " +Gdx.graphics.getWidth());
+        Gdx.app.log(TAG," we start the PAUSE of the screen ! " +Gdx.graphics.getWidth()+" h "+Gdx.graphics.getHeight());
         paused =true;
     }
 
     @Override
     public void resume () {
-        Gdx.app.log(TAG," we start the RESUME of the screen ! " +Gdx.graphics.getWidth());
+        Gdx.app.log(TAG," we start the RESUME of the screen ! " +Gdx.graphics.getWidth()+" h "+Gdx.graphics.getHeight());
         super.resume();
         // Only called on Android!
         paused = false;
@@ -90,7 +90,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
 
     @Override
     public void dispose(){
-        Gdx.app.log(TAG," we start the DISPOSE of the screen ! " +Gdx.graphics.getWidth());
+        Gdx.app.log(TAG," we start the DISPOSE of the screen ! " +Gdx.graphics.getWidth()+" h "+Gdx.graphics.getHeight());
         worldController.dispose();
         worldRenderer.dispose();
         stage.dispose();
