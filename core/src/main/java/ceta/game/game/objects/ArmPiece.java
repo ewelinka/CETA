@@ -2,14 +2,11 @@ package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
-import ceta.game.util.RoboticArmManager;
+import ceta.game.managers.RoboticArmManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
@@ -19,17 +16,30 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  * Created by ewe on 8/23/16.
  */
 public class ArmPiece extends AbstractGameObject {
-    private short armValue;
-    private short id;
+    protected short armValue;
+    protected short id;
     private float terminalX;
-    private RoboticArmManager armsManager;
+    protected RoboticArmManager armsManager;
 
 
     public ArmPiece(short val, RoboticArmManager armsMan){
         armValue = val;
         armsManager = armsMan;
 
-        switch (armValue){
+         // will be changed when we have more parts
+
+        init();
+        setColorAndTexture(val);
+    }
+
+    public void init(){
+        this.setSize(Constants.BASE*armValue,Constants.BASE);
+        // now we can set the values that depend on size
+        super.init();
+    }
+
+    protected void setColorAndTexture(short armVal){
+        switch (armVal){
             case 1:
                 setColor(Color.YELLOW);
                 regTex = Assets.instance.roboticParts.copperFitting1;
@@ -51,15 +61,6 @@ public class ArmPiece extends AbstractGameObject {
                 regTex = Assets.instance.roboticParts.copperFitting5;
                 break;
         }
-         // will be changed when we have more parts
-
-        init();
-    }
-
-    public void init(){
-        this.setSize(Constants.BASE*armValue,Constants.BASE);
-        // now we can set the values that depend on size
-        super.init();
     }
 
     public short getId() {
@@ -67,6 +68,7 @@ public class ArmPiece extends AbstractGameObject {
     }
 
     public void setId(short idVal){
+        Gdx.app.log(TAG, "we set the id "+idVal);
         id = idVal;
     }
 
@@ -100,6 +102,7 @@ public class ArmPiece extends AbstractGameObject {
     }
 
     public void goBackAndRemove(){
+        armsManager.addToInMovementIds(id);
         addAction(sequence(parallel(Actions.moveTo(getX()-getWidth(),getY(),1f),Actions.alpha(0,1f)),run(new Runnable() {
             public void run() {
                 armsManager.notificationArmGone(id);
@@ -108,6 +111,8 @@ public class ArmPiece extends AbstractGameObject {
             }
         })));
     }
+
+
 
     public void disappearAndRemove(){
         armsManager.addToInMovementIds(id);

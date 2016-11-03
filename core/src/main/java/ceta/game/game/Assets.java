@@ -1,5 +1,6 @@
 package ceta.game.game;
 
+import ceta.game.game.objects.ArmPiece;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -8,8 +9,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
@@ -195,6 +198,9 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion copperFitting3;
         public final TextureAtlas.AtlasRegion copperFitting4;
         public final TextureAtlas.AtlasRegion copperFitting5;
+        public final Animation animatedOneIn;
+        public final Animation animatedOneOut;
+        public final Animation animatedOneLoop;
 
 
         public AssetRoboticParts (TextureAtlas atlas) {
@@ -203,6 +209,15 @@ public class Assets implements Disposable, AssetErrorListener {
             copperFitting3 = atlas.findRegion("copper3");
             copperFitting4 = atlas.findRegion("copper4");
             copperFitting5 = atlas.findRegion("copper5");
+
+            Array<TextureAtlas.AtlasRegion> regions = null;
+            regions = atlas.findRegions("boxA");
+            animatedOneLoop = new Animation(1.0f , regions,Animation.PlayMode.LOOP_PINGPONG);
+            regions = atlas.findRegions("boxA");
+            animatedOneIn = new Animation(1.0f, regions);
+            regions = atlas.findRegions("boxA");
+            animatedOneOut = new Animation(1.0f , regions, Animation.PlayMode.REVERSED);
+
 
 
 

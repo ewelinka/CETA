@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,6 +25,9 @@ public abstract class AbstractGameObject extends Actor {
     public Rectangle bounds;
     public TextureRegion regTex;
     public float rotation;
+
+    public Animation animation;
+    public float stateTime;
 
 
     public AbstractGameObject () {
@@ -62,8 +66,15 @@ public abstract class AbstractGameObject extends Actor {
         batch.setColor(1,1,1,1);
     }
 
+    public void setAnimation (Animation animation) {
+        this.animation = animation;
+        stateTime = 0;
+    }
+
     @Override
     public void act(float delta) {
+
+        stateTime += delta;
         super.act(delta);
     }
 

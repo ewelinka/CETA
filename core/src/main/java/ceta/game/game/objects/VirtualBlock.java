@@ -105,14 +105,14 @@ public class VirtualBlock extends AbstractGameObject {
 
             @Override
             public void touchDown(InputEvent event, float x, float y, int pointer, int button){
-                Gdx.app.debug(TAG, "isTouched!!!");
+                //Gdx.app.debug(TAG, "isTouched!!!");
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button){
                 rotLast = 0;
                 wasMoved = true;
-                Gdx.app.debug(TAG, "wasMoved!!! " + blockValue);
+                //Gdx.app.debug(TAG, "wasMoved!!! " + blockValue);
             }
 
         });
@@ -160,7 +160,7 @@ public class VirtualBlock extends AbstractGameObject {
 
     public void resetWasMoved(){
         wasMoved = false;
-        Gdx.app.debug(TAG, "was moved set to FALSEEE");
+        //Gdx.app.debug(TAG, "was moved set to FALSEEE");
     }
 
     public void setWasDetected(boolean was){

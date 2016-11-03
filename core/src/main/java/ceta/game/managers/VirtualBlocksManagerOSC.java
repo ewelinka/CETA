@@ -1,6 +1,7 @@
-package ceta.game.util;
+package ceta.game.managers;
 
 import ceta.game.game.objects.VirtualBlock;
+import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -18,6 +19,7 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
 
     private ArrayList<Pair>  newDetectedOSC = new ArrayList<Pair>();
     protected ArrayList<Short> toRemoveOSC = new ArrayList<Short>();
+    protected ArrayList<Short> toRemoveOSCValues = new ArrayList<Short>();
 
     public VirtualBlocksManagerOSC(Stage stage) {
 
@@ -62,8 +64,8 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
         }
     }
 
-    public void oscRemove(int blockToRemoveId) {
-        blockRemovedWithId((short)blockToRemoveId); //we report to manager to update the counters that will be used to update the arms
+    public void oscRemove(int blockToRemoveId, float blockValue) {
+        blockRemovedWithIdAndValue((short)blockToRemoveId, (short) blockValue); //we report to manager to update the counters that will be used to update the arms
         removeFromStageById(blockToRemoveId); // remove from stage
     }
 
@@ -86,7 +88,7 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
     }
 
     @Override
-    public void blockRemovedWithId(short id){
+    public void blockRemovedWithIdAndValue(short id, short value){
 
         boolean inDetected = false;
         // TODO check if its not waiting to be added, add+remove = 0!
@@ -98,8 +100,10 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
                 break;
             }
         }
-        if(!inDetected)
+        if(!inDetected) {
             toRemoveOSC.add(id);
+            toRemoveOSCValues.add(value);
+        }
 
 
       //  toRemoveOSC.add(id);
@@ -119,6 +123,13 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
         newDetectedIds = new ArrayList(newDetectedOSC);
         newDetectedOSC.clear();
         return new ArrayList(newDetectedIds);
+    }
+
+    @Override
+    public ArrayList getToRemoveValues(){
+        toRemoveFromDetectedValues = new ArrayList(toRemoveOSCValues);
+        toRemoveOSCValues.clear();
+        return toRemoveFromDetectedValues;
     }
 
 

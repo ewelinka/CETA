@@ -1,5 +1,6 @@
-package ceta.game.util;
+package ceta.game.managers;
 
+import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public abstract class AbstractBlocksManager {
     // Pair < Key , Value >
     protected ArrayList<Pair> newDetectedIds = new ArrayList<Pair>();
     protected ArrayList<Short> toRemoveFromDetectedIds = new ArrayList<Short>();
+    protected ArrayList<Short> toRemoveFromDetectedValues = new ArrayList<Short>();
 
 
     public void init(){
@@ -25,7 +27,7 @@ public abstract class AbstractBlocksManager {
     }
 
 
-    public void blockRemovedWithId(short id){
+    public void blockRemovedWithIdAndValue(short id, short value){
         //toRemoveFromDetectedIds.add(id);
 
         boolean inDetected = false;
@@ -38,8 +40,11 @@ public abstract class AbstractBlocksManager {
                 break;
             }
         }
-        if(!inDetected)
+        if(!inDetected) {
             toRemoveFromDetectedIds.add(id);
+            toRemoveFromDetectedValues.add(value);
+
+        }
 
     }
 
@@ -51,6 +56,10 @@ public abstract class AbstractBlocksManager {
     public ArrayList getToRemove(){
         // we return the array because until the update function we don't have to carry about this array
         return toRemoveFromDetectedIds;
+    }
+
+    public ArrayList getToRemoveValues(){
+        return toRemoveFromDetectedValues;
     }
 
     public ArrayList getNewDetected(){
@@ -68,7 +77,9 @@ public abstract class AbstractBlocksManager {
         newDetectedIds.clear();
     }
     private void resetRemoveIds(){
+
         toRemoveFromDetectedIds.clear();
+        toRemoveFromDetectedValues.clear();
     }
 
 

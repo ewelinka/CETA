@@ -1,11 +1,10 @@
-package ceta.game.util;
+package ceta.game.managers;
 
 import ceta.game.CetaGame;
 import ceta.game.screens.DirectedGame;
-import ceta.game.screens.Level1HorizontalScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
-import com.badlogic.gdx.Gdx;
+import ceta.game.util.GamePreferences;
 
 /**
  * Created by ewe on 10/19/16.

@@ -15,6 +15,8 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
 
@@ -23,6 +25,9 @@ import com.badlogic.gdx.utils.Disposable;
  */
 public abstract class  AbstractWorldController extends InputAdapter implements Disposable {
     private static final String TAG = AbstractWorldController.class.getName();
+    protected Rectangle r1 = new Rectangle();
+    protected Rectangle r2 = new Rectangle();
+    protected Stage stage;
     public CameraHelper cameraHelper;
     public AbstractLevel level;
     public short score;
@@ -34,11 +39,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public abstract void update(float delta);
 
-    public void init (DirectedGame game) {
-        cameraHelper = new CameraHelper();
-        this.game = game;
-        oneSegFadeIn = ScreenTransitionFade.init(1);
+    protected abstract void localInit();
 
+    public void init (DirectedGame game) {
+        this.game = game;
+        cameraHelper = new CameraHelper();
+        cameraHelper.setTarget(null);
+        score = 0;
+        oneSegFadeIn = ScreenTransitionFade.init(1);
 
         actionSubmitInit();
         adjustCamera();
@@ -61,8 +69,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public boolean keyUp (int keycode) {
         // Reset game world
         if (keycode == Input.Keys.R) {
-
-            Gdx.app.debug(TAG, "Game world resetted");
+            setCountdownOn(true);
+            Gdx.app.debug(TAG, "Action submit");
         }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {

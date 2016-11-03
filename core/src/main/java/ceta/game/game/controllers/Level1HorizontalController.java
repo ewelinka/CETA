@@ -4,10 +4,12 @@ import ceta.game.game.Assets;
 import ceta.game.game.levels.Level1;
 import ceta.game.game.objects.ArmPiece;
 import ceta.game.game.objects.Price;
+import ceta.game.managers.RoboticArmManager;
+import ceta.game.managers.VirtualBlocksManager;
+import ceta.game.managers.VirtualBlocksManagerOSC;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.*;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
@@ -17,27 +19,24 @@ import java.util.ArrayList;
  */
 public class Level1HorizontalController extends AbstractWorldController{
     private static final String TAG = Level1HorizontalController.class.getName();
-    private Rectangle r1 = new Rectangle();
-    private Rectangle r2 = new Rectangle();
-
     private RoboticArmManager roboticArmManager;
-    private VirtualBlocksManagerOSC virtualBlocksManager;
-    private Stage stage;
+    protected VirtualBlocksManagerOSC virtualBlocksManager;
+
 
     public Level1HorizontalController(DirectedGame game, Stage stage) {
         this.stage = stage;
-        roboticArmManager = new RoboticArmManager(stage);
-        // TODO change after wizard of oz
-        virtualBlocksManager = new VirtualBlocksManagerOSC(stage);
         super.init(game);
         localInit();
     }
 
-    private void localInit () {
+    @Override
+    protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
+        roboticArmManager = new RoboticArmManager(stage);
+        virtualBlocksManager = new VirtualBlocksManagerOSC(stage);
+
         level = new Level1(stage, GamePreferences.instance.lastLevel);
-        cameraHelper.setTarget(null);
-        score = 0;
+
         virtualBlocksManager.init();
         roboticArmManager.init();
     }
@@ -50,20 +49,15 @@ public class Level1HorizontalController extends AbstractWorldController{
 
         handleDebugInput(deltaTime);
         level.update(deltaTime); //stage.act()
+        virtualBlocksManager.updateDetected();
 
         if (GamePreferences.instance.actionSubmit) {
-            // if we are counting
-            if (countdownOn) {
-                // we shake bruno
-                level.bruno.shake();
-                // if we reached the time
-                if (countdownCurrentTime < 0) {
+            if (countdownOn) { // if we are counting
+                level.bruno.shake(); // we shake bruno
+                if (countdownCurrentTime < 0) { // if we reached the time
                     Gdx.app.log(TAG, "wowowoowow action submit!");
-                    virtualBlocksManager.updateDetected();
-                    // computer vision manager update detected
-                    // cvManager.update();
-
                     updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
+                    virtualBlocksManager.resetDetectedAndRemoved(); //reset detected
                     countdownOn = false;
                     countdownCurrentTime = GamePreferences.instance.countdownMax;
                 } else // we still count
@@ -71,10 +65,8 @@ public class Level1HorizontalController extends AbstractWorldController{
             }
 
         } else {
-            virtualBlocksManager.updateDetected();
-            // computer vision manager update detected
-            // cvManager.update();
             updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
+            virtualBlocksManager.resetDetectedAndRemoved();
         }
         cameraHelper.update(deltaTime);
     }
@@ -84,7 +76,7 @@ public class Level1HorizontalController extends AbstractWorldController{
 
     }
 
-    private void testCollisions () {
+    protected void testCollisions () {
         ArmPiece lastArm = getLastArmPiece();
         if (lastArm != null && !roboticArmManager.isUpdatingArmPiecesPositions()) {
             // we set 4px x 4px box at the right end (X), in the middle (Y)
@@ -102,7 +94,7 @@ public class Level1HorizontalController extends AbstractWorldController{
     }
 
 
-    private void onCollisionBrunoWithGoldCoin(Price goldcoin) {
+    protected void onCollisionBrunoWithGoldCoin(Price goldcoin) {
         Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (goldcoin.getActions().size == 0) { // we act just one time!
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
@@ -122,7 +114,7 @@ public class Level1HorizontalController extends AbstractWorldController{
     }
 
 
-    private void updateArmPieces(ArrayList toAdd, ArrayList toRemove){
+    protected void updateArmPieces(ArrayList toAdd, ArrayList toRemove){
         roboticArmManager.update(toAdd,toRemove);
     }
 

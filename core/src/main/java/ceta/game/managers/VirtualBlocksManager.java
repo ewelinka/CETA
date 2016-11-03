@@ -1,10 +1,11 @@
-package ceta.game.util;
+package ceta.game.managers;
 
 import ceta.game.game.objects.VirtualBlock;
+import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 
 import java.util.ArrayList;
@@ -48,7 +49,9 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     @Override
     public void updateDetected() {
         // first - clean!
-        resetDetectedAndRemoved();
+//        if (!GamePreferences.instance.actionSubmit) {
+//            resetDetectedAndRemoved(); //reset just if there is no action submit
+//        }
         // we check what changed
         for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
             VirtualBlock vBlock = virtualBlocksOnStage.get(i);
@@ -69,14 +72,16 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 // if it was detected before and is out of detection zone we make it disappear and reset
                 if(vBlock.getWasDetected()){
                     if( polygon.getTransformedVertices()[1] < Constants.DETECTION_LIMIT){
+                        // TODO here we should check for smallest Y, not first vertex
                         // was detected but now gone
                        // blockRemoved(vBlock.getBlockValue());
-                        blockRemovedWithId(vBlock.getBlockId());
+                        blockRemovedWithIdAndValue(vBlock.getBlockId(),vBlock.getBlockValue());
                         //blockRemovedById(vBlock.getBlockId());
                         removeFromStageByIndex(i); // we remove it from detection zone
                     }
                 }else{
                     if( polygon.getTransformedVertices()[1] > Constants.DETECTION_LIMIT){
+                        // TODO here we should check for smallest Y, not first vertex
                         // new detected!
                         vBlock.setWasDetected(true);
                        // addBlock(vBlock.getBlockValue());

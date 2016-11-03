@@ -3,7 +3,7 @@ package ceta.game.game.controllers;
 import ceta.game.game.levels.Level1;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.GamePreferences;
-import ceta.game.util.VirtualBlocksManager;
+import ceta.game.managers.VirtualBlocksManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -59,7 +59,8 @@ public class Level1VerticalController extends AbstractWorldController {
 
     }
 
-    private void localInit () {
+    @Override
+    protected void localInit () {
         Gdx.app.log(TAG," local init");
         level = new Level1(stage, GamePreferences.instance.lastLevel);
         cameraHelper.setTarget(null);

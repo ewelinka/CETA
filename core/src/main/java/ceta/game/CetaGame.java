@@ -8,14 +8,12 @@ import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.AudioManager;
 import ceta.game.util.GamePreferences;
-import ceta.game.util.LevelsManager;
+import ceta.game.managers.LevelsManager;
 import ceta.game.util.osc.OSCReceiver;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.illposed.osc.OSCListener;
 
 

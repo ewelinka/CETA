@@ -1,7 +1,7 @@
 package ceta.game.screens;
 
 import ceta.game.transitions.ScreenTransition;
-import ceta.game.util.LevelsManager;
+import ceta.game.managers.LevelsManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;

@@ -1,11 +1,10 @@
-package ceta.game.util;
+package ceta.game.managers;
 
 import ceta.game.game.objects.ArmPiece;
-import ceta.game.game.objects.Latter;
+import ceta.game.util.Constants;
+import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
@@ -21,15 +19,15 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  */
 public class RoboticArmManager {
     public static final String TAG = RoboticArmManager.class.getName();
-    private Stage stage;
+    protected Stage stage;
 
     private ArrayList<ArmPiece> armPieces;
     private ArrayList<ArmPiece> armsToAdd;
-    private ArrayList<Short> inMovementIds = new ArrayList<Short>();
+    protected ArrayList<Short> inMovementIds = new ArrayList<Short>();
 
-    private short initialX;
-    private short initialY;
-    private short lastX;
+    protected short initialX;
+    protected short initialY;
+    protected short lastX;
 
     public RoboticArmManager(Stage stage){
         this.stage = stage;
@@ -46,10 +44,10 @@ public class RoboticArmManager {
     }
 
 
-    public void update(ArrayList toAdd, ArrayList toRemove ){
-        if(toRemove.size() > 0){
-            Gdx.app.debug(TAG,"to remove! so many: "+toRemove.size());
-            removeArms(toRemove); // removed arms notify the manager and we update the positions
+    public void update(ArrayList toAdd, ArrayList<Short> toRemoveIds ){
+        if(toRemoveIds.size() > 0){
+            Gdx.app.debug(TAG,"to remove! so many: "+toRemoveIds.size());
+            removeArms(toRemoveIds); // removed arms notify the manager and we update the positions
         }
 
         if(toAdd.size() > 0){
@@ -60,7 +58,7 @@ public class RoboticArmManager {
     }
 
 
-    private void updatePositionsIfRemoved(){
+    protected void updatePositionsIfRemoved(){
         // we update the positions of the arm pieces that are still there
         lastX = initialX;
         for(short i=0;i<armPieces.size();i++){
@@ -71,7 +69,7 @@ public class RoboticArmManager {
         }
     }
 
-    private void updatePositionOnAdded(int negativeInitX){
+    protected void updatePositionOnAdded(int negativeInitX){
         // we update the positions of the arm pieces that are still there
         float moveRight = Math.abs(negativeInitX-initialX);
         for(short i=0;i<armPieces.size();i++){
@@ -92,7 +90,7 @@ public class RoboticArmManager {
     }
 
 
-    private int addArmsFromLeftToRight(ArrayList<Pair> toAdd){
+    protected int addArmsFromLeftToRight(ArrayList<Pair> toAdd){
         int negativeInitX = initialX; // we reset the negativeInitX to bruno's position
         for(short i=0; i< toAdd.size();i++){
             ArmPiece armToAdd = new ArmPiece(toAdd.get(i).getValue(),this);
@@ -105,10 +103,10 @@ public class RoboticArmManager {
         return negativeInitX;
     }
 
-    private void removeArms(ArrayList shouldRemove){
+    protected void removeArms(ArrayList<Short> shouldRemoveIds){
         // we start at the end and check if the arm piece should be removed
         for(int i=armPieces.size()-1;i>=0;i--){
-            if(shouldRemove.contains(armPieces.get(i).getId())){
+            if(shouldRemoveIds.contains(armPieces.get(i).getId())){
                 removeActorByIndex((short)i);
             }
         }
@@ -119,7 +117,7 @@ public class RoboticArmManager {
         armPieces.remove(which); //remove from armPieces
     }
 
-    private void removeActorByIndex(short which){
+    protected void removeActorByIndex(short which){
         Gdx.app.log(TAG, "removeArmPieceByIndex "+ which + " with id "+armPieces.get(which).getId());
         armPieces.get(which).disappearAndRemove(); // remove Actor
     }
@@ -133,7 +131,8 @@ public class RoboticArmManager {
         }
     }
 
-    private void removeFromArrayByIdAndUpdatePositions(short id){
+    protected void removeFromArrayByIdAndUpdatePositions(short id){
+
         for(int i=armPieces.size()-1;i>=0;i--){
             if(armPieces.get(i).getId() == id){
                 armPieces.remove(i); //remove from armPieces array
@@ -151,14 +150,16 @@ public class RoboticArmManager {
     }
 
     private void removeFromInMovementIds(short id){
-        //Gdx.app.log(TAG, "BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
+        Gdx.app.log(TAG, "BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
         inMovementIds.remove((Object)id);
-        //Gdx.app.log(TAG, "AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
+        Gdx.app.log(TAG, "AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
 
     }
 
     private void removeAllIdsFromInMovementIds(short id){
+        Gdx.app.log(TAG, "ALL BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
         inMovementIds.removeAll(Collections.singleton((Object)id));
+        Gdx.app.log(TAG, "ALL AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
 
     }
 
@@ -168,9 +169,7 @@ public class RoboticArmManager {
     }
 
     public void notificationArmGone(short armId){
-//        if(isMoving){
-//            removeFromInMovementIds(armId); // we will interrupt a movement that won't notify to manager
-//        }
+
         removeAllIdsFromInMovementIds(armId);
         removeFromArrayByIdAndUpdatePositions(armId);
     }
@@ -188,5 +187,12 @@ public class RoboticArmManager {
             Gdx.app.log(TAG, inMovementIds.get(i)+" is in movement ids");
         }
     }
+
+    public void printArmPieces(){
+        for(int i=armPieces.size()-1;i>=0;i--){
+            Gdx.app.log(TAG," ARM PIECE"+i+" id "+ armPieces.get(i).getId() );
+        }
+    }
+
 
 }

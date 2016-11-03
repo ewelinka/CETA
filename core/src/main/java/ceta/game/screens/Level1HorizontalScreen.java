@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.game.controllers.Level2HorizontalController;
 import ceta.game.game.renderers.WorldRendererLevel1;
 import ceta.game.game.controllers.Level1HorizontalController;
 import ceta.game.util.Constants;
@@ -24,10 +25,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
     private boolean paused;
 
     public Level1HorizontalScreen(DirectedGame game) {
-
         super(game);
-
-
     }
 
 
@@ -57,7 +55,8 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
         // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
-        worldController = new Level1HorizontalController(game, stage);
+        worldController = new Level1HorizontalController(game,stage);
+        //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
         worldRenderer = new WorldRendererLevel1(worldController,stage);
         // android back key
@@ -137,12 +136,14 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
             );
         }else if(arguments.get(0).equals("removeBlock")){
             ((Level1HorizontalController)worldController).getVirtualBlocksManagerOSC().oscRemove(
-                    Integer.valueOf(arguments.get(1).toString()) // id to remove
+                    Integer.valueOf(arguments.get(1).toString()), // id to remove
+                    Float.valueOf(arguments.get(2).toString())
             );
             /*
              * TODO Ewe: Formato nuevo del mensaje
              * "removeBlock"
     	     * blockId
+    	     * blockValue
              */
         }else if(arguments.get(0).equals("updateBlock")){
         	/*

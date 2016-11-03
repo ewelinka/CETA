@@ -11,27 +11,27 @@ box
   orig: 72, 72
   offset: 0, 0
   index: -1
-box01
+boxA
   rotate: false
   xy: 136, 4
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
-box02
+  index: 1
+boxA
   rotate: false
   xy: 326, 86
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
-box03
+  index: 2
+boxA
   rotate: false
   xy: 678, 766
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
+  index: 3
 bruno
   rotate: false
   xy: 678, 840
