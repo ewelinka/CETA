@@ -17,6 +17,9 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
     public static final String TAG = AnimatedRoboticArmManager.class.getName();
     private ArrayList<ArmPieceAnimated> armPiecesAnim;
     protected ArrayList<Short> inExpansionIds = new ArrayList<Short>();
+    private float terminalDelay;
+    private float currentDelayPassed;
+    private final float animationSpeed = 0.3f;
 
 
     public AnimatedRoboticArmManager(Stage stage) {
@@ -27,28 +30,38 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
     public void init(){
         lastX = initialX;
         armPiecesAnim = new ArrayList<ArmPieceAnimated>();
+        terminalDelay = 0;
+        currentDelayPassed = 0;
 
     }
 
 
     public void updateAnimated(ArrayList toAdd, ArrayList<Short> toRemoveValues){
+        short toAddNr = 0;
+        short toRemoveNr = 0;
+
         if(toRemoveValues.size() > 0){
             Gdx.app.log(TAG, "-- BEFORE removeAnimatedArms "+Arrays.toString(toRemoveValues.toArray()));
+            //check how many we should add
             removeAnimatedArms(toRemoveValues); // removed arms notify the manager and we update the positions
         }
 
         if(toAdd.size() > 0){
+            // check how many we should remove
             addArms(toAdd);
 
         }
+
+        // at the end we see the difference
+        
     }
 
 
     protected void addArms(ArrayList<Pair> toAdd){
-        short delay = 0;
+        terminalDelay = 0; // TODO we check if we should start in 0 or there is somenthing in movement
         for(short i=0; i< toAdd.size();i++) {
             for (short j = 0; j < toAdd.get(i).getValue(); j++) {
-                Gdx.app.log(TAG, " add "+ toAdd.get(i).getKey()+" part "+j + " lastx "+lastX+" delay "+delay);
+                Gdx.app.log(TAG, " add "+ toAdd.get(i).getKey()+" part "+j + " lastx "+lastX+" delay "+ terminalDelay);
                 ArmPieceAnimated armToAdd = new ArmPieceAnimated((short) 1, this);
                 stage.addActor(armToAdd);
 
@@ -56,8 +69,8 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
                 armToAdd.setPosition(lastX,initialY);
                 lastX+=armToAdd.getWidth();
 
-                armToAdd.expandMe(delay); // will grow in 1 sec
-                delay+=1;
+                armToAdd.expandMe(terminalDelay, animationSpeed); // will grow in 1 sec
+                terminalDelay += animationSpeed;
 
                 armPiecesAnim.add(armToAdd);
             }
@@ -77,7 +90,7 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
     @Override
     protected void removeActorByIndex(short which){
         Gdx.app.log(TAG, "removeArmPieceByIndex "+ which + " with id "+armPiecesAnim.get(which).getId());
-        armPiecesAnim.get(which).collapseMe((short)1); // remove Actor
+        armPiecesAnim.get(which).collapseMe(terminalDelay, animationSpeed); // remove Actor
     }
 
     public ArmPieceAnimated getLastAnimatedArmPiece(){
@@ -95,6 +108,7 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
             toRemoveSum+=toRemoveValues.get(i);
 
         }
+        terminalDelay = 0; //TODO change?
         Gdx.app.log(TAG, " toRemoveSum "+toRemoveSum);
         for(short i = removeMaxIndex;i>=0;i--) {
             // start to look!
@@ -104,7 +118,9 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
                 removeActorByIndex(i);
                 lastX-=Constants.BASE; // we know that each arm part is = Constants.BASE
                 toRemoveSum-=1;
-                if(toRemoveSum<=0) break;
+                terminalDelay+=animationSpeed;
+                if(toRemoveSum<=0)
+                    break;
             }
 
 

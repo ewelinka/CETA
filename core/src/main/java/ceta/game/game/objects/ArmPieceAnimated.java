@@ -27,7 +27,8 @@ public class ArmPieceAnimated extends ArmPiece{
     public ArmPieceAnimated(short val, AnimatedRoboticArmManager armsMan) {
         // by default 1
         super((short)1,armsMan);
-        setScale(0);
+        setOrigin(0, this.getHeight()/ 2);
+        setScale(0,1);
 
     }
 
@@ -45,13 +46,13 @@ public class ArmPieceAnimated extends ArmPiece{
     }
 
 
-    public void expandMe(short delay){
+    public void expandMe(float delay, float speed){
         //armsManager.addToInMovementIds(id);
        // ((AnimatedRoboticArmManager)armsManager).addToInExpansionIds(id);
         addAction(sequence(
                 //Actions.scaleTo(0.0f,1),
                 Actions.delay(delay),
-                Actions.scaleTo(1.0f,1.0f,0.5f)
+                Actions.scaleTo(1.0f,1.0f,speed)
 //                run(new Runnable() {
 //                    public void run() {
 //                        ((AnimatedRoboticArmManager)armsManager).notificationArmExpanded(id);
@@ -60,12 +61,12 @@ public class ArmPieceAnimated extends ArmPiece{
         ));
     }
 
-    public void collapseMe(short delay){
+    public void collapseMe(float delay, float speed){
         armsManager.addToInMovementIds(id);
 
         addAction(sequence(
                 Actions.delay(delay),
-                Actions.scaleTo(0.01f,0f,0.5f),
+                Actions.scaleTo(0f,1.0f,speed),
                 run(new Runnable() {
                     public void run() {
                         armsManager.notificationArmGone(id);
