@@ -18,7 +18,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 public class ArmPiece extends AbstractGameObject {
     protected short armValue;
     protected short id;
-    private float terminalX;
+
     protected RoboticArmManager armsManager;
 
 
@@ -72,13 +72,7 @@ public class ArmPiece extends AbstractGameObject {
         id = idVal;
     }
 
-    public float getTerminalX(){
-        return terminalX;
-    }
 
-    public void setTerminalX(float newTerminalX){
-        terminalX = newTerminalX;
-    }
 
     public short getArmValue(){
         return armValue;

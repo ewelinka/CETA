@@ -47,17 +47,15 @@ public class ArmPieceAnimated extends ArmPiece{
 
 
     public void expandMe(float delay, float speed){
-        //armsManager.addToInMovementIds(id);
-       // ((AnimatedRoboticArmManager)armsManager).addToInExpansionIds(id);
+        armsManager.addToInMovementIds(id);
         addAction(sequence(
-                //Actions.scaleTo(0.0f,1),
                 Actions.delay(delay),
-                Actions.scaleTo(1.0f,1.0f,speed)
-//                run(new Runnable() {
-//                    public void run() {
-//                        ((AnimatedRoboticArmManager)armsManager).notificationArmExpanded(id);
-//                    }
-//                })
+                Actions.scaleTo(1.0f,1.0f,speed),
+                run(new Runnable() {
+                    public void run() {
+                        armsManager.notificationArmMoved(id);
+                    }
+                })
         ));
     }
 

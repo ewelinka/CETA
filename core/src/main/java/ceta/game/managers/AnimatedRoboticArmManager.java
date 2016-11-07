@@ -16,7 +16,6 @@ import java.util.Arrays;
 public class AnimatedRoboticArmManager extends RoboticArmManager {
     public static final String TAG = AnimatedRoboticArmManager.class.getName();
     private ArrayList<ArmPieceAnimated> armPiecesAnim;
-    protected ArrayList<Short> inExpansionIds = new ArrayList<Short>();
     private float terminalDelay;
     private float currentDelayPassed;
     private final float animationSpeed = 0.3f;
@@ -36,44 +35,51 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
     }
 
 
-    public void updateAnimated(ArrayList toAdd, ArrayList<Short> toRemoveValues){
+    public void updateAnimated(ArrayList<Pair> toAdd, ArrayList<Short> toRemoveValues){
         short toAddNr = 0;
         short toRemoveNr = 0;
 
-        if(toRemoveValues.size() > 0){
-            Gdx.app.log(TAG, "-- BEFORE removeAnimatedArms "+Arrays.toString(toRemoveValues.toArray()));
-            //check how many we should add
-            removeAnimatedArms(toRemoveValues); // removed arms notify the manager and we update the positions
+        for(short i=0; i< toRemoveValues.size();i++) {
+            toRemoveNr+= toRemoveValues.get(i);
         }
-
-        if(toAdd.size() > 0){
-            // check how many we should remove
-            addArms(toAdd);
+        for(short i=0; i< toAdd.size();i++) {
+            toAddNr+=toAdd.get(i).getValue();
 
         }
+
+        //Gdx.app.log(TAG,"final score: "+toRemoveNr+ " to remove and "+toAddNr+" to add!");
 
         // at the end we see the difference
-        
+        if((toAddNr - toRemoveNr) >= 0){
+            addArms(toAdd, (short)(toAddNr - toRemoveNr)); // here we pass a
+
+        }else{
+            removeAnimatedArms((short)(Math.abs(toAddNr - toRemoveNr))); // we have to remove a positive number of pieces
+        }
     }
 
 
-    protected void addArms(ArrayList<Pair> toAdd){
+    protected void addArms(ArrayList<Pair> toAdd, short howMany){
         terminalDelay = 0; // TODO we check if we should start in 0 or there is somenthing in movement
-        for(short i=0; i< toAdd.size();i++) {
-            for (short j = 0; j < toAdd.get(i).getValue(); j++) {
-                Gdx.app.log(TAG, " add "+ toAdd.get(i).getKey()+" part "+j + " lastx "+lastX+" delay "+ terminalDelay);
-                ArmPieceAnimated armToAdd = new ArmPieceAnimated((short) 1, this);
-                stage.addActor(armToAdd);
+        short currentKey = 0; // we need it if we have to check for ids to generate new false ids
 
-                armToAdd.setId((short)(toAdd.get(i).getKey()*10+j));
-                armToAdd.setPosition(lastX,initialY);
-                lastX+=armToAdd.getWidth();
+        for(short i=0; i< howMany;i++) {
+            if(i>9)
+                currentKey+=1;
 
-                armToAdd.expandMe(terminalDelay, animationSpeed); // will grow in 1 sec
-                terminalDelay += animationSpeed;
+            Gdx.app.log(TAG, " add "+ toAdd.get(currentKey).getKey()+" part "+i + " lastx "+lastX+" delay "+ terminalDelay);
+            ArmPieceAnimated armToAdd = new ArmPieceAnimated((short) 1, this);
+            stage.addActor(armToAdd);
 
-                armPiecesAnim.add(armToAdd);
-            }
+            armToAdd.setId((short)(toAdd.get(currentKey).getKey()*10+i)); //we have to invent id because one virtual piece is mapped into up to 5 arm pieces
+            armToAdd.setPosition(lastX,initialY);
+            lastX+=armToAdd.getWidth();
+
+            armToAdd.expandMe(terminalDelay, animationSpeed); // will grow in 1 sec
+            terminalDelay += animationSpeed;
+
+            armPiecesAnim.add(armToAdd);
+
         }
     }
 
@@ -99,15 +105,9 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
         return null;
     }
 
-    protected void removeAnimatedArms(ArrayList<Short> toRemoveValues){
+    protected void removeAnimatedArms(short toRemoveSum){
         short removeMaxIndex = (short)(armPiecesAnim.size()-1);
-        short toRemoveSum = 0;
 
-        for(short i = 0;i<toRemoveValues.size();i++) {
-            // we get the value [get(i)] to remove => value 2, we remove 2 pieces
-            toRemoveSum+=toRemoveValues.get(i);
-
-        }
         terminalDelay = 0; //TODO change?
         Gdx.app.log(TAG, " toRemoveSum "+toRemoveSum);
         for(short i = removeMaxIndex;i>=0;i--) {
@@ -122,26 +122,9 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
                 if(toRemoveSum<=0)
                     break;
             }
-
-
         }
     }
 
-    public void addToInExpansionIds(short id){
-        inExpansionIds.add(id);
-
-    }
-
-    public void notificationArmExpanded(short id){
-        Gdx.app.log(TAG, "BEFORE expansion "+Arrays.toString(inExpansionIds.toArray())+" with id "+id);
-        inExpansionIds.remove((Object)id);
-        Gdx.app.log(TAG, "AFTER expansion"+Arrays.toString(inExpansionIds.toArray())+" with id "+id);
-
-    }
-
-    public boolean isExpanding(){
-        return inExpansionIds.size() > 0;
-    }
 
 
 }

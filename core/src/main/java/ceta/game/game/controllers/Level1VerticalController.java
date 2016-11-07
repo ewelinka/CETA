@@ -1,6 +1,6 @@
 package ceta.game.game.controllers;
 
-import ceta.game.game.levels.Level1;
+import ceta.game.game.levels.Level1Horizontal;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.GamePreferences;
 import ceta.game.managers.VirtualBlocksManager;
@@ -62,7 +62,7 @@ public class Level1VerticalController extends AbstractWorldController {
     @Override
     protected void localInit () {
         Gdx.app.log(TAG," local init");
-        level = new Level1(stage, GamePreferences.instance.lastLevel);
+        level = new Level1Horizontal(stage, GamePreferences.instance.lastLevel);
         cameraHelper.setTarget(null);
         score = 0;
         virtualBlocksManager.init();

@@ -1,7 +1,7 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.Assets;
-import ceta.game.game.levels.Level1;
+import ceta.game.game.levels.Level1Horizontal;
 import ceta.game.game.objects.ArmPiece;
 import ceta.game.game.objects.Price;
 import ceta.game.managers.RoboticArmManager;
@@ -20,7 +20,8 @@ import java.util.ArrayList;
 public class Level1HorizontalController extends AbstractWorldController{
     private static final String TAG = Level1HorizontalController.class.getName();
     private RoboticArmManager roboticArmManager;
-    protected VirtualBlocksManagerOSC virtualBlocksManager;
+    protected VirtualBlocksManager virtualBlocksManager;
+
 
 
     public Level1HorizontalController(DirectedGame game, Stage stage) {
@@ -33,9 +34,9 @@ public class Level1HorizontalController extends AbstractWorldController{
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
         roboticArmManager = new RoboticArmManager(stage);
-        virtualBlocksManager = new VirtualBlocksManagerOSC(stage);
+        virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        level = new Level1(stage, GamePreferences.instance.lastLevel);
+        level = new Level1Horizontal(stage, GamePreferences.instance.lastLevel);
 
         virtualBlocksManager.init();
         roboticArmManager.init();
@@ -119,8 +120,8 @@ public class Level1HorizontalController extends AbstractWorldController{
     }
 
     public VirtualBlocksManagerOSC getVirtualBlocksManagerOSC(){
-        //return  new VirtualBlocksManagerOSC(stage);
-        return virtualBlocksManager;
+        return  new VirtualBlocksManagerOSC(stage);
+        //return virtualBlocksManager;
     }
 
 

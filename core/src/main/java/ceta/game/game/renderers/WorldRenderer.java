@@ -23,9 +23,9 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 /**
  * Created by ewe on 7/25/16.
  */
-public class WorldRendererLevel1 extends AbstractWorldRenderer {
+public class WorldRenderer extends AbstractWorldRenderer {
 
-    public WorldRendererLevel1(AbstractWorldController worldController, Stage stage) {
+    public WorldRenderer(AbstractWorldController worldController, Stage stage) {
         this.stage = stage;
         this.worldController = worldController;
         init();

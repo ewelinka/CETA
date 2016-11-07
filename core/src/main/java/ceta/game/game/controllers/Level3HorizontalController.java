@@ -1,38 +1,41 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.levels.Level1Horizontal;
-import ceta.game.game.objects.ArmPieceAnimated;
-import ceta.game.managers.AnimatedRoboticArmManager;
-import ceta.game.screens.DirectedGame;
-import ceta.game.util.GamePreferences;
 import ceta.game.managers.VirtualBlocksManager;
+import ceta.game.screens.DirectedGame;
+import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
+import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
 
 /**
- * Created by ewe on 10/27/16.
+ * Created by ewe on 11/4/16.
  */
-public class Level2HorizontalController extends Level1HorizontalController {
+public class Level3HorizontalController extends Level1HorizontalController  {
     private static final String TAG = Level2HorizontalController.class.getName();
-    private AnimatedRoboticArmManager roboticArmManager;
 
-    public Level2HorizontalController(DirectedGame game, Stage stage) {
+
+    public Level3HorizontalController(DirectedGame game, Stage stage) {
         super(game,stage);
     }
 
     @Override
     protected void localInit () {
-        roboticArmManager = new AnimatedRoboticArmManager(stage);
+
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
+        Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
         level = new Level1Horizontal(stage, GamePreferences.instance.lastLevel);
+        //level.bruno.setSize(Constants.BASE*1,Constants.BASE*4);
+        level.bruno.setPosition(-240,0);
+        level.bruno.setTerminalX(-240);
         cameraHelper.setTarget(null);
         score = 0;
         virtualBlocksManager.init();
-        roboticArmManager.init();
+
     }
 
 
@@ -50,7 +53,8 @@ public class Level2HorizontalController extends Level1HorizontalController {
                 level.bruno.shake(); // we shake bruno
                 if (countdownCurrentTime < 0) {  // if we reached the time
                     // remove values NOT ids
-                    updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
+                    // TODO move bruno
+                    updateBruno(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
                     virtualBlocksManager.resetDetectedAndRemoved(); // after the update we reset the detected blocks
                     countdownOn = false;
                     countdownCurrentTime = GamePreferences.instance.countdownMax;
@@ -58,7 +62,8 @@ public class Level2HorizontalController extends Level1HorizontalController {
                     countdownCurrentTime -= deltaTime;
             }
         } else {
-            updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
+            // TODO move bruno
+            updateBruno(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
             virtualBlocksManager.resetDetectedAndRemoved(); // after the update we reset the detected blocks
         }
         cameraHelper.update(deltaTime);
@@ -69,18 +74,14 @@ public class Level2HorizontalController extends Level1HorizontalController {
 
     }
 
-    @Override
-    protected void updateArmPieces(ArrayList toAdd, ArrayList toRemoveValues){
-        roboticArmManager.updateAnimated(toAdd,toRemoveValues);
-    }
 
     @Override
     protected void testCollisions () {
-        ArmPieceAnimated lastArm = getLastAnimatedArmPiece();
-        if (lastArm != null && !roboticArmManager.isUpdatingArmPiecesPositions()) {
+
+        if (!(level.bruno.getActions().size > 0)) { // if bruno is not moving
             // we set 4px x 4px box at the right end (X), in the middle (Y)
-            r1.set(lastArm.getX() + lastArm.getWidth(),
-                    lastArm.getY()+lastArm.getHeight()/2 - 2, // two pixels below the middle
+            r1.set(level.bruno.getX() + level.bruno.getWidth()/2 - 2,
+                    level.bruno.getY()+level.bruno.getHeight(), // two pixels below the middle
                     4, 4);
             r2.set(level.price.getX(),
                     level.price.getY() + level.price.getHeight() / 2 - 2,
@@ -92,9 +93,31 @@ public class Level2HorizontalController extends Level1HorizontalController {
         }
     }
 
+    private void updateBruno(ArrayList<Pair> toAdd, ArrayList<Short> toRemoveValues){
+        short toAddNr = 0;
+        short toRemoveNr = 0;
 
-    public ArmPieceAnimated getLastAnimatedArmPiece(){
-        return roboticArmManager.getLastAnimatedArmPiece();
+        for(short i=0; i< toRemoveValues.size();i++) {
+            toRemoveNr+= toRemoveValues.get(i);
+        }
+        for(short i=0; i< toAdd.size();i++) {
+            toAddNr+=toAdd.get(i).getValue();
+
+        }
+
+        if((toAddNr - toRemoveNr) != 0)
+            moveBruno((short)(toAddNr - toRemoveNr));
+    }
+
+    private void moveBruno(short howMany){
+        if(howMany>0)
+            level.bruno.setLookingLeft(false);
+        else
+            level.bruno.setLookingLeft(true);
+        Gdx.app.log(TAG, " move bruno "+howMany);
+        float currentTerminalX = level.bruno.getTerminalX();
+        level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, 0);
+
     }
 
 

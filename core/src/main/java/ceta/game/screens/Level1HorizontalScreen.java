@@ -3,9 +3,7 @@ package ceta.game.screens;
 import java.util.Date;
 import java.util.List;
 
-import ceta.game.game.controllers.AbstractWorldController;
-import ceta.game.game.controllers.Level2HorizontalController;
-import ceta.game.game.renderers.WorldRendererLevel1;
+import ceta.game.game.renderers.WorldRenderer;
 import ceta.game.game.controllers.Level1HorizontalController;
 import ceta.game.util.Constants;
 
@@ -58,7 +56,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
         worldController = new Level1HorizontalController(game,stage);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRendererLevel1(worldController,stage);
+        worldRenderer = new WorldRenderer(worldController,stage);
         // android back key
         Gdx.input.setCatchBackKey(true);
     }
@@ -105,9 +103,6 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
         return multiplexer;
     }
 
-    public AbstractWorldController getLevel1Controller(){
-        return worldController;
-    }
 
 
     @Override

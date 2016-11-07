@@ -2,6 +2,9 @@ package ceta.game.managers;
 
 import ceta.game.CetaGame;
 import ceta.game.screens.DirectedGame;
+import ceta.game.screens.Level1VerticalScreen;
+import ceta.game.screens.Level2HorizontalScreen;
+import ceta.game.screens.Level3HorizontalScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.GamePreferences;
@@ -28,7 +31,9 @@ public class LevelsManager {
             case 3:
             case 4:
                 //TODO change after wizard of oz
-                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition); // we go to level 2!
+                //game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition); // we go to level 2!
+                game.setScreen(new Level1VerticalScreen(game), transition);
+
                // game.setScreen(new Level1HorizontalScreen(game), transition);
                 break;
             default:

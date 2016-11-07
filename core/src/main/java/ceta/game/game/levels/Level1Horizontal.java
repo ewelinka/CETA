@@ -11,11 +11,11 @@ import com.badlogic.gdx.utils.Json;
 /**
  * Created by ewe on 8/23/16.
  */
-public class Level1 extends AbstractLevel {
-    public static final String TAG = Level1.class.getName();
+public class Level1Horizontal extends AbstractLevel {
+    public static final String TAG = Level1Horizontal.class.getName();
     private int levelNr;
 
-    public Level1(Stage stage, int level){
+    public Level1Horizontal(Stage stage, int level){
         this.stage = stage;
         levelNr = level;
         init();
@@ -27,10 +27,8 @@ public class Level1 extends AbstractLevel {
 
         bruno = new Bruno();
         bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X ,0);
-        // dafualt horizontal
+        // default horizontal
         price = new Price((short)levelParams.priceVelocity,(short)levelParams.numberMin, levelParams.priceReturn);
-
-
 
         // add actors
         stage.addActor(bruno);

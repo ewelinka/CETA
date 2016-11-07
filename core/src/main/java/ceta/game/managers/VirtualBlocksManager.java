@@ -48,10 +48,6 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     @Override
     public void updateDetected() {
-        // first - clean!
-//        if (!GamePreferences.instance.actionSubmit) {
-//            resetDetectedAndRemoved(); //reset just if there is no action submit
-//        }
         // we check what changed
         for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
             VirtualBlock vBlock = virtualBlocksOnStage.get(i);
