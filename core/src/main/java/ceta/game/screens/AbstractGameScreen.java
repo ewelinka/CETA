@@ -16,7 +16,7 @@ public abstract class AbstractGameScreen  implements Screen {
     protected Stage stage;
     protected AbstractWorldRenderer worldRenderer;
     protected AbstractWorldController worldController;
-    protected boolean numberLineIsVertical = false;
+
 
     public AbstractGameScreen (DirectedGame game) {
 

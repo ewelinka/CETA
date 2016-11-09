@@ -23,18 +23,21 @@ public class Price extends AbstractGameObject {
     private boolean isMovingVertical;
 
     //TODO shouldn't be fixed val!!!
-    private float myStartX;
+    private float myStartX, myStartX_verticalNL;
     private short rotationVelocity;
 
 
     public Price(short vel, short startNr, int priceReturn) {
-        this("horizontal", vel, startNr, priceReturn); // horizontal
+        this(true, vel, startNr, priceReturn); // horizontal
     }
 
 
-    public Price(String type, short vel, short startNr, int priceReturn) {
+    public Price(boolean isMovingVertical, short vel, short startNr, int priceReturn) {
+        this.isMovingVertical = isMovingVertical;
         init();
-        localInit(type,vel,startNr,priceReturn);
+        localInit(vel,startNr,priceReturn);
+
+
     }
 
 
@@ -45,15 +48,10 @@ public class Price extends AbstractGameObject {
 
     }
 
-    private void localInit(String type, short vel, short start, int priceReturn){
+    private void localInit(short vel, short start, int priceReturn){
         myStartX = -200; // change!!
+        myStartX_verticalNL = -280;
         rotationVelocity = 30;
-
-        if(type.equals("horizontal")){
-            isMovingVertical = true;
-        } else {
-            isMovingVertical = false;
-        }
 
         velocity = vel;
         startNumber = start;
@@ -82,8 +80,15 @@ public class Price extends AbstractGameObject {
     }
 
     private void updateHorizontalFalling(float deltaTime){
-        if(this.getX() < -Constants.VIEWPORT_WIDTH/2)
-            this.setPosition(Constants.VIEWPORT_WIDTH/2, getY());//go back above
+        if(this.getX() < -Constants.VIEWPORT_WIDTH/2) {
+            returnCounter -= 1;
+            if (returnCounter < 0) {
+                setPositionStartRight(); // new position!
+                returnCounter = maxReturn;
+
+            } else
+                this.setPosition(Constants.VIEWPORT_WIDTH/2, getY()); // come back in the same place
+        }
         else
             this.setPosition(getX()+velocity*deltaTime, getY());
     }
@@ -116,19 +121,43 @@ public class Price extends AbstractGameObject {
         startNumber = s;
     }
 
-    private void setInitialPosition(){
+    private void setInitialPosition() {
+        if(isMovingVertical)
+            setInitialPositionMovingVertical();
+        else
+            setInitialPositionMovingHorizontal();
+    }
+
+    private void setInitialPositionMovingVertical(){
         if(isDynamic) {
-            setNewPosition(myStartX, Constants.VIEWPORT_HEIGHT / 2 );
+            setNewPositionMV(myStartX, Constants.VIEWPORT_HEIGHT / 2 );
         }
         else{
-            setNewPosition(myStartX, Constants.BASE);
+            setNewPositionMV(myStartX, Constants.BASE);
         }
     }
 
-    public void setNewPosition(float startX, float startY){
+    private void setInitialPositionMovingHorizontal(){
+        if(isDynamic) {
+            setNewPositionMH(Constants.VIEWPORT_WIDTH/2  );
+        }
+        else{
+            setNewPositionMH(myStartX_verticalNL);
+        }
+    }
+
+
+
+    public void setNewPositionMV(float startX, float startY){
         currentNumber = (short)(MathUtils.random(1,10));
         // adjust the position to range number (currentNumber-startNumber)
         setPosition( startX + (currentNumber)*Constants.BASE - getWidth()/2, startY );
+    }
+
+    public void setNewPositionMH(float startX){
+        currentNumber = (short)(MathUtils.random(1,10));
+        // adjust the position to range number (currentNumber-startNumber)
+        setPosition( startX, (currentNumber)*Constants.BASE - getHeight()/2);
     }
 
 
@@ -143,7 +172,26 @@ public class Price extends AbstractGameObject {
         //setPosition( );
     }
 
+    public void moveToNewPositionVertical(float startX, short startY){
+        short newPosition = (short)MathUtils.random(1,10);
+        while (newPosition == currentNumber){
+            newPosition = (short)MathUtils.random(1,10);
+        }
+        currentNumber = newPosition;
+
+        addAction(Actions.moveTo(startX, startY + currentNumber*Constants.BASE - getHeight()/2,0.6f));
+        //setPosition( );
+    }
+
     public void wasCollected(){
+        if (isMovingVertical)
+            wasCollectedHorizontalNumberLine();
+        else
+            wasCollectedVerticalNumberLine();
+
+    }
+
+    public void wasCollectedHorizontalNumberLine(){
         if (isDynamic)
             setPositionStartAbove(myStartX);
         else
@@ -151,7 +199,15 @@ public class Price extends AbstractGameObject {
 
     }
 
-    public void setPositionStartAbove(float startX){
+    public void wasCollectedVerticalNumberLine(){
+        if (isDynamic)
+            setPositionStartRight();
+        else
+            moveToNewPositionVertical(myStartX_verticalNL,(short)0);
+
+    }
+
+    private void setPositionStartAbove(float startX){
         returnCounter = maxReturn; // new position, new counter!
 
         short newPosition = (short)MathUtils.random(1,10);
@@ -161,6 +217,19 @@ public class Price extends AbstractGameObject {
         currentNumber = newPosition;
 
         setPosition(startX + currentNumber*Constants.BASE - getWidth()/2,(short)(Constants.VIEWPORT_HEIGHT/2-getHeight()));
+
+    }
+
+    private void setPositionStartRight(){
+        returnCounter = maxReturn; // new position, new counter!
+
+        short newPosition = (short)MathUtils.random(1,10);
+        while (newPosition == currentNumber){
+            newPosition = (short)MathUtils.random(1,10);
+        }
+        currentNumber = newPosition;
+
+        setPosition(Constants.VIEWPORT_WIDTH/2,newPosition*Constants.BASE-getHeight()/2);
 
     }
 

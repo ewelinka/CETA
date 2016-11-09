@@ -25,9 +25,6 @@ public class ArmPiece extends AbstractGameObject {
     public ArmPiece(short val, RoboticArmManager armsMan){
         armValue = val;
         armsManager = armsMan;
-
-         // will be changed when we have more parts
-
         init();
         setColorAndTexture(val);
     }

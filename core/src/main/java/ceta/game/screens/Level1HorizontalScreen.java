@@ -56,7 +56,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
         worldController = new Level1HorizontalController(game,stage);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRenderer(worldController,stage);
+        worldRenderer = new WorldRenderer(worldController,stage); // default set number line to horizontal
         // android back key
         Gdx.input.setCatchBackKey(true);
     }

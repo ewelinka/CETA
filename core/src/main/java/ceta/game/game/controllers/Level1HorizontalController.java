@@ -1,7 +1,7 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.Assets;
-import ceta.game.game.levels.Level1Horizontal;
+import ceta.game.game.levels.LevelHorizontal;
 import ceta.game.game.objects.ArmPiece;
 import ceta.game.game.objects.Price;
 import ceta.game.managers.RoboticArmManager;
@@ -36,7 +36,7 @@ public class Level1HorizontalController extends AbstractWorldController{
         roboticArmManager = new RoboticArmManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        level = new Level1Horizontal(stage, GamePreferences.instance.lastLevel);
+        level = new LevelHorizontal(stage, GamePreferences.instance.lastLevel);
 
         virtualBlocksManager.init();
         roboticArmManager.init();
@@ -77,6 +77,7 @@ public class Level1HorizontalController extends AbstractWorldController{
 
     }
 
+    @Override
     protected void testCollisions () {
         ArmPiece lastArm = getLastArmPiece();
         if (lastArm != null && !roboticArmManager.isUpdatingArmPiecesPositions()) {

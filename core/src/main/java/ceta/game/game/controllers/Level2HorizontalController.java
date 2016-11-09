@@ -1,6 +1,6 @@
 package ceta.game.game.controllers;
 
-import ceta.game.game.levels.Level1Horizontal;
+import ceta.game.game.levels.LevelHorizontal;
 import ceta.game.game.objects.ArmPieceAnimated;
 import ceta.game.managers.AnimatedRoboticArmManager;
 import ceta.game.screens.DirectedGame;
@@ -28,7 +28,7 @@ public class Level2HorizontalController extends Level1HorizontalController {
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
         Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
-        level = new Level1Horizontal(stage, GamePreferences.instance.lastLevel);
+        level = new LevelHorizontal(stage, GamePreferences.instance.lastLevel);
         cameraHelper.setTarget(null);
         score = 0;
         virtualBlocksManager.init();

@@ -31,6 +31,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected Image imgBackground;
 
     protected int levelMinimumNumber;
+    protected boolean numberLineIsHorizontal;
 
 
     public abstract void init();

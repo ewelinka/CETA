@@ -29,6 +29,7 @@ public abstract class AbstractGameObject extends Actor {
     public Animation animation;
     public float stateTime;
     public float terminalX;
+    public float terminalY;
 
 
     public AbstractGameObject () {
@@ -85,6 +86,13 @@ public abstract class AbstractGameObject extends Actor {
 
     public void setTerminalX(float newTerminalX){
         terminalX = newTerminalX;
+    }
+    public float getTerminalY(){
+        return terminalY;
+    }
+
+    public void setTerminalY(float newTerminalY){
+        terminalY = newTerminalY;
     }
 
 

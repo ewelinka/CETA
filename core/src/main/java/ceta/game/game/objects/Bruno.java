@@ -20,7 +20,6 @@ public class Bruno extends AbstractGameObject {
     public static final String TAG = Bruno.class.getName();
     private float offsetX = 0;
     private float offsetY = 0;
-    private float terminalX;
     private boolean lookingLeft;
 
 
@@ -33,8 +32,13 @@ public class Bruno extends AbstractGameObject {
     public void init () {
         regTex = Assets.instance.bruno.body;
         this.setSize(Constants.BASE*2,Constants.BASE*4);
-        super.init();
+        superinit();
         lookingLeft = false;
+
+    }
+
+    protected void superinit(){
+        super.init();
 
     }
 
@@ -51,7 +55,7 @@ public class Bruno extends AbstractGameObject {
     public void draw(Batch batch, float parentAlpha) {
         //batch.setProjectionMatrix(camera.combined);
         // batch.draw(regTex,this.getX(),this.getY());
-        //batch.setColor(this.getColor());
+        batch.setColor(this.getColor());
         batch.draw(regTex.getTexture(),
                 this.getX()+offsetX, this.getY()+offsetY,
                 this.getOriginX(), this.getOriginY(),
@@ -60,7 +64,7 @@ public class Bruno extends AbstractGameObject {
                 this.getRotation(),
                 regTex.getRegionX(), regTex.getRegionY(),
                 regTex.getRegionWidth(), regTex.getRegionHeight(), lookingLeft,false);
-       // batch.setColor(1,1,1,1);
+        batch.setColor(1,1,1,1);
 
         offsetX = 0;
         offsetY = 0;

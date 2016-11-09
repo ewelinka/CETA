@@ -11,11 +11,11 @@ import com.badlogic.gdx.utils.Json;
 /**
  * Created by ewe on 8/23/16.
  */
-public class Level1Horizontal extends AbstractLevel {
-    public static final String TAG = Level1Horizontal.class.getName();
+public class LevelHorizontal extends AbstractLevel {
+    public static final String TAG = LevelHorizontal.class.getName();
     private int levelNr;
 
-    public Level1Horizontal(Stage stage, int level){
+    public LevelHorizontal(Stage stage, int level){
         this.stage = stage;
         levelNr = level;
         init();
@@ -41,7 +41,7 @@ public class Level1Horizontal extends AbstractLevel {
         stage.act(deltaTime);
     }
 
-    private void initLevelParams(){
+    protected void initLevelParams(){
         Json json = new Json();
         levelParams = json.fromJson(LevelParams.class, Gdx.files.internal(Constants.LEVELS_FOLDER+"/"+levelNr+".json"));
     }

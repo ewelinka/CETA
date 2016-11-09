@@ -1,6 +1,6 @@
 package ceta.game.game.controllers;
 
-import ceta.game.game.levels.Level1Horizontal;
+import ceta.game.game.levels.LevelHorizontal;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.Constants;
@@ -28,7 +28,7 @@ public class Level3HorizontalController extends Level1HorizontalController  {
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        level = new Level1Horizontal(stage, GamePreferences.instance.lastLevel);
+        level = new LevelHorizontal(stage, GamePreferences.instance.lastLevel);
         //level.bruno.setSize(Constants.BASE*1,Constants.BASE*4);
         level.bruno.setPosition(-240,0);
         level.bruno.setTerminalX(-240);

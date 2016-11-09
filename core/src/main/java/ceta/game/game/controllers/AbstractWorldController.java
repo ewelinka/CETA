@@ -38,6 +38,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
     public abstract void update(float delta);
+    protected abstract void testCollisions();
 
     protected abstract void localInit();
 

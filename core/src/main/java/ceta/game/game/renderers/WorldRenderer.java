@@ -25,10 +25,16 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  */
 public class WorldRenderer extends AbstractWorldRenderer {
 
-    public WorldRenderer(AbstractWorldController worldController, Stage stage) {
+    public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
         this.stage = stage;
         this.worldController = worldController;
+        this.numberLineIsHorizontal = numberLineIsHorizontal;
         init();
+    }
+
+    public WorldRenderer(AbstractWorldController worldController, Stage stage) {
+        this(worldController,stage,true); //default horizontal number line
+
     }
 
     public void init () {
@@ -58,7 +64,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderWorld(spriteBatch);
 
         if(worldController.isLevelNumberLineVisible())
-            renderHelperNumbersVertical(spriteBatch);
+            renderHelperNumbers(spriteBatch);
 
         if (worldController.getCountdownOn()) {
             renderCounter(spriteBatch);
@@ -95,9 +101,17 @@ public class WorldRenderer extends AbstractWorldRenderer {
         batch.end();
     }
 
+    private void renderHelperNumberLines(ShapeRenderer shRenderer) {
+        if(numberLineIsHorizontal)
+            renderHelperNumberLinesVertical(shRenderer);
+        else
+            renderHelperNumberLinesHorizontal(shRenderer);
+
+    }
 
 
-    private void renderHelperNumberLines(ShapeRenderer shRenderer){
+
+    private void renderHelperNumberLinesVertical(ShapeRenderer shRenderer){
         Gdx.gl.glLineWidth(1);
         shRenderer.setProjectionMatrix(camera.combined);
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -118,17 +132,56 @@ public class WorldRenderer extends AbstractWorldRenderer {
         shRenderer.end();
     }
 
+    private void renderHelperNumberLinesHorizontal(ShapeRenderer shRenderer) {
+        Gdx.gl.glLineWidth(1);
+        shRenderer.setProjectionMatrix(camera.combined);
+        shRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shRenderer.setColor(1, 1, 1, 1);
+
+        for(int i = 0; i<=400;i+=Constants.BASE){
+            shRenderer.line(-Constants.VIEWPORT_WIDTH/2 , i, 240,i);
+        }
+        shRenderer.setColor(1, 0, 0, 1);
+        //vertical
+        shapeRenderer.line(0 , -Constants.VIEWPORT_HEIGHT/2, 0,Constants.VIEWPORT_HEIGHT/2);
+        // and detection limit in blue
+        shRenderer.setColor(0, 0, 1, 1);
+        shRenderer.line(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT, Constants.VIEWPORT_WIDTH/2,Constants.DETECTION_LIMIT);
+
+        shRenderer.end();
+    }
+
+    private void renderHelperNumbers(SpriteBatch batch){
+        if(numberLineIsHorizontal)
+            renderHelperNumbersVertical(batch);
+        else
+            renderHelperNumbersHorizontal(batch);
+    }
+
     private void renderHelperNumbersVertical(SpriteBatch batch){
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         int counter  = 0;
         for(int i = -200; i<240;i+=Constants.BASE){
-            String text = counter+"";
-           // GlyphLayout layout = new GlyphLayout(font, text);
-            //font.draw(batch, counter+"", i - layout.width/2, 0);
             font.draw(batch, (levelMinimumNumber+counter)+"", i, 0,0,Align.center,false);
 
+            counter+=1;
+        }
+
+        batch.end();
+
+    }
+
+    private void renderHelperNumbersHorizontal(SpriteBatch batch){
+
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        int counter  = 0;
+        for(int i = 0; i<=400;i+=Constants.BASE){
+            String text = counter+"";
+            GlyphLayout layout = new GlyphLayout(font, text);;
+            font.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
             counter+=1;
         }
 
