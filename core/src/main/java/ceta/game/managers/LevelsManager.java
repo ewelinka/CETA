@@ -1,10 +1,7 @@
 package ceta.game.managers;
 
 import ceta.game.CetaGame;
-import ceta.game.screens.DirectedGame;
-import ceta.game.screens.Level1VerticalScreen;
-import ceta.game.screens.Level2HorizontalScreen;
-import ceta.game.screens.Level3HorizontalScreen;
+import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.GamePreferences;
@@ -27,18 +24,26 @@ public class LevelsManager {
         GamePreferences.instance.setLastLevel(lastLevel+1); // we need it to load the correct level-params
         switch(lastLevel){
             case 1:
+                game.setScreen(new Level1HorizontalScreen(game), transition);
+                break;
             case 2:
-            case 3:
-            case 4:
-                //TODO change after wizard of oz
-                //game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition); // we go to level 2!
                 game.setScreen(new Level1VerticalScreen(game), transition);
-
-               // game.setScreen(new Level1HorizontalScreen(game), transition);
+                break;
+            case 3:
+                game.setScreen(new Level2HorizontalScreen(game), transition);
+                break;
+            case 4:
+                game.setScreen(new Level2VerticalScreen(game), transition);
+                break;
+            case 5:
+                game.setScreen(new Level3HorizontalScreen(game), transition);
+                break;
+            case 6:
+                game.setScreen(new Level3VerticalScreen(game), transition);
                 break;
             default:
                 GamePreferences.instance.setLastLevel(1); // we go to the beginning
-                game.setScreen(((CetaGame)game).getLevel1HorizontalScreen(), transition);
+                game.setScreen(new Level1HorizontalScreen(game), transition);
                 break;
         }
     }

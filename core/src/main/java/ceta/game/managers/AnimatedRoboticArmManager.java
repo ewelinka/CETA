@@ -60,7 +60,7 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
 
 
     protected void addArms(ArrayList<Pair> toAdd, short howMany){
-        terminalDelay = 0; // TODO we check if we should start in 0 or there is somenthing in movement
+        terminalDelay = 0; // TODO we check if we should start in 0 or there is somenthing in movement; change if NO action submit
         short currentKey = 0; // we need it if we have to check for ids to generate new false ids
 
         for(short i=0; i< howMany;i++) {
@@ -108,7 +108,7 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
     protected void removeAnimatedArms(short toRemoveSum){
         short removeMaxIndex = (short)(armPiecesAnim.size()-1);
 
-        terminalDelay = 0; //TODO change?
+        terminalDelay = 0; //TODO change if NO action submit
         Gdx.app.log(TAG, " toRemoveSum "+toRemoveSum);
         for(short i = removeMaxIndex;i>=0;i--) {
             // start to look!

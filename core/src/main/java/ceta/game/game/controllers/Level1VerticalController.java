@@ -20,11 +20,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class Level1VerticalController extends AbstractWorldController {
     private static final String TAG = Level1VerticalController.class.getName();
-    private Rectangle r1 = new Rectangle();
-    private Rectangle r2 = new Rectangle();
-    private VirtualBlocksManager virtualBlocksManager;
+    protected VirtualBlocksManager virtualBlocksManager;
     private BrunosManager brunosManager;
-    private Stage stage;
+
 
     public Level1VerticalController(DirectedGame game, Stage stage) {
         this.stage = stage;
@@ -75,8 +73,8 @@ public class Level1VerticalController extends AbstractWorldController {
     @Override
     protected void localInit () {
         Gdx.app.log(TAG," local init going to level vertical");
-        level = new LevelVertical(stage, GamePreferences.instance.lastLevel);
-        cameraHelper.setTarget(null);
+        level = new LevelVertical(stage);
+
         score = 0;
         virtualBlocksManager.init();
         brunosManager.init();
@@ -87,7 +85,7 @@ public class Level1VerticalController extends AbstractWorldController {
     protected void testCollisions () {
         BrunoVertical lastBruno = getLastBruno();
         if (lastBruno != null && !brunosManager.isUpdatingBrunosPositions()) {
-            // we set 4px x 4px box at the midlle end (X), in the top (Y)
+            // we set 4px x 4px box at the middle end (X), in the top (Y)
             r1.set(lastBruno.getX() + lastBruno.getWidth()/2 - 2,
                     lastBruno.getY()+lastBruno.getHeight(), // two pixels below the middle
                     4, 4);

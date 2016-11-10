@@ -15,9 +15,9 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  * Created by ewe on 11/7/16.
  */
 public class BrunoVertical extends Bruno {
-    private short brunoValue;
-    private short id;
-    private BrunosManager brunosManager;
+    protected short brunoValue;
+    protected short id;
+    protected BrunosManager brunosManager;
 
     public BrunoVertical (short value, BrunosManager brunosManager) {
         this.brunosManager = brunosManager;
