@@ -21,29 +21,29 @@ public class LevelsManager {
 
     public void goToNextLevel(){
         int lastLevel = GamePreferences.instance.lastLevel;
-        GamePreferences.instance.setLastLevel(lastLevel+1); // we need it to load the correct level-params
+       // GamePreferences.instance.setLastLevel(lastLevel+1); // we need it to load the correct level-params
         switch(lastLevel){
             case 1:
-                game.setScreen(new Level1HorizontalScreen(game), transition);
+                game.setScreen(new Level1HorizontalScreen(game,1), transition);
                 break;
             case 2:
-                game.setScreen(new Level1VerticalScreen(game), transition);
+                game.setScreen(new Level1VerticalScreen(game,1), transition);
                 break;
             case 3:
-                game.setScreen(new Level2HorizontalScreen(game), transition);
+                game.setScreen(new Level2HorizontalScreen(game,1), transition);
                 break;
             case 4:
-                game.setScreen(new Level2VerticalScreen(game), transition);
+                game.setScreen(new Level2VerticalScreen(game,1), transition);
                 break;
             case 5:
-                game.setScreen(new Level3HorizontalScreen(game), transition);
+                game.setScreen(new Level3HorizontalScreen(game,1), transition);
                 break;
             case 6:
-                game.setScreen(new Level3VerticalScreen(game), transition);
+                game.setScreen(new Level3VerticalScreen(game,1), transition);
                 break;
             default:
                 GamePreferences.instance.setLastLevel(1); // we go to the beginning
-                game.setScreen(new Level1HorizontalScreen(game), transition);
+                game.setScreen(new Level1HorizontalScreen(game,1), transition);
                 break;
         }
     }

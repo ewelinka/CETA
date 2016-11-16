@@ -18,17 +18,17 @@ public class Level2HorizontalController extends Level1HorizontalController {
     private static final String TAG = Level2HorizontalController.class.getName();
     private AnimatedRoboticArmManager roboticArmManager;
 
-    public Level2HorizontalController(DirectedGame game, Stage stage) {
-        super(game,stage);
+    public Level2HorizontalController(DirectedGame game, Stage stage, int levelNr) {
+        super(game,stage,levelNr);
     }
 
     @Override
     protected void localInit () {
+        Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
         roboticArmManager = new AnimatedRoboticArmManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
-        level = new LevelHorizontal(stage, GamePreferences.instance.lastLevel);
+        level = new LevelHorizontal(stage, levelParams);
         cameraHelper.setTarget(null);
         score = 0;
         virtualBlocksManager.init();

@@ -1,15 +1,15 @@
 package ceta.game.game.controllers;
 
-import java.util.Date;
-
 import ceta.game.game.levels.AbstractLevel;
+import ceta.game.game.levels.LevelParams;
 import ceta.game.screens.DirectedGame;
-import ceta.game.screens.FinalScreen;
+import ceta.game.screens.CongratulationsScreen;
 import ceta.game.screens.MenuScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.CameraHelper;
 
+import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
@@ -18,6 +18,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Json;
 
 
 /**
@@ -35,6 +36,18 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected boolean countdownOn;
     protected float countdownCurrentTime;
     private ScreenTransition oneSegFadeIn;
+    protected LevelParams levelParams;
+
+
+    public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
+
+        this.game = game;
+        this.stage = stage;
+        levelParams = getLevelParams(levelNr);
+
+        init();
+        localInit();
+    }
 
 
     public abstract void update(float delta);
@@ -42,8 +55,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     protected abstract void localInit();
 
-    public void init (DirectedGame game) {
-        this.game = game;
+    public void init () {
+
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(null);
         score = 0;
@@ -91,11 +104,12 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         game.setScreen(new MenuScreen(game), oneSegFadeIn);
     }
 
-    public void goToFinalScreen () {
+    public void goToCongratulationsScreen () {
         // switch to final screen
        // ScreenTransition transition = ScreenTransitionFade.init(1);
+        GamePreferences.instance.setLastLevel(GamePreferences.instance.lastLevel+1);
 
-        game.setScreen(new FinalScreen(game), oneSegFadeIn);
+        game.setScreen(new CongratulationsScreen(game), oneSegFadeIn);
 
     }
 
@@ -149,12 +163,19 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         score = 0;
     }
 
-    public int getLevelMinimumNumber(){
-        return level.getMinimumNumber();
+
+    protected LevelParams getLevelParams(int levelNr){
+        Json json = new Json();
+        return json.fromJson(LevelParams.class, Gdx.files.internal(Constants.LEVELS_FOLDER+"/"+levelNr+".json"));
     }
 
-    public boolean isLevelNumberLineVisible(){
-        return level.isNumberLineVisible();
+    public int getOperationsNumberToPass(){
+        return levelParams.operationsNumberToPass;
     }
+
+
+    public int getMinimumNumber(){ return levelParams.numberMin;}
+
+    public boolean isNumberLineVisible(){ return levelParams.visibleNumberLine;}
     
 }

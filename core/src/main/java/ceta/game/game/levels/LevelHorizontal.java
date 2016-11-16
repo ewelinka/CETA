@@ -13,20 +13,16 @@ import com.badlogic.gdx.utils.Json;
  */
 public class LevelHorizontal extends AbstractLevel {
     public static final String TAG = LevelHorizontal.class.getName();
-    private int levelNr;
 
-    public LevelHorizontal(Stage stage, int level){
-        this.stage = stage;
-        levelNr = level;
-        init();
+    public LevelHorizontal(Stage stage, LevelParams levelParams){
+       super(stage, levelParams);
     };
 
     @Override
     public void init() {
-        initLevelParams();
 
         bruno = new Bruno();
-        bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X ,0);
+        bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(),0);
         // default horizontal
         price = new Price((short)levelParams.priceVelocity,(short)levelParams.numberMin, levelParams.priceReturn);
 
@@ -41,13 +37,13 @@ public class LevelHorizontal extends AbstractLevel {
         stage.act(deltaTime);
     }
 
-    protected void initLevelParams(){
-        Json json = new Json();
-        levelParams = json.fromJson(LevelParams.class, Gdx.files.internal(Constants.LEVELS_FOLDER+"/"+levelNr+".json"));
-    }
+
 
     @Override
     public void render(SpriteBatch batch) {
+        bruno.toFront();
+        price.toFront();
+
         stage.draw();
     }
 

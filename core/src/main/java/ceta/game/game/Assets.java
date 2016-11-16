@@ -198,9 +198,9 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion copperFitting3;
         public final TextureAtlas.AtlasRegion copperFitting4;
         public final TextureAtlas.AtlasRegion copperFitting5;
-        public final Animation animatedOneIn;
-        public final Animation animatedOneOut;
-        public final Animation animatedOneLoop;
+//        public final Animation animatedOneIn;
+//        public final Animation animatedOneOut;
+//        public final Animation animatedOneLoop;
 
 
         public AssetRoboticParts (TextureAtlas atlas) {
@@ -210,13 +210,13 @@ public class Assets implements Disposable, AssetErrorListener {
             copperFitting4 = atlas.findRegion("copper4");
             copperFitting5 = atlas.findRegion("copper5");
 
-            Array<TextureAtlas.AtlasRegion> regions = null;
-            regions = atlas.findRegions("boxA");
-            animatedOneLoop = new Animation(1.0f , regions,Animation.PlayMode.LOOP_PINGPONG);
-            regions = atlas.findRegions("boxA");
-            animatedOneIn = new Animation(1.0f, regions);
-            regions = atlas.findRegions("boxA");
-            animatedOneOut = new Animation(1.0f , regions, Animation.PlayMode.REVERSED);
+//            Array<TextureAtlas.AtlasRegion> regions = null;
+//            regions = atlas.findRegions("boxA");
+//            animatedOneLoop = new Animation(1.0f , regions,Animation.PlayMode.LOOP_PINGPONG);
+//            regions = atlas.findRegions("boxA");
+//            animatedOneIn = new Animation(1.0f, regions);
+//            regions = atlas.findRegions("boxA");
+//            animatedOneOut = new Animation(1.0f , regions, Animation.PlayMode.REVERSED);
 
 
 

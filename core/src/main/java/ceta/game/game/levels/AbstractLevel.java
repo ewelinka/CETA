@@ -13,20 +13,18 @@ public abstract class AbstractLevel {
     public Bruno bruno;
     public Price price;
 
-    public LevelParams levelParams;
-
     protected Stage stage;
+    protected LevelParams levelParams;
+
+    public AbstractLevel(Stage stage, LevelParams levelParams){
+        this.stage = stage;
+        this.levelParams = levelParams;
+        init();
+    }
     public abstract void init ();
     public abstract void update (float deltaTime);
     public abstract void render(SpriteBatch batch);
 
-    public int getOperationsNumberToPass(){
-        return levelParams.operationsNumberToPass;
-    }
 
-
-    public int getMinimumNumber(){ return levelParams.numberMin;}
-
-    public boolean isNumberLineVisible(){ return levelParams.visibleNumberLine;}
 
 }

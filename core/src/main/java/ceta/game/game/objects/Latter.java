@@ -25,7 +25,7 @@ public class Latter extends AbstractGameObject {
                 this.setColor(1,1,0,1);
                 break;
             default:
-                regTex = Assets.instance.latter.latter;
+                regTex = Assets.instance.box.box;
                 break;
         }
 

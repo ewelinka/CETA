@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.JsonValue;
  */
 public class LevelParams {
     public int level;
-    public String type;
     public int operationsNumberToPass;
     public int numberMin;
     public int numberMax;

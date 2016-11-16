@@ -18,12 +18,12 @@ import com.illposed.osc.OSCMessage;
 /**
  * Created by ewe on 8/23/16.
  */
-public class Level1HorizontalScreen extends AbstractGameScreen implements OSCListener{
+public class Level1HorizontalScreen extends AbstractGameScreen{
     private static final String TAG = Level1HorizontalScreen.class.getName();
     private boolean paused;
 
-    public Level1HorizontalScreen(DirectedGame game) {
-        super(game);
+    public Level1HorizontalScreen(DirectedGame game, int levelNr) {
+        super(game, levelNr);
     }
 
 
@@ -53,7 +53,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
         // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
-        worldController = new Level1HorizontalController(game,stage);
+        worldController = new Level1HorizontalController(game,stage,levelNr);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
         worldRenderer = new WorldRenderer(worldController,stage); // default set number line to horizontal
@@ -65,10 +65,8 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
     public void hide() {
         Gdx.app.log(TAG," we start the HIDE of the screen ! " +Gdx.graphics.getWidth()+" h "+Gdx.graphics.getHeight());
 
-        worldController.dispose();
-        worldRenderer.dispose();
-        stage.dispose();
         Gdx.input.setCatchBackKey(false);
+        dispose();
     }
 
     @Override
@@ -103,65 +101,4 @@ public class Level1HorizontalScreen extends AbstractGameScreen implements OSCLis
         return multiplexer;
     }
 
-
-
-    @Override
-    public void acceptMessage(Date date, OSCMessage message) {
-        Gdx.app.log(TAG, "message received!!!");
-        for(int i =0;i< message.getArguments().size();i++){
-            Gdx.app.log(TAG,"arg("+i+")="+message.getArguments().get(i));
-        }
-        Gdx.app.log(TAG, "----------- end of message ------------");
-
-        List<Object> arguments = message.getArguments();
-        if(arguments.get(0).equals("addBlock")) {
-            Gdx.app.log(TAG, "add osc block "+ arguments.get(1).toString());
-            /*
-             * TODO Ewe: Formato nuevo del mensaje
-             * "addBlock"
-    		 * blockValue
-    	     * blockId
-             */
-            ((Level1HorizontalController)worldController).getVirtualBlocksManagerOSC().oscAdd(
-                    Float.valueOf(arguments.get(1).toString()), // value
-                    Integer.valueOf(arguments.get(2).toString()), // id
-                    Float.valueOf(arguments.get(3).toString()), // pos x
-                    Float.valueOf(arguments.get(4).toString()), // pos y
-                    Float.valueOf(arguments.get(5).toString()) // rotation
-            );
-        }else if(arguments.get(0).equals("removeBlock")){
-            ((Level1HorizontalController)worldController).getVirtualBlocksManagerOSC().oscRemove(
-                    Integer.valueOf(arguments.get(1).toString()), // id to remove
-                    Float.valueOf(arguments.get(2).toString())
-            );
-            /*
-             * TODO Ewe: Formato nuevo del mensaje
-             * "removeBlock"
-    	     * blockId
-    	     * blockValue
-             */
-        }else if(arguments.get(0).equals("updateBlock")){
-        	/*
-             * TODO Ewe: Formato nuevo del mensaje
-             * "updateBlock"
-    		 * blockValue
-    	     * blockId
-             */
-            ((Level1HorizontalController)worldController).getVirtualBlocksManagerOSC().oscUpdateBlock(
-                    Integer.valueOf(arguments.get(2).toString()), // id
-                    Float.valueOf(arguments.get(3).toString()), // pos x
-                    Float.valueOf(arguments.get(4).toString()), // pos y
-                    Float.valueOf(arguments.get(5).toString()) // rotation
-            );
-        } else if(arguments.get(0).equals("startCountdown")){
-            worldController.setCountdownOn(true);
-
-
-        } else if(arguments.get(0).equals("cancelCountdown")){
-            worldController.setCountdownOn(false);
-
-        }
-
-
-    }
 }

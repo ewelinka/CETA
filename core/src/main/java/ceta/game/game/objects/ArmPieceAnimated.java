@@ -17,10 +17,11 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  * Created by ewe on 10/27/16.
  */
 public class ArmPieceAnimated extends ArmPiece{
-    private Animation animationIn;
-    private Animation animationOut;
-    private Animation animationOn;
-    private float stateTime;
+    public static final String TAG = ArmPieceAnimated.class.getName();
+//    private Animation animationIn;
+//    private Animation animationOut;
+//    private Animation animationOn;
+//    private float stateTime;
 
 
 

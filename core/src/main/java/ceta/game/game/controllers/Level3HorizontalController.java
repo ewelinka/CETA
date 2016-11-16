@@ -18,20 +18,20 @@ public class Level3HorizontalController extends Level1HorizontalController  {
     private static final String TAG = Level3HorizontalController.class.getName();
 
 
-    public Level3HorizontalController(DirectedGame game, Stage stage) {
-        super(game,stage);
+    public Level3HorizontalController(DirectedGame game, Stage stage, int levelNr) {
+        super(game,stage,levelNr);
     }
 
     @Override
     protected void localInit () {
+        Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
 
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        level = new LevelHorizontal(stage, GamePreferences.instance.lastLevel);
-        //level.bruno.setSize(Constants.BASE*1,Constants.BASE*4);
-        level.bruno.setPosition(-240,0);
-        level.bruno.setTerminalX(-240);
+        level = new LevelHorizontal(stage,levelParams);
+        level.bruno.setSize(Constants.BASE*1,Constants.BASE*2);
+        level.bruno.setPosition(Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2,0);
+        level.bruno.setTerminalX(Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2);
         cameraHelper.setTarget(null);
         score = 0;
         virtualBlocksManager.init();
@@ -78,12 +78,12 @@ public class Level3HorizontalController extends Level1HorizontalController  {
 
         if (!(level.bruno.getActions().size > 0)) { // if bruno is not moving
             // we set 4px x 4px box at the right end (X), in the middle (Y)
-            r1.set(level.bruno.getX() + level.bruno.getWidth()/2 - 2,
-                    level.bruno.getY()+level.bruno.getHeight(), // two pixels below the middle
-                    4, 4);
+            r1.set(level.bruno.getX()+level.bruno.getWidth()/2-2,
+                    level.bruno.getY(),
+                    4, level.bruno.getHeight());
             r2.set(level.price.getX(),
-                    level.price.getY() + level.price.getHeight() / 2 - 2,
-                    level.price.bounds.width, 4);
+                    level.price.getY(),
+                    level.price.bounds.width, level.price.bounds.height);
 
             if (r1.overlaps(r2)) {
                 onCollisionBrunoWithGoldCoin(level.price);

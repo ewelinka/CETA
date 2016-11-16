@@ -51,12 +51,10 @@ public class MenuScreen extends AbstractGameScreen {
     private DecimalFormat formatter = new DecimalFormat("0.0##");
     private TextButton btnConfigOz;
 
-    private Level1HorizontalScreen screen1;
 
     public MenuScreen (DirectedGame game) {
-        super(game);
-        this.screen1 = ((CetaGame)game).getLevel1HorizontalScreen();
-        GamePreferences.instance.setLastLevel(1); // TODO delete after wizard of oz
+        super(game,0);
+        GamePreferences.instance.setLastLevel(1); // TODO delete after testing
     }
 
 
@@ -102,15 +100,16 @@ public class MenuScreen extends AbstractGameScreen {
     private void onPlayClicked () {
         ScreenTransition transition = ScreenTransitionFade.init(0.75f);
         //game.setScreen(screen1, transition);
-        game.setScreen(new Level1VerticalScreen(game), transition);
+        game.getLevelsManager().goToNextLevel();
+        //game.setScreen(new Level1VerticalScreen(game,1), transition);
     }
     
-    private void onStartOzClicked(){
-    	((CetaGame)game).initReceiver(screen1); //Level1Screen implements OSCListener
-    	((CetaGame)game).startOSCReceiver();
-    	btnConfigOz.setText(((CetaGame)game).getLocalIp());
-    	//TODO Ewe: Display ((CetaGame)game).getLocalIp(); on screen. De momento cambio el texto del boton para poder ver la ip en algun lado    	
-   }
+//    private void onStartOzClicked(){
+//    	((CetaGame)game).initReceiver(screen1); //Level1Screen implements OSCListener
+//    	((CetaGame)game).startOSCReceiver();
+//    	btnConfigOz.setText(((CetaGame)game).getLocalIp());
+//    	//TODO Ewe: Display ((CetaGame)game).getLocalIp(); on screen. De momento cambio el texto del boton para poder ver la ip en algun lado
+//   }
 
     private Table buildOptionsWindowLayer () {
         winOptions = new Window("Opciones", skin);
@@ -153,15 +152,15 @@ public class MenuScreen extends AbstractGameScreen {
         });
         layer.row();
         layer.row();
-        btnConfigOz = new TextButton("START OZ", skin);
-        layer.add(btnConfigOz).align(Align.bottom);
-        btnConfigOz.addListener(new ChangeListener() {
-
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                onStartOzClicked();
-            }
-        });
+//        btnConfigOz = new TextButton("START OZ", skin);
+//        layer.add(btnConfigOz).align(Align.bottom);
+//        btnConfigOz.addListener(new ChangeListener() {
+//
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor) {
+//                onStartOzClicked();
+//            }
+//        });
 
         if (false) layer.debug();
         return layer;

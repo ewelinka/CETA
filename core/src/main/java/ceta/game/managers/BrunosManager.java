@@ -1,6 +1,7 @@
 package ceta.game.managers;
 
 import ceta.game.game.objects.BrunoVertical;
+import ceta.game.util.Constants;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,14 +21,12 @@ public class BrunosManager {
     private ArrayList<BrunoVertical> brunosToAdd;
     protected ArrayList<Short> inMovementIds = new ArrayList<Short>();
 
-    protected short initialX;
     protected short initialY;
     protected short lastY;
 
     public BrunosManager(Stage stage){
         this.stage = stage;
         // hardcoded
-        initialX = -280;
         initialY = 0;
 
     }
@@ -74,8 +73,8 @@ public class BrunosManager {
         // we update the positions of new brunos
         int moveTo = initialY;
         for(short i=0;i<brunosToAdd.size();i++) {
-            brunosToAdd.get(i).setPosition(initialX, negativeInitY );
-            brunosToAdd.get(i).moveMeToAndSetTerminalY(initialX,moveTo);
+            brunosToAdd.get(i).setPosition(Constants.VERTICAL_MIDDLE_X-brunosToAdd.get(i).getWidth()/2, negativeInitY );
+            brunosToAdd.get(i).moveMeToAndSetTerminalY(Constants.VERTICAL_MIDDLE_X-brunosToAdd.get(i).getWidth()/2,moveTo);
 
             moveTo+= brunosToAdd.get(i).getHeight();
             negativeInitY+=brunosToAdd.get(i).getHeight();
@@ -86,7 +85,7 @@ public class BrunosManager {
     }
 
     protected int addBrunosFromBottomToTop(ArrayList<Pair> toAdd){
-        int negativeInitY = initialY; // we reset the negativeInitX to bruno's position
+        int negativeInitY = initialY; // we reset the negativeInitY to bruno's position
         for(short i=0; i< toAdd.size();i++){
             BrunoVertical brunoToAdd = new BrunoVertical(toAdd.get(i).getValue(),this);
             brunoToAdd.setId(toAdd.get(i).getKey());
@@ -136,7 +135,7 @@ public class BrunosManager {
         lastY = initialY;
         for(short i=0;i<brunos.size();i++){
             if(brunos.get(i).getY() != lastY){
-                brunos.get(i).moveMeToAndSetTerminalY(initialX,lastY);
+                brunos.get(i).moveMeToAndSetTerminalY(Constants.VERTICAL_MIDDLE_X - brunos.get(i).getWidth()/2,lastY);
             }
             lastY += brunos.get(i).getHeight();
         }

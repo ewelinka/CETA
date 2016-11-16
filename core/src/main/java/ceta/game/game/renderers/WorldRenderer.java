@@ -38,7 +38,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
     }
 
     public void init () {
-        levelMinimumNumber = worldController.getLevelMinimumNumber();
+        levelMinimumNumber = worldController.getMinimumNumber();
 
         spriteBatch = new SpriteBatch();
         font = Assets.instance.fonts.defaultSmall;
@@ -63,7 +63,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderHelperNumberLines(shapeRenderer);
         renderWorld(spriteBatch);
 
-        if(worldController.isLevelNumberLineVisible())
+        if(worldController.isNumberLineVisible())
             renderHelperNumbers(spriteBatch);
 
         if (worldController.getCountdownOn()) {
@@ -93,8 +93,9 @@ public class WorldRenderer extends AbstractWorldRenderer {
     private void renderWorld (SpriteBatch batch) {
         worldController.cameraHelper.applyTo(camera);
         // we draw coin on the top
-        worldController.level.price.toFront();
-        worldController.level.bruno.toFront();
+
+//        worldController.level.bruno.toFront();
+//        worldController.level.price.toFront();
 
         batch.begin();
         worldController.level.render(batch);

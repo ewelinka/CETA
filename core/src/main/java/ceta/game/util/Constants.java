@@ -17,8 +17,9 @@ public class Constants {
     public static final String LEVELS_FOLDER = "levels";
 
     public static final short BASE = 40;
-    public static final short OFFSET_X = 20;
     public static final short DETECTION_LIMIT = -6 * BASE;
+    public static final short HORIZONTAL_ZERO_X = -200;
+    public static final short VERTICAL_MIDDLE_X = -260;
 
 
 }

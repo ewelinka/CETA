@@ -19,18 +19,20 @@ import java.util.ArrayList;
 public class Level3VerticalController extends Level1VerticalController {
     private static final String TAG = Level3VerticalController.class.getName();
 
-    public Level3VerticalController(DirectedGame game, Stage stage) {
-        super(game, stage);
+    public Level3VerticalController(DirectedGame game, Stage stage, int levelNr) {
+        super(game, stage, levelNr);
     }
 
     @Override
     protected void localInit () {
+        Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
         virtualBlocksManager = new VirtualBlocksManager(stage);
-        Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        level = new LevelVertical(stage, GamePreferences.instance.lastLevel);
+        level = new LevelVertical(stage,levelParams);
+
+        // Bruno will be flying
         level.bruno.setSize(Constants.BASE*1,Constants.BASE*1);
-        level.bruno.setPosition(-280,-Constants.BASE/2);
-        level.bruno.setTerminalX(-280);
+        level.bruno.setPosition(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2 ,-Constants.BASE/2);
+        level.bruno.setTerminalX(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2);
         level.bruno.setTerminalY(-Constants.BASE/2);
         cameraHelper.setTarget(null);
         score = 0;
@@ -106,7 +108,7 @@ public class Level3VerticalController extends Level1VerticalController {
 
         Gdx.app.log(TAG, " move bruno "+howMany);
         float currentTerminalY = level.bruno.getTerminalY();
-        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalY(-280, currentTerminalY + howMany* Constants.BASE);
+        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalY(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2, currentTerminalY + howMany* Constants.BASE);
 
     }
 

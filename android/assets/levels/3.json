@@ -1,11 +1,10 @@
 {
   level: 3,
-  type: "horizontal",
-  operationsNumberToPass: 6,
-  numberMin: 0,
-  numberMax: 10,
+  operationsNumberToPass: 2,
+  numberMin: 10,
+  numberMax: 20,
   numberOrOperation: "number",
-  priceReturn: 10,
+  priceReturn: -1,
   priceVelocity: -150,
   visibleNumberLine: true
 }

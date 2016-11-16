@@ -64,7 +64,7 @@ public class AnimatedBrunoManager extends BrunosManager {
             stage.addActor(pieceToAdd);
 
             pieceToAdd.setId((short)(toAdd.get(currentKey).getKey()*10+i)); //we have to invent id because one virtual piece is mapped into up to 5 arm pieces
-            pieceToAdd.setPosition(initialX,lastY);
+            pieceToAdd.setPosition(Constants.VERTICAL_MIDDLE_X-pieceToAdd.getWidth()/2,lastY);
             lastY+=pieceToAdd.getHeight();
 
             pieceToAdd.expandMe(terminalDelay, animationSpeed); // will grow in 1 sec

@@ -1,6 +1,7 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.Assets;
+import ceta.game.game.levels.Level1Vertical;
 import ceta.game.game.levels.LevelHorizontal;
 import ceta.game.game.levels.LevelVertical;
 import ceta.game.game.objects.ArmPieceAnimated;
@@ -24,14 +25,21 @@ public class Level1VerticalController extends AbstractWorldController {
     private BrunosManager brunosManager;
 
 
-    public Level1VerticalController(DirectedGame game, Stage stage) {
-        this.stage = stage;
-        // TODO we init vertical-representation-manager [not yet implemented]
+    public Level1VerticalController(DirectedGame game, Stage stage, int levelNr) {
+        super(game, stage, levelNr);
+    }
 
+    @Override
+    protected void localInit () {
+        Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
+        level = new Level1Vertical(stage, levelParams);
         virtualBlocksManager = new VirtualBlocksManager(stage);
         brunosManager = new BrunosManager(stage);
-        super.init(game);
-        localInit();
+
+        score = 0;
+        virtualBlocksManager.init();
+        brunosManager.init();
+
     }
 
     @Override
@@ -70,16 +78,6 @@ public class Level1VerticalController extends AbstractWorldController {
 
     }
 
-    @Override
-    protected void localInit () {
-        Gdx.app.log(TAG," local init going to level vertical");
-        level = new LevelVertical(stage);
-
-        score = 0;
-        virtualBlocksManager.init();
-        brunosManager.init();
-
-    }
 
     @Override
     protected void testCollisions () {
@@ -109,11 +107,11 @@ public class Level1VerticalController extends AbstractWorldController {
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
             //TODO some nice yupi animation
-            if (score < level.getOperationsNumberToPass()) {
+            if (score < levelParams.operationsNumberToPass) {
                 goldcoin.wasCollected();
 
             } else
-                goToFinalScreen();
+                goToCongratulationsScreen();
         }
     }
 }

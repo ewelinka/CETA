@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * Created by ewe on 7/25/16.
  */
 public abstract class DirectedGame extends Game {
+    public static final String TAG = DirectedGame.class.getName();
 
     private boolean init;
     private AbstractGameScreen currScreen;
@@ -46,6 +47,7 @@ public abstract class DirectedGame extends Game {
                 nextScreen.resume();
                 // enable input for next screen
                 Gdx.input.setInputProcessor(nextScreen.getInputProcessor());
+
                 // switch screens
                 currScreen = nextScreen;
                 nextScreen = null;

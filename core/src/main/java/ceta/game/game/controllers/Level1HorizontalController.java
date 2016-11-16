@@ -2,6 +2,7 @@ package ceta.game.game.controllers;
 
 import ceta.game.game.Assets;
 import ceta.game.game.levels.LevelHorizontal;
+import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.ArmPiece;
 import ceta.game.game.objects.Price;
 import ceta.game.managers.RoboticArmManager;
@@ -22,13 +23,10 @@ public class Level1HorizontalController extends AbstractWorldController{
     private RoboticArmManager roboticArmManager;
     protected VirtualBlocksManager virtualBlocksManager;
 
-
-
-    public Level1HorizontalController(DirectedGame game, Stage stage) {
-        this.stage = stage;
-        super.init(game);
-        localInit();
+    public Level1HorizontalController(DirectedGame game, Stage stage, int levelNr) {
+        super(game, stage, levelNr);
     }
+
 
     @Override
     protected void localInit () {
@@ -36,7 +34,7 @@ public class Level1HorizontalController extends AbstractWorldController{
         roboticArmManager = new RoboticArmManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        level = new LevelHorizontal(stage, GamePreferences.instance.lastLevel);
+        level = new LevelHorizontal(stage, levelParams);
 
         virtualBlocksManager.init();
         roboticArmManager.init();
@@ -102,11 +100,11 @@ public class Level1HorizontalController extends AbstractWorldController{
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
             //TODO some nice yupi animation
-            if (score < level.getOperationsNumberToPass()) {
+            if (score < levelParams.operationsNumberToPass) {
                 goldcoin.wasCollected();
 
             } else
-                goToFinalScreen();
+                goToCongratulationsScreen();
         }
     }
 

@@ -19,17 +19,18 @@ public class Level2VerticalController extends Level1VerticalController {
     private static final String TAG = Level2VerticalController.class.getName();
     private AnimatedBrunoManager brunosManager;
 
-    public Level2VerticalController(DirectedGame game, Stage stage) {
-        super(game, stage);
+    public Level2VerticalController(DirectedGame game, Stage stage, int levelNr) {
+        super(game, stage, levelNr);
     }
 
     @Override
     protected void localInit () {
+        Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
         brunosManager = new AnimatedBrunoManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        level = new LevelVertical(stage, GamePreferences.instance.lastLevel);
+        level = new LevelVertical(stage,levelParams);
         cameraHelper.setTarget(null);
         score = 0;
         virtualBlocksManager.init();

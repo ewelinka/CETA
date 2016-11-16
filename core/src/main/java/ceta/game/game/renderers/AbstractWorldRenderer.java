@@ -93,7 +93,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     public void dispose() {
         spriteBatch.dispose();
         shapeRenderer.dispose();
-        font.dispose();
-        counterFont.dispose();
+//        font.dispose();
+//        counterFont.dispose();
     }
 }

@@ -29,7 +29,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
 /**
  * Created by ewe on 9/21/16.
  */
-public class FinalScreen extends AbstractGameScreen {
+public class CongratulationsScreen extends AbstractGameScreen {
     private static final String TAG = MenuScreen.class.getName();
     private Skin skin;
 
@@ -37,8 +37,8 @@ public class FinalScreen extends AbstractGameScreen {
     private Image imgBackground;
 
 
-    public FinalScreen (DirectedGame game) {
-        super(game);
+    public CongratulationsScreen(DirectedGame game) {
+        super(game,1);
     }
 
 

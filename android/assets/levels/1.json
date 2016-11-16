@@ -1,6 +1,5 @@
 {
   level: 1,
-  type: "horizontal",
   operationsNumberToPass: 2,
   numberMin: 0,
   numberMax: 10,

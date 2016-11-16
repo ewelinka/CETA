@@ -23,7 +23,7 @@ public class Price extends AbstractGameObject {
     private boolean isMovingVertical;
 
     //TODO shouldn't be fixed val!!!
-    private float myStartX, myStartX_verticalNL;
+    private float myStartX;
     private short rotationVelocity;
 
 
@@ -49,8 +49,7 @@ public class Price extends AbstractGameObject {
     }
 
     private void localInit(short vel, short start, int priceReturn){
-        myStartX = -200; // change!!
-        myStartX_verticalNL = -280;
+        myStartX = Constants.HORIZONTAL_ZERO_X;
         rotationVelocity = 30;
 
         velocity = vel;
@@ -142,7 +141,7 @@ public class Price extends AbstractGameObject {
             setNewPositionMH(Constants.VIEWPORT_WIDTH/2  );
         }
         else{
-            setNewPositionMH(myStartX_verticalNL);
+            setNewPositionMH(Constants.VERTICAL_MIDDLE_X-getWidth()/2);
         }
     }
 
@@ -203,7 +202,7 @@ public class Price extends AbstractGameObject {
         if (isDynamic)
             setPositionStartRight();
         else
-            moveToNewPositionVertical(myStartX_verticalNL,(short)0);
+            moveToNewPositionVertical(Constants.VERTICAL_MIDDLE_X - getWidth()/2,(short)0);
 
     }
 
