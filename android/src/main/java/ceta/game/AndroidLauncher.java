@@ -1,5 +1,6 @@
 package ceta.game;
 
+import android.graphics.Bitmap;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -17,6 +18,13 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.utils.Logger;
 import edu.ceta.vision.core.topcode.TopCodeDetector;
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -32,6 +40,27 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 	private byte[] buffer;
 	private CustomPreviewCallback cameracallback;
 
+	private boolean openCvInit = false;
+	private CetaGame cetaGame;
+	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
+		@Override
+		public void onManagerConnected(int status) {
+			switch (status) {
+				case LoaderCallbackInterface.SUCCESS:
+				{
+					openCvInit = true;
+					Log.i(TAG, "OpenCV loaded successfully");
+					initCameraListener();
+
+				} break;
+				default:
+				{
+					super.onManagerConnected(status);
+				} break;
+			}
+		}
+	};
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,17 +68,18 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		//config.hideStatusBar=false;
 		//TopCodeDetector detec;
 		TopCodeDetector de;
-		initCameraListener();
-		initialize(new CetaGame(), config);
+		cetaGame = new CetaGame();
+		initialize(cetaGame, config);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
 
 		// Ideally, the frames from the camera are at the same resolution as the input to
 		// the video encoder so we don't have to scale.
-		if(this.mCamera==null)
+		if(this.mCamera==null && openCvInit)
 			openCamera(VIDEO_WIDTH, VIDEO_HEIGHT, DESIRED_PREVIEW_FPS);
 	}
 
@@ -112,13 +142,13 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		Camera.Parameters parms = mCamera.getParameters();
 
 		CameraUtils.choosePreviewSize(parms, desiredWidth, desiredHeight);
-		CameraUtils.choosePreviewFormat(parms, ImageFormat.YUY2);
+		CameraUtils.choosePreviewFormat(parms, ImageFormat.NV21);
 		// Try to set the frame rate to a constant value.
 		mCameraPreviewThousandFps = CameraUtils.chooseFixedPreviewFps(parms, desiredFps * 1000);
 
 		// Give the camera a hint that we're recording video.  This can have a big
 		// impact on frame rate.
-		parms.setRecordingHint(true);
+//		parms.setRecordingHint(true);
 
 		mCamera.setParameters(parms);
 
@@ -146,22 +176,6 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 	public void surfaceCreated(SurfaceHolder holder) {
 		Log.d(TAG, "surfaceCreated holder=" + holder);
 
-		// Set up everything that requires an EGL context.
-		//
-		// We had to wait until we had a surface because you can't make an EGL context current
-		// without one, and creating a temporary 1x1 pbuffer is a waste of time.
-		//
-		// The display surface that we use for the SurfaceView, and the encoder surface we
-		// use for video, use the same EGL context.
-
-		/*mEglCore = new EglCore(null, EglCore.FLAG_RECORDABLE);
-		mDisplaySurface = new WindowSurface(mEglCore, holder.getSurface(), false);
-		mDisplaySurface.makeCurrent();
-
-		mFullFrameBlit = new FullFrameRect(
-				new Texture2dProgram(Texture2dProgram.ProgramType.TEXTURE_EXT));
-		mTextureId = mFullFrameBlit.createTextureObject();
-		*/
 		mCameraTexture = new SurfaceTexture(0);
 		mCameraTexture.setOnFrameAvailableListener(this);
 
@@ -172,25 +186,11 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 
 			mCamera.addCallbackBuffer(buffer);
 			mCamera.setPreviewCallback(this.cameracallback);
-
+			mCamera.setPreviewDisplay(holder);
 		} catch (IOException ioe) {
 			throw new RuntimeException(ioe);
 		}
 		mCamera.startPreview();
-
-	/*	// TODO: adjust bit rate based on frame rate?
-		// TODO: adjust video width/height based on what we're getting from the camera preview?
-		//       (can we guarantee that camera preview size is compatible with AVC video encoder?)
-		try {
-			mCircEncoder = new CircularEncoder(VIDEO_WIDTH, VIDEO_HEIGHT, 6000000,
-					mCameraPreviewThousandFps / 1000, 7, mHandler);
-		} catch (IOException ioe) {
-			throw new RuntimeException(ioe);
-		}
-		mEncoderSurface = new WindowSurface(mEglCore, mCircEncoder.getInputSurface(), true);
-
-		updateControls();*/
-
 	}
 
 	public class CustomPreviewCallback implements Camera.PreviewCallback{
@@ -198,6 +198,34 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		@Override
 		public void onPreviewFrame(byte[] bytes, Camera camera) {
 			Gdx.app.log(TAG,"frame available");
+			//
+			int bitsPerPixel = ImageFormat.getBitsPerPixel(ImageFormat.NV21);
+
+			Camera.Size cameraPreviewSize = camera.getParameters().getPreviewSize();
+
+
+			Mat mYuv = new Mat( cameraPreviewSize.height + cameraPreviewSize.height/2, cameraPreviewSize.width, CvType.CV_8UC1 );
+			mYuv.put( 0, 0, bytes);
+			Mat mRgba = new Mat();
+
+//
+//		    YuvImage yuvImage = new YuvImage(bytes, ImageFormat.NV21, cameraPreviewSize.width, cameraPreviewSize.height, null);
+//		    ByteArrayOutputStream os = new ByteArrayOutputStream();
+//		    yuvImage.compressToJpeg(new Rect(0, 0, cameraPreviewSize.width, cameraPreviewSize.height), 100, os);
+//		    byte[] jpegByteArray = os.toByteArray();
+//		    Bitmap bitmap = BitmapFactory.decodeByteArray(jpegByteArray, 0, jpegByteArray.length);
+//
+			Imgproc.cvtColor( mYuv, mRgba, Imgproc.COLOR_YUV2RGBA_NV21, 4 );
+			// Imgproc.cvtColor( mYuv, mRgba, Imgproc.COLOR_YCrCb2RGB, 4 );
+
+			Bitmap map = Bitmap.createBitmap( cameraPreviewSize.width, cameraPreviewSize.height, Bitmap.Config.ARGB_8888 );
+			Utils.matToBitmap( mRgba, map );
+//			customView.setContent(map);
+//
+////		    customView.setContent(bitmap);
+//			//customView.setContent(redBmp);
+//			customView.invalidate();
+			cetaGame.setLastFrame(mRgba);
 			mCamera.addCallbackBuffer(buffer);
 		}
 	}

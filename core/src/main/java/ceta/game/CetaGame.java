@@ -15,11 +15,14 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.illposed.osc.OSCListener;
-
+import org.opencv.core.Mat;
 
 
 public class CetaGame extends DirectedGame {
 
+
+	private Mat lastFrame;
+	private Object syncObject = new Object();
 	@Override
 	public void create () {
 		// Set Libgdx log level
@@ -42,7 +45,27 @@ public class CetaGame extends DirectedGame {
 
 	}
 	
-	
+	public void setLastFrame(Mat frame){
+		synchronized (syncObject) {
+			this.lastFrame = frame.clone();
+		}
+	}
+
+	public Mat getLastFrame(Mat frame){
+		synchronized (syncObject) {
+			return this.lastFrame;
+		}
+	}
+
+	public void releaseFrame(){
+		synchronized (syncObject) {
+			if(this.lastFrame!=null){
+				this.lastFrame.release();
+			}
+		}
+	}
+
+
 //	public void initReceiver(OSCListener listener){
 //		this.receiver =  new OSCReceiver("/wizardOfOz", 12345, listener);
 //		//TODO aqui hay que pasarle el level1Screen como OSCListener
