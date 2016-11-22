@@ -20,11 +20,12 @@ import org.opencv.core.Mat;
 
 public class CetaGame extends DirectedGame {
 
-
+	private boolean frameBlocked;
 	private Mat lastFrame;
 	private Object syncObject = new Object();
 	@Override
 	public void create () {
+		this.frameBlocked = false;
 		// Set Libgdx log level
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		// Load assets
@@ -47,12 +48,15 @@ public class CetaGame extends DirectedGame {
 	
 	public void setLastFrame(Mat frame){
 		synchronized (syncObject) {
-			this.lastFrame = frame.clone();
+			if(!this.frameBlocked) {
+				this.lastFrame = frame.clone();
+			}
 		}
 	}
 
-	public Mat getLastFrame(Mat frame){
+	public Mat getAndBlockLastFrame(Mat frame){
 		synchronized (syncObject) {
+			this.frameBlocked = true;
 			return this.lastFrame;
 		}
 	}
@@ -61,6 +65,7 @@ public class CetaGame extends DirectedGame {
 		synchronized (syncObject) {
 			if(this.lastFrame!=null){
 				this.lastFrame.release();
+				this.frameBlocked = false;
 			}
 		}
 	}
