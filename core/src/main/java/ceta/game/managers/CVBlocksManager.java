@@ -23,7 +23,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     }
     @Override
     public void init() {
-        topCodeDetector = new TopCodeDetectorAndroid(50,true,70,5,true,false) ;
+        topCodeDetector = new TopCodeDetectorAndroid(50,true,70,5,true,false, false) ;
     }
 
     @Override
