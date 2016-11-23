@@ -49,7 +49,7 @@ public class MenuScreen extends AbstractGameScreen {
     private Label visibilityValueLabel;
     private Label countdownMaxValueLabel;
     private DecimalFormat formatter = new DecimalFormat("0.0##");
-    private TextButton btnConfigOz;
+
 
 
     public MenuScreen (DirectedGame game) {
@@ -104,12 +104,6 @@ public class MenuScreen extends AbstractGameScreen {
         //game.setScreen(new Level1VerticalScreen(game,1), transition);
     }
     
-//    private void onStartOzClicked(){
-//    	((CetaGame)game).initReceiver(screen1); //Level1Screen implements OSCListener
-//    	((CetaGame)game).startOSCReceiver();
-//    	btnConfigOz.setText(((CetaGame)game).getLocalIp());
-//    	//TODO Ewe: Display ((CetaGame)game).getLocalIp(); on screen. De momento cambio el texto del boton para poder ver la ip en algun lado
-//   }
 
     private Table buildOptionsWindowLayer () {
         winOptions = new Window("Opciones", skin);
@@ -152,15 +146,7 @@ public class MenuScreen extends AbstractGameScreen {
         });
         layer.row();
         layer.row();
-//        btnConfigOz = new TextButton("START OZ", skin);
-//        layer.add(btnConfigOz).align(Align.bottom);
-//        btnConfigOz.addListener(new ChangeListener() {
-//
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//                onStartOzClicked();
-//            }
-//        });
+
 
         if (false) layer.debug();
         return layer;
@@ -279,16 +265,12 @@ public class MenuScreen extends AbstractGameScreen {
         btnMenuOptions.addAction(sequence(
                 delay(delayOptionsButton),
                 moveBy(moveX, moveY, moveDuration, moveEasing)));
-        btnConfigOz.addAction(sequence(
-                delay(delayOptionsButton*2),
-                moveBy(moveX, moveY, moveDuration, moveEasing)));
         SequenceAction seq = sequence();
         if (visible) seq.addAction(delay(delayOptionsButton + moveDuration));
         seq.addAction(run(new Runnable() {
             public void run () {
                 btnMenuPlay.setTouchable(touchEnabled);
                 btnMenuOptions.setTouchable(touchEnabled);
-                btnConfigOz.setTouchable(touchEnabled);
             } }));
         stage.addAction(seq);
     }

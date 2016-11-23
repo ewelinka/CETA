@@ -18,14 +18,13 @@ public abstract class AbstractBlocksManager {
     protected ArrayList<Short> toRemoveFromDetectedValues = new ArrayList<Short>();
 
 
-    public void init(){
+    public abstract void init();
+    public abstract void updateDetected();
 
-    }
 
     public void addBlockWithId(short val, short id){
         newDetectedIds.add(new Pair(id,val));
     }
-
 
     public void blockRemovedWithIdAndValue(short id, short value){
         //toRemoveFromDetectedIds.add(id);
@@ -43,15 +42,10 @@ public abstract class AbstractBlocksManager {
         if(!inDetected) {
             toRemoveFromDetectedIds.add(id);
             toRemoveFromDetectedValues.add(value);
-
         }
-
     }
 
-    public void updateDetected(){
 
-
-    }
 
     public ArrayList getToRemove(){
         // we return the array because until the update function we don't have to carry about this array
@@ -77,7 +71,6 @@ public abstract class AbstractBlocksManager {
         newDetectedIds.clear();
     }
     private void resetRemoveIds(){
-
         toRemoveFromDetectedIds.clear();
         toRemoveFromDetectedValues.clear();
     }

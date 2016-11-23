@@ -1,6 +1,6 @@
 {
   level: 3,
-  operationsNumberToPass: 2,
+  operationsNumberToPass: 1,
   numberMin: 10,
   numberMax: 20,
   numberOrOperation: "number",
