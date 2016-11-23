@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.screens.DirectedGame;
 import ceta.game.screens.Level1HorizontalScreen;
 import ceta.game.screens.MenuScreen;
+import ceta.game.screens.TestScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.AudioManager;
@@ -40,7 +41,8 @@ public class CetaGame extends DirectedGame {
 		//setScreen(new MenuScreen(this),transition);
 		//setScreen(new TestScreen(this),transition);
 
-		setScreen(new MenuScreen(this),transition);
+		//setScreen(new MenuScreen(this),transition);
+		setScreen(new TestScreen(this,1),transition);
 		//setScreen(level1Screen,transition);
 		//setScreen(new CongratulationsScreen(this),transition);
 
@@ -54,7 +56,7 @@ public class CetaGame extends DirectedGame {
 		}
 	}
 
-	public Mat getAndBlockLastFrame(Mat frame){
+	public Mat getAndBlockLastFrame(){
 		synchronized (syncObject) {
 			this.frameBlocked = true;
 			return this.lastFrame;
