@@ -17,6 +17,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.utils.Logger;
+import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
 import edu.ceta.vision.core.topcode.TopCodeDetector;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
@@ -67,7 +68,7 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		//config.hideStatusBar=false;
 		//TopCodeDetector detec;
-		TopCodeDetector de;
+		TopCodeDetector de = new TopCodeDetectorAndroid(50,false,70,5,true,false,false);
 		cetaGame = new CetaGame();
 		initialize(cetaGame, config);
 	}

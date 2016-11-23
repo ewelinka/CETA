@@ -108,6 +108,10 @@
 			<id>gdx-releases</id>
 			<url>https://oss.sonatype.org/content/repositories/releases/</url>
 		</repository>
+		<repository>
+			<id>maven-plugins</id>
+			<url>http://central.maven.org/maven2/</url>
+		</repository>
 	</repositories>
 
 	<build>
