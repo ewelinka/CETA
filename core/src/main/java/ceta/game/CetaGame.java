@@ -16,13 +16,16 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.illposed.osc.OSCListener;
+
+import edu.ceta.vision.core.utils.Logger;
+
 import org.opencv.core.Mat;
 
 
 public class CetaGame extends DirectedGame {
 
 	private boolean frameBlocked;
-	private Mat lastFrame;
+	private Mat lastFrame;//, previousFrame;
 	private Object syncObject = new Object();
 	@Override
 	public void create () {
@@ -51,22 +54,28 @@ public class CetaGame extends DirectedGame {
 	public void setLastFrame(Mat frame){
 		synchronized (syncObject) {
 			if(!this.frameBlocked) {
+				Logger.error("Setting new frame!");
 				this.lastFrame = frame.clone();
+			}else{
+				
 			}
 		}
 	}
 
 	public Mat getAndBlockLastFrame(){
 		synchronized (syncObject) {
+			Logger.error("blocking frame!");
 			this.frameBlocked = true;
 			return this.lastFrame;
 		}
 	}
 
 	public void releaseFrame(){
+		
 		synchronized (syncObject) {
+			Logger.error("Frame released!");
 			if(this.lastFrame!=null){
-				this.lastFrame.release();
+				//this.lastFrame.release();
 				this.frameBlocked = false;
 			}
 		}

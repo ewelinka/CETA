@@ -29,6 +29,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     @Override
     public void updateDetected() {
         Set<Block> blocks = topCodeDetector.detectBlocks(((CetaGame)game).getAndBlockLastFrame());
+        ((CetaGame)game).releaseFrame();
         Gdx.app.log(TAG," blocks detected "+blocks.size());
         for(Block i : blocks){
             Gdx.app.log(TAG, " orientation (red) "+ i.getOrientation()+" center "+i.getCenter()+" type "+i.getType());
