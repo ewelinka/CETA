@@ -68,7 +68,7 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		//config.hideStatusBar=false;
 		//TopCodeDetector detec;
-		TopCodeDetector de = new TopCodeDetectorAndroid(50,false,70,5,true,false,false);
+		TopCodeDetector de = new TopCodeDetectorAndroid(50,false,70,5,true,false,false, true);
 		cetaGame = new CetaGame();
 		initialize(cetaGame, config);
 	}

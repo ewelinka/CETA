@@ -24,7 +24,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     @Override
     public void init() {
         Gdx.app.log(TAG,"test");
-        topCodeDetector = new TopCodeDetectorAndroid(50,true,70,5,true,false, false) ;
+        topCodeDetector = new TopCodeDetectorAndroid(50,true,70,5,true,false, false, true) ;
     }
 
     @Override
