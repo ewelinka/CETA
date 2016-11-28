@@ -1,14 +1,17 @@
 package ceta.game.managers;
 
+import java.util.Set;
+
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+
 import ceta.game.CetaGame;
 import ceta.game.screens.DirectedGame;
+
 import com.badlogic.gdx.Gdx;
+
 import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
 import edu.ceta.vision.core.blocks.Block;
-import edu.ceta.vision.core.topcode.TopCodeDetector;
-
-import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * Created by ewe on 11/22/16.
@@ -29,7 +32,9 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     @Override
     public void updateDetected() {
-        Set<Block> blocks = topCodeDetector.detectBlocks(((CetaGame)game).getAndBlockLastFrame());
+    	Mat frame = ((CetaGame)game).getAndBlockLastFrame();
+    	Core.flip(frame, frame, 0);
+        Set<Block> blocks = topCodeDetector.detectBlocks(frame);
         ((CetaGame)game).releaseFrame();
         Gdx.app.log(TAG," blocks detected "+blocks.size());
         for(Block i : blocks){
