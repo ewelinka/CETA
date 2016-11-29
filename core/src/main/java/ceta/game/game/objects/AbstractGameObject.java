@@ -1,17 +1,10 @@
 package ceta.game.game.objects;
 
-import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 //import com.badlogic.gdx.physics.box2d.Body;
 
@@ -30,6 +23,8 @@ public abstract class AbstractGameObject extends Actor {
     public float stateTime;
     public float terminalX;
     public float terminalY;
+    protected float offsetX = 0;
+    protected float offsetY = 0;
 
 
     public AbstractGameObject () {
@@ -58,7 +53,8 @@ public abstract class AbstractGameObject extends Actor {
         //batch.setProjectionMatrix(camera.combined);
        // batch.draw(regTex,this.getX(),this.getY());
         batch.setColor(this.getColor());
-        batch.draw(regTex.getTexture(), this.getX(), this.getY(),
+        batch.draw(regTex.getTexture(),
+                this.getX()+offsetX, this.getY()+offsetY,
                 this.getOriginX(), this.getOriginY(),
                 this.getWidth() ,this.getHeight(),
                 this.getScaleX(), this.getScaleY(),
@@ -66,6 +62,10 @@ public abstract class AbstractGameObject extends Actor {
                 regTex.getRegionX(), regTex.getRegionY(),
                 regTex.getRegionWidth(), regTex.getRegionHeight(), false,false);
         batch.setColor(1,1,1,1);
+
+        offsetX = 0;
+        offsetY = 0;
+
     }
 
     public void setAnimation (Animation animation) {
@@ -93,6 +93,15 @@ public abstract class AbstractGameObject extends Actor {
 
     public void setTerminalY(float newTerminalY){
         terminalY = newTerminalY;
+    }
+
+    public void shake(){
+
+        long shakeAlpha = System.currentTimeMillis() % 360;
+        float shakeDist = 1.5f;
+        offsetX += MathUtils.sinDeg(shakeAlpha * 2.2f) * shakeDist;
+        offsetY += MathUtils.sinDeg(shakeAlpha * 2.9f) * shakeDist;
+
     }
 
 
