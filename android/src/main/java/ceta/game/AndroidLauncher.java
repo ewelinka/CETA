@@ -1,35 +1,40 @@
 package ceta.game;
 
-import android.graphics.Bitmap;
-import android.graphics.ImageFormat;
-import android.graphics.SurfaceTexture;
-import android.hardware.Camera;
-import android.net.wifi.WifiManager;
-import android.os.Bundle;
-import android.text.format.Formatter;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SurfaceHolder;
-import ceta.game.util.osc.OSCReceiver;
-import ceta.game.utils.CameraUtils;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.badlogic.gdx.utils.Logger;
-import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
-import edu.ceta.vision.core.topcode.TopCodeDetector;
+import java.io.File;
+import java.io.IOException;
+
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.ImageFormat;
+import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
+import android.media.MediaScannerConnection;
+import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+import android.view.Display;
+import android.view.Surface;
+import android.view.SurfaceHolder;
+import android.view.WindowManager;
+import android.widget.Toast;
+import ceta.game.utils.CameraUtils;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+
+import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
+import edu.ceta.vision.core.topcode.TopCodeDetector;
 
 public class AndroidLauncher extends AndroidApplication implements SurfaceTexture.OnFrameAvailableListener{
 	public static final String TAG = AndroidLauncher.class.getName();
@@ -150,24 +155,13 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		// Give the camera a hint that we're recording video.  This can have a big
 		// impact on frame rate.
 //		parms.setRecordingHint(true);
-
+		
 		mCamera.setParameters(parms);
 
 		Camera.Size cameraPreviewSize = parms.getPreviewSize();
 		String previewFacts = cameraPreviewSize.width + "x" + cameraPreviewSize.height +
 				" @" + (mCameraPreviewThousandFps / 1000.0f) + "fps";
 		Log.i(TAG, "Camera config: " + previewFacts);
-//		List<Integer> formats = parms.getSupportedPreviewFormats();
-//		for(Iterator<Integer> iter = formats.iterator();iter.hasNext();){
-//			Gdx.app.log(TAG,"format: " + iter.next());
-//
-//		}
-		//public static final int YV12 = 842094169;
-		//public static final int NV21 = 17;
-
-		// Set the preview aspect ratio.
-//		AspectFrameLayout layout = (AspectFrameLayout) findViewById(R.id.continuousCapture_afl);
-//		layout.setAspectRatio((double) cameraPreviewSize.width / cameraPreviewSize.height);
 	}
 
 
@@ -175,7 +169,7 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 
 	//@Override   // SurfaceHolder.Callback
 	public void surfaceCreated(SurfaceHolder holder) {
-		Log.d(TAG, "surfaceCreated holder=" + holder);
+		Log.d(TAG, "surfaceCreated, holder=" + holder);
 
 		mCameraTexture = new SurfaceTexture(0);
 		mCameraTexture.setOnFrameAvailableListener(this);
@@ -183,7 +177,6 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		Log.d(TAG, "starting camera preview");
 		try {
 			mCamera.setPreviewTexture(mCameraTexture);
-
 
 			mCamera.addCallbackBuffer(buffer);
 			mCamera.setPreviewCallback(this.cameracallback);
@@ -226,6 +219,9 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 ////		    customView.setContent(bitmap);
 //			//customView.setContent(redBmp);
 //			customView.invalidate();
+//    		Context	context	=	getApplicationContext();
+//	    	File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+//			saveImage(mRgba);
 			cetaGame.setLastFrame(mRgba);
 			mCamera.addCallbackBuffer(buffer);
 		}
@@ -237,4 +233,5 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		//Log.d(TAG, "frame available");
 		//mHandler.sendEmptyMessage(MainHandler.MSG_FRAME_AVAILABLE);
 	}
+	 
 }
