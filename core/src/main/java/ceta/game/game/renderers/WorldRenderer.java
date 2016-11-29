@@ -56,7 +56,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
 
     public void render () {
-        clearWhite();
+      //  clearWhite();
+        clearBlue();
 
         renderDetectionZone(shapeRenderer);
         renderBackgroundImg(spriteBatch);
@@ -69,14 +70,14 @@ public class WorldRenderer extends AbstractWorldRenderer {
         if (worldController.getCountdownOn()) {
             renderCounter(spriteBatch);
         }
-        renderPriceValue(spriteBatch);
+        //renderPriceValue(spriteBatch);
         renderGui(spriteBatch);
 
     }
 
 
 
-    private void renderCounter(SpriteBatch batch){
+    protected void renderCounter(SpriteBatch batch){
 
         // we render countdown!
         batch.setProjectionMatrix(camera.combined);
@@ -90,7 +91,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
     }
 
-    private void renderWorld (SpriteBatch batch) {
+    protected void renderWorld (SpriteBatch batch) {
         worldController.cameraHelper.applyTo(camera);
         // we draw coin on the top
 
@@ -102,7 +103,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         batch.end();
     }
 
-    private void renderHelperNumberLines(ShapeRenderer shRenderer) {
+    protected void renderHelperNumberLines(ShapeRenderer shRenderer) {
         if(numberLineIsHorizontal)
             renderHelperNumberLinesVertical(shRenderer);
         else
@@ -112,7 +113,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
 
 
-    private void renderHelperNumberLinesVertical(ShapeRenderer shRenderer){
+    protected void renderHelperNumberLinesVertical(ShapeRenderer shRenderer){
         Gdx.gl.glLineWidth(1);
         shRenderer.setProjectionMatrix(camera.combined);
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -133,7 +134,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         shRenderer.end();
     }
 
-    private void renderHelperNumberLinesHorizontal(ShapeRenderer shRenderer) {
+    protected void renderHelperNumberLinesHorizontal(ShapeRenderer shRenderer) {
         Gdx.gl.glLineWidth(1);
         shRenderer.setProjectionMatrix(camera.combined);
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -152,14 +153,14 @@ public class WorldRenderer extends AbstractWorldRenderer {
         shRenderer.end();
     }
 
-    private void renderHelperNumbers(SpriteBatch batch){
+    protected void renderHelperNumbers(SpriteBatch batch){
         if(numberLineIsHorizontal)
             renderHelperNumbersVertical(batch);
         else
             renderHelperNumbersHorizontal(batch);
     }
 
-    private void renderHelperNumbersVertical(SpriteBatch batch){
+    protected void renderHelperNumbersVertical(SpriteBatch batch){
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -174,7 +175,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
     }
 
-    private void renderHelperNumbersHorizontal(SpriteBatch batch){
+    protected void renderHelperNumbersHorizontal(SpriteBatch batch){
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -190,7 +191,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
     }
 
-    private void renderPriceValue(SpriteBatch batch){
+    protected void renderPriceValue(SpriteBatch batch){
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         font.setColor(Color.RED);

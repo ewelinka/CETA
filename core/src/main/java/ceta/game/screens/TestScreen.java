@@ -3,6 +3,7 @@ package ceta.game.screens;
 import ceta.game.game.controllers.Level2VerticalController;
 import ceta.game.game.controllers.TestController;
 import ceta.game.game.renderers.WorldRenderer;
+import ceta.game.game.renderers.WorldRendererCV;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,7 +27,7 @@ public class TestScreen  extends Level1VerticalScreen {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new TestController(game,stage,levelNr);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRenderer(worldController,stage, false); //false because is vertical!!
+        worldRenderer = new WorldRendererCV(worldController,stage, false); //false because is vertical!!
         // android back key
         Gdx.input.setCatchBackKey(true);
     }
