@@ -18,8 +18,8 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
     public static final String TAG = VirtualBlocksManagerOSC.class.getName();
 
     private ArrayList<Pair>  newDetectedOSC = new ArrayList<Pair>();
-    protected ArrayList<Short> toRemoveOSC = new ArrayList<Short>();
-    protected ArrayList<Short> toRemoveOSCValues = new ArrayList<Short>();
+    protected ArrayList<Integer> toRemoveOSCIds = new ArrayList<Integer>();
+    protected ArrayList<Integer> toRemoveOSCValues = new ArrayList<Integer>();
 
     public VirtualBlocksManagerOSC(Stage stage) {
 
@@ -44,7 +44,7 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
             if((vBlock.getBlockValue() == blockToAddVal) && vBlock.isAtHome()){ // pieces in "stand-by" are atHome
                // Gdx.app.log(TAG, "add block of value: "+ blockToAddVal +" that was at home with id "+id);
                 vBlock.setWasDetected(true);
-                vBlock.setBlockId((short)id);
+                vBlock.setBlockId(id);
                 Gdx.app.log(TAG,"setting block id to "+id);
                 vBlock.setAtHome(false);
                 vBlock.addAction(parallel(
@@ -65,7 +65,7 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
     }
 
     public void oscRemove(int blockToRemoveId, float blockValue) {
-        blockRemovedWithIdAndValue((short)blockToRemoveId, (short) blockValue); //we report to manager to update the counters that will be used to update the arms
+        blockRemovedWithIdAndValue(blockToRemoveId,  (int)blockValue); //we report to manager to update the counters that will be used to update the arms
         removeFromStageById(blockToRemoveId); // remove from stage
     }
 
@@ -83,12 +83,12 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
     }
 
     @Override
-    public void addBlockWithId(short val, short id){
+    public void addBlockWithId(int val, int id){
         newDetectedOSC.add(new Pair(id,val));
     }
 
     @Override
-    public void blockRemovedWithIdAndValue(short id, short value){
+    public void blockRemovedWithIdAndValue(int id, int value){
 
         boolean inDetected = false;
         // TODO check if its not waiting to be added, add+remove = 0!
@@ -101,20 +101,17 @@ public class VirtualBlocksManagerOSC extends VirtualBlocksManager  {
             }
         }
         if(!inDetected) {
-            toRemoveOSC.add(id);
+            toRemoveOSCIds.add(id);
             toRemoveOSCValues.add(value);
         }
-
-
-      //  toRemoveOSC.add(id);
 
     }
 
     @Override
     public ArrayList getToRemove(){
         // we cops osc-array to array to return and clean osc-array to collect the data
-        toRemoveFromDetectedIds =  new ArrayList(toRemoveOSC);
-        toRemoveOSC.clear();
+        toRemoveFromDetectedIds =  new ArrayList(toRemoveOSCIds);
+        toRemoveOSCIds.clear();
         return toRemoveFromDetectedIds;
     }
 

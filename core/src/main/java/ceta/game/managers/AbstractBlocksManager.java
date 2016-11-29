@@ -10,23 +10,24 @@ import java.util.ArrayList;
  */
 public abstract class AbstractBlocksManager {
     public static final String TAG = AbstractBlocksManager.class.getName();
-   // private short [] detected_blocks = {0,0,0,0,0};
-    // a pair of shorts (id and value)
+   // private int [] detected_blocks = {0,0,0,0,0};
+    // a pair of ints (id and value)
     // Pair < Key , Value >
     protected ArrayList<Pair> newDetectedIds = new ArrayList<Pair>();
-    protected ArrayList<Short> toRemoveFromDetectedIds = new ArrayList<Short>();
-    protected ArrayList<Short> toRemoveFromDetectedValues = new ArrayList<Short>();
+    protected ArrayList<Integer> toRemoveFromDetectedIds = new ArrayList<Integer>();
+    protected ArrayList<Integer> toRemoveFromDetectedValues = new ArrayList<Integer>();
 
 
     public abstract void init();
     public abstract void updateDetected();
 
 
-    public void addBlockWithId(short val, short id){
+    public void addBlockWithId(int val, int id){
+        Gdx.app.log(TAG, "adding block with id "+id+" and val "+val);
         newDetectedIds.add(new Pair(id,val));
     }
 
-    public void blockRemovedWithIdAndValue(short id, short value){
+    public void blockRemovedWithIdAndValue(int id, int value){
         //toRemoveFromDetectedIds.add(id);
 
         boolean inDetected = false;

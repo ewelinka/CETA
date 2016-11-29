@@ -10,10 +10,10 @@ import com.badlogic.gdx.Gdx;
  * Created by ewe on 8/8/16.
  */
 public class Latter extends AbstractGameObject {
-    private short latterValue;
+    private int latterValue;
     boolean blocked = false;
 
-    public Latter(short val){
+    public Latter(int val){
         latterValue =val;
         switch(latterValue){
             case 1:
@@ -43,7 +43,7 @@ public class Latter extends AbstractGameObject {
     }
 
 
-    public short getLatterValue(){
+    public int getLatterValue(){
         return latterValue;
     }
 

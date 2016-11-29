@@ -25,9 +25,9 @@ public class ArmPieceAnimated extends ArmPiece{
 
 
 
-    public ArmPieceAnimated(short val, AnimatedRoboticArmManager armsMan) {
+    public ArmPieceAnimated(int val, AnimatedRoboticArmManager armsMan) {
         // by default 1
-        super((short)1,armsMan);
+        super(1,armsMan);
         setOrigin(0, this.getHeight()/ 2);
         setScale(0,1);
 
@@ -40,7 +40,7 @@ public class ArmPieceAnimated extends ArmPiece{
 //    }
 
     @Override
-    protected void setColorAndTexture(short val){
+    protected void setColorAndTexture(int val){
         setColor(Color.YELLOW);
         regTex = Assets.instance.roboticParts.copperFitting1;
 
