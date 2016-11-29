@@ -52,8 +52,7 @@ public class Level2HorizontalController extends Level1HorizontalController {
                     // remove values NOT ids
                     updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
                     virtualBlocksManager.resetDetectedAndRemoved(); // after the update we reset the detected blocks
-                    countdownOn = false;
-                    countdownCurrentTime = GamePreferences.instance.countdownMax;
+                    resetCountdown();
                 } else // we still count
                     countdownCurrentTime -= deltaTime;
             }

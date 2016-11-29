@@ -31,7 +31,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected Stage stage;
     public CameraHelper cameraHelper;
     public AbstractLevel level;
-    public short score;
+    public int score;
     public DirectedGame game;
     protected boolean countdownOn;
     protected float countdownCurrentTime;
@@ -150,7 +150,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public int getCountdownCurrentTime(){
-        return (int)(countdownCurrentTime);
+        return (int)countdownCurrentTime;
     }
 
     public void setCountdownOn(boolean isOn){
@@ -177,5 +177,10 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public int getMinimumNumber(){ return levelParams.numberMin;}
 
     public boolean isNumberLineVisible(){ return levelParams.visibleNumberLine;}
+
+    public void resetCountdown(){
+        countdownOn = false;
+        countdownCurrentTime = GamePreferences.instance.countdownMax;
+    }
     
 }

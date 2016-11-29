@@ -57,8 +57,7 @@ public class Level1HorizontalController extends AbstractWorldController{
                     Gdx.app.log(TAG, "wowowoowow action submit!");
                     updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
                     virtualBlocksManager.resetDetectedAndRemoved(); //reset detected
-                    countdownOn = false;
-                    countdownCurrentTime = GamePreferences.instance.countdownMax;
+                    resetCountdown();
                 } else // we still count
                     countdownCurrentTime -= deltaTime;
             }

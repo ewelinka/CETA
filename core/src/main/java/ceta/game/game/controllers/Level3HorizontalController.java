@@ -55,8 +55,7 @@ public class Level3HorizontalController extends Level1HorizontalController  {
                     // remove values NOT ids
                     updateBruno(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
                     virtualBlocksManager.resetDetectedAndRemoved(); // after the update we reset the detected blocks
-                    countdownOn = false;
-                    countdownCurrentTime = GamePreferences.instance.countdownMax;
+                    resetCountdown();
                 } else // we still count
                     countdownCurrentTime -= deltaTime;
             }
@@ -91,23 +90,23 @@ public class Level3HorizontalController extends Level1HorizontalController  {
         }
     }
 
-    private void updateBruno(ArrayList<Pair> toAdd, ArrayList<Short> toRemoveValues){
-        short toAddNr = 0;
-        short toRemoveNr = 0;
+    private void updateBruno(ArrayList<Pair> toAdd, ArrayList<Integer> toRemoveValues){
+        int toAddNr = 0;
+        int toRemoveNr = 0;
 
-        for(short i=0; i< toRemoveValues.size();i++) {
+        for(int i=0; i< toRemoveValues.size();i++) {
             toRemoveNr+= toRemoveValues.get(i);
         }
-        for(short i=0; i< toAdd.size();i++) {
+        for(int i=0; i< toAdd.size();i++) {
             toAddNr+=toAdd.get(i).getValue();
 
         }
 
         if((toAddNr - toRemoveNr) != 0)
-            moveBruno((short)(toAddNr - toRemoveNr));
+            moveBruno(toAddNr - toRemoveNr);
     }
 
-    private void moveBruno(short howMany){
+    private void moveBruno(int howMany){
         if(howMany>0)
             level.bruno.setLookingLeft(false);
         else

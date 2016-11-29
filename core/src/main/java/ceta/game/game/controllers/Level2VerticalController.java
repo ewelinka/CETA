@@ -53,8 +53,7 @@ public class Level2VerticalController extends Level1VerticalController {
                     // remove values NOT ids
                     brunosManager.updateAnimated(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
                     virtualBlocksManager.resetDetectedAndRemoved(); // after the update we reset the detected blocks
-                    countdownOn = false;
-                    countdownCurrentTime = GamePreferences.instance.countdownMax;
+                    resetCountdown();
                 } else // we still count
                     countdownCurrentTime -= deltaTime;
             }
