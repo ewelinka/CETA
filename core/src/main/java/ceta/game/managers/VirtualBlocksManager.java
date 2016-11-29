@@ -16,9 +16,9 @@ import java.util.ArrayList;
 public class VirtualBlocksManager extends AbstractBlocksManager {
     public static final String TAG = VirtualBlocksManager.class.getName();
     Stage stage;
-    short linesRange;
-    short nowId;
-    short margin;
+    int linesRange;
+    int nowId;
+    int margin;
     Polygon polygon;
     protected ArrayList<VirtualBlock> virtualBlocksOnStage;
 
@@ -41,7 +41,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     private void initBlocks(){
         // we initialise first 5 blocks (numbers 1-5)
-        for(short i=1;i<=5;i++){
+        for(int i=1;i<=5;i++){
             addVirtualBlockInEmptySpace(i);
         }
     }
@@ -72,7 +72,6 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                         // was detected but now gone
                        // blockRemoved(vBlock.getBlockValue());
                         blockRemovedWithIdAndValue(vBlock.getBlockId(),vBlock.getBlockValue());
-                        //blockRemovedById(vBlock.getBlockId());
                         removeFromStageByIndex(i); // we remove it from detection zone
                     }
                 }else{
@@ -97,7 +96,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     }
 
-    protected void addVirtualBlockInEmptySpace(short val){
+    protected void addVirtualBlockInEmptySpace(int val){
         //Gdx.app.log(TAG, "we creat new vistual block of valua "+val);
         // TODO create or take from pool!!
         VirtualBlock virtualBlock = new VirtualBlock(val);

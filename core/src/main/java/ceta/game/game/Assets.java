@@ -54,7 +54,7 @@ public class Assets implements Disposable, AssetErrorListener {
 //        assetManager.load("sounds/jump_with_feather.wav", Sound.class);
         assetManager.load("sounds/pickup_coin.wav", Sound.class);
 //        assetManager.load("sounds/pickup_feather.wav", Sound.class);
-//        assetManager.load("sounds/live_lost.wav", Sound.class);
+        assetManager.load("sounds/live_lost.wav", Sound.class);
         // load music
         assetManager.load("music/keith303_-_brand_new_highscore.mp3", Music.class);
         // start loading assets and wait until finished
@@ -145,9 +145,21 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetBruno {
         public final TextureAtlas.AtlasRegion body;
+        public final TextureAtlas.AtlasRegion body01;
+        public final TextureAtlas.AtlasRegion body02;
+        public final TextureAtlas.AtlasRegion body03;
+        public final TextureAtlas.AtlasRegion body04;
+        public final TextureAtlas.AtlasRegion body05;
 
         public AssetBruno (TextureAtlas atlas) {
             body = atlas.findRegion("robot02");
+            body01 = atlas.findRegion("01bruno");
+            body02 = atlas.findRegion("02bruno");
+            body03 = atlas.findRegion("03bruno");
+            body04 = atlas.findRegion("04bruno");
+            body05 = atlas.findRegion("05bruno");
+
+
 
         }
     }
@@ -238,13 +250,13 @@ public class Assets implements Disposable, AssetErrorListener {
 //        public final Sound jumpWithFeather;
         public final Sound pickupCoin;
 //        public final Sound pickupFeather;
-//        public final Sound liveLost;
+        public final Sound liveLost;
         public AssetSounds (AssetManager am) {
 //            jump = am.get("sounds/jump.wav", Sound.class);
 //            jumpWithFeather = am.get("sounds/jump_with_feather.wav", Sound.class);
             pickupCoin = am.get("sounds/pickup_coin.wav", Sound.class);
 //            pickupFeather = am.get("sounds/pickup_feather.wav", Sound.class);
-//            liveLost = am.get("sounds/live_lost.wav", Sound.class);
+            liveLost = am.get("sounds/live_lost.wav", Sound.class);
         }
     }
     public class AssetMusic {

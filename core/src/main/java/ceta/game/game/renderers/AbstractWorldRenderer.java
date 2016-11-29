@@ -68,6 +68,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     protected void renderDetectionZone(ShapeRenderer shRenderer){
         // detection zone in gray
+        shRenderer.setProjectionMatrix(camera.combined);
         shRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shRenderer.setColor(Color.LIGHT_GRAY);
         shRenderer.rect(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT,Constants.VIEWPORT_WIDTH, -Constants.DETECTION_LIMIT);

@@ -18,8 +18,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  */
 public class Bruno extends AbstractGameObject {
     public static final String TAG = Bruno.class.getName();
-    private float offsetX = 0;
-    private float offsetY = 0;
+
     private boolean lookingLeft;
 
 
@@ -42,14 +41,6 @@ public class Bruno extends AbstractGameObject {
 
     }
 
-    public void shake(){
-
-        long shakeAlpha = System.currentTimeMillis() % 360;
-        float shakeDist = 1.5f;
-        offsetX += MathUtils.sinDeg(shakeAlpha * 2.2f) * shakeDist;
-        offsetY += MathUtils.sinDeg(shakeAlpha * 2.9f) * shakeDist;
-
-    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {

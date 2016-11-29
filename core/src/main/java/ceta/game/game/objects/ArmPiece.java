@@ -16,13 +16,13 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  * Created by ewe on 8/23/16.
  */
 public class ArmPiece extends AbstractGameObject {
-    protected short armValue;
-    protected short id;
+    protected int armValue;
+    protected int id;
 
     protected RoboticArmManager armsManager;
 
 
-    public ArmPiece(short val, RoboticArmManager armsMan){
+    public ArmPiece(int val, RoboticArmManager armsMan){
         armValue = val;
         armsManager = armsMan;
         init();
@@ -35,7 +35,7 @@ public class ArmPiece extends AbstractGameObject {
         super.init();
     }
 
-    protected void setColorAndTexture(short armVal){
+    protected void setColorAndTexture(int armVal){
         switch (armVal){
             case 1:
                 setColor(Color.YELLOW);
@@ -60,18 +60,18 @@ public class ArmPiece extends AbstractGameObject {
         }
     }
 
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short idVal){
+    public void setId(int idVal){
         Gdx.app.log(TAG, "we set the id "+idVal);
         id = idVal;
     }
 
 
 
-    public short getArmValue(){
+    public int getArmValue(){
         return armValue;
     }
 

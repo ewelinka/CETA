@@ -13,7 +13,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  * Created by ewe on 11/9/16.
  */
 public class BrunoPieceAnimated extends BrunoVertical {
-    public BrunoPieceAnimated(short value, AnimatedBrunoManager brunosManager) {
+    public BrunoPieceAnimated(int value, AnimatedBrunoManager brunosManager) {
         super(value, brunosManager);
         setOrigin(this.getWidth()/2, 0);
         setScale(1,0);
@@ -22,7 +22,7 @@ public class BrunoPieceAnimated extends BrunoVertical {
 
 
     @Override
-    protected void setColorAndTexture(short val){
+    protected void setColorAndTexture(int val){
         setColor(Color.YELLOW);
         regTex = Assets.instance.roboticParts.copperFitting1;
 

@@ -24,11 +24,11 @@ public class LevelVertical extends LevelHorizontal {
     public void init() {
         Gdx.app.log(TAG,"init Level Vertical");
 
-        bruno = new BrunoVertical((short)1,new BrunosManager(stage)); // this one is moving
+        bruno = new BrunoVertical(1,new BrunosManager(stage)); // this one is moving
         bruno.setSize(0,0);
        // bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X , -bruno.getHeight());
         // change default horizontal to horizontal moving by first param "false"
-        price = new Price(false,(short)levelParams.priceVelocity,(short)levelParams.numberMin, levelParams.priceReturn);
+        price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
 
         // add actors
         stage.addActor(bruno);

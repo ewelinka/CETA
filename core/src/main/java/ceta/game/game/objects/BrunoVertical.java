@@ -15,13 +15,15 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  * Created by ewe on 11/7/16.
  */
 public class BrunoVertical extends Bruno {
-    protected short brunoValue;
-    protected short id;
+    protected int brunoValue;
+    protected int id;
     protected BrunosManager brunosManager;
+    private boolean goingToDie;
 
-    public BrunoVertical (short value, BrunosManager brunosManager) {
+    public BrunoVertical (int value, BrunosManager brunosManager) {
         this.brunosManager = brunosManager;
         brunoValue = value;
+        goingToDie = false;
         init();
         setColorAndTexture(brunoValue);
     }
@@ -33,41 +35,42 @@ public class BrunoVertical extends Bruno {
         super.superinit();
     }
 
-    protected void setColorAndTexture(short bValue){
+    protected void setColorAndTexture(int bValue){
         switch (bValue){
             case 1:
                 setColor(Color.YELLOW);
-                regTex = Assets.instance.bruno.body;
+                regTex = Assets.instance.bruno.body01;
                 break;
             case 2:
                 setColor(Color.CYAN);
-                regTex = Assets.instance.bruno.body;
+                regTex = Assets.instance.bruno.body02;
                 break;
             case 3:
                 setColor(Color.ORANGE);
-                regTex = Assets.instance.bruno.body;
+                regTex = Assets.instance.bruno.body03;
                 break;
             case 4:
                 setColor(Color.VIOLET);
-                regTex = Assets.instance.bruno.body;
+                regTex = Assets.instance.bruno.body04;
                 break;
             case 5:
                 setColor(Color.GREEN);
-                regTex = Assets.instance.bruno.body;
+                regTex = Assets.instance.bruno.body05;
                 break;
         }
     }
 
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short idVal){
+    public void setId(int idVal){
         Gdx.app.log(TAG, "we set the id "+idVal);
         id = idVal;
     }
 
     public void moveMeToAndSetTerminalY(float x, float y){
+        //clearActions();
         MoveToAction moveToAction = new MoveToAction();
         moveToAction.setPosition(x,y);
         moveToAction.setDuration(1f);
@@ -85,14 +88,19 @@ public class BrunoVertical extends Bruno {
     }
 
     public void disappearAndRemove(){
-        brunosManager.addToInMovementIds(id);
+        //clearActions();
+        if(!goingToDie) {
+            goingToDie = true;
+            brunosManager.addToInMovementIds(id);
 
-        addAction(sequence(Actions.alpha(0,1f),run(new Runnable() {
-            public void run() {
-                brunosManager.notificationBrunoGone(id);
+            addAction(sequence(Actions.alpha(0, 1f), run(new Runnable() {
+                public void run() {
+                    brunosManager.notificationBrunoGone(id);
 
-                remove();
-            }
-        })));
+                    remove();
+                }
+            })));
+        }else
+            Gdx.app.log(TAG,"i don't need more actions, im dying!");
     }
 }

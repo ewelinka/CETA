@@ -4,15 +4,15 @@ package ceta.game.util;
  * Created by ewe on 10/25/16.
  */
 public class Pair {
-    private short key;
-    private short value;
-    public Pair (short k, short v) {
+    private int key;
+    private int value;
+    public Pair (int k, int v) {
         this.key = k;
         this.value = v;
     }
-    public short getKey(){ return key; }
+    public int getKey(){ return key; }
 
-    public short getValue(){ return value;}
+    public int getValue(){ return value;}
 
 
 }

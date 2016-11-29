@@ -1,6 +1,5 @@
 package ceta.game.game.levels;
 
-import ceta.game.game.objects.Bruno;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.game.objects.Latter;
 import ceta.game.game.objects.Price;
@@ -25,14 +24,14 @@ public class Level1Vertical extends LevelHorizontal {
     public void init() {
         Gdx.app.log(TAG,"init Level 1 Vertical");
 
-        bruno = new BrunoVertical((short)1,new BrunosManager(stage)); // this one is moving
+        bruno = new BrunoVertical(1,new BrunosManager(stage)); // this one is moving
         bruno.setSize(0,0);
 
-        price = new Price(false,(short)levelParams.priceVelocity,(short)levelParams.numberMin, levelParams.priceReturn);
+        price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
 
-        tube = new Latter((short)12);
+        tube = new Latter(12);
         tube.setWidth(Constants.BASE*1.5f);
-        tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2,-tube.getHeight());
+        tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2,Constants.DETECTION_ZONE_END -tube.getHeight()); //TODO change for no-cv!!!
 
         // add actors
         stage.addActor(bruno);
@@ -47,6 +46,10 @@ public class Level1Vertical extends LevelHorizontal {
         tube.toFront();
 
         stage.draw();
+    }
+
+    public Latter getTube(){
+        return tube;
     }
 
 }

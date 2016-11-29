@@ -23,32 +23,38 @@ import static java.lang.Math.sin;
  */
 public class VirtualBlock extends AbstractGameObject {
     public static final String TAG = VirtualBlock.class.getName();
-    private short blockValue;
-    private short blockId;
+    private int blockValue;
+    private int blockId;
     public Vector2 home;
     private boolean wasDetected;
     private boolean isAtHome;
     public float[] vertices;
     private float rotLast = 0;
     private float myAlpha;
+    private int pixelsPerUnit;
 
     private boolean wasMoved;
 
 
+    public VirtualBlock(int val, int pixelsPerUnit){
+        this.blockValue = val;
+        this.pixelsPerUnit = pixelsPerUnit;
+        init();
+    }
 
-
-    public VirtualBlock(short val){
-        blockValue = val;
+    public VirtualBlock(int val){
+        this.blockValue = val;
+        this.pixelsPerUnit = Constants.BASE;
         init();
     }
 
     public void init(){
-        regTex = Assets.instance.box.box;
-        myAlpha = GamePreferences.instance.virtualBlocksAlpha;
+        this.regTex = Assets.instance.box.box;
+        this.myAlpha = GamePreferences.instance.virtualBlocksAlpha;
         //horizontal
         //this.setSize(Constants.BASE*abs(blockValue),Constants.BASE);
         //vertical
-        this.setSize(Constants.BASE, Constants.BASE*abs(blockValue));
+        this.setSize(this.pixelsPerUnit, this.pixelsPerUnit*abs(this.blockValue));
         super.init();
 
         home = new Vector2();
@@ -188,18 +194,26 @@ public class VirtualBlock extends AbstractGameObject {
         setAtHome(true);
     }
 
+    public void disappearAndRemove(){
+        addAction(sequence(parallel(Actions.alpha(0,1f)),run(new Runnable() {
+            public void run() {
+                remove();
+            }
+        })));
+    }
+
     public void rotate90(){
         if(blockValue>1)
             addAction(Actions.rotateTo(90,0.5f));
     }
 
-    public short getBlockValue(){
+    public int getBlockValue(){
         return blockValue;
     }
 
-    public short getBlockId(){ return blockId; }
+    public int getBlockId(){ return blockId; }
 
-    public void setBlockId(short id){ blockId = id;}
+    public void setBlockId(int id){ blockId = id;}
 
     public void setHome(float x, float y){
         home.x = x;
@@ -215,6 +229,7 @@ public class VirtualBlock extends AbstractGameObject {
         return isAtHome;
     }
     public void setMyAlpha(float newAlpha){ myAlpha = newAlpha;}
+    public Vector2 getCenterVector(){return new Vector2(getX()+getWidth()/2,getY()+getHeight()/2);}
 
 //
 //    @Override

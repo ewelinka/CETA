@@ -11,11 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
  */
 public class Price extends AbstractGameObject {
     public static final String TAG = Price.class.getName();
-    private short velocity;
+    private int velocity;
     // number line limits
-    private short startNumber;
-    private short endNumber;
-    private short currentNumber; // current position between 1 and 10
+    private int startNumber;
+    private int endNumber;
+    private int currentNumber; // current position between 1 and 10
 
     private boolean isDynamic;
     private int maxReturn;
@@ -24,15 +24,15 @@ public class Price extends AbstractGameObject {
 
     //TODO shouldn't be fixed val!!!
     private float myStartX;
-    private short rotationVelocity;
+    private int rotationVelocity;
 
 
-    public Price(short vel, short startNr, int priceReturn) {
+    public Price(int vel, int startNr, int priceReturn) {
         this(true, vel, startNr, priceReturn); // horizontal
     }
 
 
-    public Price(boolean isMovingVertical, short vel, short startNr, int priceReturn) {
+    public Price(boolean isMovingVertical, int vel, int startNr, int priceReturn) {
         this.isMovingVertical = isMovingVertical;
         init();
         localInit(vel,startNr,priceReturn);
@@ -48,7 +48,7 @@ public class Price extends AbstractGameObject {
 
     }
 
-    private void localInit(short vel, short start, int priceReturn){
+    private void localInit(int vel, int start, int priceReturn){
         myStartX = Constants.HORIZONTAL_ZERO_X;
         rotationVelocity = 30;
 
@@ -107,16 +107,16 @@ public class Price extends AbstractGameObject {
             this.setPosition(getX(),getY()+velocity*deltaTime);
     }
 
-    public void setVelocity(short vel){
+    public void setVelocity(int vel){
         velocity = vel;
     }
 
-    public void setStartAndEnd(short s, short e){
+    public void setStartAndEnd(int s, int e){
         startNumber = s;
         endNumber = e;
     }
 
-    public void setStart(short s){
+    public void setStart(int s){
         startNumber = s;
     }
 
@@ -129,10 +129,10 @@ public class Price extends AbstractGameObject {
 
     private void setInitialPositionMovingVertical(){
         if(isDynamic) {
-            setNewPositionMV(myStartX, Constants.VIEWPORT_HEIGHT / 2 );
+            setNewPositionMV(myStartX, Constants.VIEWPORT_HEIGHT / 2 ); // faling from the top
         }
         else{
-            setNewPositionMV(myStartX, Constants.BASE);
+            setNewPositionMV(myStartX, Constants.PRICE_Y_HORIZONTAL); // TODO define when we have big bruno, fixed val
         }
     }
 
@@ -148,22 +148,23 @@ public class Price extends AbstractGameObject {
 
 
     public void setNewPositionMV(float startX, float startY){
-        currentNumber = (short)(MathUtils.random(1,10));
+        currentNumber = MathUtils.random(1,10);
         // adjust the position to range number (currentNumber-startNumber)
+        // and taking into account where we start to draw
         setPosition( startX + (currentNumber)*Constants.BASE - getWidth()/2, startY );
     }
 
     public void setNewPositionMH(float startX){
-        currentNumber = (short)(MathUtils.random(1,10));
+        currentNumber = MathUtils.random(1,10);
         // adjust the position to range number (currentNumber-startNumber)
-        setPosition( startX, (currentNumber)*Constants.BASE - getHeight()/2);
+        setPosition( startX, Constants.DETECTION_ZONE_END + (currentNumber)*Constants.BASE - getHeight()/2);
     }
 
 
-    public void moveToNewPosition(float startX, short startY){
-        short newPosition = (short)MathUtils.random(1,10);
+    public void moveToNewPositionHorizontalNL(float startX, int startY){
+        int newPosition = MathUtils.random(1,10);
         while (newPosition == currentNumber){
-            newPosition = (short)MathUtils.random(1,10);
+            newPosition = MathUtils.random(1,10);
         }
         currentNumber = newPosition;
 
@@ -171,10 +172,10 @@ public class Price extends AbstractGameObject {
         //setPosition( );
     }
 
-    public void moveToNewPositionVertical(float startX, short startY){
-        short newPosition = (short)MathUtils.random(1,10);
+    public void moveToNewPositionVerticalNL(float startX, int startY){
+        int newPosition = MathUtils.random(1,10);
         while (newPosition == currentNumber){
-            newPosition = (short)MathUtils.random(1,10);
+            newPosition = MathUtils.random(1,10);
         }
         currentNumber = newPosition;
 
@@ -194,7 +195,7 @@ public class Price extends AbstractGameObject {
         if (isDynamic)
             setPositionStartAbove(myStartX);
         else
-            moveToNewPosition(myStartX,Constants.BASE );
+            moveToNewPositionHorizontalNL(myStartX,Constants.PRICE_Y_HORIZONTAL);
 
     }
 
@@ -202,29 +203,29 @@ public class Price extends AbstractGameObject {
         if (isDynamic)
             setPositionStartRight();
         else
-            moveToNewPositionVertical(Constants.VERTICAL_MIDDLE_X - getWidth()/2,(short)0);
+            moveToNewPositionVerticalNL(Constants.VERTICAL_MIDDLE_X - getWidth()/2,Constants.DETECTION_ZONE_END);
 
     }
 
     private void setPositionStartAbove(float startX){
         returnCounter = maxReturn; // new position, new counter!
 
-        short newPosition = (short)MathUtils.random(1,10);
+        int newPosition = MathUtils.random(1,10);
         while (newPosition == currentNumber){
-            newPosition = (short)MathUtils.random(1,10);
+            newPosition = MathUtils.random(1,10);
         }
         currentNumber = newPosition;
 
-        setPosition(startX + currentNumber*Constants.BASE - getWidth()/2,(short)(Constants.VIEWPORT_HEIGHT/2-getHeight()));
+        setPosition(startX + currentNumber*Constants.BASE - getWidth()/2,Constants.VIEWPORT_HEIGHT/2-getHeight());
 
     }
 
     private void setPositionStartRight(){
         returnCounter = maxReturn; // new position, new counter!
 
-        short newPosition = (short)MathUtils.random(1,10);
+        int newPosition = MathUtils.random(1,10);
         while (newPosition == currentNumber){
-            newPosition = (short)MathUtils.random(1,10);
+            newPosition = MathUtils.random(1,10);
         }
         currentNumber = newPosition;
 
@@ -232,8 +233,8 @@ public class Price extends AbstractGameObject {
 
     }
 
-    public short getDisplayNumber(){
-        return (short)(currentNumber+startNumber);
+    public int getDisplayNumber(){
+        return (currentNumber+startNumber);
     }
 
     public void setDynamicProps(boolean dynamic, int priceReturnNr){
@@ -245,7 +246,7 @@ public class Price extends AbstractGameObject {
 
 
 
-    public short getCurrentNumber(){
+    public int getCurrentNumber(){
         return currentNumber;
     }
 }

@@ -59,8 +59,7 @@ public class Level1VerticalController extends AbstractWorldController {
                     Gdx.app.log(TAG, "wowowoowow action submit!");
                     brunosManager.update(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
                     virtualBlocksManager.resetDetectedAndRemoved();
-                    countdownOn = false;
-                    countdownCurrentTime = GamePreferences.instance.countdownMax;
+                    resetCountdown();
                 } else // we still count
                     countdownCurrentTime -= deltaTime;
             }

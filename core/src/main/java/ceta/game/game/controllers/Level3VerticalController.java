@@ -57,8 +57,7 @@ public class Level3VerticalController extends Level1VerticalController {
                     // remove values NOT ids
                     updateBrunoVertical(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
                     virtualBlocksManager.resetDetectedAndRemoved(); // after the update we reset the detected blocks
-                    countdownOn = false;
-                    countdownCurrentTime = GamePreferences.instance.countdownMax;
+                    resetCountdown();
                 } else // we still count
                     countdownCurrentTime -= deltaTime;
             }
@@ -88,23 +87,23 @@ public class Level3VerticalController extends Level1VerticalController {
         }
     }
 
-    private void updateBrunoVertical(ArrayList<Pair> toAdd, ArrayList<Short> toRemoveValues){
-        short toAddNr = 0;
-        short toRemoveNr = 0;
+    private void updateBrunoVertical(ArrayList<Pair> toAdd, ArrayList<Integer> toRemoveValues){
+        int toAddNr = 0;
+        int toRemoveNr = 0;
 
-        for(short i=0; i< toRemoveValues.size();i++) {
+        for(int i=0; i< toRemoveValues.size();i++) {
             toRemoveNr+= toRemoveValues.get(i);
         }
-        for(short i=0; i< toAdd.size();i++) {
+        for(int i=0; i< toAdd.size();i++) {
             toAddNr+=toAdd.get(i).getValue();
 
         }
 
         if((toAddNr - toRemoveNr) != 0)
-            moveBrunoVertical((short)(toAddNr - toRemoveNr));
+            moveBrunoVertical(toAddNr - toRemoveNr);
     }
 
-    private void moveBrunoVertical(short howMany){
+    private void moveBrunoVertical(int howMany){
 
         Gdx.app.log(TAG, " move bruno "+howMany);
         float currentTerminalY = level.bruno.getTerminalY();

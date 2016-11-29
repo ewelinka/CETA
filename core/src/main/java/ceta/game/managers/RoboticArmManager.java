@@ -23,11 +23,11 @@ public class RoboticArmManager {
 
     private ArrayList<ArmPiece> armPieces;
     private ArrayList<ArmPiece> armsToAdd;
-    protected ArrayList<Short> inMovementIds = new ArrayList<Short>();
+    protected ArrayList<Integer> inMovementIds = new ArrayList<Integer>();
 
-    protected short initialX;
-    protected short initialY;
-    protected short lastX;
+    protected int initialX;
+    protected int initialY;
+    protected int lastX;
 
     public RoboticArmManager(Stage stage){
         this.stage = stage;
@@ -44,7 +44,7 @@ public class RoboticArmManager {
     }
 
 
-    public void update(ArrayList toAdd, ArrayList<Short> toRemoveIds ){
+    public void update(ArrayList toAdd, ArrayList<Integer> toRemoveIds ){
         if(toRemoveIds.size() > 0){
             Gdx.app.debug(TAG,"to remove! so many: "+toRemoveIds.size());
             removeArms(toRemoveIds); // removed arms notify the manager and we update the positions
@@ -61,7 +61,7 @@ public class RoboticArmManager {
     protected void updatePositionsIfRemoved(){
         // we update the positions of the arm pieces that are still there
         lastX = initialX;
-        for(short i=0;i<armPieces.size();i++){
+        for(int i=0;i<armPieces.size();i++){
             if(armPieces.get(i).getX() != lastX){
                 armPieces.get(i).moveMeToAndSetTerminalX(lastX,initialY);
             }
@@ -72,12 +72,12 @@ public class RoboticArmManager {
     protected void updatePositionOnAdded(int negativeInitX){
         // we update the positions of the arm pieces that are still there
         float moveRight = Math.abs(negativeInitX-initialX);
-        for(short i=0;i<armPieces.size();i++){
+        for(int i=0;i<armPieces.size();i++){
             armPieces.get(i).moveMeToAndSetTerminalX(armPieces.get(i).getTerminalX()+moveRight,armPieces.get(i).getY());
         }
         // we update the positions of new arm pieces
         int moveTo = initialX;
-        for(short i=0;i<armsToAdd.size();i++) {
+        for(int i=0;i<armsToAdd.size();i++) {
             armsToAdd.get(i).setPosition(negativeInitX,initialY );
             armsToAdd.get(i).moveMeToAndSetTerminalX(moveTo,initialY);
 
@@ -92,7 +92,7 @@ public class RoboticArmManager {
 
     protected int addArmsFromLeftToRight(ArrayList<Pair> toAdd){
         int negativeInitX = initialX; // we reset the negativeInitX to bruno's position
-        for(short i=0; i< toAdd.size();i++){
+        for(int i=0; i< toAdd.size();i++){
             ArmPiece armToAdd = new ArmPiece(toAdd.get(i).getValue(),this);
             armToAdd.setId(toAdd.get(i).getKey());
             negativeInitX -= armToAdd.getWidth();
@@ -103,26 +103,26 @@ public class RoboticArmManager {
         return negativeInitX;
     }
 
-    protected void removeArms(ArrayList<Short> shouldRemoveIds){
+    protected void removeArms(ArrayList<Integer> shouldRemoveIds){
         // we start at the end and check if the arm piece should be removed
         for(int i=armPieces.size()-1;i>=0;i--){
             if(shouldRemoveIds.contains(armPieces.get(i).getId())){
-                removeActorByIndex((short)i);
+                removeActorByIndex(i);
             }
         }
     }
 
-    private void removeOneByIndex(short which){
+    private void removeOneByIndex(int which){
         armPieces.get(which).disappearAndRemove(); // remove Actor
         armPieces.remove(which); //remove from armPieces
     }
 
-    protected void removeActorByIndex(short which){
+    protected void removeActorByIndex(int which){
         Gdx.app.log(TAG, "removeArmPieceByIndex "+ which + " with id "+armPieces.get(which).getId());
         armPieces.get(which).disappearAndRemove(); // remove Actor
     }
 
-    private void removeOneById(short id){
+    private void removeOneById(int id){
         for(int i=armPieces.size()-1;i>=0;i--){
             if(armPieces.get(i).getId() == id){
                 armPieces.get(i).disappearAndRemove(); // remove Actor
@@ -131,7 +131,7 @@ public class RoboticArmManager {
         }
     }
 
-    protected void removeFromArrayByIdAndUpdatePositions(short id){
+    protected void removeFromArrayByIdAndUpdatePositions(int id){
 
         for(int i=armPieces.size()-1;i>=0;i--){
             if(armPieces.get(i).getId() == id){
@@ -149,32 +149,32 @@ public class RoboticArmManager {
         return null;
     }
 
-    private void removeFromInMovementIds(short id){
+    private void removeFromInMovementIds(int id){
         Gdx.app.log(TAG, "BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
         inMovementIds.remove((Object)id);
         Gdx.app.log(TAG, "AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
 
     }
 
-    private void removeAllIdsFromInMovementIds(short id){
+    private void removeAllIdsFromInMovementIds(int id){
         Gdx.app.log(TAG, "ALL BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
         inMovementIds.removeAll(Collections.singleton((Object)id));
         Gdx.app.log(TAG, "ALL AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
 
     }
 
-    public void addToInMovementIds(short id){
+    public void addToInMovementIds(int id){
         inMovementIds.add(id);
 
     }
 
-    public void notificationArmGone(short armId){
+    public void notificationArmGone(int armId){
 
         removeAllIdsFromInMovementIds(armId);
         removeFromArrayByIdAndUpdatePositions(armId);
     }
 
-    public void notificationArmMoved(short armId){
+    public void notificationArmMoved(int armId){
         removeFromInMovementIds(armId);
     }
 
