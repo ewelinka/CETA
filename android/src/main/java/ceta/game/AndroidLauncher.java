@@ -110,6 +110,7 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 	private void releaseCamera() {
 		if (mCamera != null) {
 			mCamera.stopPreview();
+			mCamera.setPreviewCallback(null);
 			mCamera.release();
 			mCamera = null;
 			Log.d(TAG, "releaseCamera -- done");
