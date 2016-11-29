@@ -17,14 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 10/19/16.
  */
-public class TestController extends AbstractWorldController {
+public class Level1VerticalCvController extends AbstractWorldController {
     private static final String TAG = Level1VerticalController.class.getName();
     protected CVBlocksManager cvBlocksManager;
     private BrunosManager brunosManager;
     private boolean moveMade;
 
 
-    public TestController(DirectedGame game, Stage stage, int levelNr) {
+    public Level1VerticalCvController(DirectedGame game, Stage stage, int levelNr) {
         super(game, stage, levelNr);
     }
 
