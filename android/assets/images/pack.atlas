@@ -6,238 +6,238 @@ filter: Nearest,Nearest
 repeat: none
 01bruno
   rotate: false
-  xy: 661, 752
+  xy: 794, 206
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 01cabeza
   rotate: false
-  xy: 552, 152
+  xy: 794, 172
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
   index: -1
 01cuerpo
   rotate: false
-  xy: 735, 782
+  xy: 940, 241
   size: 35, 21
   orig: 35, 21
   offset: 0, 0
   index: -1
 02bruno
   rotate: false
-  xy: 566, 186
+  xy: 532, 84
   size: 40, 80
   orig: 40, 80
   offset: 0, 0
   index: -1
 02cabeza
   rotate: false
-  xy: 981, 872
+  xy: 982, 279
   size: 40, 25
   orig: 40, 25
   offset: 0, 0
   index: -1
 02cuerpo
   rotate: false
-  xy: 285, 43
+  xy: 983, 733
   size: 36, 59
   orig: 36, 59
   offset: 0, 0
   index: -1
 03bruno
   rotate: false
-  xy: 604, 273
+  xy: 935, 671
   size: 46, 121
   orig: 46, 121
   offset: 0, 0
   index: -1
 03cabeza
   rotate: false
-  xy: 981, 899
+  xy: 836, 207
   size: 41, 39
   orig: 41, 39
   offset: 0, 0
   index: -1
 03cuerpo
   rotate: false
-  xy: 785, 840
+  xy: 892, 235
   size: 46, 98
   orig: 46, 98
   offset: 0, 0
   index: -1
 04bruno
   rotate: false
-  xy: 604, 396
+  xy: 892, 470
   size: 50, 160
   orig: 50, 160
   offset: 0, 0
   index: -1
 04cabeza
   rotate: false
-  xy: 785, 808
+  xy: 935, 639
   size: 45, 30
   orig: 45, 30
   offset: 0, 0
   index: -1
 04cuerpo
   rotate: false
-  xy: 735, 805
+  xy: 892, 335
   size: 48, 133
   orig: 48, 133
   offset: 0, 0
   index: -1
 05bruno
   rotate: false
-  xy: 604, 738
+  xy: 892, 812
   size: 55, 200
   orig: 55, 200
   offset: 0, 0
   index: -1
 05cabeza
   rotate: false
-  xy: 2, 2
+  xy: 879, 209
   size: 55, 24
   orig: 55, 24
   offset: 0, 0
   index: -1
 05cuerpo
   rotate: false
-  xy: 604, 558
+  xy: 892, 632
   size: 41, 178
   orig: 41, 178
   offset: 0, 0
   index: -1
 box
   rotate: false
-  xy: 326, 112
+  xy: 646, 174
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 box01
   rotate: false
-  xy: 211, 30
+  xy: 164, 10
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 box02
   rotate: false
-  xy: 833, 866
+  xy: 458, 92
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 box03
   rotate: false
-  xy: 400, 112
+  xy: 720, 174
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 bruno
   rotate: false
-  xy: 136, 30
+  xy: 949, 940
   size: 73, 72
   orig: 73, 72
   offset: 0, 0
   index: -1
 circle
   rotate: false
-  xy: 703, 762
+  xy: 616, 134
   size: 30, 30
   orig: 30, 30
   offset: 0, 0
   index: -1
 cloud
   rotate: false
-  xy: 2, 28
+  xy: 324, 90
   size: 132, 74
   orig: 132, 74
   offset: 0, 0
   index: -1
 coin
   rotate: false
-  xy: 474, 144
+  xy: 940, 264
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 copper
   rotate: false
-  xy: 926, 940
+  xy: 942, 388
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 copper2
   rotate: false
-  xy: 404, 186
+  xy: 2, 2
   size: 160, 80
   orig: 160, 80
   offset: 0, 0
   index: -1
 copper3
   rotate: false
-  xy: 2, 104
+  xy: 404, 166
   size: 240, 80
   orig: 240, 80
   offset: 0, 0
   index: -1
 copper4
   rotate: false
-  xy: 604, 940
+  xy: 2, 84
   size: 320, 80
   orig: 320, 80
   offset: 0, 0
   index: -1
 copper5
   rotate: false
-  xy: 2, 186
+  xy: 2, 166
   size: 400, 80
   orig: 400, 80
   offset: 0, 0
   index: -1
-fondoD
-  rotate: false
-  xy: 2, 268
-  size: 600, 752
-  orig: 600, 752
-  offset: 0, 0
-  index: -1
 latter
   rotate: false
-  xy: 907, 866
+  xy: 238, 10
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 latter-double
   rotate: false
-  xy: 661, 794
+  xy: 949, 794
   size: 72, 144
   orig: 72, 144
   offset: 0, 0
   index: -1
+mano
+  rotate: false
+  xy: 2, 248
+  size: 888, 764
+  orig: 888, 764
+  offset: 0, 0
+  index: -1
 robot01
   rotate: false
-  xy: 516, 144
+  xy: 983, 691
   size: 34, 40
   orig: 34, 40
   offset: 0, 0
   index: -1
 robot02
   rotate: false
-  xy: 608, 191
+  xy: 574, 84
   size: 40, 80
   orig: 40, 80
   offset: 0, 0
   index: -1
 screw
   rotate: false
-  xy: 244, 104
+  xy: 942, 306
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
@@ -250,20 +250,33 @@ filter: Nearest,Nearest
 repeat: none
 excelente
   rotate: false
-  xy: 2, 2
+  xy: 2, 516
   size: 625, 293
   orig: 625, 293
   offset: 0, 0
   index: -1
 fondoA
   rotate: false
-  xy: 2, 297
+  xy: 2, 2
   size: 600, 512
   orig: 600, 512
   offset: 0, 0
   index: -1
 
 pack3.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+fondoD
+  rotate: false
+  xy: 2, 2
+  size: 600, 752
+  orig: 600, 752
+  offset: 0, 0
+  index: -1
+
+pack4.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -276,7 +289,7 @@ fondoB
   offset: 0, 0
   index: -1
 
-pack4.png
+pack5.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
