@@ -25,6 +25,7 @@ public class Constants {
     public static final int PRICE_Y_HORIZONTAL = 40; // where price will be if number line horizontal
 
     public static final int ACTION_SUBMIT_WAIT = 2000;
+    public static final int INACTIVITY_LIMIT = 10000;
 
 
     public static int DETECTION_ZONE_END ;

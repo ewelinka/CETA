@@ -37,6 +37,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected float countdownCurrentTime;
     private ScreenTransition oneSegFadeIn;
     protected LevelParams levelParams;
+    private boolean playerInactive;
 
 
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
@@ -61,6 +62,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         cameraHelper.setTarget(null);
         score = 0;
         oneSegFadeIn = ScreenTransitionFade.init(1);
+        playerInactive = false;
 
         actionSubmitInit();
         adjustCamera();
@@ -181,6 +183,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void resetCountdown(){
         countdownOn = false;
         countdownCurrentTime = GamePreferences.instance.countdownMax;
+    }
+
+    public void setPlayerInactive(boolean isInactive){
+        playerInactive = isInactive;
+    }
+
+    public boolean isPlayerInactive(){
+        return playerInactive;
     }
     
 }

@@ -353,6 +353,11 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     public void setWaitForFirstMove(boolean shouldWait){
         waitForFirstMove = shouldWait;
+
+    }
+
+    public void resetNoChangesSince(){
+        noChangesSince = TimeUtils.millis(); //new change!
     }
 }
 

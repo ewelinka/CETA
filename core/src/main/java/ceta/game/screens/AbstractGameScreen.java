@@ -52,6 +52,10 @@ public abstract class AbstractGameScreen  implements Screen {
     }
     public abstract InputProcessor getInputProcessor ();
 
+    public AbstractWorldRenderer getWorldRenderer(){
+        return worldRenderer;
+    }
+
 
 }
 

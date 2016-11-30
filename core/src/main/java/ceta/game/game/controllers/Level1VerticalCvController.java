@@ -7,6 +7,7 @@ import ceta.game.game.objects.BrunoVertical;
 import ceta.game.game.objects.Price;
 import ceta.game.managers.BrunosManager;
 import ceta.game.managers.CVBlocksManager;
+import ceta.game.screens.AbstractGameScreen;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
@@ -45,13 +46,15 @@ public class Level1VerticalCvController extends AbstractWorldController {
 
     @Override
     public void update(float deltaTime) {
-        testCollisions(); // winning condition checked
+        if(moveMade) {
+            testCollisions(); // winning condition checked
+        }
         handleDebugInput(deltaTime);
         level.update(deltaTime); //stage.act()
 
         /// detection-related start
         if(((CetaGame)game).hasNewFrame()) {
-            Gdx.app.log(TAG," framerateeee" +Gdx.graphics.getFramesPerSecond());
+           // Gdx.app.log(TAG," framerateeee" +Gdx.graphics.getFramesPerSecond());
             cvBlocksManager.updateDetected();
         }
         if(cvBlocksManager.isDetectionReady()){
@@ -59,13 +62,25 @@ public class Level1VerticalCvController extends AbstractWorldController {
         }
         /// detection-related end
 
+
+        if(cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT){
+            Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
+            setPlayerInactive(true);
+            cvBlocksManager.resetNoChangesSince();
+        }
+
         // we start to act after kids move
         if(!cvBlocksManager.isWaitForFirstMove()) {
+
             if (cvBlocksManager.getTimeWithoutChange() > Constants.ACTION_SUBMIT_WAIT) {
-                if (!countdownOn)
+                if (!countdownOn) //if we are not counting, we start!
                     setCountdownOn(true);
             } else {
-                setCountdownOn(false); // if somebody moved a block
+                if(true) {
+                    setPlayerInactive(false);
+                    setCountdownOn(false); // if somebody moved a block
+
+                }
             }
         }
 
@@ -77,6 +92,7 @@ public class Level1VerticalCvController extends AbstractWorldController {
                 cvBlocksManager.resetDetectedAndRemoved();
                 resetCountdown();
                 cvBlocksManager.setWaitForFirstMove(true);
+                cvBlocksManager.resetNoChangesSince();
             }
             else{
                 countdownCurrentTime -= deltaTime;
