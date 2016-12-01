@@ -11,9 +11,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
+import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.TimeUtils;
 import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
 import edu.ceta.vision.core.blocks.Block;
+import edu.ceta.vision.core.utils.BlocksMarkersMap;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
@@ -45,6 +47,9 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private long noChangesSince;
     private int noMovementDist;
     private int noMovementRot;
+    private final double rotAdjust = -1;
+    private ArrayMap<Integer,Integer> strikes;
+    private int maxStrikes;
 
     public boolean waitForFirstMove;
 
@@ -75,6 +80,10 @@ public class CVBlocksManager extends AbstractBlocksManager {
         noMovementDist = 10;
         noMovementRot = 20;
         waitForFirstMove = true;
+
+        maxStrikes = 3; // after x frames without marker, we pronounce it deleted
+        strikes = new ArrayMap<Integer,Integer>();
+        initStrikes();
 
     }
 
@@ -134,15 +143,16 @@ public class CVBlocksManager extends AbstractBlocksManager {
                 if(nBlock.getCenter().x < Constants.CV_MIN_Y) { // x because tablet is rotated!!
                     // remove
                     Gdx.app.log(TAG,"OUT OF BOUNDS!! id "+newId+ " value "+newDetectedCVBlocks.get(i).getValue()+" center y "+nBlock.getCenter());
-                    removeBlockCV(newId,newDetectedCVBlocks.get(i).getValue());
+                    checkStrikesAndDecideIfRemove(newId);
                 }else{
+                    resetStrikes(newId);
                     boolean shouldBeUpdated = false;
                     if(getDistance(newId,newDetectedCVBlocks.get(i)) > noMovementDist){
                         Gdx.app.log(TAG,"distance > "+noMovementDist);
                         shouldBeUpdated = true;
                     }
-                    if(Math.abs(Math.toDegrees(newDetectedCVBlocks.get(i).getOrientation()) - getBlockById(newId).getRotation()) > noMovementRot){
-                        Gdx.app.log(TAG,"rotation > "+noMovementRot+" now:  "+Math.toDegrees(newDetectedCVBlocks.get(i).getOrientation())+" before: "+getBlockById(newId).getRotation());
+                    if(Math.abs(radianToStage(newDetectedCVBlocks.get(i).getOrientation()) - getBlockById(newId).getRotation()) > noMovementRot){
+                        Gdx.app.log(TAG,"rotation > "+noMovementRot+" now:  "+radianToStage(newDetectedCVBlocks.get(i).getOrientation())+" before: "+getBlockById(newId).getRotation());
                         shouldBeUpdated =true;
                     }
 
@@ -150,32 +160,44 @@ public class CVBlocksManager extends AbstractBlocksManager {
                         updateBlockCV(nBlock.getId(),
                                 xToStage(nBlock.getCenter().y),
                                 yToStage(nBlock.getCenter().x),
-                                (float) Math.toDegrees(nBlock.getOrientation())
+                                radianToStage(nBlock.getOrientation())
                         );
                     }
                 }
                 // get block with this id
             }else {
                 // if new and in the zone -> new
-                // if(nBlock.getCenter().x < Constants.CV_MIN_Y) {
-                if(true) {
+                if(nBlock.getCenter().x < Constants.CV_MIN_Y) {
+                    Gdx.app.log(TAG," new id "+nBlock.getId()+" but out of the zone!");
+                    newBlocksIds.remove(i);
+                }else{
                     addBlockCV(nBlock.getValue(),
                             nBlock.getId(),
                             xToStage(nBlock.getCenter().y), //important!! x and y flipped!!
                             yToStage(nBlock.getCenter().x),
                             radianToStage(nBlock.getOrientation()));
-                }else{
-                    Gdx.app.log(TAG," new id "+nBlock.getId()+" but out of the zone!");
-                    // TODO we shoould remove it from newIds that will convert to oldIds
-                    newBlocksIds.remove(i);
+                    resetStrikes(nBlock.getId());
                 }
             }
         }
         // we won't use more oldBlocksIds so we use it to get unique ids that should be removed
         oldBlocksIds.removeAll(newBlocksIds);
         for(int i=0;i<oldBlocksIds.size();i++){
-            Gdx.app.log(TAG," remove block with id: "+oldBlocksIds.get(i)+ "because its gone");
-            removeBlockCV(oldBlocksIds.get(i),2); //TODO change hardcoded value
+            checkStrikesAndDecideIfRemove(oldBlocksIds.get(i));
+        }
+    }
+
+    private void checkStrikesAndDecideIfRemove(int id){
+        if(strikes.get(id) > maxStrikes ) {
+            Gdx.app.log(TAG, " remove block with id: " + id + "because its gone and has max strikes!");
+            removeBlockCV(id, 2); //TODO change hardcoded value
+        }
+        else{
+            Gdx.app.log(TAG," STRIKE for "+id);
+            //update strikes
+            updateStrikes(id);
+            // add to new
+            newIds.add(id);
         }
     }
 
@@ -200,7 +222,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     private float radianToStage(double r){
         Gdx.app.log(TAG," radians to stage "+r);
-        return  (float) Math.toDegrees(r);
+        return  (float) Math.toDegrees(r*rotAdjust);
     }
 
 
@@ -358,6 +380,26 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     public void resetNoChangesSince(){
         noChangesSince = TimeUtils.millis(); //new change!
+    }
+
+    private void initStrikes(){
+        int [][] allMarkers = {BlocksMarkersMap.block1,BlocksMarkersMap.block2,BlocksMarkersMap.block3,BlocksMarkersMap.block4,BlocksMarkersMap.block5};
+
+        for(int arrIdx = 0;arrIdx < allMarkers.length; arrIdx++){
+            for(int i =0; i< allMarkers[arrIdx].length;i++){
+                //Gdx.app.log(TAG, " putting "+allMarkers[arrIdx][i]);
+                strikes.put(allMarkers[arrIdx][i],0);
+            }
+        }
+
+    }
+
+    private void resetStrikes(int id){
+        strikes.put(id,0); // reset strikes!
+    }
+
+    private void updateStrikes(int id){
+        strikes.put(id,strikes.get(id)+1); // add one!
     }
 }
 
