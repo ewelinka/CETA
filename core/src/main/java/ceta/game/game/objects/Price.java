@@ -3,8 +3,13 @@ package ceta.game.game.objects;
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
  * Created by ewe on 8/12/16.
@@ -151,6 +156,14 @@ public class Price extends AbstractGameObject {
         currentNumber = MathUtils.random(1,10);
         // adjust the position to range number (currentNumber-startNumber)
         // and taking into account where we start to draw
+
+//        addAction(sequence(
+//                Actions.scaleTo(1.5f,1.5f,0.3f),
+//                Actions.scaleTo(0.0f,0.0f,0.3f),
+//                Actions.moveTo(startX + (currentNumber)*Constants.BASE - getWidth()/2,startY),
+//                Actions.scaleTo(1,1)
+//
+//                ));
         setPosition( startX + (currentNumber)*Constants.BASE - getWidth()/2, startY );
     }
 
@@ -179,11 +192,27 @@ public class Price extends AbstractGameObject {
         }
         currentNumber = newPosition;
 
-        addAction(Actions.moveTo(startX, startY + currentNumber*Constants.BASE - getHeight()/2,0.6f));
+        addAction(sequence(
+                parallel(
+                    Actions.scaleTo(1.5f,1.5f,0.1f),
+                    Actions.color(Color.GOLD,0.1f)
+
+                ),
+                Actions.scaleTo(0.0f,0.0f,0.05f),
+                delay(0.2f),
+                Actions.color(Color.WHITE),
+                Actions.moveTo(startX ,startY + currentNumber*Constants.BASE - getHeight()/2),
+                Actions.scaleTo(1,1)
+
+
+        ));
+
+       // addAction(Actions.moveTo(startX, startY + currentNumber*Constants.BASE - getHeight()/2,0.6f));
         //setPosition( );
     }
 
     public void wasCollected(){
+
         if (isMovingVertical)
             wasCollectedHorizontalNumberLine();
         else
@@ -215,6 +244,8 @@ public class Price extends AbstractGameObject {
             newPosition = MathUtils.random(1,10);
         }
         currentNumber = newPosition;
+
+
 
         setPosition(startX + currentNumber*Constants.BASE - getWidth()/2,Constants.VIEWPORT_HEIGHT/2-getHeight());
 

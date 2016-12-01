@@ -31,7 +31,7 @@ public class Constants {
     public static int DETECTION_ZONE_END ;
 
     public static final int HORIZONTAL_ZERO_X = -200;
-    public static final int VERTICAL_MIDDLE_X = -260;
+    public static final int VERTICAL_MIDDLE_X = -240;
 
 
     public static final int CV_DETECTION_EDGE_TABLET = 360;

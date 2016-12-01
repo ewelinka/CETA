@@ -161,13 +161,16 @@ public class WorldRenderer extends AbstractWorldRenderer {
     }
 
     protected void renderHelperNumbersVertical(SpriteBatch batch){
-
+        int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         int counter  = 0;
         for(int i = -200; i<240;i+=Constants.BASE){
+            if(levelMinimumNumber+counter == chosenNr)
+                batch.setColor(Color.GREEN);
+            else
+                batch.setColor(Color.WHITE);
             font.draw(batch, (levelMinimumNumber+counter)+"", i, 0,0,Align.center,false);
-
             counter+=1;
         }
 
@@ -176,13 +179,18 @@ public class WorldRenderer extends AbstractWorldRenderer {
     }
 
     protected void renderHelperNumbersHorizontal(SpriteBatch batch){
-
+        int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         int counter  = 0;
         for(int i = 0; i<=400;i+=Constants.BASE){
             String text = counter+"";
-            GlyphLayout layout = new GlyphLayout(font, text);;
+            GlyphLayout layout = new GlyphLayout(font, text);
+            if(levelMinimumNumber+counter == chosenNr)
+                batch.setColor(Color.GREEN);
+            else
+                batch.setColor(Color.WHITE);
+
             font.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
             counter+=1;
         }

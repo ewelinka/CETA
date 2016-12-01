@@ -76,7 +76,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
     protected void renderBackgroundImg(SpriteBatch batch){
-        TextureAtlas.AtlasRegion b = Assets.instance.background.back;
+        TextureAtlas.AtlasRegion b = Assets.instance.background.back2;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(b.getTexture(),-Constants.VIEWPORT_WIDTH/2, 0,

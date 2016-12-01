@@ -75,7 +75,7 @@ public class WorldRendererCV extends WorldRenderer {
 
     @Override
     protected void renderBackgroundImg(SpriteBatch batch) {
-        TextureAtlas.AtlasRegion b = Assets.instance.background.back;
+        TextureAtlas.AtlasRegion b = Assets.instance.background.back3;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(b.getTexture(), -Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END,
@@ -112,7 +112,7 @@ public class WorldRendererCV extends WorldRenderer {
         shRenderer.setColor(1, 1, 1, 1);
 
         for(int i = Constants.DETECTION_ZONE_END; i<=(Constants.DETECTION_ZONE_END +400); i+=Constants.BASE){
-            shRenderer.line(-Constants.VIEWPORT_WIDTH/2 , i, 240,i);
+            shRenderer.line(-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
         }
         shRenderer.setColor(1, 0, 0, 1);
         //vertical
@@ -124,11 +124,16 @@ public class WorldRendererCV extends WorldRenderer {
 
     @Override
     protected void renderHelperNumbersVertical(SpriteBatch batch){
-
+        int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         int counter  = 0;
         for(int i = -200; i<240;i+=Constants.BASE){
+            if(levelMinimumNumber+counter == chosenNr)
+                font.setColor(Color.GREEN);
+            else
+                font.setColor(Color.WHITE);
+
             font.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.DETECTION_ZONE_END,0, Align.center,false);
 
             counter+=1;
@@ -140,13 +145,17 @@ public class WorldRendererCV extends WorldRenderer {
 
     @Override
     protected void renderHelperNumbersHorizontal(SpriteBatch batch){
-
+        int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         int counter  = 0;
         for(int i = Constants.DETECTION_ZONE_END; i<=(Constants.DETECTION_ZONE_END +400); i+=Constants.BASE){
             String text = counter+"";
-            GlyphLayout layout = new GlyphLayout(font, text);;
+            GlyphLayout layout = new GlyphLayout(font, text);
+            if(levelMinimumNumber+counter == chosenNr)
+                font.setColor(Color.GREEN);
+            else
+                font.setColor(Color.WHITE);
             font.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
             counter+=1;
         }
