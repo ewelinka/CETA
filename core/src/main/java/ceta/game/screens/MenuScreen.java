@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -37,6 +38,7 @@ public class MenuScreen extends AbstractGameScreen {
     private Skin skin;
 
     private Button btnMenuPlay;
+
     private Button btnMenuOptions;
 
     private Window winOptions;
@@ -124,10 +126,12 @@ public class MenuScreen extends AbstractGameScreen {
     private Table buildControlsLayer () {
         Table layer = new Table();
         layer.center().center();
-        // + Play Button
-        layer.pad(100, 0, 0, 10);
-        btnMenuPlay = new TextButton("Jugar", skin);
-        layer.add(btnMenuPlay).padBottom(10);
+
+        //layer.pad(100, 0, 0, 10);
+
+        btnMenuPlay = new ImageButton(new TextureRegionDrawable(Assets.instance.menu.play)); // TODO should be resolved in ui-skin...
+       // table.add (btnB).size (150, 200);
+        layer.add(btnMenuPlay).size(88,60).padBottom(10);
         btnMenuPlay.addListener(new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
@@ -135,6 +139,16 @@ public class MenuScreen extends AbstractGameScreen {
             }
         });
         layer.row();
+        // + Play Button
+//        btnMenuPlay = new TextButton("Jugar", skin);
+//        layer.add(btnMenuPlay).padBottom(10);
+//        btnMenuPlay.addListener(new ChangeListener() {
+//            @Override
+//            public void changed (ChangeEvent event, Actor actor) {
+//                onPlayClicked();
+//            }
+//        });
+//        layer.row();
         // + Options Button
         btnMenuOptions = new TextButton("Opciones",skin);
         layer.add(btnMenuOptions).padBottom(10);
@@ -154,7 +168,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     private Table buildBackgroundLayer () {
         Table layer = new Table();
-        imgBackground = new Image(Assets.instance.background.back);
+        imgBackground = new Image(Assets.instance.background.backStart);
         layer.add(imgBackground);
         return layer;
     }

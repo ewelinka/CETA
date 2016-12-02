@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -40,6 +42,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetMusic music;
 
     public AssetFinishBackground finishBackGround;
+    public AssetMenu menu;
 
     // singleton: prevent instantiation from other classes
     private Assets() {
@@ -91,6 +94,7 @@ public class Assets implements Disposable, AssetErrorListener {
         roboticParts = new AssetRoboticParts(atlas);
 
         finishBackGround = new AssetFinishBackground(atlas);
+        menu = new AssetMenu(atlas);
     }
 
     @Override
@@ -187,6 +191,17 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public AssetLatter (TextureAtlas atlas) {
             latter = atlas.findRegion("latter");
+
+        }
+    }
+
+    public class AssetMenu {
+        public final TextureAtlas.AtlasRegion play;
+
+
+        public AssetMenu (TextureAtlas atlas) {
+            play = atlas.findRegion("jugar");
+
 
         }
     }
