@@ -172,6 +172,9 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion body03;
         public final TextureAtlas.AtlasRegion body04;
         public final TextureAtlas.AtlasRegion body05;
+        public final TextureAtlas.AtlasRegion headEnergy;
+        public final TextureAtlas.AtlasRegion baseEnergy;
+        public final TextureAtlas.AtlasRegion energy;
 
         public AssetBruno (TextureAtlas atlas) {
             body = atlas.findRegion("robot02");
@@ -180,6 +183,9 @@ public class Assets implements Disposable, AssetErrorListener {
             body03 = atlas.findRegion("03bruno");
             body04 = atlas.findRegion("04bruno");
             body05 = atlas.findRegion("05bruno");
+            headEnergy = atlas.findRegion("03cabeza");
+            baseEnergy = atlas.findRegion("baseEnergia");
+            energy = atlas.findRegion("energia");
 
 
 
