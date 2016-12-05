@@ -19,9 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 10/19/16.
  */
-public class Level1VerticalController extends AbstractWorldController {
+public class Level1VerticalController extends NoCvController {
     private static final String TAG = Level1VerticalController.class.getName();
-    protected VirtualBlocksManager virtualBlocksManager;
+//    protected VirtualBlocksManager virtualBlocksManager;
     private BrunosManager brunosManager;
 
 
@@ -43,39 +43,15 @@ public class Level1VerticalController extends AbstractWorldController {
     }
 
     @Override
-    public void update(float deltaTime) {
-        testCollisions(); // winning condition checked
-        handleDebugInput(deltaTime);
-        level.update(deltaTime); //stage.act()
-        virtualBlocksManager.updateDetected();
-
-        if (GamePreferences.instance.actionSubmit) {
-            // if we are counting
-            if (countdownOn) {
-                // we shake bruno
-                level.bruno.shake();
-                // if we reached the time
-                if (countdownCurrentTime < 0) {
-                    Gdx.app.log(TAG, "wowowoowow action submit!");
-                    brunosManager.update(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
-                    virtualBlocksManager.resetDetectedAndRemoved();
-                    resetCountdown();
-                } else // we still count
-                    countdownCurrentTime -= deltaTime;
-            }
-        } else {
-            brunosManager.update(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
-            virtualBlocksManager.resetDetectedAndRemoved();
-
-        }
-        cameraHelper.update(deltaTime);
-
+    protected void updateDigitalRepresentations() {
+        brunosManager.update(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
     }
 
     @Override
-    public void dispose() {
-
+    protected void countdownMove() {
+        //level.bruno.shake();
     }
+
 
 
     @Override
@@ -100,17 +76,5 @@ public class Level1VerticalController extends AbstractWorldController {
         return brunosManager.getLastBruno();
     }
 
-    protected void onCollisionBrunoWithPrice(Price goldcoin) {
-        Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (goldcoin.getActions().size == 0) { // we act just one time!
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-            score += 1;
-            //TODO some nice yupi animation
-            if (score < levelParams.operationsNumberToPass) {
-                goldcoin.wasCollected();
 
-            } else
-                goToCongratulationsScreen();
-        }
-    }
 }

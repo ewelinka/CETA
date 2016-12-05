@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 11/9/16.
  */
-public class Level2VerticalController extends Level1VerticalController {
+public class Level2VerticalController extends NoCvController {
     private static final String TAG = Level2VerticalController.class.getName();
     private AnimatedBrunoManager brunosManager;
 
@@ -38,31 +38,17 @@ public class Level2VerticalController extends Level1VerticalController {
     }
 
     @Override
-    public void update (float deltaTime) {
-        testCollisions(); // winning condition checked
-
-        handleDebugInput(deltaTime);
-        level.update(deltaTime); //stage.act()
-        virtualBlocksManager.updateDetected(); // update virtual blocks
-
-        if (GamePreferences.instance.actionSubmit) {
-            // if we are counting
-            if (countdownOn) {
-                level.bruno.shake(); // we shake bruno
-                if (countdownCurrentTime < 0) {  // if we reached the time
-                    // remove values NOT ids
-                    brunosManager.updateAnimated(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
-                    virtualBlocksManager.resetDetectedAndRemoved(); // after the update we reset the detected blocks
-                    resetCountdown();
-                } else // we still count
-                    countdownCurrentTime -= deltaTime;
-            }
-        } else {
-            brunosManager.updateAnimated(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
-            virtualBlocksManager.resetDetectedAndRemoved(); // after the update we reset the detected blocks
-        }
-        cameraHelper.update(deltaTime);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        brunosManager.updateAlpha(deltaTime);
     }
+
+
+    @Override
+    protected void updateDigitalRepresentations() {
+        brunosManager.updateAnimated(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
+    }
+
 
     @Override
     protected void testCollisions () {

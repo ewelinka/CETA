@@ -18,11 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 10/19/16.
  */
-public class Level1VerticalCvController extends AbstractWorldController {
+public class Level1VerticalCvController extends CvController {
     private static final String TAG = Level1VerticalController.class.getName();
-    protected CVBlocksManager cvBlocksManager;
+
     private BrunosManager brunosManager;
-    private boolean moveMade;
+
 
 
     public Level1VerticalCvController(DirectedGame game, Stage stage, int levelNr) {
@@ -40,72 +40,20 @@ public class Level1VerticalCvController extends AbstractWorldController {
         cvBlocksManager.init();
         brunosManager.init();
         //cameraHelper.addZoom(0.3f);
-        moveMade = false;
+
 
     }
 
     @Override
-    public void update(float deltaTime) {
-        if(moveMade) {
-            testCollisions(); // winning condition checked
-        }
-        handleDebugInput(deltaTime);
-        level.update(deltaTime); //stage.act()
-
-        /// detection-related start
-        if(((CetaGame)game).hasNewFrame()) {
-           // Gdx.app.log(TAG," framerateeee" +Gdx.graphics.getFramesPerSecond());
-            cvBlocksManager.updateDetected();
-        }
-        if(cvBlocksManager.isDetectionReady()){
-            cvBlocksManager.analyseDetected();
-        }
-        /// detection-related end
-
-
-        if(cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT){
-            Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
-            setPlayerInactive(true);
-            cvBlocksManager.resetNoChangesSince();
-        }
-
-        // we start to act after kids move
-        if(!cvBlocksManager.isWaitForFirstMove()) {
-
-            if (cvBlocksManager.getTimeWithoutChange() > Constants.ACTION_SUBMIT_WAIT) {
-                if (!countdownOn) //if we are not counting, we start!
-                    setCountdownOn(true);
-            } else {
-                if(true) {
-                    setPlayerInactive(false);
-                    setCountdownOn(false); // if somebody moved a block
-
-                }
-            }
-        }
-
-        if(countdownOn){
-            ((Level1Vertical)(level)).getTube().shake();
-            if (countdownCurrentTime < 0) {
-                brunosManager.update(cvBlocksManager.getNewDetected(), cvBlocksManager.getToRemove());
-                moveMade = true;
-                cvBlocksManager.resetDetectedAndRemoved();
-                resetCountdown();
-                cvBlocksManager.setWaitForFirstMove(true);
-                cvBlocksManager.resetNoChangesSince();
-            }
-            else{
-                countdownCurrentTime -= deltaTime;
-            }
-        }
-        cameraHelper.update(deltaTime);
-
+    protected void updateDigitalRepresentations() {
+        brunosManager.update(cvBlocksManager.getNewDetected(), cvBlocksManager.getToRemove());
     }
 
     @Override
-    public void dispose() {
-
+    protected void countdownMove() {
+        ((Level1Vertical)(level)).getTube().shake();
     }
+
 
 
     @Override
@@ -113,30 +61,7 @@ public class Level1VerticalCvController extends AbstractWorldController {
         BrunoVertical lastBruno = getLastBruno();
         if (!brunosManager.isUpdatingBrunosPositions()) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
-            if(lastBruno != null ) {
-                r1.set(lastBruno.getX() + lastBruno.getWidth() / 2 - 2,
-                        lastBruno.getY() + lastBruno.getHeight(), // two pixels below the middle
-                        4, 4);
-                r2.set(level.price.getX() + level.price.getWidth() / 2 - 2,
-                        level.price.getY() + level.price.getHeight() / 2 - 2,
-                        4, 4);
-
-                if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPrice(level.price);
-                    moveMade = false;
-                } else {
-                    if (moveMade) {
-                        AudioManager.instance.play(Assets.instance.sounds.liveLost);
-                        moveMade = false;
-                    }
-
-                }
-            }else{
-                if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
-                    moveMade = false;
-                }
-            }
+            testCollisionsVertical(lastBruno);
         }
     }
 
@@ -144,19 +69,6 @@ public class Level1VerticalCvController extends AbstractWorldController {
         return brunosManager.getLastBruno();
     }
 
-    protected void onCollisionBrunoWithPrice(Price goldcoin) {
-        Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (goldcoin.getActions().size == 0) { // we act just one time!
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-            score += 1;
-            //TODO some nice yupi animation
-            if (score < levelParams.operationsNumberToPass) {
-                goldcoin.wasCollected();
-
-            } else
-                goToCongratulationsScreen();
-        }
-    }
 //
 //    @Override
 //    public boolean touchDown(int screenX, int screenY, int pointer, int button)

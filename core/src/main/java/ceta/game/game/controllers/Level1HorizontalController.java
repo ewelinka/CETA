@@ -18,10 +18,10 @@ import java.util.ArrayList;
 /**
  * Created by ewe on 8/23/16.
  */
-public class Level1HorizontalController extends AbstractWorldController{
+public class Level1HorizontalController extends NoCvController{
     private static final String TAG = Level1HorizontalController.class.getName();
     private RoboticArmManager roboticArmManager;
-    protected VirtualBlocksManager virtualBlocksManager;
+   // protected VirtualBlocksManager virtualBlocksManager;
 
     public Level1HorizontalController(DirectedGame game, Stage stage, int levelNr) {
         super(game, stage, levelNr);
@@ -40,39 +40,12 @@ public class Level1HorizontalController extends AbstractWorldController{
         roboticArmManager.init();
     }
 
-
     @Override
-    public void update (float deltaTime) {
-
-        testCollisions(); // winning condition checked
-
-        handleDebugInput(deltaTime);
-        level.update(deltaTime); //stage.act()
-        virtualBlocksManager.updateDetected();
-
-        if (GamePreferences.instance.actionSubmit) {
-            if (countdownOn) { // if we are counting
-                level.bruno.shake(); // we shake bruno
-                if (countdownCurrentTime < 0) { // if we reached the time
-                    Gdx.app.log(TAG, "wowowoowow action submit!");
-                    updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
-                    virtualBlocksManager.resetDetectedAndRemoved(); //reset detected
-                    resetCountdown();
-                } else // we still count
-                    countdownCurrentTime -= deltaTime;
-            }
-
-        } else {
-            updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
-            virtualBlocksManager.resetDetectedAndRemoved();
-        }
-        cameraHelper.update(deltaTime);
+    protected void updateDigitalRepresentations() {
+        updateArmPieces(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
     }
 
-    @Override
-    public void dispose() {
 
-    }
 
     @Override
     protected void testCollisions () {
@@ -87,25 +60,11 @@ public class Level1HorizontalController extends AbstractWorldController{
                     level.price.bounds.width, 4);
 
             if (r1.overlaps(r2)) {
-                onCollisionBrunoWithGoldCoin(level.price);
+                onCollisionBrunoWithPrice(level.price);
             }
         }
     }
 
-
-    protected void onCollisionBrunoWithGoldCoin(Price goldcoin) {
-        Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (goldcoin.getActions().size == 0) { // we act just one time!
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-            score += 1;
-            //TODO some nice yupi animation
-            if (score < levelParams.operationsNumberToPass) {
-                goldcoin.wasCollected();
-
-            } else
-                goToCongratulationsScreen();
-        }
-    }
 
 
     public ArmPiece getLastArmPiece(){

@@ -1,9 +1,9 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.Assets;
-import ceta.game.game.levels.LevelHorizontal;
 import ceta.game.game.levels.LevelVertical;
 import ceta.game.game.objects.BrunoVertical;
+import ceta.game.managers.CVBlocksManager;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.AudioManager;
@@ -16,38 +16,40 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.util.ArrayList;
 
 /**
- * Created by ewe on 11/9/16.
+ * Created by ewe on 12/5/16.
  */
-public class Level3VerticalController extends NoCvController {
-    private static final String TAG = Level3VerticalController.class.getName();
+public class Level3VerticalCvController extends CvController {
+    private static final String TAG = Level3VerticalCvController.class.getName();
     private float yZero;
 
-    public Level3VerticalController(DirectedGame game, Stage stage, int levelNr) {
+
+    public Level3VerticalCvController(DirectedGame game, Stage stage, int levelNr) {
         super(game, stage, levelNr);
     }
 
     @Override
     protected void localInit () {
-        Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
-        virtualBlocksManager = new VirtualBlocksManager(stage);
+        Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
+        cvBlocksManager = new CVBlocksManager(game,stage);
         level = new LevelVertical(stage,levelParams);
 
         // Bruno will be flying
         level.bruno.setSize(Constants.BASE*1,Constants.BASE*1);
-        yZero = Constants.DETECTION_ZONE_END - level.bruno.getHeight()/2;
-//        level.bruno.setPosition(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2 ,-Constants.BASE/2);
+
+        yZero = Constants.DETECTION_ZONE_END-level.bruno.getHeight()/2;
+
 //        level.bruno.setTerminalX(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2);
 //        level.bruno.setTerminalY(-Constants.BASE/2);
         cameraHelper.setTarget(null);
         score = 0;
-        virtualBlocksManager.init();
+        cvBlocksManager.init();
 
     }
 
 
     @Override
     protected void updateDigitalRepresentations() {
-        updateBrunoVertical(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
+        updateBrunoVertical(cvBlocksManager.getNewDetected(), cvBlocksManager.getToRemoveValues());
     }
 
 
@@ -56,6 +58,7 @@ public class Level3VerticalController extends NoCvController {
     protected void testCollisions () {
 
         if (!(level.bruno.getActions().size > 0)) { // if bruno is not moving
+            // we set 4px x 4px box at the right end (X), in the middle (Y)
             if(level.bruno.getTerminalY() != yZero ) {
                 r1.set(level.bruno.getX() ,
                         level.bruno.getY() ,
@@ -106,5 +109,4 @@ public class Level3VerticalController extends NoCvController {
         ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalY(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2, currentTerminalY + howMany* Constants.BASE);
 
     }
-
 }
