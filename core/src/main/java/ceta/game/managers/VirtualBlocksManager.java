@@ -19,6 +19,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     int linesRange;
     int nowId;
     int margin;
+    int xSpace, ySpace;
     Polygon polygon;
     protected ArrayList<VirtualBlock> virtualBlocksOnStage;
 
@@ -36,6 +37,8 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         resetDetectedAndRemoved();
         // polygon will be set for checks
         polygon = new Polygon();
+        xSpace = 60;
+        ySpace = 25;
         initBlocks();
     }
 
@@ -101,8 +104,9 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         // TODO create or take from pool!!
         VirtualBlock virtualBlock = new VirtualBlock(val);
         // this works for vertical blocks
-        virtualBlock.setPosition(-260 + 2*Constants.BASE*val ,-Constants.BASE*12);
+       // virtualBlock.setPosition(-260 + 2*Constants.BASE*val ,-Constants.BASE*12);
 
+        setBlockWhereItBelongs(virtualBlock);
         stage.addActor(virtualBlock);
         // set home so that we can come back
         virtualBlock.setHome(virtualBlock.getX(),virtualBlock.getY());
@@ -114,12 +118,40 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     }
 
+    private void setBlockWhereItBelongs( VirtualBlock virtualBlock) {
+        switch(virtualBlock.getBlockValue()){
+            case 1:
+                virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 60 +xSpace,
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*2 + Constants.BASE);
+                break;
+            case 2:
+                virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 60 + xSpace*2 + Constants.BASE , // 1
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*2 + Constants.BASE);
+                break;
+            case 3:
+                virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 60 + xSpace*3 + Constants.BASE*3 , // 1,2
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*2 + Constants.BASE);
+                break;
+            case 4:
+                virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 40+ xSpace,
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace);
+                break;
+            case 5:
+                virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 40 + xSpace*2 + Constants.BASE*4,
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace);
+                break;
+
+
+
+        }
+    }
+
     protected void checkMargins(VirtualBlock vBlock){
         //check up
-        if (polygon.getTransformedVertices()[5] + margin > 0){
+        if (polygon.getTransformedVertices()[5] + margin > Constants.DETECTION_ZONE_END){
             //if (virtualBlocksOnStage.get(i).getY() + virtualBlocksOnStage.get(i).getHeight() + margin > 0){
             // we have to adjust Y
-            vBlock.setY(vBlock.getY() - (polygon.getTransformedVertices()[5] + margin));
+            vBlock.setY(Constants.DETECTION_ZONE_END - margin - vBlock.getHeight());
 
         }
         //check down

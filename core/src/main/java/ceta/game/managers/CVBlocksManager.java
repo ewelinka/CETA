@@ -224,7 +224,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     private float radianToStage(double r){
         Gdx.app.log(TAG," radians to stage "+r);
-        return  (float) Math.toDegrees(r*rotAdjust);
+        return  (float) Math.toDegrees(r*rotAdjust - Math.PI/2);
     }
 
 

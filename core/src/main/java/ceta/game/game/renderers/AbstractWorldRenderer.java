@@ -73,7 +73,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.setProjectionMatrix(camera.combined);
         shRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shRenderer.setColor(Color.LIGHT_GRAY);
-        shRenderer.rect(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT,Constants.VIEWPORT_WIDTH, -Constants.DETECTION_LIMIT);
+        shRenderer.rect(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT,Constants.VIEWPORT_WIDTH, Constants.DETECTION_ZONE_END-Constants.DETECTION_LIMIT);
         shRenderer.end();
     }
 
@@ -81,7 +81,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         TextureAtlas.AtlasRegion b = Assets.instance.background.back3;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(b.getTexture(),-Constants.VIEWPORT_WIDTH/2, 0,
+        batch.draw(b.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END,
                 b.getRegionWidth()/2, b.getRegionHeight()/2,
                 b.getRegionWidth(), b.getRegionHeight(),
                 1, 1,
@@ -149,7 +149,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.setColor(1, 1, 1, 1);
 
         for(int i = -200; i<=200;i+=Constants.BASE){
-            shRenderer.line(i , Constants.DETECTION_ZONE_END, i,Constants.VIEWPORT_HEIGHT/2);
+            shRenderer.line(i , Constants.DETECTION_ZONE_END, i,Constants.VIEWPORT_HEIGHT/2 - 100);
         }
 //        shRenderer.setColor(0, 0, 1, 1);
 //        shRenderer.line(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END, Constants.VIEWPORT_WIDTH/2,Constants.DETECTION_ZONE_END);

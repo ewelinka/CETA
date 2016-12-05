@@ -21,7 +21,7 @@ public class Constants {
 
     public static final int BASE = 40;
 
-    public static final int DETECTION_LIMIT = -6 * BASE; // just for tablet-only
+
     public static int PRICE_Y_HORIZONTAL; // where price will be if number line horizontal
 
     public static final int ACTION_SUBMIT_WAIT = 2000;
@@ -30,6 +30,7 @@ public class Constants {
 
 
     public static int DETECTION_ZONE_END ;
+    public static int DETECTION_LIMIT; // just for tablet-only
 
     public static final int HORIZONTAL_ZERO_X = -200;
     public static final int VERTICAL_MIDDLE_X = -240;
@@ -45,8 +46,12 @@ public class Constants {
             PRICE_Y_HORIZONTAL = DETECTION_ZONE_END + 5*BASE;
         }
         else {
-            DETECTION_ZONE_END = 0;
+
+
+            DETECTION_LIMIT = (int)-VIEWPORT_HEIGHT/2 + 160;
+            DETECTION_ZONE_END = DETECTION_LIMIT + 200;
             PRICE_Y_HORIZONTAL = DETECTION_ZONE_END + 5*BASE;
+
 
         }
 

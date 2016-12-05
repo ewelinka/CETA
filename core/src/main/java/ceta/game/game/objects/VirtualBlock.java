@@ -54,7 +54,7 @@ public class VirtualBlock extends AbstractGameObject {
         //horizontal
         //this.setSize(Constants.BASE*abs(blockValue),Constants.BASE);
         //vertical
-        this.setSize(this.pixelsPerUnit, this.pixelsPerUnit*abs(this.blockValue));
+        this.setSize(this.pixelsPerUnit*abs(this.blockValue),this.pixelsPerUnit);
         super.init();
 
         home = new Vector2();
@@ -83,31 +83,31 @@ public class VirtualBlock extends AbstractGameObject {
             public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
                 //TODO we should check if the piece is in stage limits or the controller should do this?
 
-                float sin = (float)Math.sin(Math.toRadians(getRotation()));
-                float cos = (float)Math.cos(Math.toRadians(getRotation()));
-
-                float rotatedX = (deltaX) * cos - (deltaY) * sin;
-                float rotatedY = (deltaX) * sin + (deltaY) * cos;
-                setPosition(getX()+rotatedX,getY()+rotatedY);
+//                float sin = (float)Math.sin(Math.toRadians(getRotation()));
+//                float cos = (float)Math.cos(Math.toRadians(getRotation()));
+//
+//                float rotatedX = (deltaX) * cos - (deltaY) * sin;
+//                float rotatedY = (deltaX) * sin + (deltaY) * cos;
+//                setPosition(getX()+rotatedX,getY()+rotatedY);
                 //the code below was working without rotation
-                //setPosition(getX()+deltaX,getY()+deltaY);
+                setPosition(getX()+deltaX,getY()+deltaY);
             }
 //
-            @Override
-            public void pinch(InputEvent event, Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)  {
-                //Actor actor = event.getListenerActor();
-
-                Vector2 a = initialPointer2.sub(initialPointer1);
-                Vector2 b = pointer2.sub(pointer1);
-                a = a.nor();
-                b = b.nor();
-                float deltaRot = (float)(Math.atan2(b.y,b.x) - Math.atan2(a.y,a.x));
-                float deltaRotDeg = (float)(((deltaRot*180)/Math.PI + 360) % 360);
-                if(deltaRotDeg>180) deltaRotDeg = -360 + deltaRotDeg;
-
-                rotateBy(deltaRotDeg - rotLast);
-                rotLast = deltaRotDeg;
-            }
+//            @Override
+//            public void pinch(InputEvent event, Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)  {
+//                //Actor actor = event.getListenerActor();
+//
+//                Vector2 a = initialPointer2.sub(initialPointer1);
+//                Vector2 b = pointer2.sub(pointer1);
+//                a = a.nor();
+//                b = b.nor();
+//                float deltaRot = (float)(Math.atan2(b.y,b.x) - Math.atan2(a.y,a.x));
+//                float deltaRotDeg = (float)(((deltaRot*180)/Math.PI + 360) % 360);
+//                if(deltaRotDeg>180) deltaRotDeg = -360 + deltaRotDeg;
+//
+//                rotateBy(deltaRotDeg - rotLast);
+//                rotLast = deltaRotDeg;
+//            }
 
             @Override
             public void touchDown(InputEvent event, float x, float y, int pointer, int button){
