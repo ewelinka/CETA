@@ -43,7 +43,8 @@ public class FeedbackRenderer {
         manoImg.setPosition(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth()/2,-Constants.VIEWPORT_HEIGHT/2-manoImg.getHeight());
         manoImg.addAction(sequence(
                 moveTo(0-manoImg.getWidth()/2,-Constants.VIEWPORT_HEIGHT/2,2.0f),
-                alpha(0,0.3f)
+                alpha(0,0.3f),
+                delay(2.0f)
                // removeActor()
         ));
 

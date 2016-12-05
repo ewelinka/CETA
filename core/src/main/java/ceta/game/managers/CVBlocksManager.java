@@ -50,6 +50,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private final double rotAdjust = -1;
     private ArrayMap<Integer,Integer> strikes;
     private int maxStrikes;
+    private ArrayMap<Integer,Integer> idToValue;
 
     public boolean waitForFirstMove;
 
@@ -83,7 +84,8 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
         maxStrikes = 3; // after x frames without marker, we pronounce it deleted
         strikes = new ArrayMap<Integer,Integer>();
-        initStrikes();
+        idToValue = new ArrayMap<Integer,Integer>();
+        initStrikesAndBlocksValues();
 
     }
 
@@ -190,7 +192,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private void checkStrikesAndDecideIfRemove(int id){
         if(strikes.get(id) > maxStrikes ) {
             Gdx.app.log(TAG, " remove block with id: " + id + "because its gone and has max strikes!");
-            removeBlockCV(id, 2); //TODO change hardcoded value
+            removeBlockCV(id, idToValue.get(id)); //TODO change hardcoded value
         }
         else{
             Gdx.app.log(TAG," STRIKE for "+id);
@@ -281,10 +283,10 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
 
         // TODO check if its not waiting to be added, add+remove = 0!
-        if(toRemoveFromDetectedIds.contains(id)){
+        if(toRemoveCVIds.contains(id)){
             Gdx.app.log(TAG, "addBlockCV but we had it in to remove id:" + id);
-            toRemoveFromDetectedIds.remove((Object)id);
-            toRemoveFromDetectedValues.remove((Object)blockToAddVal);
+            toRemoveCVIds.remove((Object)id);
+            toRemoveCVValues.remove((Object)blockToAddVal);
         }else {
             Gdx.app.log(TAG, "addBlockCV, setting block id to " + id + " and rotation: " + rot);
             addBlockWithId(blockToAddVal, id); // add to manager! will be checked by brunos manager
@@ -324,9 +326,17 @@ public class CVBlocksManager extends AbstractBlocksManager {
     }
 
     @Override
+    public ArrayList getToRemove(){
+        toRemoveFromDetectedIds = new ArrayList(toRemoveCVIds);
+        toRemoveCVIds.clear();
+        return toRemoveFromDetectedIds;
+    }
+
+    @Override
     public ArrayList<Integer> getToRemoveValues(){
         toRemoveFromDetectedValues = new ArrayList(toRemoveCVValues);
         toRemoveCVValues.clear();
+        toRemoveCVIds.clear();
         return toRemoveFromDetectedValues;
     }
 
@@ -345,8 +355,8 @@ public class CVBlocksManager extends AbstractBlocksManager {
             }
         }
         if(!inDetected) {
-            toRemoveFromDetectedIds.add(id);
-            toRemoveFromDetectedValues.add(value);
+            toRemoveCVIds.add(id);
+            toRemoveCVValues.add(value);
         }
 
     }
@@ -360,12 +370,21 @@ public class CVBlocksManager extends AbstractBlocksManager {
     }
 
     private float getDistance(int newId, Block block){
-        Vector2 v1 = getBlockById(newId).getCenterVector(); // get block position on stage
-        Vector2 v2 =  new Vector2(
-                xToStage(block.getCenter().y),
-                yToStage(block.getCenter().x));
-        Gdx.app.log(TAG," distance "+v1.dst(v2));
-        return v1.dst(v2);
+        try {
+            Vector2 v1 = getBlockById(newId).getCenterVector(); // get block position on stage
+            Vector2 v2 =  new Vector2(
+                    xToStage(block.getCenter().y),
+                    yToStage(block.getCenter().x));
+            Gdx.app.log(TAG," distance "+v1.dst(v2));
+            return v1.dst(v2);
+        }catch(java.lang.NullPointerException e){
+            for (int i = 0 ; i<virtualBlocksOnStage.size();i++)
+                Gdx.app.error(TAG, " virtualBlocksOnStage i "+i+" id "+ virtualBlocksOnStage.get(i).getBlockId());
+
+            return 0.0f;
+        }
+
+
     }
 
 
@@ -382,15 +401,18 @@ public class CVBlocksManager extends AbstractBlocksManager {
         noChangesSince = TimeUtils.millis(); //new change!
     }
 
-    private void initStrikes(){
+    private void initStrikesAndBlocksValues(){
         int [][] allMarkers = {BlocksMarkersMap.block1,BlocksMarkersMap.block2,BlocksMarkersMap.block3,BlocksMarkersMap.block4,BlocksMarkersMap.block5};
 
         for(int arrIdx = 0;arrIdx < allMarkers.length; arrIdx++){
             for(int i =0; i< allMarkers[arrIdx].length;i++){
                 //Gdx.app.log(TAG, " putting "+allMarkers[arrIdx][i]);
                 strikes.put(allMarkers[arrIdx][i],0);
+                idToValue.put(allMarkers[arrIdx][i],arrIdx+1);
             }
         }
+
+        Gdx.app.log(TAG," idToVal "+idToValue);
 
     }
 

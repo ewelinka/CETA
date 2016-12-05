@@ -1,13 +1,19 @@
 package ceta.game.managers;
 
+import ceta.game.game.Assets;
 import ceta.game.game.objects.ArmPieceAnimated;
 import ceta.game.game.objects.BrunoPieceAnimated;
 import ceta.game.util.Constants;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.util.ArrayList;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
  * Created by ewe on 11/9/16.
@@ -18,6 +24,10 @@ public class AnimatedBrunoManager extends BrunosManager {
     private float terminalDelay;
     private float currentDelayPassed; //TODO use if no action submit
     private final float animationSpeed = 0.3f;
+    private float alphaColor;
+    private boolean fadeIn;
+    private Image base;
+    private Image head;
 
     public AnimatedBrunoManager(Stage stage) {
         super(stage);
@@ -29,6 +39,20 @@ public class AnimatedBrunoManager extends BrunosManager {
         brunoPiecesAnim = new ArrayList<BrunoPieceAnimated>();
         terminalDelay = 0;
         currentDelayPassed = 0;
+        alphaColor = 0.5f;
+        fadeIn = true;
+
+        head = new Image(Assets.instance.bruno.headEnergy);
+        head.setSize(Constants.BASE,30);
+        head.setPosition(Constants.VERTICAL_MIDDLE_X - head.getWidth()/2, Constants.DETECTION_ZONE_END); // in 10 ends the base
+
+        base = new Image(Assets.instance.bruno.baseEnergy);
+        base.setSize(Constants.BASE,10);
+        base.setPosition(Constants.VERTICAL_MIDDLE_X - base.getWidth()/2,
+                Constants.DETECTION_ZONE_END-base.getHeight());
+
+        stage.addActor(head);
+        stage.addActor(base);
 
     }
 
@@ -43,9 +67,10 @@ public class AnimatedBrunoManager extends BrunosManager {
             toAddNr+=toAdd.get(i).getValue();
         }
         // at the end we see the difference
-        if((toAddNr - toRemoveNr) >= 0){
+        if((toAddNr - toRemoveNr) > 0){
             addPieces(toAdd, toAddNr - toRemoveNr); // here we pass a
-        }else{
+        }
+        if((toAddNr - toRemoveNr) < 0){
             removeAnimatedPieces(Math.abs(toAddNr - toRemoveNr)); // we have to remove a positive number of pieces
         }
     }
@@ -73,6 +98,8 @@ public class AnimatedBrunoManager extends BrunosManager {
             brunoPiecesAnim.add(pieceToAdd);
 
         }
+
+        head.addAction(Actions.moveTo(head.getX(),lastY,terminalDelay));
     }
 
 
@@ -115,6 +142,35 @@ public class AnimatedBrunoManager extends BrunosManager {
                     break;
             }
         }
+        Gdx.app.log(TAG," moving head to "+getLastAnimatedBrunoPiece().getTerminalY()+20);
+
+        head.addAction(Actions.moveTo(head.getX(),lastY,terminalDelay));
+
+    }
+
+
+    public void updateAlpha(float delta){
+
+
+        if(fadeIn){
+            alphaColor+=(delta/2);
+        }
+        else
+            alphaColor-=(delta/2);
+
+        if(alphaColor > 0.9){
+            fadeIn=!fadeIn;
+        }
+        if(alphaColor < 0.5)
+            fadeIn=!fadeIn;
+
+        Gdx.app.log(TAG," delta "+delta+ "alpha "+alphaColor);
+
+        for(int i = 0; i<brunoPiecesAnim.size();i++){
+            brunoPiecesAnim.get(i).setColor(255,255,0,alphaColor);
+        }
+
+
     }
 
 }

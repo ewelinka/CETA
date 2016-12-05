@@ -19,7 +19,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 public class Bruno extends AbstractGameObject {
     public static final String TAG = Bruno.class.getName();
 
-    private boolean lookingLeft;
+    protected boolean lookingLeft;
 
 
 
@@ -29,8 +29,8 @@ public class Bruno extends AbstractGameObject {
 
 
     public void init () {
-        regTex = Assets.instance.bruno.body;
-        this.setSize(Constants.BASE*2,Constants.BASE*4);
+        regTex = Assets.instance.bruno.body05;
+        this.setSize(Constants.BASE*2,Constants.BASE*6);
         superinit();
         lookingLeft = false;
 
@@ -62,6 +62,7 @@ public class Bruno extends AbstractGameObject {
     }
 
     public void moveMeToAndSetTerminalX(float x, float y){
+        //clearActions();
         MoveToAction moveToAction = new MoveToAction();
         moveToAction.setPosition(x,y);
         moveToAction.setDuration(1f);

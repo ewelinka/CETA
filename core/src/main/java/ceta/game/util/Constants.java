@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
  * Created by ewe on 7/25/16.
  */
 public class Constants {
-    public static final boolean withCV = true;
+    public static final boolean WITH_CV = false;
 
     // Visible game world is 600 meters wide
     public static final float VIEWPORT_WIDTH = 600.0f;
@@ -22,10 +22,11 @@ public class Constants {
     public static final int BASE = 40;
 
     public static final int DETECTION_LIMIT = -6 * BASE; // just for tablet-only
-    public static final int PRICE_Y_HORIZONTAL = 40; // where price will be if number line horizontal
+    public static int PRICE_Y_HORIZONTAL; // where price will be if number line horizontal
 
     public static final int ACTION_SUBMIT_WAIT = 2000;
     public static final int INACTIVITY_LIMIT = 10000;
+    public static final float TIME_DELAY_SCREEN_FINISHED = 0.5f;
 
 
     public static int DETECTION_ZONE_END ;
@@ -39,10 +40,15 @@ public class Constants {
     public static final int CV_MIN_Y = 640 - CV_MAX_X; // in camera we check 480x480, warning! image is rotated so CV_MIN_Y should be compared with X!
 
     public Constants(){
-        if(withCV)
-            DETECTION_ZONE_END  = (int)-VIEWPORT_HEIGHT/2+CV_DETECTION_EDGE_TABLET;
-        else
+        if(WITH_CV) {
+            DETECTION_ZONE_END = (int) -VIEWPORT_HEIGHT / 2 + CV_DETECTION_EDGE_TABLET;
+            PRICE_Y_HORIZONTAL = DETECTION_ZONE_END + 5*BASE;
+        }
+        else {
             DETECTION_ZONE_END = 0;
+            PRICE_Y_HORIZONTAL = DETECTION_ZONE_END + 5*BASE;
+
+        }
 
     }
 

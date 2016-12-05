@@ -180,9 +180,19 @@ public class Price extends AbstractGameObject {
             newPosition = MathUtils.random(1,10);
         }
         currentNumber = newPosition;
+        addAction(sequence(
+                parallel(
+                        Actions.scaleTo(1.5f,1.5f,0.1f),
+                        Actions.color(Color.GOLD,0.1f)
 
-        addAction(Actions.moveTo(startX + currentNumber*Constants.BASE - getWidth()/2, startY,0.6f));
-        //setPosition( );
+                ),
+                Actions.scaleTo(0.0f,0.0f,0.05f),
+                delay(0.2f),
+                Actions.color(Color.WHITE),
+                Actions.moveTo(startX + currentNumber*Constants.BASE - getWidth()/2,startY),
+                Actions.scaleTo(1,1)
+        ));
+
     }
 
     public void moveToNewPositionVerticalNL(float startX, int startY){
@@ -220,6 +230,19 @@ public class Price extends AbstractGameObject {
 
     }
 
+    public void lastCollected(){
+
+        addAction(sequence(
+                parallel(
+                        Actions.scaleTo(1.5f,1.5f,0.1f),
+                        Actions.color(Color.GOLD,0.1f)
+
+                ),
+                Actions.scaleTo(0.0f,0.0f,0.05f)
+        ));
+
+    }
+
     public void wasCollectedHorizontalNumberLine(){
         if (isDynamic)
             setPositionStartAbove(myStartX);
@@ -244,10 +267,18 @@ public class Price extends AbstractGameObject {
             newPosition = MathUtils.random(1,10);
         }
         currentNumber = newPosition;
+        addAction(sequence(
+                parallel(
+                        Actions.scaleTo(1.5f,1.5f,0.1f),
+                        Actions.color(Color.GOLD,0.1f)
 
-
-
-        setPosition(startX + currentNumber*Constants.BASE - getWidth()/2,Constants.VIEWPORT_HEIGHT/2-getHeight());
+                ),
+                Actions.scaleTo(0.0f,0.0f,0.05f),
+                delay(0.2f),
+                Actions.color(Color.WHITE),
+                Actions.moveTo(startX + currentNumber*Constants.BASE - getWidth()/2,Constants.VIEWPORT_HEIGHT/2-getHeight()),
+                Actions.scaleTo(1,1)
+        ));
 
     }
 
@@ -260,7 +291,19 @@ public class Price extends AbstractGameObject {
         }
         currentNumber = newPosition;
 
-        setPosition(Constants.VIEWPORT_WIDTH/2,newPosition*Constants.BASE-getHeight()/2);
+        addAction(sequence(
+                parallel(
+                        Actions.scaleTo(1.5f,1.5f,0.1f),
+                        Actions.color(Color.GOLD,0.1f)
+
+                ),
+                Actions.scaleTo(0.0f,0.0f,0.05f),
+                delay(0.2f),
+                Actions.color(Color.WHITE),
+                Actions.moveTo(Constants.VIEWPORT_WIDTH/2,newPosition*Constants.BASE-getHeight()/2),
+                Actions.scaleTo(1,1)
+        ));
+
 
     }
 

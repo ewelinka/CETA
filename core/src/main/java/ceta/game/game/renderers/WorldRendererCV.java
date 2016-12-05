@@ -28,6 +28,11 @@ public class WorldRendererCV extends WorldRenderer {
 
     }
 
+    public WorldRendererCV(AbstractWorldController worldController, Stage stage) {
+        this(worldController,stage,true); //default horizontal number line
+
+    }
+
     @Override
     public void render () {
         super.render();
@@ -88,79 +93,7 @@ public class WorldRendererCV extends WorldRenderer {
         batch.end();
     }
 
-    @Override
-    protected void renderHelperNumberLinesVertical(ShapeRenderer shRenderer){
-        Gdx.gl.glLineWidth(1);
-        shRenderer.setProjectionMatrix(camera.combined);
-        shRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shRenderer.setColor(1, 1, 1, 1);
-
-        for(int i = -200; i<=200;i+=Constants.BASE){
-            shRenderer.line(i , Constants.DETECTION_ZONE_END, i,Constants.VIEWPORT_HEIGHT/2);
-        }
-        shRenderer.setColor(0, 0, 1, 1);
-        shRenderer.line(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END, Constants.VIEWPORT_WIDTH/2,Constants.DETECTION_ZONE_END);
-
-        shRenderer.end();
-    }
-
-    @Override
-    protected void renderHelperNumberLinesHorizontal(ShapeRenderer shRenderer) {
-        Gdx.gl.glLineWidth(1);
-        shRenderer.setProjectionMatrix(camera.combined);
-        shRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shRenderer.setColor(1, 1, 1, 1);
-
-        for(int i = Constants.DETECTION_ZONE_END; i<=(Constants.DETECTION_ZONE_END +400); i+=Constants.BASE){
-            shRenderer.line(-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
-        }
-        shRenderer.setColor(1, 0, 0, 1);
-        //vertical
-        shapeRenderer.line(0 , -Constants.VIEWPORT_HEIGHT/2, 0,Constants.VIEWPORT_HEIGHT/2);
-
-        shRenderer.end();
-    }
 
 
-    @Override
-    protected void renderHelperNumbersVertical(SpriteBatch batch){
-        int chosenNr = worldController.level.price.getDisplayNumber();
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        int counter  = 0;
-        for(int i = -200; i<240;i+=Constants.BASE){
-            if(levelMinimumNumber+counter == chosenNr)
-                font.setColor(Color.GREEN);
-            else
-                font.setColor(Color.WHITE);
 
-            font.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.DETECTION_ZONE_END,0, Align.center,false);
-
-            counter+=1;
-        }
-
-        batch.end();
-
-    }
-
-    @Override
-    protected void renderHelperNumbersHorizontal(SpriteBatch batch){
-        int chosenNr = worldController.level.price.getDisplayNumber();
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        int counter  = 0;
-        for(int i = Constants.DETECTION_ZONE_END; i<=(Constants.DETECTION_ZONE_END +400); i+=Constants.BASE){
-            String text = counter+"";
-            GlyphLayout layout = new GlyphLayout(font, text);
-            if(levelMinimumNumber+counter == chosenNr)
-                font.setColor(Color.GREEN);
-            else
-                font.setColor(Color.WHITE);
-            font.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
-            counter+=1;
-        }
-
-        batch.end();
-
-    }
 }

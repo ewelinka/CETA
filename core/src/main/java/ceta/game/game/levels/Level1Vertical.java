@@ -23,10 +23,6 @@ public class Level1Vertical extends LevelHorizontal {
     @Override
     public void init() {
         Gdx.app.log(TAG,"init Level 1 Vertical");
-
-        bruno = new BrunoVertical(1,new BrunosManager(stage)); // this one is moving
-        bruno.setSize(0,0);
-
         price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
 
         tube = new Latter(12);
@@ -34,17 +30,14 @@ public class Level1Vertical extends LevelHorizontal {
         tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2,Constants.DETECTION_ZONE_END -tube.getHeight()); //TODO change for no-cv!!!
 
         // add actors
-        stage.addActor(bruno);
         stage.addActor(price);
         stage.addActor(tube);
 
     }
     @Override
     public void render(SpriteBatch batch) {
-        bruno.toFront();
         price.toFront();
         tube.toFront();
-
         stage.draw();
     }
 

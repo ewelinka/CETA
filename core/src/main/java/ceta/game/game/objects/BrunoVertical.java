@@ -32,6 +32,9 @@ public class BrunoVertical extends Bruno {
     public void init () {
         regTex = Assets.instance.bruno.body;
         this.setSize(Constants.BASE,Constants.BASE*brunoValue); // now we can set the values that depend on size
+        this.setPosition(Constants.VERTICAL_MIDDLE_X - getWidth()/2 ,Constants.DETECTION_ZONE_END-Constants.BASE/2);
+        this.setTerminalX(Constants.VERTICAL_MIDDLE_X - getWidth()/2);
+        this.setTerminalY(Constants.DETECTION_ZONE_END-Constants.BASE/2);
         super.superinit();
     }
 

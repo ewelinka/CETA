@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class Level1VerticalScreen extends AbstractGameScreen {
     private static final String TAG = Level1VerticalScreen.class.getName();
-    //private Stage stage;
     private boolean paused;
 
     public Level1VerticalScreen(DirectedGame game, int levelNr) {
