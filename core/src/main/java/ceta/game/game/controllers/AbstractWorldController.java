@@ -1,12 +1,16 @@
 package ceta.game.game.controllers;
 
+import ceta.game.game.Assets;
 import ceta.game.game.levels.AbstractLevel;
 import ceta.game.game.levels.LevelParams;
+import ceta.game.game.objects.AbstractGameObject;
+import ceta.game.game.objects.Price;
 import ceta.game.screens.DirectedGame;
 import ceta.game.screens.CongratulationsScreen;
 import ceta.game.screens.MenuScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
 import ceta.game.util.CameraHelper;
 
 import ceta.game.util.Constants;
@@ -38,6 +42,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     private ScreenTransition oneSegFadeIn;
     protected LevelParams levelParams;
     private boolean playerInactive;
+    protected float timeLeftScreenFinishedDelay;
+    protected boolean screenFinished;
+    protected boolean moveMade;
 
 
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
@@ -55,6 +62,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected abstract void testCollisions();
 
     protected abstract void localInit();
+    protected abstract void updateDigitalRepresentations();
+    protected abstract void countdownMove();
+
 
     public void init () {
 
@@ -63,6 +73,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         score = 0;
         oneSegFadeIn = ScreenTransitionFade.init(1);
         playerInactive = false;
+        timeLeftScreenFinishedDelay = 0;
+        moveMade = false;
 
         actionSubmitInit();
         adjustCamera();
@@ -139,10 +151,84 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
 
+    protected void testCollisionsHorizontal(AbstractGameObject objectToCheck){
+        if(objectToCheck != null ) {
+            r1.set(objectToCheck.getX() + objectToCheck.getWidth() - 4,
+                    objectToCheck.getY(), // two pixels below the middle
+                    4, objectToCheck.getHeight());
+            r2.set(level.price.getX(),
+                    level.price.getY(),
+                    level.price.getWidth()/2, level.price.getHeight()/2);
+
+            if (r1.overlaps(r2)) {
+                onCollisionBrunoWithPrice(level.price);
+                moveMade = false;
+            } else {
+                if (moveMade) {
+                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    moveMade = false;
+                }
+
+            }
+        }else{
+            if (moveMade) {
+                AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                moveMade = false;
+            }
+        }
+    }
+
+    protected void testCollisionsVertical(AbstractGameObject objectToCheck){
+        if(objectToCheck != null ) {
+            r1.set(objectToCheck.getX() ,
+                    objectToCheck.getY()+ objectToCheck.getHeight() - 4, // two pixels below the middle
+                    objectToCheck.getWidth(), 4);
+            r2.set(level.price.getX(),
+                    level.price.getY(),
+                    level.price.getWidth()/2, level.price.getHeight()/2);
+
+            if (r1.overlaps(r2)) {
+                onCollisionBrunoWithPrice(level.price);
+                moveMade = false;
+            } else {
+                if (moveMade) {
+                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    moveMade = false;
+                }
+
+            }
+        }else{
+            if (moveMade) {
+                AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                moveMade = false;
+            }
+        }
+    }
+
+
     private void moveCamera (float x, float y) {
         x += cameraHelper.getPosition().x;
         y += cameraHelper.getPosition().y;
         cameraHelper.setPosition(x, y);
+    }
+
+    protected void onCollisionBrunoWithPrice(Price goldcoin) {
+        Gdx.app.log(TAG, "NO updates in progress and collision!");
+        if (goldcoin.getActions().size == 0) { // we act just one time!
+            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+            score += 1;
+            //TODO some nice yupi animation
+            if (score < levelParams.operationsNumberToPass) {
+                goldcoin.wasCollected();
+
+            } else {
+                screenFinished = true;
+                goldcoin.lastCollected();
+                timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
+
+
+            }
+        }
     }
 
 
