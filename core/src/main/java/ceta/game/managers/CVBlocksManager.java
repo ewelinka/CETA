@@ -63,7 +63,9 @@ public class CVBlocksManager extends AbstractBlocksManager {
     @Override
     public void init() {
         Gdx.app.log(TAG,"in init!!");
-        topCodeDetector = new TopCodeDetectorAndroid(50,true,70,5,true,false, false, true) ;
+		//FIXME Ewe --> aca va el rectangulo con la zona de deteccion
+        Rect detectionZone = null;
+        topCodeDetector = new TopCodeDetectorAndroid(50,true,70,5,true,false, false, true, detectionZone);
         // lastDetectedBlocks = new HashSet<Block>();
         actionsSpeed = 0.5f;
         noChangesSince = TimeUtils.millis();
