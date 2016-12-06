@@ -129,7 +129,7 @@ public class MenuScreen extends AbstractGameScreen {
 
         //layer.pad(100, 0, 0, 10);
 
-        btnMenuPlay = new ImageButton(new TextureRegionDrawable(Assets.instance.menu.play)); // TODO should be resolved in ui-skin...
+        btnMenuPlay = new ImageButton(Assets.instance.buttons.playButtonStyle); // TODO should be resolved in ui-skin...
        // table.add (btnB).size (150, 200);
         layer.add(btnMenuPlay).size(88,60).padBottom(10);
         btnMenuPlay.addListener(new ChangeListener() {

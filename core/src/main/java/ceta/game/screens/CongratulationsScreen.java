@@ -15,12 +15,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
@@ -30,11 +27,12 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
  * Created by ewe on 9/21/16.
  */
 public class CongratulationsScreen extends AbstractGameScreen {
-    private static final String TAG = MenuScreen.class.getName();
-    private Skin skin;
+    private static final String TAG = CongratulationsScreen.class.getName();
 
-    private TextButton btnStartGame;
+
+    private ImageButton btnStartGame;
     private Image imgBackground;
+    private Image congrats;
 
 
     public CongratulationsScreen(DirectedGame game) {
@@ -70,7 +68,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
     public void hide (){
 
         stage.dispose();
-        skin.dispose();
+
     };
     public void pause (){};
 
@@ -83,10 +81,18 @@ public class CongratulationsScreen extends AbstractGameScreen {
     private Table buildBackgroundLayer () {
         Table layer = new Table();
         imgBackground = new Image(Assets.instance.finishBackGround.finishBack);
+        congrats = new Image(Assets.instance.finishBackGround.excelentWork);
+
         layer.addActor(imgBackground);
         imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
-        imgBackground.setPosition(0,300);
-        imgBackground.addAction(sequence(
+        imgBackground.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2,
+                0);
+        //imgBackground.setHeight(Constants.VIEWPORT_HEIGHT/2);
+
+        layer.addActor(congrats);
+        congrats.setOrigin(congrats.getWidth() / 2, congrats.getHeight() / 2);
+        congrats.setPosition(0,400);
+        congrats.addAction(sequence(
                 scaleTo(0, 0),
                 delay(0.3f),
                 parallel(moveBy(0, 100, 1.5f, Interpolation.swingOut),
@@ -97,27 +103,8 @@ public class CongratulationsScreen extends AbstractGameScreen {
 
     private Table buildPlayMenu () {
         /// ------------------ start -- just to create a simple button!! what a caos!!
-        skin = new Skin();
-        // Generate a 1x1 white texture and store it in the skin named "white".
-        Pixmap pixmap = new Pixmap(140, 70, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.BLUE);
-        pixmap.fill();
-        skin.add("white", new Texture(pixmap));
-        // Store the default libgdx font under the name "default".
-        BitmapFont bfont=new BitmapFont();
-        bfont.getData().scale(1.5f);
 
-        skin.add("default",bfont);
-        // Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("white", Color.CYAN);
-        textButtonStyle.down = skin.newDrawable("white", Color.CYAN);
-        textButtonStyle.checked = skin.newDrawable("white", Color.WHITE);
-        textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
-        textButtonStyle.font = skin.getFont("default");
-        skin.add("default", textButtonStyle);
-        /// ------------------ end --
-        btnStartGame =new TextButton("JUGAR",textButtonStyle);
+        btnStartGame = new ImageButton(Assets.instance.buttons.playButtonStyle);
 
         Table tbl = new Table();
         //tbl.left().bottom();

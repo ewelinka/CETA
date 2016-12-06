@@ -12,8 +12,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -43,6 +45,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public AssetFinishBackground finishBackGround;
     public AssetMenu menu;
+    public AssetButtons buttons;
 
     // singleton: prevent instantiation from other classes
     private Assets() {
@@ -95,6 +98,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         finishBackGround = new AssetFinishBackground(atlas);
         menu = new AssetMenu(atlas);
+        buttons = new AssetButtons(atlas);
     }
 
     @Override
@@ -277,11 +281,26 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetFinishBackground{
         public final TextureAtlas.AtlasRegion finishBack;
+        public final TextureAtlas.AtlasRegion excelentWork;
 
         public AssetFinishBackground(TextureAtlas atlas) {
-            finishBack = atlas.findRegion("excelente");
+            finishBack = atlas.findRegion("engranajes2");
+            excelentWork = atlas.findRegion("excelentetrabajo");
 
         }
+    }
+
+    public class AssetButtons{
+        public final ImageButton.ImageButtonStyle playButtonStyle;
+
+        public  AssetButtons(TextureAtlas atlas) {
+            playButtonStyle = new ImageButton.ImageButtonStyle();  //Instaciate
+            playButtonStyle.up = new TextureRegionDrawable(atlas.findRegion("jugar")); //Set image for not pressed button
+            playButtonStyle.down= new TextureRegionDrawable(atlas.findRegion("jugar2"));  //Set image for pressed
+            playButtonStyle.over= new TextureRegionDrawable(atlas.findRegion("jugar2"));
+
+        }
+
     }
 
     public class AssetSounds {

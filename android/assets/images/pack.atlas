@@ -194,189 +194,210 @@ filter: Nearest,Nearest
 repeat: none
 01bruno
   rotate: false
-  xy: 383, 925
+  xy: 896, 540
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 01cabeza
   rotate: false
-  xy: 185, 933
+  xy: 896, 433
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
   index: -1
 01cuerpo
   rotate: false
-  xy: 2, 944
+  xy: 59, 5
   size: 35, 21
   orig: 35, 21
   offset: 0, 0
   index: -1
 02cabeza
   rotate: false
-  xy: 96, 940
+  xy: 695, 109
   size: 40, 25
   orig: 40, 25
   offset: 0, 0
   index: -1
 03cabeza
   rotate: false
-  xy: 259, 926
+  xy: 896, 499
   size: 41, 39
   orig: 41, 39
   offset: 0, 0
   index: -1
 04cabeza
   rotate: false
-  xy: 138, 935
+  xy: 896, 467
   size: 45, 30
   orig: 45, 30
   offset: 0, 0
   index: -1
 05cabeza
   rotate: false
-  xy: 39, 941
+  xy: 2, 2
   size: 55, 24
   orig: 55, 24
   offset: 0, 0
   index: -1
 box
   rotate: false
-  xy: 749, 893
+  xy: 896, 697
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 carrito
   rotate: false
-  xy: 302, 926
+  xy: 896, 582
   size: 79, 39
   orig: 79, 39
   offset: 0, 0
   index: -1
 copper5
   rotate: false
-  xy: 494, 811
+  xy: 2, 28
   size: 400, 80
   orig: 400, 80
   offset: 0, 0
   index: -1
 doradoB
   rotate: false
-  xy: 2, 859
+  xy: 404, 28
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 doradoC
   rotate: false
-  xy: 84, 853
+  xy: 531, 110
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 empezar
   rotate: false
-  xy: 2, 729
+  xy: 531, 313
   size: 176, 119
   orig: 176, 119
   offset: 0, 0
   index: -1
-excelente
+empezarjuego2
   rotate: false
-  xy: 358, 516
-  size: 625, 293
-  orig: 625, 293
+  xy: 531, 313
+  size: 176, 119
+  orig: 176, 119
   offset: 0, 0
   index: -1
-fondoC
+empezarjuego
   rotate: false
-  xy: 2, 2
-  size: 600, 512
-  orig: 600, 512
+  xy: 531, 192
+  size: 176, 119
+  orig: 176, 119
+  offset: 0, 0
+  index: -1
+inicio
+  rotate: false
+  xy: 2, 110
+  size: 527, 900
+  orig: 527, 900
   offset: 0, 0
   index: -1
 jetpack
   rotate: false
-  xy: 225, 932
+  xy: 939, 505
   size: 32, 33
   orig: 32, 33
   offset: 0, 0
   index: -1
 jugar
   rotate: false
-  xy: 180, 722
+  xy: 709, 313
+  size: 176, 119
+  orig: 176, 119
+  offset: 0, 0
+  index: -1
+jugar2
+  rotate: false
+  xy: 709, 192
   size: 176, 119
   orig: 176, 119
   offset: 0, 0
   index: -1
 latter
   rotate: false
-  xy: 823, 893
+  xy: 896, 623
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
+manitoarriba
+  rotate: false
+  xy: 531, 434
+  size: 363, 576
+  orig: 363, 576
+  offset: 0, 0
+  index: -1
 nubeA
   rotate: false
-  xy: 461, 921
+  xy: 793, 146
   size: 93, 44
   orig: 93, 44
   offset: 0, 0
   index: -1
 nubeB
   rotate: false
-  xy: 654, 907
+  xy: 568, 50
   size: 93, 58
   orig: 93, 58
   offset: 0, 0
   index: -1
 nubeC
   rotate: false
-  xy: 897, 890
+  xy: 896, 935
   size: 96, 75
   orig: 96, 75
   offset: 0, 0
   index: -1
 nubeE
   rotate: false
-  xy: 556, 911
+  xy: 695, 136
   size: 96, 54
   orig: 96, 54
   offset: 0, 0
   index: -1
 robot01
   rotate: false
-  xy: 425, 925
+  xy: 938, 540
   size: 34, 40
   orig: 34, 40
   offset: 0, 0
   index: -1
 screw
   rotate: false
-  xy: 166, 850
+  xy: 896, 853
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violeta
   rotate: false
-  xy: 248, 844
+  xy: 486, 28
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaB
   rotate: false
-  xy: 330, 843
+  xy: 613, 110
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaD
   rotate: false
-  xy: 412, 839
+  xy: 896, 771
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
@@ -387,11 +408,18 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-inicio
+engranajes2
+  rotate: false
+  xy: 2, 297
+  size: 600, 700
+  orig: 600, 700
+  offset: 0, 0
+  index: -1
+excelente
   rotate: false
   xy: 2, 2
-  size: 527, 900
-  orig: 527, 900
+  size: 625, 293
+  orig: 625, 293
   offset: 0, 0
   index: -1
 
@@ -400,9 +428,16 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-engranajes2
+excelentetrabajo
   rotate: false
   xy: 2, 2
+  size: 557, 284
+  orig: 557, 284
+  offset: 0, 0
+  index: -1
+fondoN
+  rotate: false
+  xy: 2, 288
   size: 600, 700
   orig: 600, 700
   offset: 0, 0
@@ -413,7 +448,7 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-fondoN
+fondoV
   rotate: false
   xy: 2, 2
   size: 600, 700
@@ -426,10 +461,10 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-fondoV
+fondoC
   rotate: false
   xy: 2, 2
-  size: 600, 700
-  orig: 600, 700
+  size: 600, 512
+  orig: 600, 512
   offset: 0, 0
   index: -1
