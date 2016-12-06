@@ -1,29 +1,31 @@
 package ceta.game.managers;
 
-import ceta.game.CetaGame;
-import ceta.game.game.objects.VirtualBlock;
-import ceta.game.screens.DirectedGame;
-import ceta.game.util.Constants;
-import ceta.game.util.Pair;
-import com.badlogic.gdx.Gdx;
-
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-
-import com.badlogic.gdx.utils.ArrayMap;
-import com.badlogic.gdx.utils.TimeUtils;
-import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
-import edu.ceta.vision.core.blocks.Block;
-import edu.ceta.vision.core.utils.BlocksMarkersMap;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+
+import ceta.game.CetaGame;
+import ceta.game.game.objects.VirtualBlock;
+import ceta.game.screens.DirectedGame;
+import ceta.game.util.Constants;
+import ceta.game.util.Pair;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.ArrayMap;
+import com.badlogic.gdx.utils.TimeUtils;
+
+import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
+import edu.ceta.vision.core.blocks.Block;
+import edu.ceta.vision.core.utils.BlocksMarkersMap;
 
 /**
  * Created by ewe on 11/22/16.
