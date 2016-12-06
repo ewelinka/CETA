@@ -14,46 +14,53 @@ import android.widget.Toast;
 public class Utils {
 
 	
-	private void saveImage(Mat image, int count, String path, Context context){
-    	Mat bakImage = image.clone();
+	/**
+	 * 
+	 * @param image
+	 * @param count
+	 * @param path
+	 * @param context
+	 * @param mode 0. Original img
+	 * 			   1- transposed
+	 * 			   2- transposed and fliped CW
+	 * 			   3- double fliped
+	 * 			   4- transposed fliped CCW
+	 */
+	public static void saveImage(Mat image, int count, String path, Context context, int mode){
+    	Mat auxImage = image.clone();
     	for(int i = 0;i<5;i++){
     		String name="";
     		switch (i) {
 			case 0:
-				name="_original_";
 				break;
 			case 1:
-				name="_transposed_";
-				Core.transpose(bakImage, image);
+				Core.transpose(image, auxImage);
 				break;
 			case 2:
-				name="_transposed_fliped_CW_";
-				Core.transpose(bakImage, image);
-				Core.flip(image, image, 1);
+				Core.transpose(image, auxImage);
+				Core.flip(auxImage, auxImage, 1);
 				break;
 			case 3:
-				name="_double_fliped_";
-				Core.flip(image, image, 0);
+				Core.flip(image, auxImage, 0);
 				break;
 			case 4:
-				name="_transposed_fliped_CCW_";
-				Core.flip(image, image, -1);
+				Core.flip(image, auxImage, -1);
 				break;
 			default:
 				break;
 			}
-	    	File file = new File(path, "screenshot-"+name+count+".png");
+	    	File file = new File(path, name+count+".jpg");
 	    	String filename = file.toString();
 	    	
 	    	Mat bgrImage = new Mat();
-	    	Imgproc.cvtColor(image, bgrImage, Imgproc.COLOR_RGB2BGR);
+	    	Imgproc.cvtColor(auxImage, bgrImage, Imgproc.COLOR_RGB2BGR);
 	    	if(!Highgui.imwrite(filename,bgrImage)){
 				CharSequence	text	=	"Failed to save the image!";
 				int	duration	=	Toast.LENGTH_SHORT;
 				Toast	toast	=	Toast.makeText(context,	text,	duration);
 				toast.show();
 	    	}else{
-	        	MediaScannerConnection.scanFile(context, new String[] { file.getPath() }, new String[] { "image/png" }, null);
+	        	MediaScannerConnection.scanFile(context, new String[] { file.getPath() }, new String[] { "image/jpg" }, null);
 	    	}
     	}
     }
