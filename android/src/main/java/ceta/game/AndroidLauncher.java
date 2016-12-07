@@ -10,6 +10,7 @@ import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Rect;
 import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 
@@ -35,6 +36,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
 import edu.ceta.vision.core.topcode.TopCodeDetector;
+import edu.ceta.vision.core.utils.Logger;
 
 public class AndroidLauncher extends AndroidApplication implements SurfaceTexture.OnFrameAvailableListener{
 	public static final String TAG = AndroidLauncher.class.getName();
@@ -47,14 +49,19 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 	private CustomPreviewCallback cameracallback;
 
 	private boolean openCvInit = false;
+	private boolean useGrayScaleNativeScanner = false;
 	private CetaGame cetaGame;
+	
+	
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
 		@Override
 		public void onManagerConnected(int status) {
 			switch (status) {
 				case LoaderCallbackInterface.SUCCESS:
 				{
+					Logger.error("ldsksdkljfn");
 					openCvInit = true;
+					System.loadLibrary("ceta-vision-core-library-android");
 					Log.i(TAG, "OpenCV loaded successfully");
 					initCameraListener();
 
@@ -71,9 +78,6 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		//config.hideStatusBar=false;
-		//TopCodeDetector detec;
-		TopCodeDetector de = new TopCodeDetectorAndroid(50,false,70,5,true,false,false, true);
 		cetaGame = new CetaGame();
 		initialize(cetaGame, config);
 	}
@@ -167,8 +171,6 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 
 
 
-
-	//@Override   // SurfaceHolder.Callback
 	public void surfaceCreated(SurfaceHolder holder) {
 		Log.d(TAG, "surfaceCreated, holder=" + holder);
 
@@ -192,10 +194,6 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 
 		@Override
 		public void onPreviewFrame(byte[] bytes, Camera camera) {
-			Gdx.app.log(TAG,"frame available");
-			//
-			int bitsPerPixel = ImageFormat.getBitsPerPixel(ImageFormat.NV21);
-
 			Camera.Size cameraPreviewSize = camera.getParameters().getPreviewSize();
 
 
@@ -203,31 +201,23 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 			mYuv.put( 0, 0, bytes);
 			Mat mRgba = new Mat();
 
-//
-//		    YuvImage yuvImage = new YuvImage(bytes, ImageFormat.NV21, cameraPreviewSize.width, cameraPreviewSize.height, null);
-//		    ByteArrayOutputStream os = new ByteArrayOutputStream();
-//		    yuvImage.compressToJpeg(new Rect(0, 0, cameraPreviewSize.width, cameraPreviewSize.height), 100, os);
-//		    byte[] jpegByteArray = os.toByteArray();
-//		    Bitmap bitmap = BitmapFactory.decodeByteArray(jpegByteArray, 0, jpegByteArray.length);
-//
-			Imgproc.cvtColor( mYuv, mRgba, Imgproc.COLOR_YUV2RGBA_NV21, 4 );
-			// Imgproc.cvtColor( mYuv, mRgba, Imgproc.COLOR_YCrCb2RGB, 4 );
-
-			Bitmap map = Bitmap.createBitmap( cameraPreviewSize.width, cameraPreviewSize.height, Bitmap.Config.ARGB_8888 );
-			Utils.matToBitmap( mRgba, map );
-//			customView.setContent(map);
-//
-////		    customView.setContent(bitmap);
-//			//customView.setContent(redBmp);
-//			customView.invalidate();
-//    		Context	context	=	getApplicationContext();
-//	    	File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-//			saveImage(mRgba);
+			if(useGrayScaleNativeScanner){
+				Imgproc.cvtColor( mYuv, mRgba, Imgproc.COLOR_YUV2GRAY_NV21, 1 );
+			}else{
+				Imgproc.cvtColor( mYuv, mRgba, Imgproc.COLOR_YUV2RGBA_NV21, 4 );
+			}
+    	/*	Context	context	=	getApplicationContext();
+	    	File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+	    	Rect detectionZone = new Rect(160,0,480,480);
+	    	Mat subImg = mRgba.submat(detectionZone);
+			ceta.game.Utils.saveImage(mRgba, count++, path.toString(), context,3);
+			ceta.game.Utils.saveImage(subImg, count++, path.toString(), context,3);*/
 			cetaGame.setLastFrame(mRgba);
 			mCamera.addCallbackBuffer(buffer);
 		}
 	}
-
+	
+	//private int count = 0;
 
 	@Override   // SurfaceTexture.OnFrameAvailableListener; runs on arbitrary thread
 	public void onFrameAvailable(SurfaceTexture surfaceTexture) {
