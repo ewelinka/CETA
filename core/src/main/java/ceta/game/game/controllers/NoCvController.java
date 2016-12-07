@@ -26,7 +26,7 @@ public class NoCvController extends AbstractWorldController {
     @Override
     public void update(float deltaTime) { // TODO move to no-cv-controller that will be the father of all no-cv controlers
         if(screenFinished) {
-            Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
+            //Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
             timeLeftScreenFinishedDelay -= deltaTime;
             if (timeLeftScreenFinishedDelay < 0)
                 goToCongratulationsScreen();
@@ -64,8 +64,14 @@ public class NoCvController extends AbstractWorldController {
     }
 
     @Override
-    protected void testCollisions() {
+    protected void testCollisionsInController(boolean isDynamic) {
 
+    }
+
+
+    @Override
+    protected void testCollisions() {
+        super.testCollisions();
     }
 
     @Override

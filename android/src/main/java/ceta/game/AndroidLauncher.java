@@ -71,9 +71,10 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.useImmersiveMode = true;
 		//config.hideStatusBar=false;
 		//TopCodeDetector detec;
-		TopCodeDetector de = new TopCodeDetectorAndroid(50,false,70,5,true,false,false, true);
+		//TopCodeDetector de = new TopCodeDetectorAndroid(50,false,70,5,true,false,false, true);
 		cetaGame = new CetaGame();
 		initialize(cetaGame, config);
 	}

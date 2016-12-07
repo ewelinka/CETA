@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
  * Created by ewe on 7/25/16.
  */
 public class Constants {
-    public static final boolean WITH_CV = false;
+    public static final boolean WITH_CV = true;
 
     // Visible game world is 600 meters wide
     public static final float VIEWPORT_WIDTH = 600.0f;
@@ -26,7 +26,7 @@ public class Constants {
 
     public static final int ACTION_SUBMIT_WAIT = 2000;
     public static final int INACTIVITY_LIMIT = 10000;
-    public static final float TIME_DELAY_SCREEN_FINISHED = 0.5f;
+    public static final float TIME_DELAY_SCREEN_FINISHED = 1.0f;
 
 
     public static int DETECTION_ZONE_END ;
@@ -34,6 +34,7 @@ public class Constants {
 
     public static final int HORIZONTAL_ZERO_X = -200;
     public static final int VERTICAL_MIDDLE_X = -240;
+    public static final int PRICE_X_OFFSET = 60;
 
 
     public static final int CV_DETECTION_EDGE_TABLET = 360;

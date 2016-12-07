@@ -54,18 +54,18 @@ public class Level3VerticalController extends NoCvController {
 
     @Override
     protected void testCollisions () {
-
-        if (!(level.bruno.getActions().size > 0)) { // if bruno is not moving
-            if(level.bruno.getTerminalY() != yZero ) {
-                r1.set(level.bruno.getX() ,
-                        level.bruno.getY() ,
-                        level.bruno.getWidth(), level.bruno.getHeight()/2);
+        BrunoVertical brunoV = (BrunoVertical) level.bruno;
+        if (!(brunoV.getActions().size > 0)) { // if bruno is not moving
+            if(brunoV.getTerminalY() != yZero ) {
+                r1.set(brunoV.getX() ,
+                        brunoV.getY() ,
+                        brunoV.getWidth()+Constants.PRICE_X_OFFSET, level.bruno.getHeight()/2);
                 r2.set(level.price.getX(),
                         level.price.getY(),
                         level.price.getWidth()/2, level.price.getHeight()/2);
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPrice(level.price);
+                    onCollisionBrunoWithPriceVertical(level.price, brunoV);
                     moveMade = false;
                 } else {
                     if (moveMade) {

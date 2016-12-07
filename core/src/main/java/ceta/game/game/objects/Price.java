@@ -5,7 +5,10 @@ import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
@@ -30,6 +33,8 @@ public class Price extends AbstractGameObject {
     //TODO shouldn't be fixed val!!!
     private float myStartX;
     private int rotationVelocity;
+    private int verticalMiddleXPrice = Constants.VERTICAL_MIDDLE_X + Constants.PRICE_X_OFFSET;
+
 
 
     public Price(int vel, int startNr, int priceReturn) {
@@ -72,34 +77,37 @@ public class Price extends AbstractGameObject {
     }
 
     public void update(float deltaTime){
-        if(isDynamic) {
-            rotation+=(deltaTime*rotationVelocity);
-            setRotation(rotation);
-            if (isMovingVertical) // vertical falling = horizontal number line
-                updateVerticalFalling(deltaTime);
-            else
-                updateHorizontalFalling(deltaTime);
+        if(!hasActions()) {
+            if (isDynamic) {
+                rotation += (deltaTime * rotationVelocity);
+                setRotation(rotation);
+                if (isMovingVertical) // vertical falling = horizontal number line
+                    updateVerticalFalling(deltaTime);
+                else
+                    updateHorizontalFalling(deltaTime);
+            }
         }
 
     }
 
     private void updateHorizontalFalling(float deltaTime){
-        if(this.getX() < -Constants.VIEWPORT_WIDTH/2) {
+
+        if (this.getX() < -Constants.VIEWPORT_WIDTH / 2) {
             returnCounter -= 1;
             if (returnCounter < 0) {
                 setPositionStartRight(); // new position!
                 returnCounter = maxReturn;
 
             } else
-                this.setPosition(Constants.VIEWPORT_WIDTH/2, getY()); // come back in the same place
-        }
-        else
-            this.setPosition(getX()+velocity*deltaTime, getY());
+                this.setPosition(Constants.VIEWPORT_WIDTH / 2, getY()); // come back in the same place
+        } else
+            this.setPosition(getX() + velocity * deltaTime, getY());
+
     }
 
     private void updateVerticalFalling(float deltaTime){
         // TODO perhaps a constant that defines where the ground is
-        if(this.getY() < -this.getHeight()) { // when below number line
+        if(this.getY() < Constants.DETECTION_ZONE_END-this.getHeight()) { // when below number line
             returnCounter-=1;
             if(returnCounter<0){
                 setPositionStartAbove(myStartX); // new position!
@@ -146,7 +154,7 @@ public class Price extends AbstractGameObject {
             setNewPositionMH(Constants.VIEWPORT_WIDTH/2  );
         }
         else{
-            setNewPositionMH(Constants.VERTICAL_MIDDLE_X-getWidth()/2);
+            setNewPositionMH(verticalMiddleXPrice-getWidth()/2);
         }
     }
 
@@ -156,14 +164,6 @@ public class Price extends AbstractGameObject {
         currentNumber = MathUtils.random(1,10);
         // adjust the position to range number (currentNumber-startNumber)
         // and taking into account where we start to draw
-
-//        addAction(sequence(
-//                Actions.scaleTo(1.5f,1.5f,0.3f),
-//                Actions.scaleTo(0.0f,0.0f,0.3f),
-//                Actions.moveTo(startX + (currentNumber)*Constants.BASE - getWidth()/2,startY),
-//                Actions.scaleTo(1,1)
-//
-//                ));
         setPosition( startX + (currentNumber)*Constants.BASE - getWidth()/2, startY );
     }
 
@@ -174,51 +174,86 @@ public class Price extends AbstractGameObject {
     }
 
 
-    public void moveToNewPositionHorizontalNL(float startX, int startY){
+    public void moveToNewPositionHorizontalNL(float startX, int startY, boolean wasEaten){
         int newPosition = MathUtils.random(1,10);
         while (newPosition == currentNumber){
             newPosition = MathUtils.random(1,10);
         }
         currentNumber = newPosition;
-        addAction(sequence(
-                parallel(
+
+        if(wasEaten){
+            Gdx.app.log(TAG, "was eaten!! moveToNewPositionHorizontalNL");
+            addAction(sequence(
+                    parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+                            Actions.scaleTo(0,0,0.5f)),
+                    delay(0.2f),
+                    Actions.color(Color.WHITE),
+                    Actions.moveTo(startX + currentNumber * Constants.BASE - getWidth() / 2, startY),
+                    Actions.scaleTo(1, 1)
+            ));
+        }else {
+            addAction(sequence(
+                    parallel(
+                            Actions.scaleTo(1.5f, 1.5f, 0.1f),
+                            Actions.color(Color.GOLD, 0.1f)
+
+                    ),
+                    Actions.scaleTo(0.0f, 0.0f, 0.05f),
+                    delay(0.2f),
+                    Actions.color(Color.WHITE),
+                    Actions.moveTo(startX + currentNumber * Constants.BASE - getWidth() / 2, startY),
+                    Actions.scaleTo(1, 1)
+            ));
+        }
+
+    }
+
+    public void moveToNewPositionHorizontalNL(float startX, int startY){
+        moveToNewPositionHorizontalNL(startX,startY,false);
+    }
+
+    public void moveToNewPositionVerticalNL(float startX, int startY, boolean wasEaten){
+        int newPosition = MathUtils.random(1,10);
+        while (newPosition == currentNumber){
+            newPosition = MathUtils.random(1,10);
+        }
+        currentNumber = newPosition;
+
+
+        if(wasEaten){
+            Gdx.app.log(TAG, "was eaten!! moveToNewPositionVerticalNL");
+            addAction(sequence(
+                    parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+                            Actions.scaleTo(0,0,0.5f)),
+                    delay(0.2f),
+                    Actions.color(Color.WHITE),
+                    Actions.moveTo(startX ,startY + currentNumber*Constants.BASE - getHeight()/2),
+                    Actions.scaleTo(1,1)
+
+
+            ));
+
+        }else{
+            addAction(sequence(
+                    parallel(
                         Actions.scaleTo(1.5f,1.5f,0.1f),
                         Actions.color(Color.GOLD,0.1f)
 
-                ),
-                Actions.scaleTo(0.0f,0.0f,0.05f),
-                delay(0.2f),
-                Actions.color(Color.WHITE),
-                Actions.moveTo(startX + currentNumber*Constants.BASE - getWidth()/2,startY),
-                Actions.scaleTo(1,1)
-        ));
+                    ),
+                    Actions.scaleTo(0.0f,0.0f,0.05f),
+                    delay(0.2f),
+                    Actions.color(Color.WHITE),
+                    Actions.moveTo(startX ,startY + currentNumber*Constants.BASE - getHeight()/2),
+                    Actions.scaleTo(1,1)
+
+
+            ));
+        }
 
     }
 
     public void moveToNewPositionVerticalNL(float startX, int startY){
-        int newPosition = MathUtils.random(1,10);
-        while (newPosition == currentNumber){
-            newPosition = MathUtils.random(1,10);
-        }
-        currentNumber = newPosition;
-
-        addAction(sequence(
-                parallel(
-                    Actions.scaleTo(1.5f,1.5f,0.1f),
-                    Actions.color(Color.GOLD,0.1f)
-
-                ),
-                Actions.scaleTo(0.0f,0.0f,0.05f),
-                delay(0.2f),
-                Actions.color(Color.WHITE),
-                Actions.moveTo(startX ,startY + currentNumber*Constants.BASE - getHeight()/2),
-                Actions.scaleTo(1,1)
-
-
-        ));
-
-       // addAction(Actions.moveTo(startX, startY + currentNumber*Constants.BASE - getHeight()/2,0.6f));
-        //setPosition( );
+        moveToNewPositionVerticalNL(startX,startY,false);
     }
 
     public void wasCollected(){
@@ -243,6 +278,41 @@ public class Price extends AbstractGameObject {
 
     }
 
+    public void wasEaten(){
+
+        if (isMovingVertical)
+            wasEatenHorizontalNumberLine();
+        else
+            wasEatenVerticalNumberLine();
+
+    }
+
+    public void lastEaten(){
+
+        addAction(parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+                Actions.scaleTo(0,0,0.5f)));
+
+    }
+
+    private void wasEatenHorizontalNumberLine(){
+        if (isDynamic)
+            setPositionStartAbove(myStartX, true);
+        else
+            moveToNewPositionHorizontalNL(myStartX,Constants.PRICE_Y_HORIZONTAL,true);
+
+    }
+
+    private void wasEatenVerticalNumberLine(){
+        if (isDynamic)
+            setPositionStartRight(true);
+        else
+            moveToNewPositionVerticalNL(verticalMiddleXPrice- getWidth()/2,Constants.DETECTION_ZONE_END,true);
+
+    }
+
+
+
+
     public void wasCollectedHorizontalNumberLine(){
         if (isDynamic)
             setPositionStartAbove(myStartX);
@@ -255,11 +325,53 @@ public class Price extends AbstractGameObject {
         if (isDynamic)
             setPositionStartRight();
         else
-            moveToNewPositionVerticalNL(Constants.VERTICAL_MIDDLE_X - getWidth()/2,Constants.DETECTION_ZONE_END);
+            moveToNewPositionVerticalNL(verticalMiddleXPrice- getWidth()/2,Constants.DETECTION_ZONE_END);
+
+    }
+
+    private void setPositionStartAbove(float startX, boolean wasEaten){
+        returnCounter = maxReturn; // new position, new counter!
+
+        int newPosition = MathUtils.random(1,10);
+        while (newPosition == currentNumber){
+            newPosition = MathUtils.random(1,10);
+        }
+        currentNumber = newPosition;
+        if(wasEaten){
+            Gdx.app.log(TAG, "was eaten!! setPositionStartAbove");
+            addAction(sequence(
+                    parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+                            Actions.scaleTo(0,0,0.5f)),
+                    delay(0.2f),
+                    Actions.color(Color.WHITE),
+                    Actions.moveTo(startX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight()),
+                    Actions.scaleTo(1, 1)
+            ));
+        }
+        else {
+            addAction(sequence(
+                    parallel(
+                            Actions.scaleTo(1.5f, 1.5f, 0.1f),
+                            Actions.color(Color.GOLD, 0.1f)
+
+                    ),
+                    Actions.scaleTo(0.0f, 0.0f, 0.05f),
+                    delay(0.2f),
+                    Actions.color(Color.WHITE),
+                    Actions.moveTo(startX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight()),
+                    Actions.scaleTo(1, 1)
+
+            ));
+        }
+
 
     }
 
     private void setPositionStartAbove(float startX){
+        setPositionStartAbove(startX, false);
+    }
+
+    private void setPositionStartRight(boolean wasEaten){
         returnCounter = maxReturn; // new position, new counter!
 
         int newPosition = MathUtils.random(1,10);
@@ -267,44 +379,39 @@ public class Price extends AbstractGameObject {
             newPosition = MathUtils.random(1,10);
         }
         currentNumber = newPosition;
-        addAction(sequence(
-                parallel(
-                        Actions.scaleTo(1.5f,1.5f,0.1f),
-                        Actions.color(Color.GOLD,0.1f)
+        Gdx.app.log(TAG, " new position for the price x: "+ getX() + " y: "+getY()+" current position "+currentNumber+" new y "+(newPosition * Constants.BASE - getHeight() / 2));
 
-                ),
-                Actions.scaleTo(0.0f,0.0f,0.05f),
-                delay(0.2f),
-                Actions.color(Color.WHITE),
-                Actions.moveTo(startX + currentNumber*Constants.BASE - getWidth()/2,Constants.VIEWPORT_HEIGHT/2-getHeight()),
-                Actions.scaleTo(1,1)
-        ));
+        if(wasEaten){
+            Gdx.app.log(TAG, "was eaten!! setPositionStartRight");
+            addAction(sequence(
+                    parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+                            Actions.scaleTo(0,0,0.5f)),
+                    delay(0.2f),
+                    Actions.color(Color.WHITE),
+                    Actions.moveTo(Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END + newPosition * Constants.BASE - getHeight() / 2),
+                    Actions.scaleTo(1, 1)
+            ));
+        }
+        else {
+            addAction(sequence(
+                    parallel(
+                            Actions.scaleTo(1.5f, 1.5f, 0.1f),
+                            Actions.color(Color.GOLD, 0.1f)
+
+                    ),
+                    Actions.scaleTo(0.0f, 0.0f, 0.05f),
+                    delay(0.2f),
+                    Actions.color(Color.WHITE),
+                    Actions.moveTo(Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END + newPosition * Constants.BASE - getHeight() / 2),
+                    Actions.scaleTo(1, 1)
+            ));
+        }
+
 
     }
 
-    private void setPositionStartRight(){
-        returnCounter = maxReturn; // new position, new counter!
-
-        int newPosition = MathUtils.random(1,10);
-        while (newPosition == currentNumber){
-            newPosition = MathUtils.random(1,10);
-        }
-        currentNumber = newPosition;
-
-        addAction(sequence(
-                parallel(
-                        Actions.scaleTo(1.5f,1.5f,0.1f),
-                        Actions.color(Color.GOLD,0.1f)
-
-                ),
-                Actions.scaleTo(0.0f,0.0f,0.05f),
-                delay(0.2f),
-                Actions.color(Color.WHITE),
-                Actions.moveTo(Constants.VIEWPORT_WIDTH/2,newPosition*Constants.BASE-getHeight()/2),
-                Actions.scaleTo(1,1)
-        ));
-
-
+    private void setPositionStartRight() {
+        setPositionStartRight(false);
     }
 
     public int getDisplayNumber(){
@@ -317,6 +424,12 @@ public class Price extends AbstractGameObject {
         returnCounter = priceReturnNr;
 
     }
+
+    public boolean isDynamic(){
+        return isDynamic;
+    }
+
+
 
 
 

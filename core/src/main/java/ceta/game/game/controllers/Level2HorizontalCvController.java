@@ -48,13 +48,19 @@ public class Level2HorizontalCvController extends Level1HorizontalCvController {
         roboticArmManager.updateAnimated(toAdd,toRemoveValues);
     }
 
+
     @Override
-    protected void testCollisions () {
+    protected void testCollisionsInController (boolean isDynamic) {
         ArmPieceAnimated lastArm = getLastAnimatedArmPiece();
         if (!roboticArmManager.isUpdatingArmPiecesPositions()) {
-            testCollisionsHorizontal(lastArm);
+            if(isDynamic)
+                testCollisionsHorizontalDynamic(lastArm);
+            else
+                testCollisionsHorizontalStatic(lastArm);
         }
     }
+
+
 
 
     public ArmPieceAnimated getLastAnimatedArmPiece(){

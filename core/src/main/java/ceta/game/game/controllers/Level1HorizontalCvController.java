@@ -8,6 +8,7 @@ import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
@@ -42,13 +43,18 @@ public class Level1HorizontalCvController extends CvController {
     }
 
     @Override
-    protected void testCollisions () {
+    protected void testCollisionsInController(boolean isDynamic) {
+        Gdx.app.log(TAG," testCollisionsStatic ");
         ArmPiece lastArm = getLastArmPiece();
         if (!roboticArmManager.isUpdatingArmPiecesPositions()) {
-            testCollisionsHorizontal(lastArm);
+            if(isDynamic)
+                testCollisionsHorizontalDynamic(lastArm);
+            else
+                testCollisionsHorizontalStatic(lastArm);
 
         }
     }
+
 
     public ArmPiece getLastArmPiece(){
         return roboticArmManager.getLastArmPiece();

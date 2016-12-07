@@ -1,10 +1,10 @@
 package ceta.game.game.controllers;
 
+import ceta.game.game.levels.Level2Vertical;
 import ceta.game.game.levels.LevelVertical;
-import ceta.game.game.objects.BrunoPieceAnimated;
+import ceta.game.game.objects.BrunoPieceAnimatedVertical;
 import ceta.game.managers.AnimatedBrunoManager;
 import ceta.game.managers.CVBlocksManager;
-import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
@@ -28,7 +28,7 @@ public class Level2VerticalCvController extends CvController {
         cvBlocksManager = new CVBlocksManager(game,stage);
 
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        level = new LevelVertical(stage,levelParams);
+        level = new Level2Vertical(stage,levelParams);
         cameraHelper.setTarget(null);
         score = 0;
         cvBlocksManager.init();
@@ -49,15 +49,23 @@ public class Level2VerticalCvController extends CvController {
 
 
     @Override
-    protected void testCollisions () {
-        BrunoPieceAnimated lastPiece = getLastAnimatedBrunoPiece();
+    protected void testCollisionsInController (boolean isDynamic) {
+        BrunoPieceAnimatedVertical lastPiece = getLastAnimatedBrunoPiece();
         if (!brunosManager.isUpdatingBrunosPositions()) {
-            testCollisionsVertical(lastPiece);
+            if(isDynamic)
+                testCollisionsVerticalDynamic(lastPiece);
+            else
+                testCollisionsVerticalStatic(lastPiece);
         }
     }
 
+    @Override
+    protected void countdownMove() {
+        //level.bruno.shake();
+    }
 
-    public BrunoPieceAnimated getLastAnimatedBrunoPiece(){
+
+    public BrunoPieceAnimatedVertical getLastAnimatedBrunoPiece(){
         return brunosManager.getLastAnimatedBrunoPiece();
     }
 }

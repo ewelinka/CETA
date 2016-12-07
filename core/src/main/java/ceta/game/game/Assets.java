@@ -172,10 +172,20 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetBruno {
         public final TextureAtlas.AtlasRegion body;
         public final TextureAtlas.AtlasRegion body01;
+        public final TextureAtlas.AtlasRegion body01head;
+        public final TextureAtlas.AtlasRegion body01body;
         public final TextureAtlas.AtlasRegion body02;
+        public final TextureAtlas.AtlasRegion body02head;
+        public final TextureAtlas.AtlasRegion body02body;
         public final TextureAtlas.AtlasRegion body03;
+        public final TextureAtlas.AtlasRegion body03head;
+        public final TextureAtlas.AtlasRegion body03body;
         public final TextureAtlas.AtlasRegion body04;
+        public final TextureAtlas.AtlasRegion body04head;
+        public final TextureAtlas.AtlasRegion body04body;
         public final TextureAtlas.AtlasRegion body05;
+        public final TextureAtlas.AtlasRegion body05head;
+        public final TextureAtlas.AtlasRegion body05body;
         public final TextureAtlas.AtlasRegion headEnergy;
         public final TextureAtlas.AtlasRegion baseEnergy;
         public final TextureAtlas.AtlasRegion energy;
@@ -183,10 +193,20 @@ public class Assets implements Disposable, AssetErrorListener {
         public AssetBruno (TextureAtlas atlas) {
             body = atlas.findRegion("robot02");
             body01 = atlas.findRegion("01bruno");
+            body01head = atlas.findRegion("01cabeza");
+            body01body = atlas.findRegion("01cuerpo");
             body02 = atlas.findRegion("02bruno");
+            body02head = atlas.findRegion("02cabeza");
+            body02body = atlas.findRegion("02cuerpo");
             body03 = atlas.findRegion("03bruno");
+            body03head = atlas.findRegion("03cabeza");
+            body03body = atlas.findRegion("03cuerpo");
             body04 = atlas.findRegion("04bruno");
+            body04head = atlas.findRegion("04cabeza");
+            body04body = atlas.findRegion("04cuerpo");
             body05 = atlas.findRegion("05bruno");
+            body05head = atlas.findRegion("05cabeza");
+            body05body = atlas.findRegion("05cuerpo");
             headEnergy = atlas.findRegion("03cabeza");
             baseEnergy = atlas.findRegion("baseEnergia");
             energy = atlas.findRegion("energia");

@@ -13,7 +13,7 @@ public abstract class AbstractBlocksManager {
    // private int [] detected_blocks = {0,0,0,0,0};
     // a pair of ints (id and value)
     // Pair < Key , Value >
-    protected ArrayList<Pair> newDetectedIds = new ArrayList<Pair>();
+    protected ArrayList<Pair> newDetectedIds = new ArrayList<Pair>(); // ids and values!!!! TODO change the name!
     protected ArrayList<Integer> toRemoveFromDetectedIds = new ArrayList<Integer>();
     protected ArrayList<Integer> toRemoveFromDetectedValues = new ArrayList<Integer>();
 

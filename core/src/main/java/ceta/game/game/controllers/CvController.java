@@ -23,15 +23,16 @@ public class CvController extends AbstractWorldController {
     @Override
     public void update(float deltaTime) {
         if(screenFinished) {
-            Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
             timeLeftScreenFinishedDelay -= deltaTime;
             if (timeLeftScreenFinishedDelay < 0)
                 goToCongratulationsScreen();
         }
         else{
-            if(moveMade) {
-                testCollisions(); // winning condition checked
-            }
+            // if price is static
+
+            testCollisions(); // winning condition checked
+
+
         }
 
         handleDebugInput(deltaTime);
@@ -71,6 +72,7 @@ public class CvController extends AbstractWorldController {
 
         if(countdownOn){
             countdownMove();
+            setPlayerInactive(false);
             if (countdownCurrentTime < 0) {
                 updateDigitalRepresentations();
                 moveMade = true;
@@ -88,8 +90,15 @@ public class CvController extends AbstractWorldController {
     }
 
     @Override
-    protected void testCollisions() {
+    protected void testCollisionsInController(boolean isDynamic) {
 
+    }
+
+
+    @Override
+    protected void testCollisions() {
+        Gdx.app.log(TAG," testCollisions ---  ");
+        super.testCollisions();
     }
 
     @Override
