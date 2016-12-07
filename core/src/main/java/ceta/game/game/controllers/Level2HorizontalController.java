@@ -47,23 +47,35 @@ public class Level2HorizontalController extends Level1HorizontalController {
         roboticArmManager.updateAnimated(toAdd,toRemoveValues);
     }
 
-    @Override
-    protected void testCollisions () {
-        ArmPieceAnimated lastArm = getLastAnimatedArmPiece();
-        if (lastArm != null && !roboticArmManager.isUpdatingArmPiecesPositions()) {
-            // we set 4px x 4px box at the right end (X), in the middle (Y)
-            r1.set(lastArm.getX() + lastArm.getWidth(),
-                    lastArm.getY()+lastArm.getHeight()/2 - 2, // two pixels below the middle
-                    4, 4);
-            r2.set(level.price.getX(),
-                    level.price.getY() + level.price.getHeight() / 2 - 2,
-                    level.price.bounds.width, 4);
+//    @Override
+//    protected void testCollisions () {
+//        ArmPieceAnimated lastArm = getLastAnimatedArmPiece();
+//        if (lastArm != null && !roboticArmManager.isUpdatingArmPiecesPositions()) {
+//            // we set 4px x 4px box at the right end (X), in the middle (Y)
+//            r1.set(lastArm.getX() + lastArm.getWidth(),
+//                    lastArm.getY()+lastArm.getHeight()/2 - 2, // two pixels below the middle
+//                    4, 4);
+//            r2.set(level.price.getX(),
+//                    level.price.getY() + level.price.getHeight() / 2 - 2,
+//                    level.price.bounds.width, 4);
+//
+//            if (r1.overlaps(r2)) {
+//                onCollisionBrunoWithPrice(level.price);
+//            }
+//        }
+//    }
 
-            if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPrice(level.price);
-            }
+    @Override
+    protected void testCollisionsInController (boolean isDynamic) {
+        ArmPieceAnimated lastArm = getLastAnimatedArmPiece();
+        if (!roboticArmManager.isUpdatingArmPiecesPositions()) {
+            if(isDynamic)
+                testCollisionsHorizontalDynamic(lastArm);
+            else
+                testCollisionsHorizontalStatic(lastArm);
         }
     }
+
 
 
     public ArmPieceAnimated getLastAnimatedArmPiece(){

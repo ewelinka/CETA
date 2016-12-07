@@ -50,10 +50,17 @@ public class Level3VerticalController extends NoCvController {
         updateBrunoVertical(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
     }
 
-
-
     @Override
-    protected void testCollisions () {
+    protected void testCollisionsInController(boolean isDynamic){
+        if(isDynamic)
+            testCollisionsDynamic();
+        else
+            testCollisionsStatic();
+    }
+
+
+
+    protected void testCollisionsStatic () {
         BrunoVertical brunoV = (BrunoVertical) level.bruno;
         if (!(brunoV.getActions().size > 0)) { // if bruno is not moving
             if(brunoV.getTerminalY() != yZero ) {
@@ -79,6 +86,30 @@ public class Level3VerticalController extends NoCvController {
                     AudioManager.instance.play(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
+            }
+        }
+    }
+
+    protected void testCollisionsDynamic () {
+        BrunoVertical brunoV = (BrunoVertical) level.bruno;
+        if (!(brunoV.getActions().size > 0)) { // if bruno is not moving
+            if(brunoV.getTerminalY() != yZero ) {
+                r1.set(brunoV.getX() ,
+                        brunoV.getY() ,
+                        brunoV.getWidth()+Constants.PRICE_X_OFFSET, level.bruno.getHeight()/2);
+                r2.set(level.price.getX(),
+                        level.price.getY(),
+                        level.price.getWidth()/2, level.price.getHeight()/2);
+
+                if (r1.overlaps(r2)) {
+                    onCollisionBrunoWithPriceVertical(level.price, brunoV);
+                    moveMade = false;
+                } else {
+                    //TODO
+
+                }
+            }else{ // no blocks on the table
+                // TODO
             }
         }
     }

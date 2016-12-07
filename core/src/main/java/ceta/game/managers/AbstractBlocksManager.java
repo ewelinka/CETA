@@ -2,6 +2,7 @@ package ceta.game.managers;
 
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ public abstract class AbstractBlocksManager {
     protected ArrayList<Pair> newDetectedIds = new ArrayList<Pair>(); // ids and values!!!! TODO change the name!
     protected ArrayList<Integer> toRemoveFromDetectedIds = new ArrayList<Integer>();
     protected ArrayList<Integer> toRemoveFromDetectedValues = new ArrayList<Integer>();
+    protected boolean waitForFirstMove;
+    protected long noChangesSince;
 
 
     public abstract void init();
@@ -74,6 +77,23 @@ public abstract class AbstractBlocksManager {
     private void resetRemoveIds(){
         toRemoveFromDetectedIds.clear();
         toRemoveFromDetectedValues.clear();
+    }
+
+    public boolean isWaitForFirstMove(){
+        return waitForFirstMove;
+    }
+
+    public void setWaitForFirstMove(boolean shouldWait){
+        waitForFirstMove = shouldWait;
+
+    }
+
+    public long getTimeWithoutChange(){
+        return TimeUtils.timeSinceMillis(noChangesSince);
+    }
+
+    public void resetNoChangesSince(){
+        noChangesSince = TimeUtils.millis(); //new change!
     }
 
 

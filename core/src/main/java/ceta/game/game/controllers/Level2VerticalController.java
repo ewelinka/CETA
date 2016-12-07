@@ -39,6 +39,7 @@ public class Level2VerticalController extends NoCvController {
 
     @Override
     public void update(float deltaTime) {
+       // Gdx.app.log(TAG," update me and my alpha");
         super.update(deltaTime);
         brunosManager.updateAlpha(deltaTime);
     }
@@ -49,22 +50,40 @@ public class Level2VerticalController extends NoCvController {
         brunosManager.updateAnimated(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemoveValues());
     }
 
+    @Override
+    protected void countdownMove() {
+        //level.bruno.shake();
+    }
+
+
+//    @Override
+//    protected void testCollisions () {
+//        BrunoPieceAnimatedVertical lastPiece = getLastAnimatedBrunoPiece();
+//        if (lastPiece != null && !brunosManager.isUpdatingBrunosPositions()) {
+//
+//            r1.set(lastPiece.getX() + lastPiece.getWidth()/2 - 2,
+//                    lastPiece.getY()+lastPiece.getHeight(), // two pixels below the middle
+//                    4 + Constants.PRICE_X_OFFSET, 4);
+//            r2.set(level.price.getX() + level.price.getWidth()/2 - 2,
+//                    level.price.getY() + level.price.getHeight() / 2 - 2,
+//                    4, 4);
+//
+//            if (r1.overlaps(r2)) {
+//                onCollisionBrunoWithPriceVertical(level.price, lastPiece);
+//            }
+//        }
+//    }
+
+
 
     @Override
-    protected void testCollisions () {
+    protected void testCollisionsInController (boolean isDynamic) {
         BrunoPieceAnimatedVertical lastPiece = getLastAnimatedBrunoPiece();
-        if (lastPiece != null && !brunosManager.isUpdatingBrunosPositions()) {
-
-            r1.set(lastPiece.getX() + lastPiece.getWidth()/2 - 2,
-                    lastPiece.getY()+lastPiece.getHeight(), // two pixels below the middle
-                    4 + Constants.PRICE_X_OFFSET, 4);
-            r2.set(level.price.getX() + level.price.getWidth()/2 - 2,
-                    level.price.getY() + level.price.getHeight() / 2 - 2,
-                    4, 4);
-
-            if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPriceVertical(level.price, lastPiece);
-            }
+        if (!brunosManager.isUpdatingBrunosPositions()) {
+            if(isDynamic)
+                testCollisionsVerticalDynamic(lastPiece);
+            else
+                testCollisionsVerticalStatic(lastPiece);
         }
     }
 
