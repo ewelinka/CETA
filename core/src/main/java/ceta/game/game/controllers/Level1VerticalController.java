@@ -10,6 +10,7 @@ import ceta.game.game.objects.Price;
 import ceta.game.managers.BrunosManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.AudioManager;
+import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import ceta.game.managers.VirtualBlocksManager;
 import com.badlogic.gdx.Gdx;
@@ -47,34 +48,50 @@ public class Level1VerticalController extends NoCvController {
         brunosManager.update(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
     }
 
+
     @Override
     protected void countdownMove() {
-        //level.bruno.shake();
+        ((Level1Vertical)(level)).getTube().shake();
     }
-
-
 
     @Override
-    protected void testCollisions () {
+    protected void testCollisionsInController (boolean isDynamic) {
+        Gdx.app.log(TAG," testCollisionsInController ");
         BrunoVertical lastBruno = getLastBruno();
-        if (lastBruno != null && !brunosManager.isUpdatingBrunosPositions()) {
+        if (!brunosManager.isUpdatingBrunosPositions()) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
-            r1.set(lastBruno.getX() + lastBruno.getWidth()/2 - 2,
-                    lastBruno.getY()+lastBruno.getHeight(), // two pixels below the middle
-                    4, 4);
-            r2.set(level.price.getX() + level.price.getWidth()/2 - 2,
-                    level.price.getY() + level.price.getHeight() / 2 - 2,
-                    4, 4);
-
-            if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPrice(level.price);
-            }
+            if(isDynamic)
+                testCollisionsVerticalDynamic(lastBruno);
+            else
+                testCollisionsVerticalStatic(lastBruno);
         }
     }
+
+
+
+//    @Override
+//    protected void testCollisions () {
+//        BrunoVertical lastBruno = getLastBruno();
+//        if (lastBruno != null && !brunosManager.isUpdatingBrunosPositions()) {
+//            r1.set(lastBruno.getX() + lastBruno.getWidth()/2 - 2,
+//                    lastBruno.getY()+lastBruno.getHeight(), // two pixels below the middle
+//                    4+Constants.PRICE_X_OFFSET, 4);
+//            r2.set(level.price.getX() + level.price.getWidth()/2 - 2,
+//                    level.price.getY() + level.price.getHeight() / 2 - 2,
+//                    4, 4);
+//
+//            if (r1.overlaps(r2)) {
+//                onCollisionBrunoWithPriceVertical(level.price, lastBruno);
+//            }
+//        }
+//    }
 
     public BrunoVertical getLastBruno(){
         return brunosManager.getLastBruno();
     }
+
+
+
 
 
 }

@@ -1,12 +1,10 @@
 package ceta.game.managers;
 
 import ceta.game.game.Assets;
-import ceta.game.game.objects.ArmPieceAnimated;
-import ceta.game.game.objects.BrunoPieceAnimated;
+import ceta.game.game.objects.BrunoPieceAnimatedVertical;
 import ceta.game.util.Constants;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -20,10 +18,10 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  */
 public class AnimatedBrunoManager extends BrunosManager {
     public static final String TAG = AnimatedBrunoManager.class.getName();
-    private ArrayList<BrunoPieceAnimated> brunoPiecesAnim;
+    private ArrayList<BrunoPieceAnimatedVertical> brunoPiecesAnim;
     private float terminalDelay;
     private float currentDelayPassed; //TODO use if no action submit
-    private final float animationSpeed = 0.3f;
+    private final float animationSpeed = 0.2f;
     private float alphaColor;
     private boolean fadeIn;
     private Image base;
@@ -36,7 +34,7 @@ public class AnimatedBrunoManager extends BrunosManager {
     @Override
     public void init(){
         lastY = initialY;
-        brunoPiecesAnim = new ArrayList<BrunoPieceAnimated>();
+        brunoPiecesAnim = new ArrayList<BrunoPieceAnimatedVertical>();
         terminalDelay = 0;
         currentDelayPassed = 0;
         alphaColor = 0.5f;
@@ -50,7 +48,7 @@ public class AnimatedBrunoManager extends BrunosManager {
         base.setSize(Constants.BASE,10);
         base.setPosition(Constants.VERTICAL_MIDDLE_X - base.getWidth()/2,
                 Constants.DETECTION_ZONE_END-base.getHeight());
-
+//
         stage.addActor(head);
         stage.addActor(base);
 
@@ -85,7 +83,7 @@ public class AnimatedBrunoManager extends BrunosManager {
                 currentKey+=1;
 
             Gdx.app.log(TAG, " add "+ toAdd.get(currentKey).getKey()+" part "+i + " lasty "+lastY+" delay "+ terminalDelay);
-            BrunoPieceAnimated pieceToAdd = new BrunoPieceAnimated(1, this);
+            BrunoPieceAnimatedVertical pieceToAdd = new BrunoPieceAnimatedVertical(1, this);
             stage.addActor(pieceToAdd);
 
             pieceToAdd.setId(toAdd.get(currentKey).getKey()*10+i); //we have to invent id because one virtual piece is mapped into up to 5 arm pieces
@@ -118,7 +116,7 @@ public class AnimatedBrunoManager extends BrunosManager {
         brunoPiecesAnim.get(which).collapseMe(terminalDelay, animationSpeed); // remove Actor
     }
 
-    public BrunoPieceAnimated getLastAnimatedBrunoPiece(){
+    public BrunoPieceAnimatedVertical getLastAnimatedBrunoPiece(){
         if(brunoPiecesAnim.size()>0)
             return brunoPiecesAnim.get(brunoPiecesAnim.size()-1);
         return null;
@@ -150,8 +148,6 @@ public class AnimatedBrunoManager extends BrunosManager {
 
 
     public void updateAlpha(float delta){
-
-
         if(fadeIn){
             alphaColor+=(delta/2);
         }
@@ -163,8 +159,6 @@ public class AnimatedBrunoManager extends BrunosManager {
         }
         if(alphaColor < 0.5)
             fadeIn=!fadeIn;
-
-        Gdx.app.log(TAG," delta "+delta+ "alpha "+alphaColor);
 
         for(int i = 0; i<brunoPiecesAnim.size();i++){
             brunoPiecesAnim.get(i).setColor(255,255,0,alphaColor);

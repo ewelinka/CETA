@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.game.levels.AbstractLevel;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.AbstractGameObject;
+import ceta.game.game.objects.BrunoVertical;
 import ceta.game.game.objects.Price;
 import ceta.game.screens.DirectedGame;
 import ceta.game.screens.CongratulationsScreen;
@@ -59,7 +60,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
     public abstract void update(float delta);
-    protected abstract void testCollisions();
+    protected abstract void testCollisionsInController(boolean isDynamic);
+
+
 
     protected abstract void localInit();
     protected abstract void updateDigitalRepresentations();
@@ -78,6 +81,16 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
         actionSubmitInit();
         adjustCamera();
+    }
+
+    protected void testCollisions(){
+        Gdx.app.log(TAG," testCollisions ");
+        if(level.price.isDynamic())
+            testCollisionsInController(true);
+        else {
+            if(moveMade)
+                testCollisionsInController(false);
+        }
     }
 
     private void adjustCamera(){
@@ -151,9 +164,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
 
-    protected void testCollisionsHorizontal(AbstractGameObject objectToCheck){
+    protected void testCollisionsHorizontalStatic(AbstractGameObject objectToCheck){
         if(objectToCheck != null ) {
-            r1.set(objectToCheck.getX() + objectToCheck.getWidth() - 4,
+            r1.set(objectToCheck.getX() + objectToCheck.getWidth() - 2,
                     objectToCheck.getY(), // two pixels below the middle
                     4, objectToCheck.getHeight());
             r2.set(level.price.getX(),
@@ -178,17 +191,41 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
     }
 
-    protected void testCollisionsVertical(AbstractGameObject objectToCheck){
+    protected void testCollisionsHorizontalDynamic(AbstractGameObject objectToCheck){
+        //TODO how we know about error or win??? the price is moving!!!
+        Gdx.app.log(TAG, " testCollisionsHorizontalDynamic ");
+        if(objectToCheck != null ) {
+            r1.set(objectToCheck.getX() + objectToCheck.getWidth() - 2,
+                    objectToCheck.getY(), // two pixels below the middle
+                    4, 4);
+            r2.set(level.price.getX(),
+                    level.price.getY(),
+                    level.price.getWidth() / 2, level.price.getHeight() / 2);
+
+            if (r1.overlaps(r2)) {
+                onCollisionBrunoWithPrice(level.price);
+                moveMade = false;
+            }
+            else{
+                //TODO check if the price number and number line position ==
+                // if == -> its a good answer
+                // if not -> error
+            }
+        }
+
+    }
+
+    protected void testCollisionsVerticalStatic(BrunoVertical objectToCheck){
         if(objectToCheck != null ) {
             r1.set(objectToCheck.getX() ,
                     objectToCheck.getY()+ objectToCheck.getHeight() - 4, // two pixels below the middle
-                    objectToCheck.getWidth(), 4);
+                    objectToCheck.getWidth()+Constants.PRICE_X_OFFSET, 4);
             r2.set(level.price.getX(),
                     level.price.getY(),
                     level.price.getWidth()/2, level.price.getHeight()/2);
 
             if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPrice(level.price);
+                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
                 moveMade = false;
             } else {
                 if (moveMade) {
@@ -205,6 +242,26 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
     }
 
+    protected void testCollisionsVerticalDynamic(BrunoVertical objectToCheck){
+        if(objectToCheck != null ) {
+            r1.set(objectToCheck.getX() ,
+                    objectToCheck.getY()+ objectToCheck.getHeight() - 4, // two pixels below the middle
+                    objectToCheck.getWidth()+Constants.PRICE_X_OFFSET, 4);
+            r2.set(level.price.getX(),
+                    level.price.getY(),
+                    level.price.getWidth()/2, level.price.getHeight()/2);
+
+            if (r1.overlaps(r2)) {
+                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                moveMade = false;
+            } else{
+                //TODO check if the price number and number line position ==
+                // if == -> its a good answer
+                // if not -> error
+            }
+        }
+    }
+
 
     private void moveCamera (float x, float y) {
         x += cameraHelper.getPosition().x;
@@ -213,7 +270,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     protected void onCollisionBrunoWithPrice(Price goldcoin) {
-        Gdx.app.log(TAG, "NO updates in progress and collision!");
+        //Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (goldcoin.getActions().size == 0) { // we act just one time!
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
@@ -224,6 +281,26 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             } else {
                 screenFinished = true;
                 goldcoin.lastCollected();
+                timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
+
+
+            }
+        }
+    }
+
+    protected void  onCollisionBrunoWithPriceVertical(Price goldcoin, BrunoVertical bruno){
+       // Gdx.app.log(TAG, "NO updates in progress and collision!");
+        if (goldcoin.getActions().size == 0) { // we act just one time!
+            bruno.moveHead();
+            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+            score += 1;
+            //TODO some nice yupi animation
+            if (score < levelParams.operationsNumberToPass) {
+                goldcoin.wasEaten();
+
+            } else {
+                screenFinished = true;
+                goldcoin.lastEaten();
                 timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
 
 

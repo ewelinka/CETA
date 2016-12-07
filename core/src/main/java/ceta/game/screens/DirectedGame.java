@@ -69,6 +69,7 @@ public abstract class DirectedGame extends Game {
 
     @Override
     public void resize (int width, int height) {
+        Gdx.app.log(TAG,"resize "+width+ " "+height);
         if (currScreen != null) currScreen.resize(width, height);
         if (nextScreen != null) nextScreen.resize(width, height);
     }
@@ -102,6 +103,7 @@ public abstract class DirectedGame extends Game {
     public void setScreen (AbstractGameScreen screen, ScreenTransition screenTransition) {
         int w = Gdx.graphics.getWidth();
         int h = Gdx.graphics.getHeight();
+        Gdx.app.log(TAG,"setScreen width "+w+ " height "+h);
         if (!init) {
             currFbo = new FrameBuffer(Pixmap.Format.RGB888, w, h, false);
             nextFbo = new FrameBuffer(Pixmap.Format.RGB888, w, h, false);

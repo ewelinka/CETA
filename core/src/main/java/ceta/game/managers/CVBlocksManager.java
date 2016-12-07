@@ -46,7 +46,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private ArrayList<Integer> newIds;
     public ArrayList<Set> results = new ArrayList<Set>();
     private boolean detectionReady;
-    private long noChangesSince;
+    //private long noChangesSince;
     private int noMovementDist;
     private int noMovementRot;
     private final double rotAdjust = -1;
@@ -54,7 +54,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private int maxStrikes;
     private ArrayMap<Integer,Integer> idToValue;
 
-    public boolean waitForFirstMove;
+    //public boolean waitForFirstMove;
 
 
     public CVBlocksManager(DirectedGame game, Stage stage){
@@ -66,7 +66,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     public void init() {
         Gdx.app.log(TAG,"in init!!");
 		//FIXME Ewe --> aca va el rectangulo con la zona de deteccion
-        Rect detectionZone = null;
+        Rect detectionZone = new Rect(Constants.CV_MIN_Y,0,480,480);
         topCodeDetector = new TopCodeDetectorAndroid(50,true,70,5,true,false, false, true, detectionZone);
         // lastDetectedBlocks = new HashSet<Block>();
         actionsSpeed = 0.5f;
@@ -101,7 +101,8 @@ public class CVBlocksManager extends AbstractBlocksManager {
                 Core.flip(frame, frame, 0);
                 final Set<Block> finalSet = topCodeDetector.detectBlocks(frame);
                 //final Set<Block> finalSet = topCodeDetector.detectBlocks(((CetaGame) game).getAndBlockLastFrame());
-                Gdx.app.log(TAG, "ready with the detection!!");
+                Gdx.app.log(TAG, "ready with the detection!! framerateee"+Gdx.graphics.getFramesPerSecond());
+
                 detectionReady = true;
                 ((CetaGame) game).releaseFrame();
 
@@ -144,46 +145,33 @@ public class CVBlocksManager extends AbstractBlocksManager {
         for(int i = newBlocksIds.size()-1;i>=0;i--){ // we start from the end to avoid ids problems
             Block nBlock = newDetectedCVBlocks.get(i);
             int newId = newBlocksIds.get(i);
-            if(oldBlocksIds.contains(newId)){ // if was there -> check limits; if in -> update
-                //check limits
-                if(nBlock.getCenter().x < Constants.CV_MIN_Y) { // x because tablet is rotated!!
-                    // remove
-                    Gdx.app.log(TAG,"OUT OF BOUNDS!! id "+newId+ " value "+newDetectedCVBlocks.get(i).getValue()+" center y "+nBlock.getCenter());
-                    checkStrikesAndDecideIfRemove(newId);
-                }else{
-                    resetStrikes(newId);
-                    boolean shouldBeUpdated = false;
-                    if(getDistance(newId,newDetectedCVBlocks.get(i)) > noMovementDist){
-                        Gdx.app.log(TAG,"distance > "+noMovementDist);
-                        shouldBeUpdated = true;
-                    }
-                    if(Math.abs(radianToStage(newDetectedCVBlocks.get(i).getOrientation()) - getBlockById(newId).getRotation()) > noMovementRot){
-                        Gdx.app.log(TAG,"rotation > "+noMovementRot+" now:  "+radianToStage(newDetectedCVBlocks.get(i).getOrientation())+" before: "+getBlockById(newId).getRotation());
-                        shouldBeUpdated =true;
-                    }
+            if(oldBlocksIds.contains(newId)){
+                resetStrikes(newId);
+                boolean shouldBeUpdated = false;
+                if(getDistance(newId,newDetectedCVBlocks.get(i)) > noMovementDist){
+                    Gdx.app.log(TAG,"distance > "+noMovementDist);
+                    shouldBeUpdated = true;
+                }
+                if(Math.abs(radianToStage(newDetectedCVBlocks.get(i).getOrientation()) - getBlockById(newId).getRotation()) > noMovementRot){
+                    Gdx.app.log(TAG,"rotation > "+noMovementRot+" now:  "+radianToStage(newDetectedCVBlocks.get(i).getOrientation())+" before: "+getBlockById(newId).getRotation());
+                    shouldBeUpdated =true;
+                }
 
-                    if(shouldBeUpdated) {
-                        updateBlockCV(nBlock.getId(),
-                                xToStage(nBlock.getCenter().y),
-                                yToStage(nBlock.getCenter().x),
-                                radianToStage(nBlock.getOrientation())
-                        );
-                    }
-                }
-                // get block with this id
-            }else {
-                // if new and in the zone -> new
-                if(nBlock.getCenter().x < Constants.CV_MIN_Y) {
-                    Gdx.app.log(TAG," new id "+nBlock.getId()+" but out of the zone!");
-                    newBlocksIds.remove(i);
-                }else{
-                    addBlockCV(nBlock.getValue(),
-                            nBlock.getId(),
-                            xToStage(nBlock.getCenter().y), //important!! x and y flipped!!
+                if(shouldBeUpdated) {
+                    updateBlockCV(nBlock.getId(),
+                            xToStage(nBlock.getCenter().y),
                             yToStage(nBlock.getCenter().x),
-                            radianToStage(nBlock.getOrientation()));
-                    resetStrikes(nBlock.getId());
+                            radianToStage(nBlock.getOrientation())
+                    );
                 }
+            }else {
+                addBlockCV(nBlock.getValue(),
+                        nBlock.getId(),
+                        xToStage(nBlock.getCenter().y), //important!! x and y flipped!!
+                        yToStage(nBlock.getCenter().x),
+                        radianToStage(nBlock.getOrientation()));
+                resetStrikes(nBlock.getId());
+
             }
         }
         // we won't use more oldBlocksIds so we use it to get unique ids that should be removed
@@ -223,7 +211,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private float yToStage(double y){
         // Gdx.app.log(TAG,"y "+y+" converted to "+map((float)y,Constants.CV_MIN_Y,640,-Constants.VIEWPORT_HEIGHT/2,-Constants.VIEWPORT_HEIGHT/2+Constants.CV_DETECTION_EDGE_TABLET));
         // return (float)(y-672); //TODO: REVISAR porque se descarta los pixeles de 0 a Constatnts.CV_MIN_Y !
-        return  map((float)y,Constants.CV_MIN_Y,640,-Constants.VIEWPORT_HEIGHT/2,-Constants.VIEWPORT_HEIGHT/2+Constants.CV_DETECTION_EDGE_TABLET);
+        return  map((float)y,0,640-Constants.CV_MIN_Y,-Constants.VIEWPORT_HEIGHT/2,-Constants.VIEWPORT_HEIGHT/2+Constants.CV_DETECTION_EDGE_TABLET);
     }
 
     private float radianToStage(double r){
@@ -369,9 +357,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
         return detectionReady;
     }
 
-    public long getTimeWithoutChange(){
-        return TimeUtils.timeSinceMillis(noChangesSince);
-    }
+
 
     private float getDistance(int newId, Block block){
         try {
@@ -391,19 +377,6 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     }
 
-
-    public boolean isWaitForFirstMove(){
-        return waitForFirstMove;
-    }
-
-    public void setWaitForFirstMove(boolean shouldWait){
-        waitForFirstMove = shouldWait;
-
-    }
-
-    public void resetNoChangesSince(){
-        noChangesSince = TimeUtils.millis(); //new change!
-    }
 
     private void initStrikesAndBlocksValues(){
         int [][] allMarkers = {BlocksMarkersMap.block1,BlocksMarkersMap.block2,BlocksMarkersMap.block3,BlocksMarkersMap.block4,BlocksMarkersMap.block5};

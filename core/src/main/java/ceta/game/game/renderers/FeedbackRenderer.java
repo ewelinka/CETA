@@ -75,7 +75,7 @@ public class FeedbackRenderer {
         if(alphaColor< 0)
             fadeIn=!fadeIn;
 
-        shRenderer.setColor(255,255,0,alphaColor);
+        shRenderer.setColor(255,255,77,alphaColor);
 
         shRenderer.rect(-Constants.CV_DETECTION_EDGE_TABLET/2, -Constants.VIEWPORT_HEIGHT/2,Constants.CV_DETECTION_EDGE_TABLET, Constants.CV_DETECTION_EDGE_TABLET);
 

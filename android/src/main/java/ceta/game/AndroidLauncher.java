@@ -59,7 +59,6 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 			switch (status) {
 				case LoaderCallbackInterface.SUCCESS:
 				{
-					Logger.error("ldsksdkljfn");
 					openCvInit = true;
 					System.loadLibrary("ceta-vision-core-library-android");
 					Log.i(TAG, "OpenCV loaded successfully");
@@ -78,6 +77,7 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.useImmersiveMode = true;
 		cetaGame = new CetaGame();
 		initialize(cetaGame, config);
 	}

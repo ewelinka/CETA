@@ -2,6 +2,7 @@ package ceta.game.game.controllers;
 
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
+import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,7 +27,7 @@ public class NoCvController extends AbstractWorldController {
     @Override
     public void update(float deltaTime) { // TODO move to no-cv-controller that will be the father of all no-cv controlers
         if(screenFinished) {
-            Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
+            //Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
             timeLeftScreenFinishedDelay -= deltaTime;
             if (timeLeftScreenFinishedDelay < 0)
                 goToCongratulationsScreen();
@@ -39,6 +40,22 @@ public class NoCvController extends AbstractWorldController {
         level.update(deltaTime); //stage.act()
         virtualBlocksManager.updateDetected();
 
+        // we start to act after kids move
+        if(!virtualBlocksManager.isWaitForFirstMove() && GamePreferences.instance.actionSubmit) { // just for action submit!
+
+            if (virtualBlocksManager.getTimeWithoutChange() > Constants.ACTION_SUBMIT_WAIT) {
+                if (!countdownOn) {
+                    setCountdownOn(true); //if we are not counting, we start!
+
+                }
+            } else {
+                if(true) {
+                    setPlayerInactive(false);
+                    setCountdownOn(false); // if somebody moved a block
+                }
+            }
+        }
+
         if (GamePreferences.instance.actionSubmit) {
             // if we are counting
             if (countdownOn) {
@@ -48,8 +65,10 @@ public class NoCvController extends AbstractWorldController {
                 if (countdownCurrentTime < 0) {
                     Gdx.app.log(TAG, "wowowoowow action submit!");
                     updateDigitalRepresentations();
-                    virtualBlocksManager.resetDetectedAndRemoved();
+                    moveMade = true;
                     resetCountdown();
+                    virtualBlocksManager.setWaitForFirstMove(true);
+                    virtualBlocksManager.resetDetectedAndRemoved();
                 } else // we still count
                     countdownCurrentTime -= deltaTime;
             }
@@ -64,8 +83,15 @@ public class NoCvController extends AbstractWorldController {
     }
 
     @Override
-    protected void testCollisions() {
+    protected void testCollisionsInController(boolean isDynamic) {
 
+    }
+
+
+    @Override
+    protected void testCollisions() {
+        //Gdx.app.log(TAG," testCollisions ---  ");
+        super.testCollisions();
     }
 
     @Override

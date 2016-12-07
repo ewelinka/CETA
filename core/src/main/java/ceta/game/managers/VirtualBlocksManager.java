@@ -6,6 +6,7 @@ import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.TimeUtils;
 
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         xSpace = 60;
         ySpace = 25;
         initBlocks();
+        waitForFirstMove = true;
+        noChangesSince = TimeUtils.millis();
     }
 
     private void initBlocks(){
@@ -65,7 +68,9 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
             // if the kid is touching/moving we ignore;
             // we just act when the piece is left free [we set wasMoved=true on release]
-            if (vBlock.getWasMoved()){
+            if (vBlock.getWasMoved()){ // was moved
+                resetNoChangesSince();
+                waitForFirstMove = false;
 
                 // if it was detected before and is in detection zone we do nothing
                 // if it was detected before and is out of detection zone we make it disappear and reset

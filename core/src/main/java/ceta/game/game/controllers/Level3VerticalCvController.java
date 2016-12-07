@@ -55,20 +55,28 @@ public class Level3VerticalCvController extends CvController {
 
 
     @Override
-    protected void testCollisions () {
+    protected void testCollisionsInController(boolean isDynamic){
+        if(isDynamic)
+            testCollisionsDynamic();
+        else
+            testCollisionsStatic();
+    }
 
-        if (!(level.bruno.getActions().size > 0)) { // if bruno is not moving
+
+    protected void testCollisionsStatic () {
+        BrunoVertical bruno = (BrunoVertical)level.bruno;
+        if (!(bruno.getActions().size > 0)) { // if bruno is not moving
             // we set 4px x 4px box at the right end (X), in the middle (Y)
-            if(level.bruno.getTerminalY() != yZero ) {
-                r1.set(level.bruno.getX() ,
-                        level.bruno.getY() ,
-                        level.bruno.getWidth(), level.bruno.getHeight()/2);
+            if(bruno.getTerminalY() != yZero ) {
+                r1.set(bruno.getX() ,
+                        bruno.getY() ,
+                        bruno.getWidth()+Constants.PRICE_X_OFFSET, bruno.getHeight()/2);
                 r2.set(level.price.getX(),
                         level.price.getY(),
                         level.price.getWidth()/2, level.price.getHeight()/2);
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPrice(level.price);
+                    onCollisionBrunoWithPriceVertical(level.price, bruno);
                     moveMade = false;
                 } else {
                     if (moveMade) {
@@ -81,6 +89,30 @@ public class Level3VerticalCvController extends CvController {
                 if (moveMade) {
                     AudioManager.instance.play(Assets.instance.sounds.liveLost);
                     moveMade = false;
+                }
+            }
+        }
+    }
+
+
+    protected void testCollisionsDynamic () {
+        BrunoVertical bruno = (BrunoVertical)level.bruno;
+        if (!(bruno.getActions().size > 0)) { // if bruno is not moving
+            // we set 4px x 4px box at the right end (X), in the middle (Y)
+            if(bruno.getTerminalY() != yZero ) {
+                r1.set(bruno.getX() ,
+                        bruno.getY() ,
+                        bruno.getWidth(), bruno.getHeight()/2);
+                r2.set(level.price.getX(),
+                        level.price.getY(),
+                        level.price.getWidth()/2, level.price.getHeight()/2);
+
+                if (r1.overlaps(r2)) {
+                    onCollisionBrunoWithPriceVertical(level.price,bruno);
+                    moveMade = false;
+                } else {
+                    // TODO register error or success!
+
                 }
             }
         }

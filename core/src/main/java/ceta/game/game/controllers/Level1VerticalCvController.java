@@ -3,6 +3,7 @@ package ceta.game.game.controllers;
 import ceta.game.CetaGame;
 import ceta.game.game.Assets;
 import ceta.game.game.levels.Level1Vertical;
+import ceta.game.game.objects.ArmPiece;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.game.objects.Price;
 import ceta.game.managers.BrunosManager;
@@ -57,26 +58,21 @@ public class Level1VerticalCvController extends CvController {
 
 
     @Override
-    protected void testCollisions () {
+    protected void testCollisionsInController (boolean isDynamic) {
+        Gdx.app.log(TAG," testCollisionsInController ");
         BrunoVertical lastBruno = getLastBruno();
         if (!brunosManager.isUpdatingBrunosPositions()) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
-            testCollisionsVertical(lastBruno);
+            if(isDynamic)
+                testCollisionsVerticalDynamic(lastBruno);
+            else
+                testCollisionsVerticalStatic(lastBruno);
         }
     }
+
 
     public BrunoVertical getLastBruno(){
         return brunosManager.getLastBruno();
     }
 
-//
-//    @Override
-//    public boolean touchDown(int screenX, int screenY, int pointer, int button)
-//    {
-//        Gdx.app.log(TAG, "screen touched! "+screenY);
-//        if(screenY< 200){
-//            takeCapture =true;
-//        }
-//        return true;
-//    }
 }

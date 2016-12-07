@@ -58,8 +58,8 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
         level.bruno.shake();
     }
 
-    @Override
-    protected void testCollisions () {
+
+    protected void testCollisionsStatic () {
 
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
@@ -85,6 +85,38 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
                 if (moveMade) {
                     AudioManager.instance.play(Assets.instance.sounds.liveLost);
                     moveMade = false;
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void testCollisionsInController(boolean isDynamic){
+        if(isDynamic)
+            testCollisionsDynamic();
+        else
+            testCollisionsStatic();
+    }
+
+
+    protected void testCollisionsDynamic () {
+        if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
+            // we set 4px x 4px box at the middle end (X), in the top (Y)
+            if(level.bruno.getTerminalX() != xZero ) {
+                r1.set(level.bruno.getX()+level.bruno.getWidth()-4,
+                        level.bruno.getY(),
+                        4, level.bruno.getHeight());
+                r2.set(level.price.getX(),
+                        level.price.getY(),
+                        level.price.bounds.width, level.price.bounds.height);
+
+                if (r1.overlaps(r2)) {
+                    onCollisionBrunoWithPrice(level.price);
+                    moveMade = false;
+                } else{
+                    //TODO check if the price number and number line position ==
+                    // if == -> its a good answer
+                    // if not -> error
                 }
             }
         }
