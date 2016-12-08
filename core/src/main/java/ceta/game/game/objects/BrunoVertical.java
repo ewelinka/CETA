@@ -69,7 +69,7 @@ public class BrunoVertical extends Bruno {
                 headYoffset = -3;
                 break;
             case 2:
-                setColor(Color.CYAN);
+                setColor(Color.GREEN);
                 regTex = Assets.instance.bruno.body02;
                 brunoHeadReg = Assets.instance.bruno.body02head;
                 brunoBodyReg = Assets.instance.bruno.body02body;
@@ -85,14 +85,14 @@ public class BrunoVertical extends Bruno {
                 headYoffset = -5;
                 break;
             case 4:
-                setColor(Color.VIOLET);
+                setColor(Color.CYAN);
                 regTex = Assets.instance.bruno.body04;
                 brunoHeadReg = Assets.instance.bruno.body04head;
                 brunoBodyReg = Assets.instance.bruno.body04body;
                 headYoffset = -4;
                 break;
             case 5:
-                setColor(Color.GREEN);
+                setColor(Color.PINK);
                 regTex = Assets.instance.bruno.body05;
                 brunoHeadReg = Assets.instance.bruno.body05head;
                 brunoBodyReg = Assets.instance.bruno.body05body;

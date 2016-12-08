@@ -42,7 +42,7 @@ public class ArmPiece extends AbstractGameObject {
                 regTex = Assets.instance.roboticParts.copperFitting1;
                 break;
             case 2:
-                setColor(Color.CYAN);
+                setColor(Color.GREEN);
                 regTex = Assets.instance.roboticParts.copperFitting2;
                 break;
             case 3:
@@ -50,11 +50,11 @@ public class ArmPiece extends AbstractGameObject {
                 regTex = Assets.instance.roboticParts.copperFitting3;
                 break;
             case 4:
-                setColor(Color.VIOLET);
+                setColor(Color.CYAN);
                 regTex = Assets.instance.roboticParts.copperFitting4;
                 break;
             case 5:
-                setColor(Color.GREEN);
+                setColor(Color.PINK);
                 regTex = Assets.instance.roboticParts.copperFitting5;
                 break;
         }

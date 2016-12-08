@@ -112,6 +112,7 @@ public class VirtualBlock extends AbstractGameObject {
             @Override
             public void touchDown(InputEvent event, float x, float y, int pointer, int button){
                 //Gdx.app.debug(TAG, "isTouched!!!");
+
             }
 
             @Override
@@ -133,16 +134,16 @@ public class VirtualBlock extends AbstractGameObject {
                 setColor(Color.YELLOW);
                 break;
             case 2:
-                setColor(Color.CYAN);
+                setColor(Color.GREEN);
                 break;
             case 3:
                 setColor(Color.ORANGE);
                 break;
             case 4:
-                setColor(Color.VIOLET);
+                setColor(Color.CYAN);
                 break;
             case 5:
-                setColor(Color.GREEN);
+                setColor(Color.PINK);
                 break;
         }
         getColor().a = myAlpha;
