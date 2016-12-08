@@ -104,8 +104,8 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
                 r1.set(level.bruno.getX()+level.bruno.getWidth()-4,
-                        level.bruno.getY(),
-                        4, level.bruno.getHeight());
+                        level.bruno.getY()+level.bruno.getHeight()-4,
+                        4, 4);
                 r2.set(level.price.getX(),
                         level.price.getY(),
                         level.price.bounds.width, level.price.bounds.height);

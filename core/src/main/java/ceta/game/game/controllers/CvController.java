@@ -4,6 +4,7 @@ import ceta.game.CetaGame;
 import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -13,10 +14,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class CvController extends AbstractWorldController {
     private static final String TAG = CvController.class.getName();
     protected CVBlocksManager cvBlocksManager;
+    private int timeToWait;
 
 
     public CvController(DirectedGame game, Stage stage, int levelNr) {
         super(game, stage, levelNr);
+        if(GamePreferences.instance.actionSubmit) {
+            timeToWait = Constants.ACTION_SUBMIT_WAIT;
+            Gdx.app.log(TAG, " time to wait!!! "+timeToWait);
+        }
+        else {
+            timeToWait = 0;
+            Gdx.app.log(TAG, "no time to wait!!!");
+        }
 
     }
 
@@ -28,11 +38,7 @@ public class CvController extends AbstractWorldController {
                 goToCongratulationsScreen();
         }
         else{
-            // if price is static
-
             testCollisions(); // winning condition checked
-
-
         }
 
         handleDebugInput(deltaTime);
@@ -49,16 +55,19 @@ public class CvController extends AbstractWorldController {
         /// detection-related end
 
 
+        /// inactivity?
         if(cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT){
             Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
             setPlayerInactive(true);
-            cvBlocksManager.resetNoChangesSince();
+            //cvBlocksManager.resetNoChangesSince();
+        }else{
+            setPlayerInactive(false);
         }
 
         // we start to act after kids move
         if(!cvBlocksManager.isWaitForFirstMove()) {
 
-            if (cvBlocksManager.getTimeWithoutChange() > Constants.ACTION_SUBMIT_WAIT) {
+            if (cvBlocksManager.getTimeWithoutChange() > timeToWait) {
                 if (!countdownOn) //if we are not counting, we start!
                     setCountdownOn(true);
             } else {
@@ -97,7 +106,7 @@ public class CvController extends AbstractWorldController {
 
     @Override
     protected void testCollisions() {
-        Gdx.app.log(TAG," testCollisions ---  ");
+        //Gdx.app.log(TAG," testCollisions ---  ");
         super.testCollisions();
     }
 

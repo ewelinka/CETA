@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import ceta.game.managers.LevelsManager;
@@ -33,7 +34,7 @@ public class CetaGame extends DirectedGame {
 		levelsManager = new LevelsManager(this);
 
 		// load music
-		//AudioManager.instance.play(Assets.instance.music.song01);
+		AudioManager.instance.play(Assets.instance.music.song01);
 		ScreenTransition transition = ScreenTransitionFade.init(1);
 		//setScreen(new MenuScreen(this),transition);
 		//setScreen(new Level3VerticalScreen(this,1),transition);

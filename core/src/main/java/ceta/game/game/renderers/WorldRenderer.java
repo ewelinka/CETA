@@ -3,6 +3,7 @@ package ceta.game.game.renderers;
 import ceta.game.game.Assets;
 import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -68,7 +69,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
             renderHelperNumbers(spriteBatch);
 
         if (worldController.getCountdownOn()) {
-            renderCounter(spriteBatch);
+            if(GamePreferences.instance.actionSubmit)
+                renderCounter(spriteBatch);
         }
         //renderPriceValue(spriteBatch);
         renderGui(spriteBatch);

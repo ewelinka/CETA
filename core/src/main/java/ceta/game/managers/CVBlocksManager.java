@@ -239,7 +239,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
                 Actions.rotateTo(rot,actionsSpeed)
         ));
         noChangesSince = TimeUtils.millis();
-        waitForFirstMove = false;
+        //waitForFirstMove = false;
     }
 
     private void removeBlockCV(int id, int val){
