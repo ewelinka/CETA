@@ -36,25 +36,30 @@ public class BrunoVertical extends Bruno {
     private float actionVelocity;
 
 
+
     public BrunoVertical (int value, BrunosManager brunosManager) {
         this.brunosManager = brunosManager;
         brunoValue = value;
         goingToDie = false;
-        init();
         setColorAndTexture(brunoValue);
+        init();
+
 
     }
 
 
     public void init () {
-        //regTex = Assets.instance.bruno.body;
+
         headState = HEAD_STATE.FIXED;
         this.setSize(Constants.BASE,Constants.BASE*brunoValue); // now we can set the values that depend on size
         this.setPosition(Constants.VERTICAL_MIDDLE_X - getWidth()/2 ,Constants.DETECTION_ZONE_END-Constants.BASE/2);
         this.setTerminalX(Constants.VERTICAL_MIDDLE_X - getWidth()/2);
         this.setTerminalY(Constants.DETECTION_ZONE_END-Constants.BASE/2);
         actionVelocity = 0.6f;
+
         super.superinit();
+
+
     }
 
     protected void setColorAndTexture(int bValue){ //TODO all bodies and all heads
@@ -221,6 +226,10 @@ public class BrunoVertical extends Bruno {
         offsetY = 0;
 
 
+    }
+
+    public float getEatPointY(){
+        return getY()+ brunoBodyReg.getRegionHeight()+headYoffset - 4;
     }
 
 

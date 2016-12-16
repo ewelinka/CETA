@@ -30,8 +30,9 @@ public class Price extends AbstractGameObject {
     private int returnCounter;
     private boolean isMovingVertical;
 
-    //TODO shouldn't be fixed val!!!
+
     private float myStartX;
+    private float myStartY;
     private int rotationVelocity;
     private int verticalMiddleXPrice = Constants.VERTICAL_MIDDLE_X + Constants.PRICE_X_OFFSET;
 
@@ -60,6 +61,7 @@ public class Price extends AbstractGameObject {
 
     private void localInit(int vel, int start, int priceReturn){
         myStartX = Constants.HORIZONTAL_ZERO_X;
+        myStartY = Constants.DETECTION_ZONE_END;
         rotationVelocity = 30;
 
         velocity = vel;
@@ -95,7 +97,7 @@ public class Price extends AbstractGameObject {
         if (this.getX() < -Constants.VIEWPORT_WIDTH / 2) {
             returnCounter -= 1;
             if (returnCounter < 0) {
-                setPositionStartRight(); // new position!
+                setPositionStartRight(false,0,0); // new position! not eaten!
                 returnCounter = maxReturn;
 
             } else
@@ -142,16 +144,16 @@ public class Price extends AbstractGameObject {
 
     private void setInitialPositionMovingVertical(){
         if(isDynamic) {
-            setNewPositionMV(myStartX, Constants.VIEWPORT_HEIGHT / 2 ); // faling from the top
+            setNewPositionMV(Constants.VIEWPORT_HEIGHT / 2 ); // faling from the top
         }
         else{
-            setNewPositionMV(myStartX, Constants.PRICE_Y_HORIZONTAL); // TODO define when we have big bruno, fixed val
+            setNewPositionMV(Constants.PRICE_Y_HORIZONTAL); // TODO define when we have big bruno, fixed val
         }
     }
 
     private void setInitialPositionMovingHorizontal(){
         if(isDynamic) {
-            setNewPositionMH(Constants.VIEWPORT_WIDTH/2  );
+            setNewPositionMH(Constants.VIEWPORT_WIDTH/2);
         }
         else{
             setNewPositionMH(verticalMiddleXPrice-getWidth()/2);
@@ -160,21 +162,21 @@ public class Price extends AbstractGameObject {
 
 
 
-    public void setNewPositionMV(float startX, float startY){
+    public void setNewPositionMV(float startYnow){
         currentNumber = MathUtils.random(1,10);
         // adjust the position to range number (currentNumber-startNumber)
         // and taking into account where we start to draw
-        setPosition( startX + (currentNumber)*Constants.BASE - getWidth()/2, startY );
+        setPosition( myStartX + (currentNumber)*Constants.BASE - getWidth()/2, startYnow );
     }
 
-    public void setNewPositionMH(float startX){
+    public void setNewPositionMH(float myStartXnow){
         currentNumber = MathUtils.random(1,10);
         // adjust the position to range number (currentNumber-startNumber)
-        setPosition( startX, Constants.DETECTION_ZONE_END + (currentNumber)*Constants.BASE - getHeight()/2);
+        setPosition( myStartXnow, myStartY + (currentNumber)*Constants.BASE - getHeight()/2);
     }
 
 
-    public void moveToNewPositionHorizontalNL(float startX, int startY, boolean wasEaten){
+    public void moveToNewPositionHorizontalNL(boolean wasEaten){
         int newPosition = MathUtils.random(1,10);
         while (newPosition == currentNumber){
             newPosition = MathUtils.random(1,10);
@@ -188,7 +190,7 @@ public class Price extends AbstractGameObject {
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
                     Actions.color(Color.WHITE),
-                    Actions.moveTo(startX + currentNumber * Constants.BASE - getWidth() / 2, startY),
+                    Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, myStartY),
                     Actions.scaleTo(1, 1)
             ));
         }else {
@@ -201,18 +203,18 @@ public class Price extends AbstractGameObject {
                     Actions.scaleTo(0.0f, 0.0f, 0.05f),
                     delay(0.2f),
                     Actions.color(Color.WHITE),
-                    Actions.moveTo(startX + currentNumber * Constants.BASE - getWidth() / 2, startY),
+                    Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.PRICE_Y_HORIZONTAL),
                     Actions.scaleTo(1, 1)
             ));
         }
 
     }
 
-    public void moveToNewPositionHorizontalNL(float startX, int startY){
-        moveToNewPositionHorizontalNL(startX,startY,false);
-    }
+//    public void moveToNewPositionHorizontalNL(float startX, int startY){
+//        moveToNewPositionHorizontalNL(startX,startY,false);
+//    }
 
-    public void moveToNewPositionVerticalNL(float startX, int startY, boolean wasEaten){
+    public void moveToNewPositionVerticalNL(boolean wasEaten, float toX, float toY){
         int newPosition = MathUtils.random(1,10);
         while (newPosition == currentNumber){
             newPosition = MathUtils.random(1,10);
@@ -223,11 +225,11 @@ public class Price extends AbstractGameObject {
         if(wasEaten){
             Gdx.app.log(TAG, "was eaten!! moveToNewPositionVerticalNL");
             addAction(sequence(
-                    parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+                    parallel(Actions.moveTo(toX,toY,0.5f),
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
                     Actions.color(Color.WHITE),
-                    Actions.moveTo(startX ,startY + currentNumber*Constants.BASE - getHeight()/2),
+                    Actions.moveTo(verticalMiddleXPrice-getWidth()/2 ,myStartY + currentNumber*Constants.BASE - getHeight()/2),
                     Actions.scaleTo(1,1)
 
 
@@ -243,7 +245,7 @@ public class Price extends AbstractGameObject {
                     Actions.scaleTo(0.0f,0.0f,0.05f),
                     delay(0.2f),
                     Actions.color(Color.WHITE),
-                    Actions.moveTo(startX ,startY + currentNumber*Constants.BASE - getHeight()/2),
+                    Actions.moveTo(myStartX ,myStartY + currentNumber*Constants.BASE - getHeight()/2),
                     Actions.scaleTo(1,1)
 
 
@@ -252,9 +254,9 @@ public class Price extends AbstractGameObject {
 
     }
 
-    public void moveToNewPositionVerticalNL(float startX, int startY){
-        moveToNewPositionVerticalNL(startX,startY,false);
-    }
+//    public void moveToNewPositionVerticalNL(){
+//        moveToNewPositionVerticalNL(false);
+//    }
 
     public void wasCollected(){
 
@@ -278,18 +280,17 @@ public class Price extends AbstractGameObject {
 
     }
 
-    public void wasEaten(){
-
+    public void wasEaten(float whereX, float whereY){
         if (isMovingVertical)
             wasEatenHorizontalNumberLine();
         else
-            wasEatenVerticalNumberLine();
+            wasEatenVerticalNumberLine(whereX,whereY);
 
     }
 
-    public void lastEaten(){
+    public void lastEaten(float whereX, float whereY){
 
-        addAction(parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+        addAction(parallel(Actions.moveTo(whereX,whereY,0.5f),
                 Actions.scaleTo(0,0,0.5f)));
 
     }
@@ -298,15 +299,15 @@ public class Price extends AbstractGameObject {
         if (isDynamic)
             setPositionStartAbove(myStartX, true);
         else
-            moveToNewPositionHorizontalNL(myStartX,Constants.PRICE_Y_HORIZONTAL,true);
+            moveToNewPositionHorizontalNL(true);
 
     }
 
-    private void wasEatenVerticalNumberLine(){
+    private void wasEatenVerticalNumberLine(float whereX, float whereY){
         if (isDynamic)
-            setPositionStartRight(true);
+            setPositionStartRight(true, whereX, whereY);
         else
-            moveToNewPositionVerticalNL(verticalMiddleXPrice- getWidth()/2,Constants.DETECTION_ZONE_END,true);
+            moveToNewPositionVerticalNL(true, whereX, whereY);
 
     }
 
@@ -317,15 +318,15 @@ public class Price extends AbstractGameObject {
         if (isDynamic)
             setPositionStartAbove(myStartX);
         else
-            moveToNewPositionHorizontalNL(myStartX,Constants.PRICE_Y_HORIZONTAL);
+            moveToNewPositionHorizontalNL(false);
 
     }
 
     public void wasCollectedVerticalNumberLine(){
         if (isDynamic)
-            setPositionStartRight();
+            setPositionStartRight(false,0,0);
         else
-            moveToNewPositionVerticalNL(verticalMiddleXPrice- getWidth()/2,Constants.DETECTION_ZONE_END);
+            moveToNewPositionVerticalNL(false,0,0);
 
     }
 
@@ -371,7 +372,7 @@ public class Price extends AbstractGameObject {
         setPositionStartAbove(startX, false);
     }
 
-    private void setPositionStartRight(boolean wasEaten){
+    private void setPositionStartRight(boolean wasEaten, float whereX, float whereY){
         returnCounter = maxReturn; // new position, new counter!
 
         int newPosition = MathUtils.random(1,10);
@@ -384,7 +385,7 @@ public class Price extends AbstractGameObject {
         if(wasEaten){
             Gdx.app.log(TAG, "was eaten!! setPositionStartRight");
             addAction(sequence(
-                    parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+                    parallel(Actions.moveTo(whereX,whereY,0.5f),
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
                     Actions.color(Color.WHITE),
@@ -410,9 +411,7 @@ public class Price extends AbstractGameObject {
 
     }
 
-    private void setPositionStartRight() {
-        setPositionStartRight(false);
-    }
+
 
     public int getDisplayNumber(){
         return (currentNumber+startNumber);

@@ -30,12 +30,12 @@ public class BrunoMovingHorizontal extends Bruno {
     public void draw(Batch batch, float parentAlpha) {
         //batch.setProjectionMatrix(camera.combined);
         // batch.draw(regTex,this.getX(),this.getY());
-        if(hasActions())
-            regTex = animation.getKeyFrame(stateTime,true);
-        else {
-            regTex = Assets.instance.bruno.still;
+        if(!hasActions()){
+            //regTex = Assets.instance.bruno.still;
             lookingLeft = false;
+            stateTime = 0;
         }
+        regTex = animation.getKeyFrame(stateTime,true);
 
         batch.setColor(this.getColor());
         batch.draw(regTex.getTexture(),
@@ -47,15 +47,15 @@ public class BrunoMovingHorizontal extends Bruno {
                 regTex.getRegionX(), regTex.getRegionY(),
                 regTex.getRegionWidth(), regTex.getRegionHeight(), lookingLeft,false);
 
-        if(hasActions())
-            batch.draw(head.getTexture(),
-                    this.getX()+offsetX, this.getY()+offsetY + 50 ,
-                    0, 0,
-                    this.getWidth() ,30,
-                    this.getScaleX(), this.getScaleY(),
-                    this.getRotation(),
-                    head.getRegionX(), head.getRegionY(),
-                    head.getRegionWidth(), head.getRegionHeight(), lookingLeft,false);
+
+        batch.draw(head.getTexture(),
+                this.getX()+offsetX, this.getY()+offsetY + 50 ,
+                0, 0,
+                this.getWidth() ,32,
+                this.getScaleX(), this.getScaleY(),
+                this.getRotation(),
+                head.getRegionX(), head.getRegionY(),
+                head.getRegionWidth(), head.getRegionHeight(), lookingLeft,false);
 
         batch.setColor(1,1,1,1);
 

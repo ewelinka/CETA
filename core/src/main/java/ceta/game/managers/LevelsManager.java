@@ -35,7 +35,7 @@ public class LevelsManager {
             case 2:
                 if(Constants.WITH_CV){
 
-                        game.setScreen(new Level2VerticalCvScreen(game, 1), transition);
+                        game.setScreen(new Level1VerticalCvScreen(game, 1), transition);
 
                 }
                 else

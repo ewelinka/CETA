@@ -93,6 +93,25 @@ public class WorldRendererCV extends WorldRenderer {
         batch.end();
     }
 
+    @Override
+    protected void renderDetectionZoneImg(SpriteBatch batch){
+
+        TextureAtlas.AtlasRegion b = Assets.instance.background.piecesBox;
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(b.getTexture(),
+                -Constants.CV_DETECTION_EDGE_TABLET/2, -Constants.VIEWPORT_HEIGHT/2,
+                b.getRegionWidth()/2, b.getRegionHeight()/2,
+                Constants.CV_DETECTION_EDGE_TABLET, Constants.CV_DETECTION_EDGE_TABLET,
+                1, 1,
+                0,
+                b.getRegionX(), b.getRegionY(),
+                b.getRegionWidth(), b.getRegionHeight(), false,false);
+        batch.end();
+
+
+
+    }
 
 
 

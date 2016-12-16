@@ -4,6 +4,7 @@ import ceta.game.game.levels.Level1Vertical;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.managers.BrunosManager;
 import ceta.game.screens.DirectedGame;
+import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import ceta.game.managers.VirtualBlocksManager;
 import com.badlogic.gdx.Gdx;
@@ -60,23 +61,26 @@ public class Level1VerticalController extends NoCvController {
     }
 
 
+    @Override
+    protected void testCollisionsVerticalDynamic(BrunoVertical objectToCheck){
+        if(objectToCheck != null ) {
+            r1.set(objectToCheck.getX() ,
+                    objectToCheck.getY()+ objectToCheck.getHeight() - 4, // two pixels below the middle
+                    objectToCheck.getWidth(), 4);
+            r2.set(level.price.getX(),
+                    level.price.getY(),
+                    level.price.getWidth()/2, level.price.getHeight()/2);
 
-//    @Override
-//    protected void testCollisions () {
-//        BrunoVertical lastBruno = getLastBruno();
-//        if (lastBruno != null && !brunosManager.isUpdatingBrunosPositions()) {
-//            r1.set(lastBruno.getX() + lastBruno.getWidth()/2 - 2,
-//                    lastBruno.getY()+lastBruno.getHeight(), // two pixels below the middle
-//                    4+Constants.PRICE_X_OFFSET, 4);
-//            r2.set(level.price.getX() + level.price.getWidth()/2 - 2,
-//                    level.price.getY() + level.price.getHeight() / 2 - 2,
-//                    4, 4);
-//
-//            if (r1.overlaps(r2)) {
-//                onCollisionBrunoWithPriceVertical(level.price, lastBruno);
-//            }
-//        }
-//    }
+            if (r1.overlaps(r2)) {
+                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                moveMade = false;
+            } else{
+                //TODO check if the price number and number line position ==
+                // if == -> its a good answer
+                // if not -> error
+            }
+        }
+    }
 
     public BrunoVertical getLastBruno(){
         return brunosManager.getLastBruno();

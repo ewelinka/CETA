@@ -96,7 +96,7 @@ public class Level3VerticalController extends NoCvController {
             if(brunoV.getTerminalY() != yZero ) {
                 r1.set(brunoV.getX() ,
                         brunoV.getY() ,
-                        brunoV.getWidth()+Constants.PRICE_X_OFFSET, level.bruno.getHeight()/2);
+                        brunoV.getWidth(), level.bruno.getHeight()/2);
                 r2.set(level.price.getX(),
                         level.price.getY(),
                         level.price.getWidth()/2, level.price.getHeight()/2);

@@ -84,9 +84,10 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     protected void testCollisions(){
-        Gdx.app.log(TAG," testCollisions ");
-        if(level.price.isDynamic())
+       // Gdx.app.log(TAG," testCollisions with price dynamic: "+level.price.isDynamic());
+        if(level.price.isDynamic()) {
             testCollisionsInController(true);
+        }
         else {
             if(moveMade)
                 testCollisionsInController(false);
@@ -112,6 +113,10 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         if (keycode == Input.Keys.R) {
             setCountdownOn(true);
             Gdx.app.debug(TAG, "Action submit");
+        }
+        else if(keycode == Input.Keys.N){
+            GamePreferences.instance.addOneToLastLevelAndSave();
+            game.getLevelsManager().goToNextLevel();
         }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {
@@ -245,8 +250,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected void testCollisionsVerticalDynamic(BrunoVertical objectToCheck){
         if(objectToCheck != null ) {
             r1.set(objectToCheck.getX() ,
-                    objectToCheck.getY()+ objectToCheck.getHeight() - 4, // two pixels below the middle
-                    objectToCheck.getWidth()+Constants.PRICE_X_OFFSET, 4);
+                    objectToCheck.getY()+ objectToCheck.getHeight()/2 - 4, // two pixels below the middle
+                    objectToCheck.getWidth(), 4);
             r2.set(level.price.getX(),
                     level.price.getY(),
                     level.price.getWidth()/2, level.price.getHeight()/2);
@@ -296,11 +301,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             score += 1;
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
-                goldcoin.wasEaten();
+                goldcoin.wasEaten(bruno.getX(), bruno.getEatPointY());
 
             } else {
                 screenFinished = true;
-                goldcoin.lastEaten();
+                goldcoin.lastEaten(bruno.getX(), bruno.getEatPointY());
                 timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
 
 
@@ -355,5 +360,16 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public boolean isPlayerInactive(){
         return playerInactive;
     }
-    
+
+    @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        // ignore if its not left mouse button or first touch pointer
+        if(screenY > 200) {
+            GamePreferences.instance.addOneToLastLevelAndSave();
+            game.getLevelsManager().goToNextLevel();
+        }
+
+        return true;
+    }
+
+
 }

@@ -50,16 +50,17 @@ public class Level3HorizontalController extends NoCvController  {
     }
 
 
-    protected void testCollisionsStatic () {
-
-        if (!(level.bruno.getActions().size > 0)) { // if bruno is not moving
+    private void testCollisionsStatic () {
+        Gdx.app.log(TAG," testCollisionsStatic ======");
+        if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
+            // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
-                r1.set(level.bruno.getX()+level.bruno.getWidth()-4,
-                        level.bruno.getY(),
+                r1.set(level.bruno.getX()+level.bruno.getWidth()/2 - 2,
+                        level.bruno.getY() ,
                         4, level.bruno.getHeight());
-                r2.set(level.price.getX(),
-                        level.price.getY(),
-                        level.price.bounds.width, level.price.bounds.height);
+                r2.set(level.price.getX()+level.price.getWidth()/2 - 2,
+                        Constants.DETECTION_ZONE_END,
+                        4, Math.abs(Constants.DETECTION_ZONE_END) + level.price.getY() +   level.price.bounds.height);
 
                 if (r1.overlaps(r2)) {
                     onCollisionBrunoWithPrice(level.price);
@@ -80,19 +81,22 @@ public class Level3HorizontalController extends NoCvController  {
         }
     }
 
-    protected void testCollisionsDynamic () {
+
+    private void testCollisionsDynamic () {
+        //Gdx.app.log(TAG," testCollisionsDynamic ======");
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
-                r1.set(level.bruno.getX()+level.bruno.getWidth()-4,
-                        level.bruno.getY(),
-                        4, level.bruno.getHeight());
+                r1.set(level.bruno.getX()+level.bruno.getWidth()/2 -2,
+                        level.bruno.getY()+level.bruno.getHeight(),
+                        4, 4);
                 r2.set(level.price.getX(),
                         level.price.getY(),
-                        level.price.bounds.width, level.price.bounds.height);
+                        level.price.getWidth(), level.price.getHeight());
 
                 if (r1.overlaps(r2)) {
                     onCollisionBrunoWithPrice(level.price);
+                   // onCollisionBrunoWithPriceVertical(level.price,level.bruno);
                     moveMade = false;
                 } else{
                     //TODO check if the price number and number line position ==
@@ -105,6 +109,7 @@ public class Level3HorizontalController extends NoCvController  {
 
     @Override
     protected void testCollisionsInController(boolean isDynamic){
+        //Gdx.app.log(TAG," testCollisionsInController ====== isDynamic "+isDynamic);
         if(isDynamic)
             testCollisionsDynamic();
         else

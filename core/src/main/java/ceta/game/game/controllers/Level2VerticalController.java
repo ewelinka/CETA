@@ -57,24 +57,6 @@ public class Level2VerticalController extends NoCvController {
         //level.bruno.shake();
     }
 
-
-//    @Override
-//    protected void testCollisions () {
-//        EnergyUnit lastPiece = getLastAnimatedBrunoPiece();
-//        if (lastPiece != null && !brunosManager.isUpdatingBrunosPositions()) {
-//
-//            r1.set(lastPiece.getX() + lastPiece.getWidth()/2 - 2,
-//                    lastPiece.getY()+lastPiece.getHeight(), // two pixels below the middle
-//                    4 + Constants.PRICE_X_OFFSET, 4);
-//            r2.set(level.price.getX() + level.price.getWidth()/2 - 2,
-//                    level.price.getY() + level.price.getHeight() / 2 - 2,
-//                    4, 4);
-//
-//            if (r1.overlaps(r2)) {
-//                onCollisionBrunoWithPriceVertical(level.price, lastPiece);
-//            }
-//        }
-//    }
     @Override
     protected void testCollisionsVerticalStatic(BrunoVertical objectToCheck){
         if(objectToCheck != null ) {
@@ -107,7 +89,6 @@ public class Level2VerticalController extends NoCvController {
 
     @Override
     protected void testCollisionsInController (boolean isDynamic) {
-       // EnergyUnit lastPiece = getLastAnimatedBrunoPiece();
         BrunoVertical lastPiece = energyManager.getBrunoVertical();
         if (!energyManager.isUpdatingBrunosPositions()) {
             if(isDynamic)

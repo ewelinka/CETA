@@ -59,17 +59,18 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
     }
 
 
+
     protected void testCollisionsStatic () {
 
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
-                r1.set(level.bruno.getX()+level.bruno.getWidth()-4,
-                        level.bruno.getY(),
+                r1.set(level.bruno.getX()+level.bruno.getWidth()/2 - 2,
+                        level.bruno.getY() ,
                         4, level.bruno.getHeight());
-                r2.set(level.price.getX(),
-                        level.price.getY(),
-                        level.price.bounds.width, level.price.bounds.height);
+                r2.set(level.price.getX()+level.price.getWidth()/2 - 2,
+                        Constants.DETECTION_ZONE_END,
+                        4, Math.abs(Constants.DETECTION_ZONE_END) + level.price.getY() +   level.price.bounds.height);
 
                 if (r1.overlaps(r2)) {
                     onCollisionBrunoWithPrice(level.price);

@@ -1,11 +1,14 @@
 package ceta.game.game.controllers;
 
+import ceta.game.game.Assets;
 import ceta.game.game.levels.Level2Vertical;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.game.objects.EnergyUnit;
 import ceta.game.managers.EnergyManager;
 import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.DirectedGame;
+import ceta.game.util.AudioManager;
+import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,8 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class Level2VerticalCvController extends CvController {
     private static final String TAG = Level2VerticalCvController.class.getName();
+    private EnergyManager energyManager;
 
-    private EnergyManager brunosManager;
     public Level2VerticalCvController(DirectedGame game, Stage stage, int levelNr) {
         super(game, stage, levelNr);
     }
@@ -24,7 +27,7 @@ public class Level2VerticalCvController extends CvController {
     @Override
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        brunosManager = new EnergyManager(stage);
+        energyManager = new EnergyManager(stage);
         cvBlocksManager = new CVBlocksManager(game,stage);
 
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
@@ -32,26 +35,26 @@ public class Level2VerticalCvController extends CvController {
         cameraHelper.setTarget(null);
         score = 0;
         cvBlocksManager.init();
-        brunosManager.init();
+        energyManager.init();
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        brunosManager.updateAlpha(deltaTime);
+        energyManager.updateAlpha(deltaTime);
     }
 
 
     @Override
     protected void updateDigitalRepresentations() {
-        brunosManager.updateAnimated(cvBlocksManager.getNewDetected(), cvBlocksManager.getToRemoveValues());
+        energyManager.updateAnimated(cvBlocksManager.getNewDetected(), cvBlocksManager.getToRemoveValues());
     }
 
 
     @Override
     protected void testCollisionsInController (boolean isDynamic) {
-        BrunoVertical lastPiece = getLastAnimatedBrunoPiece();
-        if (!brunosManager.isUpdatingBrunosPositions()) {
+        BrunoVertical lastPiece = energyManager.getBrunoVertical();
+        if (!energyManager.isUpdatingBrunosPositions()) {
             if(isDynamic)
                 testCollisionsVerticalDynamic(lastPiece);
             else
@@ -60,12 +63,37 @@ public class Level2VerticalCvController extends CvController {
     }
 
     @Override
-    protected void countdownMove() {
-        //level.bruno.shake();
+    protected void testCollisionsVerticalStatic(BrunoVertical objectToCheck){
+        if(objectToCheck != null ) {
+            r1.set(objectToCheck.getX() ,
+                    objectToCheck.getY(), // two pixels below the middle
+                    objectToCheck.getWidth()+ Constants.PRICE_X_OFFSET , objectToCheck.getHeight()/2);
+            Gdx.app.log(TAG," x "+objectToCheck.getX()+" y "+(objectToCheck.getY()+ objectToCheck.getHeight() - 4)+" w "+(objectToCheck.getWidth()+ Constants.PRICE_X_OFFSET )+ " h "+4);
+            r2.set(level.price.getX(),
+                    level.price.getY(),
+                    level.price.getWidth()/2, level.price.getHeight()/2);
+            Gdx.app.log(TAG,"price x "+level.price.getX()+" y "+level.price.getY()+" w "+level.price.getWidth()/2+" h "+level.price.getHeight()/2);
+            if (r1.overlaps(r2)) {
+                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                moveMade = false;
+            } else {
+                if (moveMade) {
+                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    moveMade = false;
+                }
+
+            }
+        }else{
+            if (moveMade) {
+                AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                moveMade = false;
+            }
+        }
     }
 
-
-    public BrunoVertical getLastAnimatedBrunoPiece(){
-        return brunosManager.getBrunoVertical();
+    @Override
+    protected void countdownMove() {
+        //level.bruno.shake();
+        energyManager.getBrunoVertical().shake();
     }
 }

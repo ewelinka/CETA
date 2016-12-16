@@ -56,7 +56,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     public MenuScreen (DirectedGame game) {
         super(game,0);
-        GamePreferences.instance.setLastLevel(1); // TODO delete after testing
+        GamePreferences.instance.setLastLevel(5); // TODO delete after testing
     }
 
 
