@@ -4,30 +4,23 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-02bruno
+02cabeza
   rotate: false
-  xy: 966, 12
-  size: 40, 80
-  orig: 40, 80
-  offset: 0, 0
-  index: -1
-02cuerpo
-  rotate: false
-  xy: 966, 518
-  size: 36, 59
-  orig: 36, 59
+  xy: 969, 179
+  size: 40, 25
+  orig: 40, 25
   offset: 0, 0
   index: -1
 03bruno
   rotate: false
-  xy: 944, 699
+  xy: 892, 402
   size: 46, 121
   orig: 46, 121
   offset: 0, 0
   index: -1
 03cuerpo
   rotate: false
-  xy: 892, 279
+  xy: 892, 302
   size: 46, 98
   orig: 46, 98
   offset: 0, 0
@@ -41,7 +34,7 @@ repeat: none
   index: -1
 04cuerpo
   rotate: false
-  xy: 892, 379
+  xy: 892, 525
   size: 48, 133
   orig: 48, 133
   offset: 0, 0
@@ -53,11 +46,46 @@ repeat: none
   orig: 55, 200
   offset: 0, 0
   index: -1
+05cabeza
+  rotate: false
+  xy: 912, 180
+  size: 55, 24
+  orig: 55, 24
+  offset: 0, 0
+  index: -1
 05cuerpo
   rotate: false
   xy: 949, 844
   size: 41, 178
   orig: 41, 178
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 940, 290
+  size: 80, 40
+  orig: 80, 40
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 872, 52
+  size: 120, 40
+  orig: 120, 40
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 670, 10
+  size: 160, 40
+  orig: 160, 40
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 670, 52
+  size: 200, 40
+  orig: 200, 40
   offset: 0, 0
   index: -1
 aspiradora
@@ -69,37 +97,44 @@ aspiradora
   index: -1
 azul
   rotate: false
-  xy: 942, 432
+  xy: 942, 578
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 baseEnergia
   rotate: false
-  xy: 912, 176
+  xy: 670, 2
   size: 30, 6
   orig: 30, 6
   offset: 0, 0
   index: -1
-cloud
+box
   rotate: false
-  xy: 832, 18
-  size: 132, 74
-  orig: 132, 74
+  xy: 944, 748
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+camina
+  rotate: false
+  xy: 944, 661
+  size: 53, 85
+  orig: 53, 85
+  offset: 0, 0
+  index: 1
+carrito
+  rotate: false
+  xy: 927, 11
+  size: 79, 39
+  orig: 79, 39
   offset: 0, 0
   index: -1
 copper
   rotate: false
-  xy: 942, 350
+  xy: 942, 496
   size: 80, 80
   orig: 80, 80
-  offset: 0, 0
-  index: -1
-copper2
-  rotate: false
-  xy: 670, 12
-  size: 160, 80
-  orig: 160, 80
   offset: 0, 0
   index: -1
 copper3
@@ -118,7 +153,14 @@ copper4
   index: -1
 doradoA
   rotate: false
-  xy: 940, 268
+  xy: 940, 414
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+doradoB
+  rotate: false
+  xy: 940, 332
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
@@ -132,23 +174,16 @@ energia
   index: -1
 fuego
   rotate: false
-  xy: 670, 2
+  xy: 892, 292
   size: 17, 8
   orig: 17, 8
   offset: 0, 0
   index: -1
 fuegoJetpack
   rotate: false
-  xy: 1013, 249
+  xy: 1013, 271
   size: 9, 17
   orig: 9, 17
-  offset: 0, 0
-  index: -1
-latter-double
-  rotate: false
-  xy: 892, 514
-  size: 72, 144
-  orig: 72, 144
   offset: 0, 0
   index: -1
 mano
@@ -158,25 +193,18 @@ mano
   orig: 888, 764
   offset: 0, 0
   index: -1
+nubeA
+  rotate: false
+  xy: 832, 6
+  size: 93, 44
+  orig: 93, 44
+  offset: 0, 0
+  index: -1
 nubeD
   rotate: false
-  xy: 912, 184
+  xy: 912, 206
   size: 99, 82
   orig: 99, 82
-  offset: 0, 0
-  index: -1
-rayo aspirador
-  rotate: false
-  xy: 944, 661
-  size: 47, 36
-  orig: 47, 36
-  offset: 0, 0
-  index: -1
-robot02
-  rotate: false
-  xy: 966, 579
-  size: 40, 80
-  orig: 40, 80
   offset: 0, 0
   index: -1
 toraxEnergia
@@ -194,210 +222,238 @@ filter: Nearest,Nearest
 repeat: none
 01bruno
   rotate: false
-  xy: 896, 540
+  xy: 246, 16
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 01cabeza
   rotate: false
-  xy: 896, 433
+  xy: 378, 24
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
   index: -1
 01cuerpo
   rotate: false
-  xy: 59, 5
+  xy: 331, 3
   size: 35, 21
   orig: 35, 21
   offset: 0, 0
   index: -1
-02cabeza
+02bruno
   rotate: false
-  xy: 695, 109
-  size: 40, 25
-  orig: 40, 25
+  xy: 969, 681
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: -1
+02cuerpo
+  rotate: false
+  xy: 969, 555
+  size: 36, 59
+  orig: 36, 59
   offset: 0, 0
   index: -1
 03cabeza
   rotate: false
-  xy: 896, 499
+  xy: 288, 17
   size: 41, 39
   orig: 41, 39
   offset: 0, 0
   index: -1
 04cabeza
   rotate: false
-  xy: 896, 467
+  xy: 331, 26
   size: 45, 30
   orig: 45, 30
   offset: 0, 0
   index: -1
-05cabeza
+1
   rotate: false
-  xy: 2, 2
-  size: 55, 24
-  orig: 55, 24
+  xy: 204, 16
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: -1
-box
+camina
   rotate: false
-  xy: 896, 697
-  size: 72, 72
-  orig: 72, 72
+  xy: 969, 937
+  size: 53, 85
+  orig: 53, 85
+  offset: 0, 0
+  index: 2
+camina
+  rotate: false
+  xy: 969, 850
+  size: 53, 85
+  orig: 53, 85
+  offset: 0, 0
+  index: 3
+caminaCabeza
+  rotate: false
+  xy: 100, 20
+  size: 53, 36
+  orig: 53, 36
   offset: 0, 0
   index: -1
-carrito
+camina_parado
   rotate: false
-  xy: 896, 582
-  size: 79, 39
-  orig: 79, 39
+  xy: 969, 763
+  size: 53, 85
+  orig: 53, 85
+  offset: 0, 0
+  index: -1
+copper2
+  rotate: false
+  xy: 404, 58
+  size: 160, 80
+  orig: 160, 80
   offset: 0, 0
   index: -1
 copper5
   rotate: false
-  xy: 2, 28
+  xy: 2, 58
   size: 400, 80
   orig: 400, 80
   offset: 0, 0
   index: -1
-doradoB
-  rotate: false
-  xy: 404, 28
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
 doradoC
   rotate: false
-  xy: 531, 110
+  xy: 604, 222
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 empezar
   rotate: false
-  xy: 531, 313
+  xy: 566, 19
   size: 176, 119
   orig: 176, 119
   offset: 0, 0
   index: -1
 empezarjuego2
   rotate: false
-  xy: 531, 313
+  xy: 566, 19
   size: 176, 119
   orig: 176, 119
   offset: 0, 0
   index: -1
 empezarjuego
   rotate: false
-  xy: 531, 192
+  xy: 744, 325
   size: 176, 119
   orig: 176, 119
   offset: 0, 0
   index: -1
-inicio
+engranajes
   rotate: false
-  xy: 2, 110
-  size: 527, 900
-  orig: 527, 900
+  xy: 2, 140
+  size: 600, 882
+  orig: 600, 882
   offset: 0, 0
   index: -1
 jetpack
   rotate: false
-  xy: 939, 505
+  xy: 418, 23
   size: 32, 33
   orig: 32, 33
   offset: 0, 0
   index: -1
 jugar
   rotate: false
-  xy: 709, 313
+  xy: 702, 204
   size: 176, 119
   orig: 176, 119
   offset: 0, 0
   index: -1
 jugar2
   rotate: false
-  xy: 709, 192
+  xy: 744, 23
   size: 176, 119
   orig: 176, 119
   offset: 0, 0
   index: -1
-latter
-  rotate: false
-  xy: 896, 623
-  size: 72, 72
-  orig: 72, 72
-  offset: 0, 0
-  index: -1
 manitoarriba
   rotate: false
-  xy: 531, 434
+  xy: 604, 446
   size: 363, 576
   orig: 363, 576
   offset: 0, 0
   index: -1
-nubeA
+mega_mascara
   rotate: false
-  xy: 793, 146
-  size: 93, 44
-  orig: 93, 44
+  xy: 880, 256
+  size: 140, 67
+  orig: 140, 67
   offset: 0, 0
   index: -1
 nubeB
   rotate: false
-  xy: 568, 50
+  xy: 686, 144
   size: 93, 58
   orig: 93, 58
   offset: 0, 0
   index: -1
 nubeC
   rotate: false
-  xy: 896, 935
+  xy: 604, 304
   size: 96, 75
   orig: 96, 75
   offset: 0, 0
   index: -1
 nubeE
   rotate: false
-  xy: 695, 136
+  xy: 2, 2
   size: 96, 54
   orig: 96, 54
   offset: 0, 0
   index: -1
-robot01
+rayo aspirador
   rotate: false
-  xy: 938, 540
-  size: 34, 40
-  orig: 34, 40
+  xy: 155, 20
+  size: 47, 36
+  orig: 47, 36
   offset: 0, 0
   index: -1
 screw
   rotate: false
-  xy: 896, 853
+  xy: 604, 140
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
+tubo
+  rotate: false
+  xy: 969, 616
+  size: 40, 63
+  orig: 40, 63
+  offset: 0, 0
+  index: -1
+tubo_final
+  rotate: false
+  xy: 604, 381
+  size: 132, 63
+  orig: 132, 63
+  offset: 0, 0
+  index: -1
 violeta
   rotate: false
-  xy: 486, 28
+  xy: 922, 364
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaB
   rotate: false
-  xy: 613, 110
+  xy: 880, 174
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaD
   rotate: false
-  xy: 896, 771
+  xy: 922, 92
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
@@ -408,18 +464,18 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-engranajes2
-  rotate: false
-  xy: 2, 297
-  size: 600, 700
-  orig: 600, 700
-  offset: 0, 0
-  index: -1
-excelente
+inicio
   rotate: false
   xy: 2, 2
-  size: 625, 293
-  orig: 625, 293
+  size: 527, 900
+  orig: 527, 900
+  offset: 0, 0
+  index: -1
+mega
+  rotate: false
+  xy: 531, 473
+  size: 427, 429
+  orig: 427, 429
   offset: 0, 0
   index: -1
 
@@ -450,21 +506,15 @@ filter: Nearest,Nearest
 repeat: none
 fondoV
   rotate: false
-  xy: 2, 2
+  xy: 2, 210
   size: 600, 700
   orig: 600, 700
   offset: 0, 0
   index: -1
-
-pack6.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-fondoC
+parteB
   rotate: false
   xy: 2, 2
-  size: 600, 512
-  orig: 600, 512
+  size: 600, 206
+  orig: 600, 206
   offset: 0, 0
   index: -1
