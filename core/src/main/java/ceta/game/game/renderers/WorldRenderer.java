@@ -60,7 +60,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
       //  clearWhite();
         clearBlue();
 
-        renderDetectionZone(shapeRenderer);
+        //renderDetectionZone(shapeRenderer);
+        renderDetectionZoneImg(spriteBatch);
         renderBackgroundImg(spriteBatch);
         renderHelperNumberLines(shapeRenderer);
         renderWorld(spriteBatch);

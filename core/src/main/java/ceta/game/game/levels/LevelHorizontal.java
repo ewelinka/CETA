@@ -22,7 +22,9 @@ public class LevelHorizontal extends AbstractLevel {
     public void init() {
 
         bruno = new Bruno();
-        bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(),Constants.DETECTION_ZONE_END);
+        //bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(),Constants.DETECTION_ZONE_END);
+        bruno.setPosition(-480,Constants.DETECTION_ZONE_END);
+
         // default horizontal
         price = new Price(levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
 

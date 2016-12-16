@@ -1,8 +1,8 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.levels.LevelHorizontal;
-import ceta.game.game.objects.ArmPieceAnimated;
-import ceta.game.managers.AnimatedRoboticArmManager;
+import ceta.game.game.objects.TubePieceAnimated;
+import ceta.game.managers.AnimatedRoboticTubeManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.GamePreferences;
 import ceta.game.managers.VirtualBlocksManager;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Level2HorizontalController extends Level1HorizontalController {
     private static final String TAG = Level2HorizontalController.class.getName();
-    private AnimatedRoboticArmManager roboticArmManager;
+    private AnimatedRoboticTubeManager roboticArmManager;
 
     public Level2HorizontalController(DirectedGame game, Stage stage, int levelNr) {
         super(game,stage,levelNr);
@@ -25,7 +25,7 @@ public class Level2HorizontalController extends Level1HorizontalController {
     @Override
     protected void localInit () { // TODO extract digital-representation thing and make generic part
         Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
-        roboticArmManager = new AnimatedRoboticArmManager(stage);
+        roboticArmManager = new AnimatedRoboticTubeManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
         level = new LevelHorizontal(stage, levelParams);
@@ -49,7 +49,7 @@ public class Level2HorizontalController extends Level1HorizontalController {
 
 //    @Override
 //    protected void testCollisions () {
-//        ArmPieceAnimated lastArm = getLastAnimatedArmPiece();
+//        TubePieceAnimated lastArm = getLastAnimatedArmPiece();
 //        if (lastArm != null && !roboticArmManager.isUpdatingArmPiecesPositions()) {
 //            // we set 4px x 4px box at the right end (X), in the middle (Y)
 //            r1.set(lastArm.getX() + lastArm.getWidth(),
@@ -67,7 +67,7 @@ public class Level2HorizontalController extends Level1HorizontalController {
 
     @Override
     protected void testCollisionsInController (boolean isDynamic) {
-        ArmPieceAnimated lastArm = getLastAnimatedArmPiece();
+        TubePieceAnimated lastArm = getLastAnimatedArmPiece();
         if (!roboticArmManager.isUpdatingArmPiecesPositions()) {
             if(isDynamic)
                 testCollisionsHorizontalDynamic(lastArm);
@@ -78,7 +78,7 @@ public class Level2HorizontalController extends Level1HorizontalController {
 
 
 
-    public ArmPieceAnimated getLastAnimatedArmPiece(){
+    public TubePieceAnimated getLastAnimatedArmPiece(){
         return roboticArmManager.getLastAnimatedArmPiece();
     }
 

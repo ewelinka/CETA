@@ -1,6 +1,5 @@
 package ceta.game.game;
 
-import ceta.game.game.objects.ArmPiece;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -13,8 +12,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -30,8 +27,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetFonts fonts;
 
     public AssetBruno bruno;
-    public AssetLatter latter;
-    public AssetLatterDouble latterDouble;
     public AssetBox box;
     public AssetCoin coin;
     public AssetBackground background;
@@ -85,8 +80,6 @@ public class Assets implements Disposable, AssetErrorListener {
         fonts = new AssetFonts();
 
         bruno = new AssetBruno(atlas);
-        latter  = new AssetLatter(atlas);
-        latterDouble = new AssetLatterDouble(atlas);
         box = new AssetBox(atlas);
         coin = new AssetCoin(atlas);
         background = new AssetBackground(atlas);
@@ -136,10 +129,17 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetBox {
         public final TextureAtlas.AtlasRegion box;
+        public final TextureAtlas.AtlasRegion box2;
+        public final TextureAtlas.AtlasRegion box3;
+        public final TextureAtlas.AtlasRegion box4;
+        public final TextureAtlas.AtlasRegion box5;
 
         public AssetBox (TextureAtlas atlas) {
-            box = atlas.findRegion("box");
-
+            box = atlas.findRegion("1");
+            box2 = atlas.findRegion("2");
+            box3 = atlas.findRegion("3");
+            box4 = atlas.findRegion("4");
+            box5 = atlas.findRegion("5");
         }
     }
 
@@ -158,6 +158,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion back2;
         public final TextureAtlas.AtlasRegion back3;
         public final TextureAtlas.AtlasRegion backStart;
+        public final TextureAtlas.AtlasRegion piecesBox;
+
 
 
         public AssetBackground (TextureAtlas atlas) {
@@ -165,6 +167,7 @@ public class Assets implements Disposable, AssetErrorListener {
             back2 = atlas.findRegion("fondoN");
             back3 = atlas.findRegion("fondoV");
             backStart = atlas.findRegion("inicio");
+            piecesBox = atlas.findRegion("parteB");
 
         }
     }
@@ -189,6 +192,11 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion headEnergy;
         public final TextureAtlas.AtlasRegion baseEnergy;
         public final TextureAtlas.AtlasRegion energy;
+        public final Animation walk;
+        public final TextureAtlas.AtlasRegion walkHead;
+        public final TextureAtlas.AtlasRegion still;
+        public final TextureAtlas.AtlasRegion mega;
+        public final TextureAtlas.AtlasRegion thoraxEnergy;
 
         public AssetBruno (TextureAtlas atlas) {
             body = atlas.findRegion("robot02");
@@ -209,21 +217,21 @@ public class Assets implements Disposable, AssetErrorListener {
             body05body = atlas.findRegion("05cuerpo");
             headEnergy = atlas.findRegion("03cabeza");
             baseEnergy = atlas.findRegion("baseEnergia");
+            thoraxEnergy = atlas.findRegion("toraxEnergia");
             energy = atlas.findRegion("energia");
+            walkHead = atlas.findRegion("caminaCabeza");
+            still = atlas.findRegion("camina_parado");
+            mega = atlas.findRegion("mega");
+
+            Array<TextureAtlas.AtlasRegion> regions = null;
+            regions = atlas.findRegions("camina");
+            walk = new Animation(0.3f , regions);
 
 
 
         }
     }
 
-    public class AssetLatter {
-        public final TextureAtlas.AtlasRegion latter;
-
-        public AssetLatter (TextureAtlas atlas) {
-            latter = atlas.findRegion("latter");
-
-        }
-    }
 
     public class AssetMenu {
         public final TextureAtlas.AtlasRegion play;
@@ -232,15 +240,6 @@ public class Assets implements Disposable, AssetErrorListener {
         public AssetMenu (TextureAtlas atlas) {
             play = atlas.findRegion("jugar");
 
-
-        }
-    }
-
-    public class AssetLatterDouble {
-        public final TextureAtlas.AtlasRegion latter;
-
-        public AssetLatterDouble (TextureAtlas atlas) {
-            latter = atlas.findRegion("latter-double");
 
         }
     }
@@ -273,17 +272,23 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion copperFitting3;
         public final TextureAtlas.AtlasRegion copperFitting4;
         public final TextureAtlas.AtlasRegion copperFitting5;
+        public final TextureAtlas.AtlasRegion tubeUnit;
+        public final TextureAtlas.AtlasRegion finalTube;
+        public final TextureAtlas.AtlasRegion mask;
 //        public final Animation animatedOneIn;
 //        public final Animation animatedOneOut;
 //        public final Animation animatedOneLoop;
 
 
         public AssetRoboticParts (TextureAtlas atlas) {
-            copperFitting1 = atlas.findRegion("copper");
-            copperFitting2 = atlas.findRegion("copper2");
-            copperFitting3 = atlas.findRegion("copper3");
-            copperFitting4 = atlas.findRegion("copper4");
-            copperFitting5 = atlas.findRegion("copper5");
+            copperFitting1 = atlas.findRegion("tubo_final");
+            copperFitting2 = atlas.findRegion("tubo_final");
+            copperFitting3 = atlas.findRegion("tubo_final");
+            copperFitting4 = atlas.findRegion("tubo_final");
+            copperFitting5 = atlas.findRegion("tubo_final");
+            tubeUnit = atlas.findRegion("tubo");
+            finalTube = atlas.findRegion("tubo_final");
+            mask = atlas.findRegion("mega_mascara");
 
 //            Array<TextureAtlas.AtlasRegion> regions = null;
 //            regions = atlas.findRegions("boxA");
@@ -304,7 +309,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion excelentWork;
 
         public AssetFinishBackground(TextureAtlas atlas) {
-            finishBack = atlas.findRegion("engranajes2");
+            finishBack = atlas.findRegion("engranajes");
             excelentWork = atlas.findRegion("excelentetrabajo");
 
         }

@@ -20,6 +20,8 @@ public class Bruno extends AbstractGameObject {
     public static final String TAG = Bruno.class.getName();
 
     protected boolean lookingLeft;
+    private TextureRegion tube;
+    private TextureRegion mask;
 
 
 
@@ -29,8 +31,10 @@ public class Bruno extends AbstractGameObject {
 
 
     public void init () {
-        regTex = Assets.instance.bruno.body03;
-        this.setSize(Constants.BASE*3,Constants.BASE*7);
+        regTex = Assets.instance.bruno.mega;
+        mask = Assets.instance.roboticParts.mask;
+        tube = Assets.instance.roboticParts.finalTube;
+        this.setSize(427,429);
         superinit();
         lookingLeft = false;
 
@@ -54,7 +58,27 @@ public class Bruno extends AbstractGameObject {
                 this.getScaleX(), this.getScaleY(),
                 this.getRotation(),
                 regTex.getRegionX(), regTex.getRegionY(),
-                regTex.getRegionWidth(), regTex.getRegionHeight(), lookingLeft,false);
+                regTex.getRegionWidth(), regTex.getRegionHeight(), false,false);
+        batch.setColor(1,1,1,1);
+
+        batch.draw(tube.getTexture(),
+                Constants.HORIZONTAL_ZERO_X-tube.getRegionWidth() , this.getY()+offsetY + 230, // adjust
+                this.getOriginX(), this.getOriginY(),
+                tube.getRegionWidth(),tube.getRegionHeight(),
+                this.getScaleX(), this.getScaleY(),
+                this.getRotation(),
+                tube.getRegionX(), tube.getRegionY(),
+                tube.getRegionWidth(), tube.getRegionHeight(), false,false);
+        batch.setColor(1,1,1,1);
+
+        batch.draw(mask.getTexture(),
+                this.getX()+offsetX +95, this.getY()+offsetY + 227,
+                this.getOriginX(), this.getOriginY(),
+                mask.getRegionWidth(), mask.getRegionHeight(),
+                this.getScaleX(), this.getScaleY(),
+                this.getRotation(),
+                mask.getRegionX(), mask.getRegionY(),
+                mask.getRegionWidth(), mask.getRegionHeight(), false,false);
         batch.setColor(1,1,1,1);
 
         offsetX = 0;

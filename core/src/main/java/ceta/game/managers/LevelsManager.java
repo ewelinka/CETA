@@ -26,38 +26,48 @@ public class LevelsManager {
        // GamePreferences.instance.setLastLevel(lastLevel+1); // we need it to load the correct level-params
         switch(lastLevel){
             case 1:
-                if(Constants.WITH_CV)
-                    game.setScreen(new Level1HorizontalCvScreen(game,1), transition);
+                if(Constants.WITH_CV) {
+                        game.setScreen(new Level1HorizontalCvScreen(game, 1), transition);
+                }
                 else
                     game.setScreen(new Level1HorizontalScreen(game,1), transition);
                 break;
             case 2:
-                if(Constants.WITH_CV)
-                    game.setScreen(new Level1VerticalCvScreen(game,1), transition);
+                if(Constants.WITH_CV){
+
+                        game.setScreen(new Level2VerticalCvScreen(game, 1), transition);
+
+                }
                 else
                     game.setScreen(new Level1VerticalScreen(game,1), transition);
                 break;
             case 3:
-                if(Constants.WITH_CV)
-                    game.setScreen(new Level2HorizontalCvScreen(game,1), transition);
+                if(Constants.WITH_CV){
+
+                        game.setScreen(new Level2HorizontalCvScreen(game, 1), transition);
+                }
                 else
                     game.setScreen(new Level2HorizontalScreen(game,1), transition);
                 break;
             case 4:
-                if(Constants.WITH_CV)
-                    game.setScreen(new Level2VerticalCvScreen(game,1), transition);
+                if(Constants.WITH_CV){
+                        game.setScreen(new Level2VerticalCvScreen(game, 1), transition);
+                }
                 else
                     game.setScreen(new Level2VerticalScreen(game,1), transition);
                 break;
             case 5:
-                if(Constants.WITH_CV)
-                    game.setScreen(new Level3HorizontalCvScreen(game,1), transition);
+                if(Constants.WITH_CV){
+                        game.setScreen(new Level3HorizontalCvScreen(game, 1), transition);
+
+                }
                 else
                     game.setScreen(new Level3HorizontalScreen(game,1), transition);
                 break;
             case 6:
-                if(Constants.WITH_CV)
-                    game.setScreen(new Level3VerticalCvScreen(game,1), transition);
+                if(Constants.WITH_CV){
+                        game.setScreen(new Level3VerticalCvScreen(game, 1), transition);
+                }
                 else
                     game.setScreen(new Level3VerticalScreen(game,1), transition);
                 break;

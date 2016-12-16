@@ -1,7 +1,7 @@
 package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
-import ceta.game.managers.AnimatedRoboticArmManager;
+import ceta.game.managers.AnimatedRoboticTubeManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
@@ -11,8 +11,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 /**
  * Created by ewe on 10/27/16.
  */
-public class ArmPieceAnimated extends ArmPiece{
-    public static final String TAG = ArmPieceAnimated.class.getName();
+public class TubePieceAnimated extends ArmPiece{
+    public static final String TAG = TubePieceAnimated.class.getName();
 //    private Animation animationIn;
 //    private Animation animationOut;
 //    private Animation animationOn;
@@ -20,7 +20,7 @@ public class ArmPieceAnimated extends ArmPiece{
 
 
 
-    public ArmPieceAnimated(int val, AnimatedRoboticArmManager armsMan) {
+    public TubePieceAnimated(int val, AnimatedRoboticTubeManager armsMan) {
         // by default 1
         super(1,armsMan);
         setOrigin(0, this.getHeight()/ 2);
@@ -37,7 +37,7 @@ public class ArmPieceAnimated extends ArmPiece{
     @Override
     protected void setColorAndTexture(int val){
         setColor(Color.YELLOW);
-        regTex = Assets.instance.roboticParts.copperFitting1;
+        regTex = Assets.instance.roboticParts.tubeUnit;
 
     }
 

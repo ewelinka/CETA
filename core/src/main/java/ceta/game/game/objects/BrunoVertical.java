@@ -73,7 +73,7 @@ public class BrunoVertical extends Bruno {
                 regTex = Assets.instance.bruno.body02;
                 brunoHeadReg = Assets.instance.bruno.body02head;
                 brunoBodyReg = Assets.instance.bruno.body02body;
-                headXoffset =  -5;
+                headXoffset =  -3;
                 headYoffset = -5;
                 break;
             case 3:
@@ -166,26 +166,26 @@ public class BrunoVertical extends Bruno {
        // Gdx.app.log(TAG, "headState "+headState);
         switch(headState) {
             case UP:
-                Gdx.app.log(TAG, "UP now rotation "+getRotation()+ " next rotation "+getRotation() + delta * 100);
+               // Gdx.app.log(TAG, "UP now rotation "+getRotation()+ " next rotation "+getRotation() + delta * 100);
                 setRotation(getRotation() + delta * 100);
-                Gdx.app.log(TAG, "UP now rotation "+getRotation());
+               // Gdx.app.log(TAG, "UP now rotation "+getRotation());
                 if(getRotation() > 35) {
-                    Gdx.app.log(TAG, "state change to GOING_BACK");
+                   // Gdx.app.log(TAG, "state change to GOING_BACK");
                     headState = HEAD_STATE.GOING_BACK;
-                    Gdx.app.log(TAG, "headState GB "+headState);
+                    //Gdx.app.log(TAG, "headState GB "+headState);
                 }
                 break;
             case FIXED:
                 setRotation(0);
                 break;
             case GOING_BACK:
-                Gdx.app.log(TAG, "GOING_BACK now rotation "+getRotation()+ " next rotation "+getRotation() + delta * 100);
+               // Gdx.app.log(TAG, "GOING_BACK now rotation "+getRotation()+ " next rotation "+getRotation() + delta * 100);
                 setRotation(getRotation() - delta * 100);
-                Gdx.app.log(TAG, "GOING_BACK now rotation "+getRotation());
+              //  Gdx.app.log(TAG, "GOING_BACK now rotation "+getRotation());
                 if(getRotation() < 0) {
-                    Gdx.app.log(TAG, "state change to FIXED");
+                 //   Gdx.app.log(TAG, "state change to FIXED");
                     headState = HEAD_STATE.FIXED;
-                    Gdx.app.log(TAG, "headState F"+headState);
+                 //   Gdx.app.log(TAG, "headState F"+headState);
                 }
 
         }
@@ -201,7 +201,7 @@ public class BrunoVertical extends Bruno {
         batch.draw(brunoBodyReg.getTexture(),
                 this.getX()+offsetX, this.getY()+offsetY,
                 this.getOriginX(), this.getOriginY(),
-                brunoBodyReg.getRegionWidth(), brunoBodyReg.getRegionHeight(),
+                brunoBodyReg.getRegionWidth()+4, brunoBodyReg.getRegionHeight(),
                 this.getScaleX(), this.getScaleY(),
                 0,
                 brunoBodyReg.getRegionX(), brunoBodyReg.getRegionY(),

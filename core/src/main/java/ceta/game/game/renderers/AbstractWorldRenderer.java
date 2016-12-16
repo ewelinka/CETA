@@ -77,6 +77,27 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.end();
     }
 
+    protected void renderDetectionZoneImg(SpriteBatch batch){
+        // render for pieces
+
+        // render for deposite
+        TextureAtlas.AtlasRegion b = Assets.instance.background.piecesBox;
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(b.getTexture(),
+                -Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT,
+                b.getRegionWidth()/2, b.getRegionHeight()/2,
+                Constants.VIEWPORT_WIDTH, Constants.DETECTION_ZONE_END-Constants.DETECTION_LIMIT,
+                1, 1,
+                0,
+                b.getRegionX(), b.getRegionY(),
+                b.getRegionWidth(), b.getRegionHeight(), false,false);
+        batch.end();
+
+
+
+    }
+
     protected void renderBackgroundImg(SpriteBatch batch){
         TextureAtlas.AtlasRegion b = Assets.instance.background.back3;
         batch.setProjectionMatrix(camera.combined);
@@ -117,7 +138,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
             if(levelMinimumNumber+counter == chosenNr)
                 font.setColor(0,153,0,1);
             else
-                font.setColor(Color.BLACK);
+                font.setColor(0,0,0,0.7f);
             font.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.DETECTION_ZONE_END,0, Align.center,false);
 
             counter+=1;
@@ -140,7 +161,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
             if(levelMinimumNumber+counter == chosenNr)
                 font.setColor(0,153,0,1);
             else
-                font.setColor(Color.BLACK);
+                font.setColor(0,0,0,0.7f);
             font.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
 
             counter+=1;

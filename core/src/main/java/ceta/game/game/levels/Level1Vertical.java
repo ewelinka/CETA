@@ -1,9 +1,7 @@
 package ceta.game.game.levels;
 
-import ceta.game.game.objects.BrunoVertical;
-import ceta.game.game.objects.Latter;
+import ceta.game.game.objects.Tube;
 import ceta.game.game.objects.Price;
-import ceta.game.managers.BrunosManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class Level1Vertical extends LevelHorizontal {
     public static final String TAG = Level1Vertical.class.getName();
-    public Latter tube;
+    public Tube tube;
 
     public Level1Vertical(Stage stage, LevelParams levelParams) {
         super(stage, levelParams);
@@ -25,7 +23,7 @@ public class Level1Vertical extends LevelHorizontal {
         Gdx.app.log(TAG,"init Level 1 Vertical");
         price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
 
-        tube = new Latter(12);
+        tube = new Tube(12);
         tube.setWidth(Constants.BASE*1.5f);
         tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2,Constants.DETECTION_ZONE_END -tube.getHeight()); //TODO change for no-cv!!!
 
@@ -41,7 +39,7 @@ public class Level1Vertical extends LevelHorizontal {
         stage.draw();
     }
 
-    public Latter getTube(){
+    public Tube getTube(){
         return tube;
     }
 

@@ -1,10 +1,9 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.levels.LevelHorizontal;
-import ceta.game.game.objects.ArmPieceAnimated;
-import ceta.game.managers.AnimatedRoboticArmManager;
+import ceta.game.game.objects.TubePieceAnimated;
+import ceta.game.managers.AnimatedRoboticTubeManager;
 import ceta.game.managers.CVBlocksManager;
-import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Level2HorizontalCvController extends Level1HorizontalCvController {
     private static final String TAG = Level2HorizontalCvController.class.getName();
-    private AnimatedRoboticArmManager roboticArmManager;
+    private AnimatedRoboticTubeManager roboticArmManager;
 
     public Level2HorizontalCvController(DirectedGame game, Stage stage, int levelNr) {
         super(game, stage, levelNr);
@@ -27,7 +26,7 @@ public class Level2HorizontalCvController extends Level1HorizontalCvController {
     @Override
     protected void localInit () { // TODO extract digital-representation thing and make generic part
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        roboticArmManager = new AnimatedRoboticArmManager(stage);
+        roboticArmManager = new AnimatedRoboticTubeManager(stage);
         cvBlocksManager = new CVBlocksManager(game,stage);
 
         level = new LevelHorizontal(stage, levelParams);
@@ -51,7 +50,7 @@ public class Level2HorizontalCvController extends Level1HorizontalCvController {
 
     @Override
     protected void testCollisionsInController (boolean isDynamic) {
-        ArmPieceAnimated lastArm = getLastAnimatedArmPiece();
+        TubePieceAnimated lastArm = getLastAnimatedArmPiece();
         if (!roboticArmManager.isUpdatingArmPiecesPositions()) {
             if(isDynamic)
                 testCollisionsHorizontalDynamic(lastArm);
@@ -63,7 +62,7 @@ public class Level2HorizontalCvController extends Level1HorizontalCvController {
 
 
 
-    public ArmPieceAnimated getLastAnimatedArmPiece(){
+    public TubePieceAnimated getLastAnimatedArmPiece(){
         return roboticArmManager.getLastAnimatedArmPiece();
     }
 }

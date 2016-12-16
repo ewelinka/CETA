@@ -1,9 +1,9 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.levels.Level2Vertical;
-import ceta.game.game.levels.LevelVertical;
-import ceta.game.game.objects.BrunoPieceAnimatedVertical;
-import ceta.game.managers.AnimatedBrunoManager;
+import ceta.game.game.objects.BrunoVertical;
+import ceta.game.game.objects.EnergyUnit;
+import ceta.game.managers.EnergyManager;
 import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.GamePreferences;
@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class Level2VerticalCvController extends CvController {
     private static final String TAG = Level2VerticalCvController.class.getName();
 
-    private AnimatedBrunoManager brunosManager;
+    private EnergyManager brunosManager;
     public Level2VerticalCvController(DirectedGame game, Stage stage, int levelNr) {
         super(game, stage, levelNr);
     }
@@ -24,7 +24,7 @@ public class Level2VerticalCvController extends CvController {
     @Override
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        brunosManager = new AnimatedBrunoManager(stage);
+        brunosManager = new EnergyManager(stage);
         cvBlocksManager = new CVBlocksManager(game,stage);
 
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
@@ -50,7 +50,7 @@ public class Level2VerticalCvController extends CvController {
 
     @Override
     protected void testCollisionsInController (boolean isDynamic) {
-        BrunoPieceAnimatedVertical lastPiece = getLastAnimatedBrunoPiece();
+        BrunoVertical lastPiece = getLastAnimatedBrunoPiece();
         if (!brunosManager.isUpdatingBrunosPositions()) {
             if(isDynamic)
                 testCollisionsVerticalDynamic(lastPiece);
@@ -65,7 +65,7 @@ public class Level2VerticalCvController extends CvController {
     }
 
 
-    public BrunoPieceAnimatedVertical getLastAnimatedBrunoPiece(){
-        return brunosManager.getLastAnimatedBrunoPiece();
+    public BrunoVertical getLastAnimatedBrunoPiece(){
+        return brunosManager.getBrunoVertical();
     }
 }

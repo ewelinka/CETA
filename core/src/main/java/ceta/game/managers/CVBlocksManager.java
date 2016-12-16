@@ -284,7 +284,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
             addBlockWithId(blockToAddVal, id); // add to manager! will be checked by brunos manager
         }
 
-        VirtualBlock vBlock = new VirtualBlock(blockToAddVal, 30); // warning 30px!
+        VirtualBlock vBlock = new VirtualBlock(blockToAddVal, 30, true); // warning 30px!
         stage.addActor(vBlock);
 
         vBlock.setWasDetected(true);

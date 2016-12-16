@@ -1,7 +1,7 @@
 package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
-import ceta.game.managers.AnimatedBrunoManager;
+import ceta.game.managers.EnergyManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -12,10 +12,10 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 /**
  * Created by ewe on 11/9/16.
  */
-public class BrunoPieceAnimatedVertical extends BrunoVertical {
-    public static final String TAG = BrunoPieceAnimatedVertical.class.getName();
+public class EnergyUnit extends BrunoVertical {
+    public static final String TAG = EnergyUnit.class.getName();
 
-    public BrunoPieceAnimatedVertical(int value, AnimatedBrunoManager brunosManager) {
+    public EnergyUnit(int value, EnergyManager brunosManager) {
         super(value, brunosManager);
         setOrigin(this.getWidth()/2, 0);
         setScale(1,0);
@@ -71,9 +71,9 @@ public class BrunoPieceAnimatedVertical extends BrunoVertical {
         // batch.draw(regTex,this.getX(),this.getY());
         batch.setColor(this.getColor());
         batch.draw(regTex.getTexture(),
-                this.getX()+offsetX, this.getY()+offsetY,
+                this.getX()+offsetX+5, this.getY()+offsetY,
                 this.getOriginX(), this.getOriginY(),
-                this.getWidth() ,this.getHeight(),
+                this.getWidth()-5 ,this.getHeight(),
                 this.getScaleX(), this.getScaleY(),
                 this.getRotation(),
                 regTex.getRegionX(), regTex.getRegionY(),

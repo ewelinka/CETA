@@ -5,6 +5,7 @@ import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -32,25 +33,28 @@ public class VirtualBlock extends AbstractGameObject {
     private float rotLast = 0;
     private float myAlpha;
     private int pixelsPerUnit;
+    private boolean disappearing;
+    private boolean applyAlpha;
 
     private boolean wasMoved;
 
 
-    public VirtualBlock(int val, int pixelsPerUnit){
+    public VirtualBlock(int val, int pixelsPerUnit, boolean applyAlpha){
         this.blockValue = val;
         this.pixelsPerUnit = pixelsPerUnit;
+        this.applyAlpha = applyAlpha;
         init();
     }
 
+
+
     public VirtualBlock(int val){
-        this.blockValue = val;
-        this.pixelsPerUnit = Constants.BASE;
-        init();
+        this(val, Constants.BASE, false);
     }
 
     public void init(){
-        this.regTex = Assets.instance.box.box;
-        this.myAlpha = GamePreferences.instance.virtualBlocksAlpha;
+
+        this.myAlpha = 1;
         //horizontal
         //this.setSize(Constants.BASE*abs(blockValue),Constants.BASE);
         //vertical
@@ -66,8 +70,8 @@ public class VirtualBlock extends AbstractGameObject {
                 bounds.width,bounds.height,
                 0,bounds.height
         };
-
-        setMyColor();
+        disappearing = false;
+        setMyColorAndTexture();
         isAtHome = true;
         blockId = -1; // default value, we first set "real" id on addBlock event
 
@@ -82,38 +86,9 @@ public class VirtualBlock extends AbstractGameObject {
             @Override
             public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
                 //TODO we should check if the piece is in stage limits or the controller should do this?
-
-//                float sin = (float)Math.sin(Math.toRadians(getRotation()));
-//                float cos = (float)Math.cos(Math.toRadians(getRotation()));
-//
-//                float rotatedX = (deltaX) * cos - (deltaY) * sin;
-//                float rotatedY = (deltaX) * sin + (deltaY) * cos;
-//                setPosition(getX()+rotatedX,getY()+rotatedY);
-                //the code below was working without rotation
                 setPosition(getX()+deltaX,getY()+deltaY);
             }
-//
-//            @Override
-//            public void pinch(InputEvent event, Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)  {
-//                //Actor actor = event.getListenerActor();
-//
-//                Vector2 a = initialPointer2.sub(initialPointer1);
-//                Vector2 b = pointer2.sub(pointer1);
-//                a = a.nor();
-//                b = b.nor();
-//                float deltaRot = (float)(Math.atan2(b.y,b.x) - Math.atan2(a.y,a.x));
-//                float deltaRotDeg = (float)(((deltaRot*180)/Math.PI + 360) % 360);
-//                if(deltaRotDeg>180) deltaRotDeg = -360 + deltaRotDeg;
-//
-//                rotateBy(deltaRotDeg - rotLast);
-//                rotLast = deltaRotDeg;
-//            }
 
-            @Override
-            public void touchDown(InputEvent event, float x, float y, int pointer, int button){
-                //Gdx.app.debug(TAG, "isTouched!!!");
-
-            }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button){
@@ -126,24 +101,29 @@ public class VirtualBlock extends AbstractGameObject {
 
     }
 
-    private void setMyColor(){
+    private void setMyColorAndTexture(){
        // amarillo, rojo, verde, naranja y celeste
 
         switch (blockValue){
             case 1:
                 setColor(Color.YELLOW);
+                this.regTex = Assets.instance.box.box;
                 break;
             case 2:
                 setColor(Color.GREEN);
+                this.regTex = Assets.instance.box.box2;
                 break;
             case 3:
                 setColor(Color.ORANGE);
+                this.regTex = Assets.instance.box.box3;
                 break;
             case 4:
                 setColor(Color.CYAN);
+                this.regTex = Assets.instance.box.box4;
                 break;
             case 5:
                 setColor(Color.PINK);
+                this.regTex = Assets.instance.box.box5;
                 break;
         }
         getColor().a = myAlpha;
@@ -182,6 +162,7 @@ public class VirtualBlock extends AbstractGameObject {
     }
 
     public void goHomeAndRemove(){
+        disappearing = true;
 //        addAction(sequence(Actions.moveTo(home.x,home.y,0.5f),run(new Runnable() {
 //                                                                      public void run() {
 //                                                                          remove();
@@ -196,6 +177,7 @@ public class VirtualBlock extends AbstractGameObject {
     }
 
     public void disappearAndRemove(){
+        disappearing = true;
         addAction(sequence(parallel(Actions.alpha(0,1f)),run(new Runnable() {
             public void run() {
                 remove();
@@ -235,5 +217,60 @@ public class VirtualBlock extends AbstractGameObject {
 //
 //    @Override
 //    public void draw(Batch batch, float parentAlpha) {}
+
+    @Override
+    public void act(float delta){
+
+        super.act(delta);
+        if(!disappearing && applyAlpha) {
+            getColor().a = 1;
+            //batch.setProjectionMatrix(camera.combined);
+            // batch.draw(regTex,this.getX(),this.getY());
+            float diff = Constants.CV_DETECTION_EDGE_TABLET / 2 - (getX() + getWidth() / 2);
+            float a = 1;
+            //Gdx.app.log(TAG," alpha getX "+getX());
+            // y
+            if (diff < Constants.MARGIN_FADE) {
+                a = map(diff, 0, Constants.MARGIN_FADE, 0.4f, 1);
+                Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get x " + getX() + getWidth() / 2);
+                getColor().a = a;
+            }
+
+            if ((Constants.CV_DETECTION_EDGE_TABLET - diff) < Constants.MARGIN_FADE) {
+                diff = Constants.CV_DETECTION_EDGE_TABLET - diff;
+                a = map(diff, 0, Constants.MARGIN_FADE, 0.4f, 1);
+                Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get x " + getX() + getWidth() / 2);
+                //Actions.alpha(a*parentAlpha);
+                getColor().a = a;
+
+            }
+
+            //float yAdjusted = getY()+getHeight()/2 + 332;
+            diff = Constants.CV_DETECTION_EDGE_TABLET / 2 - (getY() + getHeight() / 2 + 332); // TODO hardcoded!!
+
+            if (diff < Constants.MARGIN_FADE) {
+                a = map(diff, 0, Constants.MARGIN_FADE, 0.4f, 1);
+                Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get y " + (getY() + getHeight() / 2 + 332));
+                if (a < getColor().a)
+                    getColor().a = a;
+            }
+
+            if ((Constants.CV_DETECTION_EDGE_TABLET - diff) < Constants.MARGIN_FADE) {
+                diff = Constants.CV_DETECTION_EDGE_TABLET - diff;
+                a = map(diff, 0, Constants.MARGIN_FADE, 0.4f, 1);
+                Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get y " + (getY() + getHeight() / 2 + 332));
+                //Actions.alpha(a*parentAlpha);
+                if (a < getColor().a)
+                    getColor().a = a;
+
+            }
+        }
+    }
+
+
+    private float map(float x, float in_min, float in_max, float out_min, float out_max)
+    {
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
 
 }

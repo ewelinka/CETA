@@ -1,34 +1,33 @@
 package ceta.game.managers;
 
-import ceta.game.game.objects.ArmPieceAnimated;
+import ceta.game.game.objects.TubePieceAnimated;
 import ceta.game.util.Constants;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by ewe on 10/27/16.
  */
 
-public class AnimatedRoboticArmManager extends RoboticArmManager {
-    public static final String TAG = AnimatedRoboticArmManager.class.getName();
-    private ArrayList<ArmPieceAnimated> armPiecesAnim;
+public class AnimatedRoboticTubeManager extends RoboticArmManager {
+    public static final String TAG = AnimatedRoboticTubeManager.class.getName();
+    private ArrayList<TubePieceAnimated> armPiecesAnim;
     private float terminalDelay;
     private float currentDelayPassed;
     private final float animationSpeed = 0.3f;
 
 
-    public AnimatedRoboticArmManager(Stage stage) {
+    public AnimatedRoboticTubeManager(Stage stage) {
         super(stage);
     }
 
     @Override
     public void init(){
         lastX = initialX;
-        armPiecesAnim = new ArrayList<ArmPieceAnimated>();
+        armPiecesAnim = new ArrayList<TubePieceAnimated>();
         terminalDelay = 0;
         currentDelayPassed = 0;
 
@@ -68,7 +67,7 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
                 currentKey+=1;
 
             Gdx.app.log(TAG, " add "+ toAdd.get(currentKey).getKey()+" part "+i + " lastx "+lastX+" delay "+ terminalDelay);
-            ArmPieceAnimated armToAdd = new ArmPieceAnimated(1, this);
+            TubePieceAnimated armToAdd = new TubePieceAnimated(1, this);
             stage.addActor(armToAdd);
 
             armToAdd.setId(toAdd.get(currentKey).getKey()*10+i); //we have to invent id because one virtual piece is mapped into up to 5 arm pieces
@@ -99,7 +98,7 @@ public class AnimatedRoboticArmManager extends RoboticArmManager {
         armPiecesAnim.get(which).collapseMe(terminalDelay, animationSpeed); // remove Actor
     }
 
-    public ArmPieceAnimated getLastAnimatedArmPiece(){
+    public TubePieceAnimated getLastAnimatedArmPiece(){
         if(armPiecesAnim.size()>0)
             return armPiecesAnim.get(armPiecesAnim.size()-1);
         return null;
