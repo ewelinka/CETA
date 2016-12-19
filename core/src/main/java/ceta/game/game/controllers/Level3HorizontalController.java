@@ -64,7 +64,8 @@ public class Level3HorizontalController extends NoCvController  {
                         4, Math.abs(Constants.DETECTION_ZONE_END) + level.price.getY() +   level.price.bounds.height);
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPrice(level.price);
+                    //onCollisionBrunoWithPrice(level.price);
+                    onCollisionBrunoWithPriceHorizontal3(level.price, level.bruno);
                     moveMade = false;
                 } else {
                     if (moveMade) {

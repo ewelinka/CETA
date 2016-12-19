@@ -176,7 +176,7 @@ public class Price extends AbstractGameObject {
     }
 
 
-    public void moveToNewPositionHorizontalNL(boolean wasEaten){
+    public void moveToNewPositionHorizontalNL(boolean wasEaten, float toX, float toY){
         int newPosition = MathUtils.random(1,10);
         while (newPosition == currentNumber){
             newPosition = MathUtils.random(1,10);
@@ -186,7 +186,7 @@ public class Price extends AbstractGameObject {
         if(wasEaten){
             Gdx.app.log(TAG, "was eaten!! moveToNewPositionHorizontalNL");
             addAction(sequence(
-                    parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+                    parallel(Actions.moveTo(toX,toY,0.5f),
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
                     Actions.color(Color.WHITE),
@@ -288,6 +288,33 @@ public class Price extends AbstractGameObject {
 
     }
 
+    public void wasEatenHorizontal(float whereX, float whereY) {
+        if (isDynamic)
+            setPositionStartAbove(true,whereX,whereY);
+        else
+            moveToNewPositionEatenHorizontal(whereX,whereY);
+    }
+
+    public void moveToNewPositionEatenHorizontal(float toX, float toY) {
+        int newPosition = MathUtils.random(1, 10);
+        while (newPosition == currentNumber) {
+            newPosition = MathUtils.random(1, 10);
+        }
+        currentNumber = newPosition;
+
+
+        Gdx.app.log(TAG, "was eaten!! moveToNewPositionHorizontalNL");
+        addAction(sequence(
+                parallel(Actions.moveTo(toX, toY, 0.5f),
+                        Actions.scaleTo(0, 0, 0.5f)),
+                delay(0.2f),
+                Actions.color(Color.WHITE),
+                Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.PRICE_Y_HORIZONTAL),
+                Actions.scaleTo(1, 1)
+        ));
+    }
+
+
     public void lastEaten(float whereX, float whereY){
 
         addAction(parallel(Actions.moveTo(whereX,whereY,0.5f),
@@ -299,7 +326,7 @@ public class Price extends AbstractGameObject {
         if (isDynamic)
             setPositionStartAbove(true,whereX,whereY);
         else
-            moveToNewPositionHorizontalNL(true);
+            moveToNewPositionHorizontalNL(true,Constants.VERTICAL_MIDDLE_X-20,getY()-10);
 
     }
 
@@ -318,7 +345,7 @@ public class Price extends AbstractGameObject {
         if (isDynamic)
             setPositionStartAbove();
         else
-            moveToNewPositionHorizontalNL(false);
+            moveToNewPositionHorizontalNL(false,0,0);// 0s are placeholder, won't be used
 
     }
 

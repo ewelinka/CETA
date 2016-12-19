@@ -302,8 +302,29 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             score += 1;
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
-                Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
+                Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+goldcoin.getX()+" y "+goldcoin.getY());
                 goldcoin.wasEaten(bruno.getX(), bruno.getEatPointY());
+
+            } else {
+                screenFinished = true;
+                goldcoin.lastEaten(bruno.getX(), bruno.getEatPointY());
+                timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
+
+
+            }
+        }
+    }
+
+    protected void onCollisionBrunoWithPriceHorizontal3(Price goldcoin, Bruno bruno){
+        // Gdx.app.log(TAG, "NO updates in progress and collision!");
+        if (goldcoin.getActions().size == 0) { // we act just one time!
+            bruno.moveHead();
+            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+            score += 1;
+            //TODO some nice yupi animation
+            if (score < levelParams.operationsNumberToPass) {
+                Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
+                goldcoin.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
 
             } else {
                 screenFinished = true;
@@ -363,15 +384,15 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         return playerInactive;
     }
 
-    @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-        // ignore if its not left mouse button or first touch pointer
-        if(screenY > 200) {
-            GamePreferences.instance.addOneToLastLevelAndSave();
-            game.getLevelsManager().goToNextLevel();
-        }
-
-        return true;
-    }
+//    @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+//        // ignore if its not left mouse button or first touch pointer
+//        if(screenY > 200) {
+//            GamePreferences.instance.addOneToLastLevelAndSave();
+//            game.getLevelsManager().goToNextLevel();
+//        }
+//
+//        return true;
+//    }
 
 
 }
