@@ -2,6 +2,7 @@ package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -13,7 +14,7 @@ public class BrunoMovingHorizontal extends Bruno {
 
     @Override
     public void init () {
-
+        headState = HEAD_STATE.FIXED;
         animation = Assets.instance.bruno.walk;
         head = Assets.instance.bruno.walkHead;
         this.setSize(53,85); //Hardcoded!!
@@ -23,6 +24,43 @@ public class BrunoMovingHorizontal extends Bruno {
         setPosition(xZero,Constants.DETECTION_ZONE_END);
         setTerminalX(xZero);
         setAnimation(animation);
+
+    }
+
+
+
+
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        // Gdx.app.log(TAG, "headState "+headState);
+        switch(headState) {
+            case UP:
+                // Gdx.app.log(TAG, "UP now rotation "+getRotation()+ " next rotation "+getRotation() + delta * 100);
+                setRotation(getRotation() + delta * 200);
+                // Gdx.app.log(TAG, "UP now rotation "+getRotation());
+                if(getRotation() > 90) {
+                    // Gdx.app.log(TAG, "state change to GOING_BACK");
+                    headState = BrunoVertical.HEAD_STATE.GOING_BACK;
+                    //Gdx.app.log(TAG, "headState GB "+headState);
+                }
+                break;
+            case FIXED:
+                setRotation(0);
+                break;
+            case GOING_BACK:
+                // Gdx.app.log(TAG, "GOING_BACK now rotation "+getRotation()+ " next rotation "+getRotation() + delta * 100);
+                setRotation(getRotation() - delta * 200);
+                //  Gdx.app.log(TAG, "GOING_BACK now rotation "+getRotation());
+                if(getRotation() < 0) {
+                    //   Gdx.app.log(TAG, "state change to FIXED");
+                    headState = BrunoVertical.HEAD_STATE.FIXED;
+                    //   Gdx.app.log(TAG, "headState F"+headState);
+                }
+
+        }
+
 
     }
 
@@ -62,4 +100,11 @@ public class BrunoMovingHorizontal extends Bruno {
         offsetX = 0;
         offsetY = 0;
     }
+
+    @Override
+    public float getEatPointY(){
+        Gdx.app.log(TAG," will eat in y "+(getY() +offsetY + 50));
+        return getY() +offsetY + 50;
+    }
+
 }

@@ -86,7 +86,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
         layer.addActor(imgBackground);
         imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
         imgBackground.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2,
-                0);
+                40);
         //imgBackground.setHeight(Constants.VIEWPORT_HEIGHT/2);
 
         layer.addActor(congrats);

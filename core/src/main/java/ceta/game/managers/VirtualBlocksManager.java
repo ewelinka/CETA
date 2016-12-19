@@ -69,8 +69,8 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
             // if the kid is touching/moving we ignore;
             // we just act when the piece is left free [we set wasMoved=true on release]
             if (vBlock.getWasMoved()){ // was moved
+                //Gdx.app.log(TAG, " virtual block moved!");
                 resetNoChangesSince();
-                waitForFirstMove = false;
 
                 // if it was detected before and is in detection zone we do nothing
                 // if it was detected before and is out of detection zone we make it disappear and reset
@@ -79,6 +79,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                         // TODO here we should check for smallest Y, not first vertex
                         // was detected but now gone
                        // blockRemoved(vBlock.getBlockValue());
+                        waitForFirstMove = false;
                         blockRemovedWithIdAndValue(vBlock.getBlockId(),vBlock.getBlockValue());
                         removeFromStageByIndex(i); // we remove it from detection zone
                     }
@@ -86,6 +87,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                     if( polygon.getTransformedVertices()[1] > Constants.DETECTION_LIMIT){
                         // TODO here we should check for smallest Y, not first vertex
                         // new detected!
+                        waitForFirstMove = false;
                         vBlock.setWasDetected(true);
                        // addBlock(vBlock.getBlockValue());
                         addBlockWithId(vBlock.getBlockValue(),vBlock.getBlockId());

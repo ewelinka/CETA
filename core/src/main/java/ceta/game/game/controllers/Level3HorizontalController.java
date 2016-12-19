@@ -3,6 +3,7 @@ package ceta.game.game.controllers;
 import ceta.game.game.Assets;
 import ceta.game.game.levels.Level3Horizontal;
 import ceta.game.game.levels.LevelHorizontal;
+import ceta.game.game.objects.BrunoVertical;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.AudioManager;
@@ -89,14 +90,14 @@ public class Level3HorizontalController extends NoCvController  {
             if(level.bruno.getTerminalX() != xZero ) {
                 r1.set(level.bruno.getX()+level.bruno.getWidth()/2 -2,
                         level.bruno.getY()+level.bruno.getHeight(),
-                        4, 4);
+                        4, Constants.BASE);
                 r2.set(level.price.getX(),
                         level.price.getY(),
                         level.price.getWidth(), level.price.getHeight());
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPrice(level.price);
-                   // onCollisionBrunoWithPriceVertical(level.price,level.bruno);
+                    //onCollisionBrunoWithPrice(level.price);
+                    onCollisionBrunoWithPriceVertical(level.price, level.bruno);
                     moveMade = false;
                 } else{
                     //TODO check if the price number and number line position ==

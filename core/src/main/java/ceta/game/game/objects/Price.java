@@ -112,7 +112,7 @@ public class Price extends AbstractGameObject {
         if(this.getY() < Constants.DETECTION_ZONE_END-this.getHeight()) { // when below number line
             returnCounter-=1;
             if(returnCounter<0){
-                setPositionStartAbove(myStartX); // new position!
+                setPositionStartAbove(); // new position!
                 returnCounter = maxReturn;
 
             } else
@@ -282,7 +282,7 @@ public class Price extends AbstractGameObject {
 
     public void wasEaten(float whereX, float whereY){
         if (isMovingVertical)
-            wasEatenHorizontalNumberLine();
+            wasEatenHorizontalNumberLine(whereX,whereY);
         else
             wasEatenVerticalNumberLine(whereX,whereY);
 
@@ -295,9 +295,9 @@ public class Price extends AbstractGameObject {
 
     }
 
-    private void wasEatenHorizontalNumberLine(){
+    private void wasEatenHorizontalNumberLine(float whereX, float whereY){
         if (isDynamic)
-            setPositionStartAbove(myStartX, true);
+            setPositionStartAbove(true,whereX,whereY);
         else
             moveToNewPositionHorizontalNL(true);
 
@@ -316,7 +316,7 @@ public class Price extends AbstractGameObject {
 
     public void wasCollectedHorizontalNumberLine(){
         if (isDynamic)
-            setPositionStartAbove(myStartX);
+            setPositionStartAbove();
         else
             moveToNewPositionHorizontalNL(false);
 
@@ -330,7 +330,7 @@ public class Price extends AbstractGameObject {
 
     }
 
-    private void setPositionStartAbove(float startX, boolean wasEaten){
+    private void setPositionStartAbove(boolean wasEaten,float toX, float toY){
         returnCounter = maxReturn; // new position, new counter!
 
         int newPosition = MathUtils.random(1,10);
@@ -341,11 +341,11 @@ public class Price extends AbstractGameObject {
         if(wasEaten){
             Gdx.app.log(TAG, "was eaten!! setPositionStartAbove");
             addAction(sequence(
-                    parallel(Actions.moveTo(Constants.VERTICAL_MIDDLE_X-20,getY()-10,0.5f),
+                    parallel(Actions.moveTo(toX,toY,0.5f),
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
                     Actions.color(Color.WHITE),
-                    Actions.moveTo(startX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight()),
+                    Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight()),
                     Actions.scaleTo(1, 1)
             ));
         }
@@ -359,7 +359,7 @@ public class Price extends AbstractGameObject {
                     Actions.scaleTo(0.0f, 0.0f, 0.05f),
                     delay(0.2f),
                     Actions.color(Color.WHITE),
-                    Actions.moveTo(startX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight()),
+                    Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight()),
                     Actions.scaleTo(1, 1)
 
             ));
@@ -368,8 +368,8 @@ public class Price extends AbstractGameObject {
 
     }
 
-    private void setPositionStartAbove(float startX){
-        setPositionStartAbove(startX, false);
+    private void setPositionStartAbove(){
+        setPositionStartAbove(false,0,0);
     }
 
     private void setPositionStartRight(boolean wasEaten, float whereX, float whereY){

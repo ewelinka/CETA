@@ -29,8 +29,7 @@ public class BrunoVertical extends Bruno {
 
     private TextureRegion brunoHeadReg;
     private TextureRegion brunoBodyReg;
-    public enum HEAD_STATE {UP,FIXED, GOING_BACK}
-    public HEAD_STATE headState;
+
     private int headXoffset;
     private int headYoffset;
     private float actionVelocity;
@@ -228,6 +227,7 @@ public class BrunoVertical extends Bruno {
 
     }
 
+    @Override
     public float getEatPointY(){
         return getY()+ brunoBodyReg.getRegionHeight()+headYoffset - 4;
     }

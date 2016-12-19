@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.game.levels.AbstractLevel;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.AbstractGameObject;
+import ceta.game.game.objects.Bruno;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.game.objects.Price;
 import ceta.game.screens.DirectedGame;
@@ -293,7 +294,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
     }
 
-    protected void  onCollisionBrunoWithPriceVertical(Price goldcoin, BrunoVertical bruno){
+    protected void  onCollisionBrunoWithPriceVertical(Price goldcoin, Bruno bruno){
        // Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (goldcoin.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
@@ -301,6 +302,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             score += 1;
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
+                Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
                 goldcoin.wasEaten(bruno.getX(), bruno.getEatPointY());
 
             } else {

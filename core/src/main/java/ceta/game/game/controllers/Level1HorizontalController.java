@@ -47,7 +47,7 @@ public class Level1HorizontalController extends NoCvController{
 
     @Override
     protected void testCollisionsInController(boolean isDynamic) {
-        Gdx.app.log(TAG," testCollisionsStatic ");
+       // Gdx.app.log(TAG," testCollisionsStatic in controller "+virtualBlocksManager.isWaitForFirstMove());
         ArmPiece lastArm = getLastArmPiece();
         if (!roboticArmManager.isUpdatingArmPiecesPositions()) {
             if(isDynamic)

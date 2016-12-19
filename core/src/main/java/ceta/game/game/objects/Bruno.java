@@ -22,6 +22,8 @@ public class Bruno extends AbstractGameObject {
     protected boolean lookingLeft;
     private TextureRegion tube;
     private TextureRegion mask;
+    public enum HEAD_STATE {UP,FIXED, GOING_BACK}
+    public HEAD_STATE headState;
 
 
 
@@ -85,6 +87,13 @@ public class Bruno extends AbstractGameObject {
         offsetY = 0;
     }
 
+
+    public void moveHead(){
+        headState = BrunoVertical.HEAD_STATE.UP;
+        //Gdx.app.log(TAG, "moveHead!!! "+headState);
+    }
+
+
     public void moveMeToAndSetTerminalX(float x, float y){
         //clearActions();
         MoveToAction moveToAction = new MoveToAction();
@@ -98,6 +107,11 @@ public class Bruno extends AbstractGameObject {
     public void setLookingLeft(boolean isLeft){
         lookingLeft = isLeft;
     }
+
+    public float getEatPointY(){
+        return getY()+ getHeight() - 15;
+    }
+
 
 
 }
