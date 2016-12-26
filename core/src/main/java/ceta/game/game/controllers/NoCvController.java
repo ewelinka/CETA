@@ -1,5 +1,6 @@
 package ceta.game.game.controllers;
 
+import ceta.game.game.Assets;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.Constants;
@@ -25,6 +26,12 @@ public class NoCvController extends AbstractWorldController {
     }
 
     @Override
+    protected boolean isPlayerInactive() {
+       //TODO add errors check and set if too much or too less
+        return (virtualBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT);
+    }
+
+    @Override
     public void update(float deltaTime) { // TODO move to no-cv-controller that will be the father of all no-cv controlers
         if(screenFinished) {
             //Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
@@ -41,42 +48,40 @@ public class NoCvController extends AbstractWorldController {
         virtualBlocksManager.updateDetected();
 
         // we start to act after kids move
-        if(!virtualBlocksManager.isWaitForFirstMove() && GamePreferences.instance.actionSubmit) { // just for action submit!
+        if(!virtualBlocksManager.isWaitForFirstMove()) { // just for action submit!
 
             if (virtualBlocksManager.getTimeWithoutChange() > Constants.ACTION_SUBMIT_WAIT) {
                 if (!countdownOn) {
+                   // Gdx.app.log(TAG, "-->   go countdown!");
                     setCountdownOn(true); //if we are not counting, we start!
 
                 }
             } else {
                 if(true) {
-                    setPlayerInactive(false);
+                    //setPlayerInactive(false);
                     setCountdownOn(false); // if somebody moved a block
+
+
                 }
             }
         }
 
-        if (GamePreferences.instance.actionSubmit) {
-            // if we are counting
-            if (countdownOn) {
-                // we shake bruno
-                countdownMove();
-                // if we reached the time
-                if (countdownCurrentTime < 0) {
-                    Gdx.app.log(TAG, "wowowoowow action submit!");
-                    updateDigitalRepresentations();
-                    moveMade = true;
-                    resetCountdown();
-                    virtualBlocksManager.setWaitForFirstMove(true);
-                    virtualBlocksManager.resetDetectedAndRemoved();
-                } else // we still count
-                    countdownCurrentTime -= deltaTime;
-            }
-        } else {
-            updateDigitalRepresentations();
-            virtualBlocksManager.resetDetectedAndRemoved();
-
+        // if we are counting
+        if (countdownOn) {
+            // we shake bruno
+            countdownMove();
+            // if we reached the time
+            if (countdownCurrentTime < 0) {
+                Gdx.app.log(TAG, "wowowoowow action submit!");
+                updateDigitalRepresentations();
+                moveMade = true;
+                resetCountdown();
+                virtualBlocksManager.setWaitForFirstMove(true);
+                virtualBlocksManager.resetDetectedAndRemoved();
+            } else // we still count
+                countdownCurrentTime -= deltaTime;
         }
+
         cameraHelper.update(deltaTime);
 
 

@@ -43,10 +43,12 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected float countdownCurrentTime;
     private ScreenTransition oneSegFadeIn;
     protected LevelParams levelParams;
-    private boolean playerInactive;
+    protected boolean playerInactive;
     protected float timeLeftScreenFinishedDelay;
     protected boolean screenFinished;
     protected boolean moveMade;
+    private int localCountdownMax;
+    protected int currentErrors;
 
 
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
@@ -69,6 +71,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected abstract void updateDigitalRepresentations();
     protected abstract void countdownMove();
 
+    protected abstract boolean isPlayerInactive();
+
 
     public void init () {
 
@@ -79,6 +83,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         playerInactive = false;
         timeLeftScreenFinishedDelay = 0;
         moveMade = false;
+        //localCountdownMax = GamePreferences.instance.countdownMax;
+        localCountdownMax = Constants.CONTDOWN_MAX;
+        currentErrors = 0;
 
         actionSubmitInit();
         adjustCamera();
@@ -104,7 +111,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     private void actionSubmitInit(){
         countdownOn = false;
-        countdownCurrentTime = GamePreferences.instance.countdownMax;
+        countdownCurrentTime = localCountdownMax;
     }
 
 
@@ -199,7 +206,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     protected void testCollisionsHorizontalDynamic(AbstractGameObject objectToCheck){
         //TODO how we know about error or win??? the price is moving!!!
-        Gdx.app.log(TAG, " testCollisionsHorizontalDynamic ");
+        //Gdx.app.log(TAG, " testCollisionsHorizontalDynamic ");
         if(objectToCheck != null ) {
             r1.set(objectToCheck.getX() + objectToCheck.getWidth() - 2,
                     objectToCheck.getY(), // two pixels below the middle
@@ -342,13 +349,17 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         return countdownOn;
     }
 
-    public int getCountdownCurrentTime(){
-        return (int)countdownCurrentTime;
+    public float getCountdownCurrentTime(){
+        return countdownCurrentTime;
     }
 
     public void setCountdownOn(boolean isOn){
+        if(isOn)
+            AudioManager.instance.play(Assets.instance.sounds.buzz);
+        else
+            AudioManager.instance.stopSound();
         countdownOn = isOn;
-        countdownCurrentTime = GamePreferences.instance.countdownMax;
+        countdownCurrentTime = localCountdownMax;
     }
 
 
@@ -373,16 +384,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public void resetCountdown(){
         countdownOn = false;
-        countdownCurrentTime = GamePreferences.instance.countdownMax;
+        countdownCurrentTime = localCountdownMax;
     }
 
     public void setPlayerInactive(boolean isInactive){
         playerInactive = isInactive;
     }
 
-    public boolean isPlayerInactive(){
-        return playerInactive;
-    }
+
 
 //    @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
 //        // ignore if its not left mouse button or first touch pointer

@@ -56,7 +56,7 @@ public class CvController extends AbstractWorldController {
 
 
         /// inactivity?
-        if(cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT){
+        if(isPlayerInactive()){
             Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
             setPlayerInactive(true);
             //cvBlocksManager.resetNoChangesSince();
@@ -72,7 +72,7 @@ public class CvController extends AbstractWorldController {
                     setCountdownOn(true);
             } else {
                 if(true) {
-                    setPlayerInactive(false);
+                    //setPlayerInactive(false);
                     setCountdownOn(false); // if somebody moved a block
 
                 }
@@ -81,7 +81,7 @@ public class CvController extends AbstractWorldController {
 
         if(countdownOn){
             countdownMove();
-            setPlayerInactive(false);
+            //setPlayerInactive(false);
             if (countdownCurrentTime < 0) {
                 updateDigitalRepresentations();
                 moveMade = true;
@@ -123,6 +123,17 @@ public class CvController extends AbstractWorldController {
     @Override
     protected void countdownMove() {
         level.bruno.shake();
+    }
+
+    @Override
+    protected boolean isPlayerInactive() {
+        //TODO control current errors in action submit
+        if((cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT) && (currentErrors > Constants.errorsForHint)) {
+            setPlayerInactive(true);
+        }
+        return playerInactive;
+
+
     }
 
     @Override
