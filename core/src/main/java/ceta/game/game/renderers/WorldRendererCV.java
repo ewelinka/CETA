@@ -18,12 +18,12 @@ import com.badlogic.gdx.utils.Align;
  */
 public class WorldRendererCV extends WorldRenderer {
     public static final String TAG = WorldRendererCV.class.getName();
-    private FeedbackRenderer feedbackRenderer;
+   // private FeedbackRenderer feedbackRenderer;
     private boolean shouldRenderClue;
 
     public WorldRendererCV(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
         super(worldController, stage, numberLineIsHorizontal);
-        feedbackRenderer = new FeedbackRenderer(stage);
+
         shouldRenderClue = false;
 
     }
@@ -36,18 +36,18 @@ public class WorldRendererCV extends WorldRenderer {
     @Override
     public void render () {
         super.render();
-        if(worldController.isPlayerInactive() ){
-            if (!feedbackRenderer.getManoImg().hasActions()) {
-                feedbackRenderer.renderClue();
-                shouldRenderClue = true;
-            }
-        }else{
-            // if we didn't notify yet
-            if(shouldRenderClue){
-                stopRenderClue();
-                shouldRenderClue = false;
-            }
-        }
+//        if(worldController.isPlayerInactive() ){
+//            if (!feedbackRenderer.getManoImg().hasActions()) {
+//                feedbackRenderer.renderClue();
+//                shouldRenderClue = true;
+//            }
+//        }else{
+//            // if we didn't notify yet
+//            if(shouldRenderClue){
+//                stopRenderClue();
+//                shouldRenderClue = false;
+//            }
+//        }
 
     }
 
@@ -55,28 +55,28 @@ public class WorldRendererCV extends WorldRenderer {
         feedbackRenderer.stopRenderClue();
     }
 
-
-    @Override
-    protected void renderDetectionZone(ShapeRenderer shRenderer){
-        // detection zone in gray
-        Gdx.gl.glEnable(GL20.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        shRenderer.setProjectionMatrix(camera.combined);
-        shRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        shRenderer.setColor(Color.LIGHT_GRAY);
-        //shapeRenderer.rect(x, y, width, height);
-        shRenderer.rect(-Constants.CV_DETECTION_EDGE_TABLET/2, -Constants.VIEWPORT_HEIGHT/2,
-                Constants.CV_DETECTION_EDGE_TABLET, Constants.CV_DETECTION_EDGE_TABLET);
-
-        if(worldController.isPlayerInactive()){
-            feedbackRenderer.renderColorChange(shRenderer);
-        }else{
-            feedbackRenderer.resetColorChange();
-        }
-        shRenderer.end();
-        Gdx.gl.glDisable(GL20.GL_BLEND);
-    }
+//
+//    @Override
+//    protected void renderDetectionZone(ShapeRenderer shRenderer){
+//        // detection zone in gray
+//        Gdx.gl.glEnable(GL20.GL_BLEND);
+//        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+//        shRenderer.setProjectionMatrix(camera.combined);
+//        shRenderer.begin(ShapeRenderer.ShapeType.Filled);
+//
+//        shRenderer.setColor(Color.LIGHT_GRAY);
+//        //shapeRenderer.rect(x, y, width, height);
+//        shRenderer.rect(-Constants.CV_DETECTION_EDGE_TABLET/2, -Constants.VIEWPORT_HEIGHT/2,
+//                Constants.CV_DETECTION_EDGE_TABLET, Constants.CV_DETECTION_EDGE_TABLET);
+//
+////        if(worldController.isPlayerInactive()){
+////            feedbackRenderer.renderColorChange(shRenderer);
+////        }else{
+////            feedbackRenderer.resetColorChange();
+////        }
+//        shRenderer.end();
+//        Gdx.gl.glDisable(GL20.GL_BLEND);
+//    }
 
     @Override
     protected void renderBackgroundImg(SpriteBatch batch) {
@@ -96,7 +96,7 @@ public class WorldRendererCV extends WorldRenderer {
     @Override
     protected void renderDetectionZoneImg(SpriteBatch batch){
 
-        TextureAtlas.AtlasRegion b = Assets.instance.background.piecesBox;
+        TextureAtlas.AtlasRegion b = Assets.instance.background.feedbackZoneCV;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(b.getTexture(),

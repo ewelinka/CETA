@@ -32,6 +32,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected Stage stage;
     protected Image imgBackground;
 
+
     protected int levelMinimumNumber;
     protected boolean numberLineIsHorizontal;
 
@@ -79,19 +80,31 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     protected void renderDetectionZoneImg(SpriteBatch batch){
         // render for pieces
-
+        TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksZoneTablet;
         // render for deposite
-        TextureAtlas.AtlasRegion b = Assets.instance.background.piecesBox;
+        TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(b.getTexture(),
+        batch.draw(feedbackZone.getTexture(),
                 -Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT,
-                b.getRegionWidth()/2, b.getRegionHeight()/2,
+                feedbackZone.getRegionWidth()/2, feedbackZone.getRegionHeight()/2,
                 Constants.VIEWPORT_WIDTH, Constants.DETECTION_ZONE_END-Constants.DETECTION_LIMIT,
                 1, 1,
                 0,
-                b.getRegionX(), b.getRegionY(),
-                b.getRegionWidth(), b.getRegionHeight(), false,false);
+                0,0,
+                feedbackZone.getRegionWidth(), feedbackZone.getRegionHeight(), false,false);
+
+
+        batch.draw(blocksZone.getTexture(),
+                -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
+                blocksZone.getRegionWidth()/2, blocksZone.getRegionHeight()/2,
+                Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT/2 + Constants.DETECTION_LIMIT,
+                1, 1,
+                0,
+                0,0,
+                blocksZone.getRegionWidth(), blocksZone.getRegionHeight(), false,false);
+
+
         batch.end();
 
 

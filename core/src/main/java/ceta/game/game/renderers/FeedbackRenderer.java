@@ -3,6 +3,7 @@ package ceta.game.game.renderers;
 import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,11 +21,14 @@ public class FeedbackRenderer {
     private Stage stage;
     private Image manoImg;
 
+    private Image countdownWheel;
+
     public FeedbackRenderer(Stage stage){
         this.stage = stage;
         alphaColor = 0;
         fadeIn = true;
-        manoImg = new Image(Assets.instance.feedback.mano);
+        manoImg = new Image(Assets.instance.feedback.hand);
+        countdownWheel = new Image(Assets.instance.feedback.wheel);
         init();
 
     }
@@ -34,6 +38,10 @@ public class FeedbackRenderer {
         manoImg.setSize(manoImg.getWidth()/4,manoImg.getHeight()/4);
         manoImg.setOrigin(manoImg.getWidth() / 2, manoImg.getHeight() / 2);
         stage.addActor(manoImg);
+
+        countdownWheel.setScale(0.5f);
+        countdownWheel.setColor(Color.YELLOW);
+        countdownWheel.setPosition(0-countdownWheel.getWidth()/2,Constants.DETECTION_ZONE_END- countdownWheel.getHeight());
     }
 
     public void renderClue(){
@@ -89,4 +97,6 @@ public class FeedbackRenderer {
     public Image getManoImg(){
         return manoImg;
     }
+
+    public Image getCountdownWheel(){ return countdownWheel;}
 }

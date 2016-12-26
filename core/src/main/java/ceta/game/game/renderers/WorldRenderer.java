@@ -25,11 +25,13 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  * Created by ewe on 7/25/16.
  */
 public class WorldRenderer extends AbstractWorldRenderer {
+    protected FeedbackRenderer feedbackRenderer;
 
     public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
         this.stage = stage;
         this.worldController = worldController;
         this.numberLineIsHorizontal = numberLineIsHorizontal;
+        feedbackRenderer = new FeedbackRenderer(stage);
         init();
     }
 
@@ -81,15 +83,28 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
 
     protected void renderCounter(SpriteBatch batch){
+        // TODO
+
+        float rotationNow = (worldController.getCountdownCurrentTime()*360)/Constants.CONTDOWN_MAX;
+        Gdx.app.log(TAG, " === "+rotationNow);
 
         // we render countdown!
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        String text = worldController.getCountdownCurrentTime()+"";
-        GlyphLayout layout = new GlyphLayout(counterFont, text);
-        counterFont.setColor(Color.RED);
-        counterFont.draw(batch, text+"", 0 - layout.width/2, -6 * Constants.BASE-100);
-        batch.end();
+        batch.setColor(feedbackRenderer.getCountdownWheel().getColor());
+        batch.draw(Assets.instance.feedback.wheel,
+                feedbackRenderer.getCountdownWheel().getX(),feedbackRenderer.getCountdownWheel().getY(),
+                feedbackRenderer.getCountdownWheel().getWidth()/2,feedbackRenderer.getCountdownWheel().getHeight()/2,
+                feedbackRenderer.getCountdownWheel().getWidth(),feedbackRenderer.getCountdownWheel().getHeight(),
+                feedbackRenderer.getCountdownWheel().getScaleX(),feedbackRenderer.getCountdownWheel().getScaleY(), rotationNow
+
+                );
+        batch.setColor(1,1,1,1);
+//        String text = worldController.getCountdownCurrentTime()+"";
+//        GlyphLayout layout = new GlyphLayout(counterFont, text);
+//        counterFont.setColor(Color.RED);
+//        counterFont.draw(batch, text+"", 0 - layout.width/2, -6 * Constants.BASE-100);
+       batch.end();
 
 
     }
