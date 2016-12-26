@@ -10,6 +10,7 @@ public class Constants {
     public static final boolean WITH_CV = false;
 
     public static final int MARGIN_FADE  = 100;
+    public static final int CONTDOWN_MAX  = 1;
 
     // Visible game world is 600 meters wide
     public static final float VIEWPORT_WIDTH = 600.0f;
@@ -22,6 +23,7 @@ public class Constants {
     public static final String LEVELS_FOLDER = "levels";
 
     public static final int BASE = 40;
+    public static final int errorsForHint = 5;
 
 
 
