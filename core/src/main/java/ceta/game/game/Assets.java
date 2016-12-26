@@ -59,6 +59,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/pickup_coin.wav", Sound.class);
 //        assetManager.load("sounds/pickup_feather.wav", Sound.class);
         assetManager.load("sounds/live_lost.wav", Sound.class);
+        assetManager.load("sounds/buzz.wav", Sound.class);
         // load music
         assetManager.load("music/song1.mp3", Music.class);
 
@@ -144,10 +145,12 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
     public class AssetFeedback {
-        public final TextureAtlas.AtlasRegion mano;
+        public final TextureAtlas.AtlasRegion hand;
+        public final TextureAtlas.AtlasRegion wheel;
 
         public AssetFeedback (TextureAtlas atlas) {
-            mano = atlas.findRegion("mano");
+            hand = atlas.findRegion("mano");
+            wheel = atlas.findRegion("wheel");
 
         }
     }
@@ -159,6 +162,12 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion backStart;
         public final TextureAtlas.AtlasRegion piecesBox;
 
+        public final TextureAtlas.AtlasRegion blocksZoneTablet;
+        public final TextureAtlas.AtlasRegion feedbackZoneTablet;
+        public final TextureAtlas.AtlasRegion feedbackZoneCV;
+        public final TextureAtlas.AtlasRegion feedbackZoneV2CV;
+        public final TextureAtlas.AtlasRegion feedbackZoneV2Tablet;
+
 
 
         public AssetBackground (TextureAtlas atlas) {
@@ -167,6 +176,11 @@ public class Assets implements Disposable, AssetErrorListener {
             back3 = atlas.findRegion("fondoV");
             backStart = atlas.findRegion("inicio");
             piecesBox = atlas.findRegion("parteB");
+            blocksZoneTablet = atlas.findRegion("blocksZoneTablet");
+            feedbackZoneTablet= atlas.findRegion("feedbackTablet");
+            feedbackZoneCV = atlas.findRegion("feedbackZone360x360") ;
+            feedbackZoneV2CV = atlas.findRegion("workZoneV2");
+            feedbackZoneV2Tablet = atlas.findRegion("workZoneV2tablet");
 
         }
     }
@@ -195,6 +209,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion walkHead;
         public final TextureAtlas.AtlasRegion still;
         public final TextureAtlas.AtlasRegion mega;
+        public final TextureAtlas.AtlasRegion mega2;
         public final TextureAtlas.AtlasRegion thoraxEnergy;
 
         public AssetBruno (TextureAtlas atlas) {
@@ -221,6 +236,7 @@ public class Assets implements Disposable, AssetErrorListener {
             walkHead = atlas.findRegion("caminaCabeza");
             still = atlas.findRegion("camina_parado");
             mega = atlas.findRegion("mega");
+            mega2 = atlas.findRegion("mega2");
 
             Array<TextureAtlas.AtlasRegion> regions = null;
             regions = atlas.findRegions("camina");
@@ -274,20 +290,26 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion tubeUnit;
         public final TextureAtlas.AtlasRegion finalTube;
         public final TextureAtlas.AtlasRegion mask;
+        public final TextureAtlas.AtlasRegion maskArm;
+        public final TextureAtlas.AtlasRegion tubeVertical;
+
 //        public final Animation animatedOneIn;
 //        public final Animation animatedOneOut;
 //        public final Animation animatedOneLoop;
 
 
         public AssetRoboticParts (TextureAtlas atlas) {
-            copperFitting1 = atlas.findRegion("tubo_final");
-            copperFitting2 = atlas.findRegion("tubo_final");
-            copperFitting3 = atlas.findRegion("tubo_final");
-            copperFitting4 = atlas.findRegion("tubo_final");
-            copperFitting5 = atlas.findRegion("tubo_final");
+            copperFitting1 = atlas.findRegion("tubo40");
+            copperFitting2 = atlas.findRegion("tubo80");
+            copperFitting3 = atlas.findRegion("tubo120");
+            copperFitting4 = atlas.findRegion("tubo160");
+            copperFitting5 = atlas.findRegion("tubo200");
             tubeUnit = atlas.findRegion("tubo");
             finalTube = atlas.findRegion("tubo_final");
             mask = atlas.findRegion("mega_mascara");
+            maskArm = atlas.findRegion("mega_brazo");
+            tubeVertical = atlas.findRegion("tuboVertical");
+
 
 //            Array<TextureAtlas.AtlasRegion> regions = null;
 //            regions = atlas.findRegions("boxA");
@@ -333,6 +355,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound pickupCoin;
 //        public final Sound pickupFeather;
         public final Sound liveLost;
+        public final Sound buzz;
         public AssetSounds (AssetManager am) {
 //            jump = am.get("sounds/jump.wav", Sound.class);
 //            jumpWithFeather = am.get("sounds/jump_with_feather.wav", Sound.class);
@@ -340,6 +363,7 @@ public class Assets implements Disposable, AssetErrorListener {
             pickupCoin = am.get("sounds/yuju.mp3", Sound.class);
 //            pickupFeather = am.get("sounds/pickup_feather.wav", Sound.class);
             liveLost = am.get("sounds/live_lost.wav", Sound.class);
+            buzz = am.get("sounds/buzz.wav", Sound.class);
 
         }
     }
