@@ -6,6 +6,7 @@ import ceta.game.managers.AnimatedRoboticTubeManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.GamePreferences;
 import ceta.game.managers.VirtualBlocksManager;
+import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -43,7 +44,7 @@ public class Level2HorizontalController extends Level1HorizontalController {
 
 
     @Override
-    protected void updateArmPieces(ArrayList toAdd, ArrayList toRemoveValues){
+    protected void updateArmPieces(ArrayList<Pair> toAdd, ArrayList<Integer> toRemoveValues){
         roboticArmManager.updateAnimated(toAdd,toRemoveValues);
     }
 

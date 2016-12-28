@@ -8,6 +8,7 @@ import ceta.game.managers.RoboticArmManager;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.GamePreferences;
+import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -62,7 +63,7 @@ public class Level1HorizontalCvController extends CvController {
     }
 
 
-    protected void updateArmPieces(ArrayList toAdd, ArrayList toRemove){
+    protected void updateArmPieces(ArrayList<Pair> toAdd, ArrayList<Integer> toRemove){
         roboticArmManager.update(toAdd,toRemove);
     }
 }
