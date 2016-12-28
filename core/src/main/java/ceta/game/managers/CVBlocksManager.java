@@ -35,7 +35,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     public static final String TAG = CVBlocksManager.class.getName();
     private TopCodeDetectorAndroid topCodeDetector;
     private DirectedGame game;
-    protected ArrayList<VirtualBlock> virtualBlocksOnStage;
+
     // private Set<Block> lastDetectedBlocks;
     private float actionsSpeed;
     private Stage stage;

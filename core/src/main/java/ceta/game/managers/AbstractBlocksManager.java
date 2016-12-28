@@ -1,5 +1,6 @@
 package ceta.game.managers;
 
+import ceta.game.game.objects.VirtualBlock;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -19,6 +20,7 @@ public abstract class AbstractBlocksManager {
     protected ArrayList<Integer> toRemoveFromDetectedValues = new ArrayList<Integer>();
     protected boolean waitForFirstMove;
     protected long noChangesSince;
+    protected ArrayList<VirtualBlock> virtualBlocksOnStage;
 
 
     public abstract void init();

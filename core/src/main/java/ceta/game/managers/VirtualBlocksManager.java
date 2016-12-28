@@ -22,7 +22,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     int margin;
     int xSpace, ySpace;
     Polygon polygon;
-    protected ArrayList<VirtualBlock> virtualBlocksOnStage;
+    //protected ArrayList<VirtualBlock> virtualBlocksOnStage;
 
     public VirtualBlocksManager(Stage stage){
         this.stage = stage;
