@@ -44,7 +44,7 @@ public class RoboticArmManager {
     }
 
 
-    public void update(ArrayList toAdd, ArrayList<Integer> toRemoveIds ){
+    public void update(ArrayList<Pair> toAdd, ArrayList<Integer> toRemoveIds ){
         if(toRemoveIds.size() > 0){
             Gdx.app.debug(TAG,"to remove! so many: "+toRemoveIds.size());
             removeArms(toRemoveIds); // removed arms notify the manager and we update the positions

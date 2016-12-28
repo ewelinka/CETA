@@ -84,7 +84,7 @@ public class Level1HorizontalController extends NoCvController{
     }
 
 
-    protected void updateArmPieces(ArrayList toAdd, ArrayList toRemove){
+    protected void updateArmPieces(ArrayList<Pair> toAdd, ArrayList<Integer> toRemove){
         roboticArmManager.update(toAdd,toRemove);
     }
 
