@@ -165,8 +165,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion blocksTablet;
         public final TextureAtlas.AtlasRegion feedbackZoneTablet;
         public final TextureAtlas.AtlasRegion feedbackZoneCV;
-        public final TextureAtlas.AtlasRegion feedbackZoneV2CV;
-        public final TextureAtlas.AtlasRegion feedbackZoneV2Tablet;
+        public final TextureAtlas.AtlasRegion feedbackZoneV1CV;
+        public final TextureAtlas.AtlasRegion feedbackZoneV1Tablet;
 
 
 
@@ -179,8 +179,8 @@ public class Assets implements Disposable, AssetErrorListener {
             blocksTablet = atlas.findRegion("blocksZoneTablet");
             feedbackZoneTablet= atlas.findRegion("feedbackTablet");
             feedbackZoneCV = atlas.findRegion("feedbackZone360x360") ;
-            feedbackZoneV2CV = atlas.findRegion("workZoneV2");
-            feedbackZoneV2Tablet = atlas.findRegion("workZoneV2tablet");
+            feedbackZoneV1CV = atlas.findRegion("workZoneV2");
+            feedbackZoneV1Tablet = atlas.findRegion("workZoneV2tablet");
 
         }
     }

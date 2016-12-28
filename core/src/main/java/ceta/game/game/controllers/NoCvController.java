@@ -3,10 +3,12 @@ package ceta.game.game.controllers;
 import ceta.game.game.Assets;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by ewe on 12/2/16.
@@ -73,9 +75,12 @@ public class NoCvController extends AbstractWorldController {
             // if we reached the time
             if (countdownCurrentTime < 0) {
                 Gdx.app.log(TAG, "wowowoowow action submit!");
+//                int[] a =  {1,2};
+//                AudioManager.instance.readTheSum(a);
                 updateDigitalRepresentations();
                 moveMade = true;
-                resetCountdown();
+                setCountdownOn(false);
+               // setCountdownOn(false);
                 virtualBlocksManager.setWaitForFirstMove(true);
                 virtualBlocksManager.resetDetectedAndRemoved();
             } else // we still count

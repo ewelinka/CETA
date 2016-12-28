@@ -70,6 +70,27 @@ public class Level1VerticalCvController extends CvController {
         }
     }
 
+    @Override
+    protected void testCollisionsVerticalDynamic(BrunoVertical objectToCheck){
+        if(objectToCheck != null ) {
+            r1.set(objectToCheck.getX() ,
+                    objectToCheck.getY()+ objectToCheck.getHeight() - 4, // two pixels below the middle
+                    objectToCheck.getWidth(), 4);
+            r2.set(level.price.getX(),
+                    level.price.getY(),
+                    level.price.getWidth()/2, level.price.getHeight()/2);
+
+            if (r1.overlaps(r2)) {
+                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                moveMade = false;
+            } else{
+                //TODO check if the price number and number line position ==
+                // if == -> its a good answer
+                // if not -> error
+            }
+        }
+    }
+
 
     public BrunoVertical getLastBruno(){
         return brunosManager.getLastBruno();

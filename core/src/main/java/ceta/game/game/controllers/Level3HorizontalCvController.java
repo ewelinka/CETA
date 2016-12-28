@@ -61,7 +61,7 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
 
 
     protected void testCollisionsStatic () {
-
+        Gdx.app.log(TAG," testCollisionsStatic ======");
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
@@ -73,7 +73,8 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
                         4, Math.abs(Constants.DETECTION_ZONE_END) + level.price.getY() +   level.price.bounds.height);
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPrice(level.price);
+                    //onCollisionBrunoWithPrice(level.price);
+                    onCollisionBrunoWithPriceHorizontal3(level.price, level.bruno);
                     moveMade = false;
                 } else {
                     if (moveMade) {
@@ -100,25 +101,31 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
     }
 
 
-    protected void testCollisionsDynamic () {
+
+
+    private void testCollisionsDynamic () {
+        //Gdx.app.log(TAG," testCollisionsDynamic ======");
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
-                r1.set(level.bruno.getX()+level.bruno.getWidth()-4,
-                        level.bruno.getY()+level.bruno.getHeight()-4,
-                        4, 4);
+                r1.set(level.bruno.getX()+level.bruno.getWidth()/2 -2,
+                        level.bruno.getY()+level.bruno.getHeight(),
+                        4, Constants.BASE);
                 r2.set(level.price.getX(),
                         level.price.getY(),
-                        level.price.bounds.width, level.price.bounds.height);
+                        level.price.getWidth(), level.price.getHeight());
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPrice(level.price);
+                    //onCollisionBrunoWithPrice(level.price);
+                    onCollisionBrunoWithPriceVertical(level.price, level.bruno);
                     moveMade = false;
                 } else{
                     //TODO check if the price number and number line position ==
                     // if == -> its a good answer
                     // if not -> error
                 }
+            }else{
+                //TODO zero is not a right answer
             }
         }
     }

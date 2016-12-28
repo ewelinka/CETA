@@ -10,7 +10,7 @@ public class Constants {
     public static final boolean WITH_CV = true;
 
     public static final int MARGIN_FADE  = 100;
-    public static final int CONTDOWN_MAX  = 1;
+    public static final int CONTDOWN_MAX  = 1; // in seconds
 
     // Visible game world is 600 meters wide
     public static final float VIEWPORT_WIDTH = 600.0f;
@@ -51,7 +51,7 @@ public class Constants {
     public Constants(){
         if(WITH_CV) {
             DETECTION_ZONE_END = (int) -VIEWPORT_HEIGHT / 2 + CV_DETECTION_EDGE_TABLET;
-
+            DETECTION_LIMIT = (int)-VIEWPORT_HEIGHT/2;
         }
         else {
 

@@ -4,6 +4,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.opencv.core.Core;
@@ -54,6 +55,8 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private int maxStrikes;
     private ArrayMap<Integer,Integer> idToValue;
 
+    private Set<Block> currentBlocks;
+
     //public boolean waitForFirstMove;
 
 
@@ -91,6 +94,8 @@ public class CVBlocksManager extends AbstractBlocksManager {
         idToValue = new ArrayMap<Integer,Integer>();
         initStrikesAndBlocksValues();
 
+        currentBlocks = new HashSet<Block>();
+
     }
 
     @Override
@@ -121,7 +126,13 @@ public class CVBlocksManager extends AbstractBlocksManager {
     public void analyseDetected(){
         //Set<Block> currentBlocks = topCodeDetector.detectBlocks(((CetaGame)game).getAndBlockLastFrame());
         if(detectionReady) {
-            Set<Block> currentBlocks = results.get(0);
+            if(results.size() > 0) {
+                currentBlocks = results.get(0);
+                Gdx.app.error(TAG," very very wrong -> empty result!");
+            }
+            else {
+                currentBlocks =  new HashSet<Block>();
+            }
 
             oldIds = new ArrayList(newIds);
             newIds.clear();

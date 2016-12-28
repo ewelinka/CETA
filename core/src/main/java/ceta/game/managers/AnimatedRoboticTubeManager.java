@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
 
+import static com.badlogic.gdx.math.MathUtils.ceil;
+
 /**
  * Created by ewe on 10/27/16.
  */
@@ -63,10 +65,10 @@ public class AnimatedRoboticTubeManager extends RoboticArmManager {
         int currentKey = 0; // we need it if we have to check for ids to generate new false ids
 
         for(int i=0; i< howMany;i++) {
-            if(i>9)
-                currentKey+=1;
 
-            Gdx.app.log(TAG, " add "+ toAdd.get(currentKey).getKey()+" part "+i + " lastx "+lastX+" delay "+ terminalDelay);
+            currentKey=ceil(i/10);
+            Gdx.app.log(TAG,"current key "+currentKey+" part "+i + " lastx "+lastX+" delay "+ terminalDelay);
+            Gdx.app.log(TAG, " add key: "+ toAdd.get(currentKey).getKey());
             TubePieceAnimated armToAdd = new TubePieceAnimated(1, this);
             stage.addActor(armToAdd);
 

@@ -40,8 +40,13 @@ public class FeedbackRenderer {
         stage.addActor(manoImg);
 
         countdownWheel.setScale(0.5f);
-        countdownWheel.setColor(Color.YELLOW);
-        countdownWheel.setPosition(0-countdownWheel.getWidth()/2,Constants.DETECTION_ZONE_END- countdownWheel.getHeight());
+        countdownWheel.setColor(130/255f,229/255f,225/255f,0.95f);
+        //countdownWheel.setPosition(0-countdownWheel.getWidth()/2,Constants.DETECTION_ZONE_END- countdownWheel.getHeight());
+        int a = Constants.DETECTION_ZONE_END - (Constants.DETECTION_ZONE_END - Constants.DETECTION_LIMIT)/2;
+        Gdx.app.log(TAG, " end "+ Constants.DETECTION_ZONE_END + "menos "+(Constants.DETECTION_ZONE_END - Constants.DETECTION_LIMIT)/2);
+        Gdx.app.log(TAG, "limit detection "+Constants.DETECTION_LIMIT);
+
+        countdownWheel.setPosition(0-countdownWheel.getWidth()/2,a - countdownWheel.getHeight()/2);
     }
 
     public void renderClue(){

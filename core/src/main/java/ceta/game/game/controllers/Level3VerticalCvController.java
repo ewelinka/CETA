@@ -94,29 +94,34 @@ public class Level3VerticalCvController extends CvController {
         }
     }
 
-
     protected void testCollisionsDynamic () {
-        BrunoVertical bruno = (BrunoVertical)level.bruno;
-        if (!(bruno.getActions().size > 0)) { // if bruno is not moving
-            // we set 4px x 4px box at the right end (X), in the middle (Y)
-            if(bruno.getTerminalY() != yZero ) {
-                r1.set(bruno.getX() ,
-                        bruno.getY() ,
-                        bruno.getWidth(), bruno.getHeight()/2);
+        BrunoVertical brunoV = (BrunoVertical) level.bruno;
+        if (!(brunoV.getActions().size > 0)) { // if bruno is not moving
+            if(brunoV.getTerminalY() != yZero ) {
+                r1.set(brunoV.getX() ,
+                        brunoV.getY() ,
+                        brunoV.getWidth(), level.bruno.getHeight()/2);
                 r2.set(level.price.getX(),
                         level.price.getY(),
                         level.price.getWidth()/2, level.price.getHeight()/2);
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPriceVertical(level.price,bruno);
+                    onCollisionBrunoWithPriceVertical(level.price, brunoV);
                     moveMade = false;
                 } else {
-                    // TODO register error or success!
+                    //TODO
 
                 }
+            }else{ // no blocks on the table
+                // TODO
             }
         }
     }
+
+
+
+
+
 
     private void updateBrunoVertical(ArrayList<Pair> toAdd, ArrayList<Integer> toRemoveValues){
         int toAddNr = 0;

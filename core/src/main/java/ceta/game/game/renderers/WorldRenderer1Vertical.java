@@ -12,7 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * Created by ewe on 12/27/16.
  */
 public class WorldRenderer1Vertical extends WorldRenderer{
-
+    private int adjustX = 106;
+    private int adjustY = 30;
 
     public WorldRenderer1Vertical(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
         super(worldController, stage, numberLineIsHorizontal);
@@ -22,9 +23,8 @@ public class WorldRenderer1Vertical extends WorldRenderer{
     protected void renderDetectionZoneImg(SpriteBatch batch) {
         TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksTablet;
         // render for deposite
-        TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneV2Tablet;
-        int adjustX = 106;
-        int adjustY = 30;
+        TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneV1Tablet;
+
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
