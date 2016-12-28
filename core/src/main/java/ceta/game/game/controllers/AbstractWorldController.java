@@ -49,6 +49,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected boolean moveMade;
     private int localCountdownMax;
     protected int currentErrors;
+    protected int timeToWait;
 
 
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
@@ -56,6 +57,15 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         this.game = game;
         this.stage = stage;
         levelParams = getLevelParams(levelNr);
+
+        if(GamePreferences.instance.actionSubmit) {
+            timeToWait = Constants.ACTION_SUBMIT_WAIT;
+            Gdx.app.log(TAG, " time to wait!!! "+timeToWait);
+        }
+        else {
+            timeToWait = 0;
+            Gdx.app.log(TAG, "no time to wait!!!");
+        }
 
         init();
         localInit();
@@ -354,10 +364,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public void setCountdownOn(boolean isOn){
-        if(isOn)
+        Gdx.app.log(TAG, " setCountdownOn "+isOn);
+        if(isOn) {
+
             AudioManager.instance.play(Assets.instance.sounds.buzz);
-        else
+        }
+        else {
             AudioManager.instance.stopSound();
+        }
         countdownOn = isOn;
         countdownCurrentTime = localCountdownMax;
     }

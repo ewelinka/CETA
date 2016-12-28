@@ -14,19 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class CvController extends AbstractWorldController {
     private static final String TAG = CvController.class.getName();
     protected CVBlocksManager cvBlocksManager;
-    private int timeToWait;
+
 
 
     public CvController(DirectedGame game, Stage stage, int levelNr) {
         super(game, stage, levelNr);
-        if(GamePreferences.instance.actionSubmit) {
-            timeToWait = Constants.ACTION_SUBMIT_WAIT;
-            Gdx.app.log(TAG, " time to wait!!! "+timeToWait);
-        }
-        else {
-            timeToWait = 0;
-            Gdx.app.log(TAG, "no time to wait!!!");
-        }
+
 
     }
 
@@ -66,13 +59,15 @@ public class CvController extends AbstractWorldController {
 
         // we start to act after kids move
         if(!cvBlocksManager.isWaitForFirstMove()) {
-
             if (cvBlocksManager.getTimeWithoutChange() > timeToWait) {
-                if (!countdownOn) //if we are not counting, we start!
+                if (!countdownOn) {//if we are not counting, we start!
+                    Gdx.app.log(TAG,"NOT waiting OVER limit NOT counting -> set TRUE");
                     setCountdownOn(true);
+                }
             } else {
                 if(true) {
                     //setPlayerInactive(false);
+                    Gdx.app.log(TAG,"NOT waiting NOT-OVER limit NOT counting -> set FALSE");
                     setCountdownOn(false); // if somebody moved a block
 
                 }
@@ -86,6 +81,7 @@ public class CvController extends AbstractWorldController {
                 updateDigitalRepresentations();
                 moveMade = true;
                 cvBlocksManager.resetDetectedAndRemoved();
+                Gdx.app.log(TAG,"countdown ON , countdownCurrentTime < 0 -> set FALSE");
                 setCountdownOn(false);
                 cvBlocksManager.setWaitForFirstMove(true);
                 cvBlocksManager.resetNoChangesSince();

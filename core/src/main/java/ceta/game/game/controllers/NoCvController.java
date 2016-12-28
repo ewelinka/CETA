@@ -30,7 +30,10 @@ public class NoCvController extends AbstractWorldController {
     @Override
     protected boolean isPlayerInactive() {
        //TODO add errors check and set if too much or too less
-        return (virtualBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT);
+        if ((virtualBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT)&& (currentErrors > Constants.errorsForHint)) {
+            setPlayerInactive(true);
+        }
+        return playerInactive;
     }
 
     @Override
@@ -52,18 +55,16 @@ public class NoCvController extends AbstractWorldController {
         // we start to act after kids move
         if(!virtualBlocksManager.isWaitForFirstMove()) { // just for action submit!
 
-            if (virtualBlocksManager.getTimeWithoutChange() > Constants.ACTION_SUBMIT_WAIT) {
+            if (virtualBlocksManager.getTimeWithoutChange() > timeToWait) {
                 if (!countdownOn) {
-                   // Gdx.app.log(TAG, "-->   go countdown!");
+                    Gdx.app.log(TAG,"NOT waiting OVER limit NOT counting -> set TRUE");
                     setCountdownOn(true); //if we are not counting, we start!
-
                 }
             } else {
                 if(true) {
+                    Gdx.app.log(TAG,"NOT waiting NOT-OVER limit NOT counting -> set FALSE");
                     //setPlayerInactive(false);
                     setCountdownOn(false); // if somebody moved a block
-
-
                 }
             }
         }
@@ -79,8 +80,8 @@ public class NoCvController extends AbstractWorldController {
 //                AudioManager.instance.readTheSum(a);
                 updateDigitalRepresentations();
                 moveMade = true;
+                Gdx.app.log(TAG,"countdown ON , countdownCurrentTime < 0 -> set FALSE");
                 setCountdownOn(false);
-               // setCountdownOn(false);
                 virtualBlocksManager.setWaitForFirstMove(true);
                 virtualBlocksManager.resetDetectedAndRemoved();
             } else // we still count

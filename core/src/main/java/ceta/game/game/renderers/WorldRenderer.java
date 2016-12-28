@@ -25,6 +25,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  * Created by ewe on 7/25/16.
  */
 public class WorldRenderer extends AbstractWorldRenderer {
+    public static final String TAG = WorldRenderer.class.getName();
     protected FeedbackRenderer feedbackRenderer;
 
     public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {

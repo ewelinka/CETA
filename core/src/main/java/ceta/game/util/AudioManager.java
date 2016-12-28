@@ -22,7 +22,7 @@ public class AudioManager {
     public static final AudioManager instance = new AudioManager();
     private Music playingMusic;
     private Sound currentSound;
-    private float defaultVolSound = 0.1f;
+    private float defaultVolSound = 0.2f;
     private SequenceAction readMe;
     private Actor reader;
     private Stage stage;
