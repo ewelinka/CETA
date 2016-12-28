@@ -14,13 +14,13 @@ public class Tube extends AbstractGameObject {
 
     public Tube(int val){
         tubeValue =val;
-        regTex = Assets.instance.box.box;
+        regTex = Assets.instance.roboticParts.tubeVertical;
 
         init();
     }
 
     public void init(){
-        this.setSize(Constants.BASE,Constants.BASE*tubeValue);
+        this.setSize(regTex.getRegionWidth()*1.2f,200);
         // now we can set the values that depend on size
         super.init();
 

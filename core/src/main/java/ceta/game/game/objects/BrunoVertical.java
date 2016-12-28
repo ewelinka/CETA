@@ -30,8 +30,7 @@ public class BrunoVertical extends Bruno {
     private TextureRegion brunoHeadReg;
     private TextureRegion brunoBodyReg;
 
-    private int headXoffset;
-    private int headYoffset;
+    private int headXoffset,bodyOffsetX,headYoffset;
     private float actionVelocity;
 
 
@@ -64,6 +63,7 @@ public class BrunoVertical extends Bruno {
     protected void setColorAndTexture(int bValue){ //TODO all bodies and all heads
         headXoffset = 0;
         headYoffset = 0;
+        bodyOffsetX = 0;
         switch (bValue){
             case 1:
                 setColor(Color.YELLOW);
@@ -87,6 +87,7 @@ public class BrunoVertical extends Bruno {
                 brunoBodyReg = Assets.instance.bruno.body03body;
                 headXoffset = 5;
                 headYoffset = -5;
+                bodyOffsetX = -3;
                 break;
             case 4:
                 setColor(Color.CYAN);
@@ -94,6 +95,7 @@ public class BrunoVertical extends Bruno {
                 brunoHeadReg = Assets.instance.bruno.body04head;
                 brunoBodyReg = Assets.instance.bruno.body04body;
                 headYoffset = -4;
+                bodyOffsetX = -5;
                 break;
             case 5:
                 setColor(Color.PINK);
@@ -201,25 +203,27 @@ public class BrunoVertical extends Bruno {
     public void draw(Batch batch, float parentAlpha) {
         //batch.setProjectionMatrix(camera.combined);
         // batch.draw(regTex,this.getX(),this.getY());
-        batch.setColor(this.getColor());
-        batch.draw(brunoBodyReg.getTexture(),
-                this.getX()+offsetX, this.getY()+offsetY,
-                this.getOriginX(), this.getOriginY(),
-                brunoBodyReg.getRegionWidth()+4, brunoBodyReg.getRegionHeight(),
-                this.getScaleX(), this.getScaleY(),
-                0,
-                brunoBodyReg.getRegionX(), brunoBodyReg.getRegionY(),
-                brunoBodyReg.getRegionWidth(), brunoBodyReg.getRegionHeight(), lookingLeft,false);
+        if(getY()>Constants.DETECTION_ZONE_END-getHeight()) {
+            batch.setColor(this.getColor());
+            batch.draw(brunoBodyReg.getTexture(),
+                    this.getX() + offsetX + bodyOffsetX, this.getY() + offsetY,
+                    this.getOriginX(), this.getOriginY(),
+                    brunoBodyReg.getRegionWidth() + 4, brunoBodyReg.getRegionHeight(),
+                    this.getScaleX(), this.getScaleY(),
+                    0,
+                    brunoBodyReg.getRegionX(), brunoBodyReg.getRegionY(),
+                    brunoBodyReg.getRegionWidth(), brunoBodyReg.getRegionHeight(), lookingLeft, false);
 
-        batch.draw(brunoHeadReg.getTexture(),
-                this.getX() + headXoffset+offsetX, this.getY()+ brunoBodyReg.getRegionHeight()+headYoffset+offsetY,
-                0, 0,
-                brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(),
-                this.getScaleX(), this.getScaleY(),
-                this.getRotation(),
-                brunoHeadReg.getRegionX(), brunoHeadReg.getRegionY(),
-                brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(), lookingLeft,false);
-        batch.setColor(1,1,1,1);
+            batch.draw(brunoHeadReg.getTexture(),
+                    this.getX() + headXoffset + offsetX+ bodyOffsetX, this.getY() + brunoBodyReg.getRegionHeight() + headYoffset + offsetY,
+                    0, 0,
+                    brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(),
+                    this.getScaleX(), this.getScaleY(),
+                    this.getRotation(),
+                    brunoHeadReg.getRegionX(), brunoHeadReg.getRegionY(),
+                    brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(), lookingLeft, false);
+            batch.setColor(1, 1, 1, 1);
+        }
 
         offsetX = 0;
         offsetY = 0;

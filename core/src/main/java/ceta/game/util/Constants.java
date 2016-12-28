@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
  * Created by ewe on 7/25/16.
  */
 public class Constants {
-    public static final boolean WITH_CV = false;
+    public static final boolean WITH_CV = true;
 
     public static final int MARGIN_FADE  = 100;
     public static final int CONTDOWN_MAX  = 1;
@@ -40,7 +40,7 @@ public class Constants {
     public static int DETECTION_LIMIT; // just for tablet-only
 
     public static final int HORIZONTAL_ZERO_X = -200;
-    public static final int VERTICAL_MIDDLE_X = -240;
+    public static final int VERTICAL_MIDDLE_X = -233;
     public static final int PRICE_X_OFFSET = 60;
 
 

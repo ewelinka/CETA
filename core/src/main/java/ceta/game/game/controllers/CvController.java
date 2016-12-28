@@ -86,7 +86,7 @@ public class CvController extends AbstractWorldController {
                 updateDigitalRepresentations();
                 moveMade = true;
                 cvBlocksManager.resetDetectedAndRemoved();
-                resetCountdown();
+                setCountdownOn(false);
                 cvBlocksManager.setWaitForFirstMove(true);
                 cvBlocksManager.resetNoChangesSince();
             }

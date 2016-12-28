@@ -110,7 +110,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     private void actionSubmitInit(){
-        countdownOn = false;
+        setCountdownOn(false);
         countdownCurrentTime = localCountdownMax;
     }
 
@@ -382,10 +382,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public boolean isNumberLineVisible(){ return levelParams.visibleNumberLine;}
 
-    public void resetCountdown(){
-        countdownOn = false;
-        countdownCurrentTime = localCountdownMax;
-    }
+
 
     public void setPlayerInactive(boolean isInactive){
         playerInactive = isInactive;
@@ -393,15 +390,15 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
 
-//    @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-//        // ignore if its not left mouse button or first touch pointer
-//        if(screenY > 200) {
-//            GamePreferences.instance.addOneToLastLevelAndSave();
-//            game.getLevelsManager().goToNextLevel();
-//        }
-//
-//        return true;
-//    }
+    @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        // ignore if its not left mouse button or first touch pointer
+        if(screenY < 150) {
+            GamePreferences.instance.addOneToLastLevelAndSave();
+            game.getLevelsManager().goToNextLevel();
+        }
+
+        return true;
+    }
 
 
 }

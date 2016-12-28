@@ -2,7 +2,6 @@ package ceta.game.managers;
 
 import ceta.game.game.Assets;
 import ceta.game.game.objects.BrunoVertical;
-import ceta.game.game.objects.EnergyUnit;
 import ceta.game.util.Constants;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
@@ -20,7 +19,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  */
 public class EnergyManager extends BrunosManager {
     public static final String TAG = EnergyManager.class.getName();
-    private ArrayList<EnergyUnit> brunoPiecesAnim;
+
     private float terminalDelay;
     private float currentDelayPassed; //TODO use if no action submit
     private final float animationSpeed = 0.2f;
@@ -40,7 +39,7 @@ public class EnergyManager extends BrunosManager {
     public void init(){
         lastY = initialY;
         units = 0;
-        brunoPiecesAnim = new ArrayList<EnergyUnit>();
+
         terminalDelay = 0;
         currentDelayPassed = 0;
         alphaColor = 0.5f;

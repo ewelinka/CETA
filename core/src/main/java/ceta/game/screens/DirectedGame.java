@@ -25,7 +25,7 @@ public abstract class DirectedGame extends Game {
     private ScreenTransition screenTransition;
 
     protected LevelsManager levelsManager;
-    protected Stage mainStage;
+
 
     @Override
     public void render () {
@@ -126,9 +126,7 @@ public abstract class DirectedGame extends Game {
         return levelsManager;
     }
 
-    public Stage getMainStage(){
-        return mainStage;
-    }
+
 
 
 

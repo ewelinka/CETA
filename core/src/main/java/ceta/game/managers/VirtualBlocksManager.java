@@ -41,7 +41,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         xSpace = 60;
         ySpace = 25;
         initBlocks();
-        waitForFirstMove = true;
+        setWaitForFirstMove(true);
         noChangesSince = TimeUtils.millis();
     }
 
@@ -79,7 +79,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                         // TODO here we should check for smallest Y, not first vertex
                         // was detected but now gone
                        // blockRemoved(vBlock.getBlockValue());
-                        waitForFirstMove = false;
+                        setWaitForFirstMove(false);
                         blockRemovedWithIdAndValue(vBlock.getBlockId(),vBlock.getBlockValue());
                         removeFromStageByIndex(i); // we remove it from detection zone
                     }
@@ -87,7 +87,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                     if( polygon.getTransformedVertices()[1] > Constants.DETECTION_LIMIT){
                         // TODO here we should check for smallest Y, not first vertex
                         // new detected!
-                        waitForFirstMove = false;
+                        setWaitForFirstMove(false);
                         vBlock.setWasDetected(true);
                        // addBlock(vBlock.getBlockValue());
                         addBlockWithId(vBlock.getBlockValue(),vBlock.getBlockId());

@@ -20,8 +20,8 @@ public class Bruno extends AbstractGameObject {
     public static final String TAG = Bruno.class.getName();
 
     protected boolean lookingLeft;
-    private TextureRegion tube;
-    private TextureRegion mask;
+    protected TextureRegion tube;
+    protected TextureRegion mask;
     public enum HEAD_STATE {UP,FIXED, GOING_BACK}
     public HEAD_STATE headState;
 
@@ -36,13 +36,14 @@ public class Bruno extends AbstractGameObject {
         regTex = Assets.instance.bruno.mega;
         mask = Assets.instance.roboticParts.mask;
         tube = Assets.instance.roboticParts.finalTube;
-        this.setSize(427,429);
+        this.setSize(regTex.getRegionWidth(),regTex.getRegionHeight());
         superinit();
         lookingLeft = false;
 
     }
 
     protected void superinit(){
+        Gdx.app.log(TAG, "in super init --- brunoooo");
         super.init();
 
     }

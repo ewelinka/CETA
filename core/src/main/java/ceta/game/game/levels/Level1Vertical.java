@@ -24,7 +24,7 @@ public class Level1Vertical extends LevelHorizontal {
         price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
 
         tube = new Tube(12);
-        tube.setWidth(Constants.BASE*1.5f);
+        //tube.setWidth(Constants.BASE*1.5f);
         tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2,Constants.DETECTION_ZONE_END -tube.getHeight()); //TODO change for no-cv!!!
 
         // add actors

@@ -162,7 +162,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion backStart;
         public final TextureAtlas.AtlasRegion piecesBox;
 
-        public final TextureAtlas.AtlasRegion blocksZoneTablet;
+        public final TextureAtlas.AtlasRegion blocksTablet;
         public final TextureAtlas.AtlasRegion feedbackZoneTablet;
         public final TextureAtlas.AtlasRegion feedbackZoneCV;
         public final TextureAtlas.AtlasRegion feedbackZoneV2CV;
@@ -176,7 +176,7 @@ public class Assets implements Disposable, AssetErrorListener {
             back3 = atlas.findRegion("fondoV");
             backStart = atlas.findRegion("inicio");
             piecesBox = atlas.findRegion("parteB");
-            blocksZoneTablet = atlas.findRegion("blocksZoneTablet");
+            blocksTablet = atlas.findRegion("blocksZoneTablet");
             feedbackZoneTablet= atlas.findRegion("feedbackTablet");
             feedbackZoneCV = atlas.findRegion("feedbackZone360x360") ;
             feedbackZoneV2CV = atlas.findRegion("workZoneV2");
@@ -356,6 +356,13 @@ public class Assets implements Disposable, AssetErrorListener {
 //        public final Sound pickupFeather;
         public final Sound liveLost;
         public final Sound buzz;
+
+        public final Sound one;
+        public final Sound two;
+        public final Sound three;
+        public final Sound plus;
+
+
         public AssetSounds (AssetManager am) {
 //            jump = am.get("sounds/jump.wav", Sound.class);
 //            jumpWithFeather = am.get("sounds/jump_with_feather.wav", Sound.class);
@@ -364,6 +371,11 @@ public class Assets implements Disposable, AssetErrorListener {
 //            pickupFeather = am.get("sounds/pickup_feather.wav", Sound.class);
             liveLost = am.get("sounds/live_lost.wav", Sound.class);
             buzz = am.get("sounds/buzz.wav", Sound.class);
+
+            one = am.get("sounds/pickup_coin.wav", Sound.class);
+            two = am.get("sounds/live_lost.wav", Sound.class);
+            three = pickupCoin;
+            plus =am.get("sounds/buzz.wav", Sound.class);
 
         }
     }

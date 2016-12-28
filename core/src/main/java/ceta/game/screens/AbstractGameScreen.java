@@ -29,7 +29,6 @@ public abstract class AbstractGameScreen  implements Screen {
     public AbstractGameScreen (DirectedGame game, int levelNr) {
 
         this.game = game;
-        this.stage = game.getMainStage();
         this.levelNr = levelNr;
     }
 

@@ -3,7 +3,6 @@ package ceta.game.game.controllers;
 import ceta.game.game.Assets;
 import ceta.game.game.levels.Level2Vertical;
 import ceta.game.game.objects.BrunoVertical;
-import ceta.game.game.objects.EnergyUnit;
 import ceta.game.managers.EnergyManager;
 import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.DirectedGame;

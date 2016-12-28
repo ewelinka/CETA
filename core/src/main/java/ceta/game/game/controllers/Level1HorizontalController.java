@@ -1,6 +1,7 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.Assets;
+import ceta.game.game.levels.Level1Horizontal;
 import ceta.game.game.levels.LevelHorizontal;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.ArmPiece;
@@ -34,7 +35,7 @@ public class Level1HorizontalController extends NoCvController{
         roboticArmManager = new RoboticArmManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        level = new LevelHorizontal(stage, levelParams);
+        level = new Level1Horizontal(stage, levelParams);
 
         virtualBlocksManager.init();
         roboticArmManager.init();

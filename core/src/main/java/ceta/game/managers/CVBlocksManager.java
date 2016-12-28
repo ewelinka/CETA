@@ -84,7 +84,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
         noMovementDist = 10;
         noMovementRot = 20;
-        waitForFirstMove = true;
+        setWaitForFirstMove(true);
 
         maxStrikes = 3; // after x frames without marker, we pronounce it deleted
         strikes = new ArrayMap<Integer,Integer>();
@@ -246,7 +246,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
         blockRemovedWithIdAndValue(id,val);
         removeFromStageById(id); // we remove it from detection zone/stage
         noChangesSince = TimeUtils.millis();
-        waitForFirstMove = false;
+        setWaitForFirstMove(false);
     }
 
     protected void removeFromStageById(int whichId){
@@ -297,7 +297,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
         virtualBlocksOnStage.add(vBlock);
 
         noChangesSince = TimeUtils.millis(); //new change!
-        waitForFirstMove = false;
+        setWaitForFirstMove(false);
     }
 
     protected void removeFromStageByIndex(int index){
