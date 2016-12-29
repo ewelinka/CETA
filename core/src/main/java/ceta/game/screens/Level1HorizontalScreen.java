@@ -54,7 +54,6 @@ public class Level1HorizontalScreen extends AbstractGameScreen{
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
         // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
-        AudioManager.instance.setStage(stage);
         worldController = new Level1HorizontalController(game,stage,levelNr);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport

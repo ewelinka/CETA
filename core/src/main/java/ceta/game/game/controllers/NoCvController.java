@@ -10,6 +10,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.ArrayList;
+
 /**
  * Created by ewe on 12/2/16.
  */
@@ -38,59 +40,57 @@ public class NoCvController extends AbstractWorldController {
 
     @Override
     public void update(float deltaTime) { // TODO move to no-cv-controller that will be the father of all no-cv controlers
-        if(screenFinished) {
-            //Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
-            timeLeftScreenFinishedDelay -= deltaTime;
-            if (timeLeftScreenFinishedDelay < 0)
-                goToCongratulationsScreen();
-        }
-        else{
-            testCollisions(); // winning condition checked
-        }
+        globalUpdate(deltaTime);
 
-        handleDebugInput(deltaTime);
-        level.update(deltaTime); //stage.act()
         virtualBlocksManager.updateDetected();
-
         // we start to act after kids move
-        if(!virtualBlocksManager.isWaitForFirstMove()) { // just for action submit!
 
-            if (virtualBlocksManager.getTimeWithoutChange() > timeToWait) {
-                if (!countdownOn) {
-                    Gdx.app.log(TAG,"NOT waiting OVER limit NOT counting -> set TRUE");
-                    setCountdownOn(true); //if we are not counting, we start!
-                }
-            } else {
-                if(true) {
-                    Gdx.app.log(TAG,"NOT waiting NOT-OVER limit NOT counting -> set FALSE");
-                    //setPlayerInactive(false);
-                    setCountdownOn(false); // if somebody moved a block
+        if(timeForReadOver(deltaTime)) {
+            if (!virtualBlocksManager.isWaitForFirstMove()) { // just for action submit!
+
+                if (virtualBlocksManager.getTimeWithoutChange() > timeToWait) {
+                    if (!countdownOn) {
+                        Gdx.app.log(TAG, "NOT waiting OVER limit NOT counting -> set TRUE");
+                        setCountdownOn(true); //if we are not counting, we start!
+                    }
+                } else {
+                    if (true) {
+                        Gdx.app.log(TAG, "NOT waiting NOT-OVER limit NOT counting -> set FALSE");
+                        //setPlayerInactive(false);
+                        setCountdownOn(false); // if somebody moved a block
+                    }
                 }
             }
-        }
 
-        // if we are counting
-        if (countdownOn) {
-            // we shake bruno
-            countdownMove();
-            // if we reached the time
-            if (countdownCurrentTime < 0) {
-                Gdx.app.log(TAG, "wowowoowow action submit!");
+            // if we are counting
+            if (countdownOn) {
+                // we shake bruno
+                countdownMove();
+                // if we reached the time
+                if (countdownCurrentTime < 0) {
+                    Gdx.app.log(TAG, "wowowoowow action submit!");
 //                int[] a =  {1,2};
-//                AudioManager.instance.readTheSum(a);
-                updateDigitalRepresentations();
-                moveMade = true;
-                Gdx.app.log(TAG,"countdown ON , countdownCurrentTime < 0 -> set FALSE");
-                setCountdownOn(false);
-                virtualBlocksManager.setWaitForFirstMove(true);
-                virtualBlocksManager.resetDetectedAndRemoved();
-            } else // we still count
-                countdownCurrentTime -= deltaTime;
+                    readDetectedPiecesAndSetTimeToWait();
+                    updateDigitalRepresentations();
+                    moveMade = true;
+                    Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
+                    setCountdownOn(false);
+                    virtualBlocksManager.setWaitForFirstMove(true);
+                    virtualBlocksManager.resetDetectedAndRemoved();
+                } else // we still count
+                    countdownCurrentTime -= deltaTime;
+            }
         }
 
         cameraHelper.update(deltaTime);
 
 
+    }
+
+    private void readDetectedPiecesAndSetTimeToWait(){
+        ArrayList<Integer> toReadVals = virtualBlocksManager.getNowDetectedVals();
+        AudioManager.instance.readTheSum(toReadVals);
+        timeToWaitForReading = toReadVals.size(); // seconds
     }
 
     @Override

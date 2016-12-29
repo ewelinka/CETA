@@ -81,6 +81,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
         toRemoveCVValues = new ArrayList<Integer>();
         newIds = new ArrayList<Integer>();
         oldIds = new ArrayList<Integer>();
+        nowDetectedVals = new ArrayList<Integer>();
 
         virtualBlocksOnStage = new ArrayList<VirtualBlock>();
         detectionReady = false;
@@ -137,12 +138,14 @@ public class CVBlocksManager extends AbstractBlocksManager {
             oldIds = new ArrayList(newIds);
             newIds.clear();
             newDetectedCVBlocks.clear();
+            nowDetectedVals.clear();
 
 
             for (Block i : currentBlocks) {
                 Gdx.app.log(TAG, " orientation (radians) " + i.getOrientation() + " center " + i.getCenter() + " type " + i.getType() + " id " + i.getId());
                 newIds.add(i.getId());
                 newDetectedCVBlocks.add(i);
+                nowDetectedVals.add(i.getValue());
             }
             Gdx.app.log(TAG, "blocks detected " + currentBlocks.size() + " new ids " + Arrays.toString(newIds.toArray()) + " old: " + Arrays.toString(oldIds.toArray()));
 
@@ -410,6 +413,10 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     private void updateStrikes(int id){
         strikes.put(id,strikes.get(id)+1); // add one!
+    }
+
+    public ArrayList<Integer> getNewIds(){
+        return newIds;
     }
 }
 

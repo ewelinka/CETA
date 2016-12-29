@@ -25,18 +25,7 @@ public class CvController extends AbstractWorldController {
 
     @Override
     public void update(float deltaTime) {
-        if(screenFinished) {
-            timeLeftScreenFinishedDelay -= deltaTime;
-            if (timeLeftScreenFinishedDelay < 0)
-                goToCongratulationsScreen();
-        }
-        else{
-            testCollisions(); // winning condition checked
-        }
-
-        handleDebugInput(deltaTime);
-        level.update(deltaTime); //stage.act()
-
+        globalUpdate(deltaTime);
         /// detection-related start
         if(((CetaGame)game).hasNewFrame()) {
             Gdx.app.log(TAG," framerateeee" +Gdx.graphics.getFramesPerSecond());
@@ -90,6 +79,7 @@ public class CvController extends AbstractWorldController {
                 countdownCurrentTime -= deltaTime;
             }
         }
+
         cameraHelper.update(deltaTime);
 
     }

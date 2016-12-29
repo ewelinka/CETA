@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 
+import java.util.ArrayList;
+
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 
@@ -34,6 +36,7 @@ public class AudioManager {
         this.stage = stage;
         reader = new Actor();
         stage.addActor(reader);
+        readMe = new SequenceAction();
     }
 
     public void play (Sound sound) {
@@ -50,99 +53,104 @@ public class AudioManager {
         currentSound.play(defaultVolSound * volume, pitch, pan);
     }
 
-    public void play (int nr) {
+    public void playNumber (Sound sound) {
+        sound.play(defaultVolSound * 1, 1, 1);
+    }
+
+    public void addToPlay (int nr) {
 
         switch (nr){
             case 1:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.one);
+                        playNumber(Assets.instance.sounds.one);
                     }
                 }));
-                readMe.addAction( delay(1.0f));
+                readMe.addAction(delay(1.0f));
                 break;
             case 2:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.two);
+                        playNumber(Assets.instance.sounds.two);
                     }
                 }));
-                readMe.addAction( delay(1.0f));
+                readMe.addAction(delay(1.0f));
                 break;
             case 3:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.three);
-                        delay(1.0f);
+                        playNumber(Assets.instance.sounds.three);
                     }
                 }));
+                readMe.addAction(delay(1.0f));
                 break;
             case 4:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.three);
-                        delay(1.0f);
+                        playNumber(Assets.instance.sounds.four);
                     }
                 }));
+                readMe.addAction(delay(1.0f));
                 break;
             case 5:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.three);
-                        delay(1.0f);
+                        playNumber(Assets.instance.sounds.five);
                     }
                 }));
+                readMe.addAction(delay(1.0f));
                 break;
             case 6:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.three);
-                        delay(1.0f);
+                        playNumber(Assets.instance.sounds.three);
                     }
                 }));
+                readMe.addAction(delay(1.0f));
                 break;
             case 7:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.three);
-                        delay(1.0f);
+                        playNumber(Assets.instance.sounds.three);
                     }
                 }));
+                readMe.addAction(delay(1.0f));
                 break;
             case 8:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.three);
-                        delay(1.0f);
+                        playNumber(Assets.instance.sounds.three);
                     }
                 }));
+                readMe.addAction(delay(1.0f));
                 break;
             case 9:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.three);
-                        delay(1.0f);
+                        playNumber(Assets.instance.sounds.three);
                     }
                 }));
+                readMe.addAction(delay(1.0f));
                 break;
             case 10:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        play(Assets.instance.sounds.three);
-                        delay(1.0f);
+                        playNumber(Assets.instance.sounds.three);
                     }
                 }));
+                readMe.addAction(delay(1.0f));
                 break;
         }
     }
 
 
-    public void readTheSum(int[] numbers){
-        readMe = new SequenceAction();
-        //readMe.reset();
-        for(int i = 0; i< numbers.length;i++){
-            play(numbers[i]);
+    public void readTheSum(ArrayList<Integer> numbers){
+
+        readMe.reset();
+        for(int i = 0; i< numbers.size();i++){
+            addToPlay(numbers.get(i));
         }
+
         reader.addAction(readMe);
 
     }

@@ -21,6 +21,7 @@ public abstract class AbstractBlocksManager {
     protected boolean waitForFirstMove;
     protected long noChangesSince;
     protected ArrayList<VirtualBlock> virtualBlocksOnStage;
+    ArrayList<Integer> nowDetectedVals;
 
 
     public abstract void init();
@@ -96,6 +97,10 @@ public abstract class AbstractBlocksManager {
 
     public void resetNoChangesSince(){
         noChangesSince = TimeUtils.millis(); //new change!
+    }
+
+    public synchronized ArrayList<Integer> getNowDetectedVals(){
+        return nowDetectedVals;
     }
 
 

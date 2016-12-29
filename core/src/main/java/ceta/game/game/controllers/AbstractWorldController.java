@@ -12,19 +12,19 @@ import ceta.game.screens.CongratulationsScreen;
 import ceta.game.screens.MenuScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
-import ceta.game.util.AudioManager;
-import ceta.game.util.CameraHelper;
+import ceta.game.util.*;
 
-import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Json;
+
+import java.util.ArrayList;
 
 
 /**
@@ -50,13 +50,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     private int localCountdownMax;
     protected int currentErrors;
     protected int timeToWait;
+    protected float timeToWaitForReading;
 
 
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
-
         this.game = game;
         this.stage = stage;
         levelParams = getLevelParams(levelNr);
+        AudioManager.instance.setStage(stage);
 
         if(GamePreferences.instance.actionSubmit) {
             timeToWait = Constants.ACTION_SUBMIT_WAIT;
@@ -66,6 +67,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             timeToWait = 0;
             Gdx.app.log(TAG, "no time to wait!!!");
         }
+        timeToWaitForReading = 0;
 
         init();
         localInit();
@@ -80,7 +82,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected abstract void localInit();
     protected abstract void updateDigitalRepresentations();
     protected abstract void countdownMove();
-
     protected abstract boolean isPlayerInactive();
 
 
@@ -376,6 +377,16 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         countdownCurrentTime = localCountdownMax;
     }
 
+    public void readBlockValues(ArrayList<Pair> toReadBlocks){
+        //TODO
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        for(int i =0;i<toReadBlocks.size();i++){
+            a.add(toReadBlocks.get(i).getValue());
+        }
+
+        AudioManager.instance.readTheSum(a);
+    }
+
 
     public void resetScore(){
         score = 0;
@@ -413,6 +424,32 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
         return true;
     }
+
+    public void globalUpdate(float deltaTime){
+        if(screenFinished) {
+            //Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
+            timeLeftScreenFinishedDelay -= deltaTime;
+            if (timeLeftScreenFinishedDelay < 0)
+                goToCongratulationsScreen();
+        }
+        else{
+            testCollisions(); // winning condition checked
+        }
+
+        handleDebugInput(deltaTime);
+        level.update(deltaTime); //stage.act()
+    }
+
+    public boolean timeForReadOver(float deltaTime){
+        timeToWaitForReading-=deltaTime;
+        if(timeToWaitForReading<0)
+            return true;
+        else
+            return false;
+
+    }
+
+
 
 
 }

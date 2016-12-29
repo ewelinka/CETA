@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.TimeUtils;
+import javafx.scene.layout.VBox;
 
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     int margin;
     int xSpace, ySpace;
     Polygon polygon;
+
     //protected ArrayList<VirtualBlock> virtualBlocksOnStage;
 
     public VirtualBlocksManager(Stage stage){
@@ -43,6 +45,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         initBlocks();
         setWaitForFirstMove(true);
         noChangesSince = TimeUtils.millis();
+        nowDetectedVals = new ArrayList<Integer>();
     }
 
     private void initBlocks(){
@@ -54,6 +57,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
     @Override
     public void updateDetected() {
+        nowDetectedVals.clear();
         // we check what changed
         for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
             VirtualBlock vBlock = virtualBlocksOnStage.get(i);
@@ -80,6 +84,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                         // was detected but now gone
                        // blockRemoved(vBlock.getBlockValue());
                         setWaitForFirstMove(false);
+                        vBlock.setWasDetected(false);
                         blockRemovedWithIdAndValue(vBlock.getBlockId(),vBlock.getBlockValue());
                         removeFromStageByIndex(i); // we remove it from detection zone
                     }
@@ -96,11 +101,17 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
 
                     }
                     else{
+                        vBlock.setWasDetected(false);
                         vBlock.goHome();
                     }
                 }
                 // we should check just one time so we set moved to false
                 vBlock.resetWasMoved();
+            }
+
+            if (vBlock.getWasDetected()) {
+                Gdx.app.log(TAG, "DETE CTED "+ vBlock.getBlockValue());
+                nowDetectedVals.add(vBlock.getBlockValue());
             }
         }
 
@@ -205,9 +216,9 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         Gdx.app.log(TAG,"we should remove index: "+index);
 
         virtualBlocksOnStage.get(index).goHomeAndRemove();
-
-
     }
+
+
 
 
 
