@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
@@ -27,25 +28,23 @@ public class BrunoVertical extends Bruno {
     protected BrunosManager brunosManager;
     private boolean goingToDie;
 
-    private TextureRegion brunoHeadReg;
-    private TextureRegion brunoBodyReg;
+    protected TextureRegion brunoHeadReg;
+    protected TextureRegion brunoBodyReg;
 
     private int headXoffset,bodyOffsetX,headYoffset;
-    private float actionVelocity;
+    protected float actionVelocity;
 
 
 
-    public BrunoVertical (int value, BrunosManager brunosManager) {
-        this.brunosManager = brunosManager;
+    public BrunoVertical (int value, BrunosManager brunosManagerNow) {
+        brunosManager = brunosManagerNow;
         brunoValue = value;
         goingToDie = false;
         setColorAndTexture(brunoValue);
-        init();
-
 
     }
 
-
+    @Override
     public void init () {
 
         headState = HEAD_STATE.FIXED;
@@ -53,9 +52,9 @@ public class BrunoVertical extends Bruno {
         this.setPosition(Constants.VERTICAL_MIDDLE_X - getWidth()/2 ,Constants.DETECTION_ZONE_END-Constants.BASE/2);
         this.setTerminalX(Constants.VERTICAL_MIDDLE_X - getWidth()/2);
         this.setTerminalY(Constants.DETECTION_ZONE_END-Constants.BASE/2);
-        actionVelocity = 0.6f;
+        actionVelocity = 0.5f;
 
-        super.superinit();
+        super.abstractObjectInit();
 
 
     }
@@ -123,15 +122,21 @@ public class BrunoVertical extends Bruno {
     }
 
     public void moveMeToAndSetTerminalY(float x, float y){
-        //clearActions();
-//        MoveToAction moveToAction = new MoveToAction();
-//        moveToAction.setPosition(x,y);
-//        moveToAction.setDuration(actionVelocity);
         setTerminalY(y);
-
         brunosManager.addToInMovementIds(id);
-
         addAction(sequence(Actions.moveTo(x,y,actionVelocity),
+                run(new Runnable() {
+                    public void run() {
+                        brunosManager.notificationBrunoMoved(id);
+                    }
+                })
+        ));
+    }
+
+    public void moveMeToAndSetTerminalYWithBounce(float x, float y){
+        setTerminalY(y);
+        brunosManager.addToInMovementIds(id);
+        addAction(sequence(Actions.moveTo(x,y,actionVelocity*(Math.abs(getY()-y)/40), Interpolation.swing),
                 run(new Runnable() {
                     public void run() {
                         brunosManager.notificationBrunoMoved(id);

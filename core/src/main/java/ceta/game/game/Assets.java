@@ -217,6 +217,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion mega;
         public final TextureAtlas.AtlasRegion mega2;
         public final TextureAtlas.AtlasRegion thoraxEnergy;
+        public final TextureAtlas.AtlasRegion jetPack;
+        public final TextureAtlas.AtlasRegion fire;
 
         public AssetBruno (TextureAtlas atlas) {
             body = atlas.findRegion("robot02");
@@ -243,6 +245,8 @@ public class Assets implements Disposable, AssetErrorListener {
             still = atlas.findRegion("camina_parado");
             mega = atlas.findRegion("mega");
             mega2 = atlas.findRegion("mega2");
+            jetPack = atlas.findRegion("jetpack");
+            fire = atlas.findRegion("fuegoJetpack");
 
             Array<TextureAtlas.AtlasRegion> regions = null;
             regions = atlas.findRegions("camina");

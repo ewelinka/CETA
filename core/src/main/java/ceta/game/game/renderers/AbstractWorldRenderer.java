@@ -69,6 +69,13 @@ public abstract class AbstractWorldRenderer implements Disposable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
+    protected void clearGray(){
+        Gdx.gl.glClearColor(180 / 255.0f, 196 / 255.0f,0xed / 255.0f, 195 / 255.0f);
+        // Clears the screen
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+    }
+
     protected void renderDetectionZone(ShapeRenderer shRenderer){
         // detection zone in gray
         shRenderer.setProjectionMatrix(camera.combined);
@@ -80,20 +87,20 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     protected void renderDetectionZoneImg(SpriteBatch batch){
         // render for pieces
-        TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksTablet;
+        //TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksTablet;
         // render for deposite
         TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        batch.draw(blocksZone.getTexture(),
-                -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
-                0, 0,
-                Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT/2 + Constants.DETECTION_LIMIT,
-                1, 1,
-                0,
-                blocksZone.getRegionX(), blocksZone.getRegionY(),
-                blocksZone.getRegionWidth(), blocksZone.getRegionHeight(), false,false);
+//        batch.draw(blocksZone.getTexture(),
+//                -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
+//                0, 0,
+//                Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT/2 + Constants.DETECTION_LIMIT,
+//                1, 1,
+//                0,
+//                blocksZone.getRegionX(), blocksZone.getRegionY(),
+//                blocksZone.getRegionWidth(), blocksZone.getRegionHeight(), false,false);
 
         batch.draw(feedbackZone.getTexture(),
                 -Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT,

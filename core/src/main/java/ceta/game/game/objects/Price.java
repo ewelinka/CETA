@@ -20,6 +20,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 public class Price extends AbstractGameObject {
     public static final String TAG = Price.class.getName();
     private int velocity;
+    private float priceScale;
+    private int multiplicationFactorForScale;
     // number line limits
     private int startNumber;
     private int endNumber;
@@ -63,6 +65,8 @@ public class Price extends AbstractGameObject {
         myStartX = Constants.HORIZONTAL_ZERO_X;
         myStartY = Constants.DETECTION_ZONE_END;
         rotationVelocity = 30;
+        priceScale = 1;
+        multiplicationFactorForScale = 1;
 
         velocity = vel;
         startNumber = start;
@@ -79,10 +83,13 @@ public class Price extends AbstractGameObject {
     }
 
     public void update(float deltaTime){
+
         if(!hasActions()) {
+            adjustScale(deltaTime);
             if (isDynamic) {
                 rotation += (deltaTime * rotationVelocity);
                 setRotation(rotation);
+
                 if (isMovingVertical) // vertical falling = horizontal number line
                     updateVerticalFalling(deltaTime);
                 else
@@ -90,6 +97,13 @@ public class Price extends AbstractGameObject {
             }
         }
 
+    }
+
+    private void adjustScale(float deltaTime){
+        priceScale += (deltaTime/2*multiplicationFactorForScale);
+        if(priceScale > 1.5 || priceScale < 0.85)
+            multiplicationFactorForScale*=-1;
+        setScale(priceScale);
     }
 
     private void updateHorizontalFalling(float deltaTime){
@@ -194,18 +208,7 @@ public class Price extends AbstractGameObject {
                     Actions.scaleTo(1, 1)
             ));
         }else {
-            addAction(sequence(
-                    parallel(
-                            Actions.scaleTo(1.5f, 1.5f, 0.1f),
-                            Actions.color(Color.GOLD, 0.1f)
-
-                    ),
-                    Actions.scaleTo(0.0f, 0.0f, 0.05f),
-                    delay(0.2f),
-                    Actions.color(Color.WHITE),
-                    Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.PRICE_Y_HORIZONTAL),
-                    Actions.scaleTo(1, 1)
-            ));
+            actionNotEaten(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.PRICE_Y_HORIZONTAL);
         }
 
     }
@@ -236,21 +239,31 @@ public class Price extends AbstractGameObject {
             ));
 
         }else{
-            addAction(sequence(
-                    parallel(
-                        Actions.scaleTo(1.5f,1.5f,0.1f),
-                        Actions.color(Color.GOLD,0.1f)
-
-                    ),
-                    Actions.scaleTo(0.0f,0.0f,0.05f),
-                    delay(0.2f),
-                    Actions.color(Color.WHITE),
-                    Actions.moveTo(myStartX ,myStartY + currentNumber*Constants.BASE - getHeight()/2),
-                    Actions.scaleTo(1,1)
-
-
-            ));
+            actionNotEaten(myStartX ,myStartY + currentNumber*Constants.BASE - getHeight()/2);
         }
+
+    }
+
+    private void actionNotEaten(float newX, float newY){
+        addAction(sequence(
+                parallel(
+                        Actions.scaleTo(1.8f,1.8f,0.1f),
+                        //Actions.color(Color.GOLD,0.1f)
+                        Actions.alpha(0,0.1f)
+
+
+                ),
+                Actions.scaleTo(0.0f,0.0f,0.05f),
+                delay(0.2f),
+                //Actions.color(Color.WHITE),
+                Actions.alpha(1f),
+                Actions.moveTo(newX,newY),
+                Actions.scaleTo(1,1)
+
+
+        ));
+        priceScale = 1;
+        multiplicationFactorForScale = 1;
 
     }
 
@@ -377,19 +390,7 @@ public class Price extends AbstractGameObject {
             ));
         }
         else {
-            addAction(sequence(
-                    parallel(
-                            Actions.scaleTo(1.5f, 1.5f, 0.1f),
-                            Actions.color(Color.GOLD, 0.1f)
-
-                    ),
-                    Actions.scaleTo(0.0f, 0.0f, 0.05f),
-                    delay(0.2f),
-                    Actions.color(Color.WHITE),
-                    Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight()),
-                    Actions.scaleTo(1, 1)
-
-            ));
+            actionNotEaten(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight());
         }
 
 
@@ -421,18 +422,7 @@ public class Price extends AbstractGameObject {
             ));
         }
         else {
-            addAction(sequence(
-                    parallel(
-                            Actions.scaleTo(1.5f, 1.5f, 0.1f),
-                            Actions.color(Color.GOLD, 0.1f)
-
-                    ),
-                    Actions.scaleTo(0.0f, 0.0f, 0.05f),
-                    delay(0.2f),
-                    Actions.color(Color.WHITE),
-                    Actions.moveTo(Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END + newPosition * Constants.BASE - getHeight() / 2),
-                    Actions.scaleTo(1, 1)
-            ));
+            actionNotEaten(Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END + newPosition * Constants.BASE - getHeight() / 2);
         }
 
 

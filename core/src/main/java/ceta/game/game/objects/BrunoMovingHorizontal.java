@@ -18,7 +18,7 @@ public class BrunoMovingHorizontal extends Bruno {
         animation = Assets.instance.bruno.walk;
         head = Assets.instance.bruno.walkHead;
         this.setSize(53,85); //Hardcoded!!
-        superinit();
+        abstractObjectInit();
         lookingLeft = false;
         float xZero = Constants.HORIZONTAL_ZERO_X-getWidth()/2;
         setPosition(xZero,Constants.DETECTION_ZONE_END);

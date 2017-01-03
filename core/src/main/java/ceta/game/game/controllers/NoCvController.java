@@ -50,12 +50,12 @@ public class NoCvController extends AbstractWorldController {
 
                 if (virtualBlocksManager.getTimeWithoutChange() > timeToWait) {
                     if (!countdownOn) {
-                        Gdx.app.log(TAG, "NOT waiting OVER limit NOT counting -> set TRUE");
+                       // Gdx.app.log(TAG, "NOT waiting OVER limit NOT counting -> set TRUE");
                         setCountdownOn(true); //if we are not counting, we start!
                     }
                 } else {
                     if (true) {
-                        Gdx.app.log(TAG, "NOT waiting NOT-OVER limit NOT counting -> set FALSE");
+                       // Gdx.app.log(TAG, "NOT waiting NOT-OVER limit NOT counting -> set FALSE");
                         //setPlayerInactive(false);
                         setCountdownOn(false); // if somebody moved a block
                     }
@@ -68,12 +68,12 @@ public class NoCvController extends AbstractWorldController {
                 countdownMove();
                 // if we reached the time
                 if (countdownCurrentTime < 0) {
-                    Gdx.app.log(TAG, "wowowoowow action submit!");
+                   // Gdx.app.log(TAG, "wowowoowow action submit!");
 //                int[] a =  {1,2};
                     readDetectedPiecesAndSetTimeToWait();
                     updateDigitalRepresentations();
                     moveMade = true;
-                    Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
+                  //  Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
                     setCountdownOn(false);
                     virtualBlocksManager.setWaitForFirstMove(true);
                     virtualBlocksManager.resetDetectedAndRemoved();

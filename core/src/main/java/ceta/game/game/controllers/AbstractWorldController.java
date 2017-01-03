@@ -137,6 +137,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             GamePreferences.instance.addOneToLastLevelAndSave();
             game.getLevelsManager().goToNextLevel();
         }
+
+        else if(keycode == Input.Keys.B){
+            GamePreferences.instance.subtractOneToLastLevelAndSave();
+            game.getLevelsManager().goToNextLevel();
+        }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {
             cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.bruno);
@@ -144,6 +149,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
         // Back to Menu
         else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
+            Gdx.app.log(TAG,"back key = go to menu!");
             backToMenu();
         }
         return false;
@@ -365,7 +371,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public void setCountdownOn(boolean isOn){
-        Gdx.app.log(TAG, " setCountdownOn "+isOn);
+        //Gdx.app.log(TAG, " setCountdownOn "+isOn);
         if(isOn) {
 
             AudioManager.instance.play(Assets.instance.sounds.buzz);

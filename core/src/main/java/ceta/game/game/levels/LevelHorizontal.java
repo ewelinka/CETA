@@ -33,11 +33,7 @@ public class LevelHorizontal extends AbstractLevel {
         stage.addActor(price);
     }
 
-    @Override
-    public void update(float deltaTime) {
-        price.update(deltaTime);
-        stage.act(deltaTime);
-    }
+
 
 
 

@@ -44,6 +44,14 @@ public class GamePreferences {
         prefs.flush();
     }
 
+    public void subtractOneToLastLevelAndSave(){
+        lastLevel-=1;
+        if(lastLevel < 1)
+            lastLevel = 6;
+        prefs.putInteger("lastLevel", lastLevel);
+        prefs.flush();
+    }
+
     public void setLastLevel(int newLastLevel){
         lastLevel=newLastLevel;
         prefs.putInteger("lastLevel", lastLevel);

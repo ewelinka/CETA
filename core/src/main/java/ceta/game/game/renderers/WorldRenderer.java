@@ -61,8 +61,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
     public void render () {
       //  clearWhite();
-        clearBlue();
-
+        //clearBlue();
+        clearGray();
         //renderDetectionZone(shapeRenderer);
         renderDetectionZoneImg(spriteBatch);
         renderBackgroundImg(spriteBatch);
@@ -87,7 +87,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         // TODO
 
         float rotationNow = (worldController.getCountdownCurrentTime()*360)/Constants.CONTDOWN_MAX;
-        Gdx.app.log(TAG, " === "+rotationNow);
+       // Gdx.app.log(TAG, " === "+rotationNow);
 
         // we render countdown!
         batch.setProjectionMatrix(camera.combined);

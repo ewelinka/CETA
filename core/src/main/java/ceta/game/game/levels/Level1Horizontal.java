@@ -1,6 +1,5 @@
 package ceta.game.game.levels;
 
-import ceta.game.game.objects.Bruno;
 import ceta.game.game.objects.MegaBrunoWithArm;
 import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;

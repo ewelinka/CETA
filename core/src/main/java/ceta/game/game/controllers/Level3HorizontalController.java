@@ -141,6 +141,7 @@ public class Level3HorizontalController extends NoCvController  {
             level.bruno.setLookingLeft(true);
         Gdx.app.log(TAG, " move bruno "+howMany);
         float currentTerminalX = level.bruno.getTerminalX();
+       // level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.DETECTION_ZONE_END);
         level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.DETECTION_ZONE_END);
 
     }

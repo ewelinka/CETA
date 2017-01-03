@@ -1,10 +1,9 @@
 package ceta.game.game.controllers;
 
 import ceta.game.game.Assets;
-import ceta.game.game.levels.LevelVertical;
+import ceta.game.game.levels.Level3Vertical;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.managers.CVBlocksManager;
-import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
@@ -31,10 +30,10 @@ public class Level3VerticalCvController extends CvController {
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
         cvBlocksManager = new CVBlocksManager(game,stage);
-        level = new LevelVertical(stage,levelParams);
+        level = new Level3Vertical(stage,levelParams);
 
         // Bruno will be flying
-        level.bruno.setSize(Constants.BASE*1,Constants.BASE*1);
+        //level.bruno.setSize(Constants.BASE*1,Constants.BASE*1);
 
         yZero = Constants.DETECTION_ZONE_END-level.bruno.getHeight()/2;
 
@@ -143,7 +142,7 @@ public class Level3VerticalCvController extends CvController {
 
         Gdx.app.log(TAG, " move bruno "+howMany);
         float currentTerminalY = level.bruno.getTerminalY();
-        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalY(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2, currentTerminalY + howMany* Constants.BASE);
+        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalYWithBounce(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2, currentTerminalY + howMany* Constants.BASE);
 
     }
 }

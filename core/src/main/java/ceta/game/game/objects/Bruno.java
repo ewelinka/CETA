@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
@@ -32,18 +34,20 @@ public class Bruno extends AbstractGameObject {
     }
 
 
+    @Override
     public void init () {
         regTex = Assets.instance.bruno.mega;
         mask = Assets.instance.roboticParts.mask;
         tube = Assets.instance.roboticParts.finalTube;
         this.setSize(regTex.getRegionWidth(),regTex.getRegionHeight());
-        superinit();
+        abstractObjectInit();
+        super.init();
         lookingLeft = false;
 
     }
 
-    protected void superinit(){
-        Gdx.app.log(TAG, "in super init --- brunoooo");
+    protected void abstractObjectInit(){
+        Gdx.app.log(TAG, "in abstractObjectInit init --- brunoooo");
         super.init();
 
     }
@@ -104,6 +108,17 @@ public class Bruno extends AbstractGameObject {
 
         addAction(moveToAction);
     }
+
+//    public void moveMeToAndSetTerminalXWithBounce(float x, float y){
+//        Gdx.app.log(TAG,"bounce baby biunce");
+//        //clearActions();
+//        MoveToAction moveToAction = new MoveToAction();
+//        moveToAction.setPosition(x,y);
+//        moveToAction.setDuration(1f);
+//        setTerminalX(x);
+//        Actions.moveTo(x,y,1f, Interpolation.bounceOut);
+//        addAction(moveToAction);
+//    }
 
     public void setLookingLeft(boolean isLeft){
         lookingLeft = isLeft;

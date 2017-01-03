@@ -15,7 +15,7 @@ public class MegaBrunoWithArm extends Bruno {
        // mask = Assets.instance.roboticParts.maskArm;
         //tube = Assets.instance.roboticParts.finalTube;
         this.setSize(regTex.getRegionWidth(),regTex.getRegionHeight());
-        superinit();
+        abstractObjectInit();
         lookingLeft = false;
 
     }
