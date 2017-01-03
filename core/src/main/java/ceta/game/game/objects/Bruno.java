@@ -1,6 +1,7 @@
 package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
+import ceta.game.managers.BrunosManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,18 +31,24 @@ public class Bruno extends AbstractGameObject {
 
 
     public Bruno () {
+        Gdx.app.log(TAG," in bruno constructor@@@ ----");
         init();
+    }
+
+    public Bruno (int value, BrunosManager brunosManagerNow) {
+        Gdx.app.log(TAG," in bruno constructor@@@ ---- trucho &&&&&");
+
     }
 
 
     @Override
     public void init () {
+        Gdx.app.log(TAG, "in init --- brunoooo");
         regTex = Assets.instance.bruno.mega;
         mask = Assets.instance.roboticParts.mask;
         tube = Assets.instance.roboticParts.finalTube;
         this.setSize(regTex.getRegionWidth(),regTex.getRegionHeight());
         abstractObjectInit();
-        super.init();
         lookingLeft = false;
 
     }
@@ -109,16 +116,6 @@ public class Bruno extends AbstractGameObject {
         addAction(moveToAction);
     }
 
-//    public void moveMeToAndSetTerminalXWithBounce(float x, float y){
-//        Gdx.app.log(TAG,"bounce baby biunce");
-//        //clearActions();
-//        MoveToAction moveToAction = new MoveToAction();
-//        moveToAction.setPosition(x,y);
-//        moveToAction.setDuration(1f);
-//        setTerminalX(x);
-//        Actions.moveTo(x,y,1f, Interpolation.bounceOut);
-//        addAction(moveToAction);
-//    }
 
     public void setLookingLeft(boolean isLeft){
         lookingLeft = isLeft;

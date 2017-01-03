@@ -18,8 +18,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 public class BrunoJetPack extends BrunoVertical {
     private int jetPackXadjust, fireXadjust;
     private TextureRegion fire;
-    private float fireYScale, fireXScale;
-    private int fireYDirection, fireXDirection;
+    private float fireYScale, fireXScale, oscillationY;
+    private int fireYDirection, fireXDirection, oscillationYDirection;
     private float maxYFlame;
 
 
@@ -31,7 +31,8 @@ public class BrunoJetPack extends BrunoVertical {
         fire = Assets.instance.bruno.fire;
         fireXadjust = 5;
         fireYScale = fireXScale = 0.5f;
-        fireYDirection = fireXDirection = 1;
+        fireYDirection = fireXDirection = oscillationYDirection =1;
+        oscillationY =0;
 
     }
 
@@ -56,6 +57,14 @@ public class BrunoJetPack extends BrunoVertical {
         if(fireXScale < 0.7f)
             fireXDirection = 1;
 
+
+        oscillationY +=(delta*oscillationYDirection*8);
+        if(oscillationY > 4)
+            oscillationYDirection = -1;
+        if(oscillationY < -4)
+            oscillationYDirection = 1;
+
+
     }
 
     @Override
@@ -66,7 +75,7 @@ public class BrunoJetPack extends BrunoVertical {
 
         batch.setColor(1, 1, 1, 1);
         batch.draw(brunoBodyReg.getTexture(),
-                this.getX() + offsetX , this.getY() + offsetY,
+                this.getX() + offsetX , this.getY() + offsetY +oscillationY,
                 this.getOriginX(), this.getOriginY(),
                 brunoBodyReg.getRegionWidth() + 4, brunoBodyReg.getRegionHeight(),
                 this.getScaleX(), this.getScaleY(),
@@ -75,7 +84,7 @@ public class BrunoJetPack extends BrunoVertical {
                 brunoBodyReg.getRegionWidth(), brunoBodyReg.getRegionHeight(), lookingLeft, false);
 
         batch.draw(brunoHeadReg.getTexture(),
-                this.getX() + offsetX, this.getY() + brunoBodyReg.getRegionHeight() - 3 + offsetY, // -3  = head Y offset
+                this.getX() + offsetX, this.getY() + brunoBodyReg.getRegionHeight() - 3 + offsetY +oscillationY, // -3  = head Y offset
                 0, 0,
                 brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(),
                 this.getScaleX(), this.getScaleY(),
@@ -83,8 +92,8 @@ public class BrunoJetPack extends BrunoVertical {
                 brunoHeadReg.getRegionX(), brunoHeadReg.getRegionY(),
                 brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(), lookingLeft, false);
 
-        batch.draw(regTex.getTexture(),
-                this.getX() + offsetX - jetPackXadjust, this.getY()  + offsetY,
+        batch.draw(regTex.getTexture(), //jetpack
+                this.getX() + offsetX - jetPackXadjust, this.getY()  + offsetY +oscillationY,
                 0, 0,
                 regTex.getRegionWidth(), regTex.getRegionHeight(),
                 this.getScaleX(), this.getScaleY(),
@@ -93,7 +102,7 @@ public class BrunoJetPack extends BrunoVertical {
                 regTex.getRegionWidth(), regTex.getRegionHeight(), lookingLeft, false);
 
         batch.draw(fire.getTexture(),
-                this.getX() + offsetX - jetPackXadjust+ fireXadjust, this.getY()  + offsetY - fire.getRegionHeight(),
+                this.getX() + offsetX - jetPackXadjust+ fireXadjust, this.getY()  + offsetY - fire.getRegionHeight()+oscillationY,
                 fire.getRegionWidth()/2, fire.getRegionHeight(),
                 fire.getRegionWidth(), fire.getRegionHeight(),
                 fireXScale, fireYScale,

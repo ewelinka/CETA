@@ -53,7 +53,7 @@ public class Level2VerticalController extends NoCvController {
 
     @Override
     protected void countdownMove() {
-        //level.bruno.shake();
+        energyManager.getBrunoVertical().shake();
     }
 
     @Override

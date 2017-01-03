@@ -23,6 +23,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  * Created by ewe on 11/7/16.
  */
 public class BrunoVertical extends Bruno {
+    public static final String TAG = BrunoVertical.class.getName();
     protected int brunoValue;
     protected int id;
     protected BrunosManager brunosManager;
@@ -37,22 +38,26 @@ public class BrunoVertical extends Bruno {
 
 
     public BrunoVertical (int value, BrunosManager brunosManagerNow) {
+        super(value,brunosManagerNow);
+       // abstractObjectInit();
+        Gdx.app.log(TAG," in vertical bruno constructor!! ----");
         brunosManager = brunosManagerNow;
         brunoValue = value;
         goingToDie = false;
         setColorAndTexture(brunoValue);
+        init();
 
     }
 
     @Override
     public void init () {
-
+        Gdx.app.log(TAG," in vertical bruno init ----");
         headState = HEAD_STATE.FIXED;
         this.setSize(Constants.BASE,Constants.BASE*brunoValue); // now we can set the values that depend on size
         this.setPosition(Constants.VERTICAL_MIDDLE_X - getWidth()/2 ,Constants.DETECTION_ZONE_END-Constants.BASE/2);
         this.setTerminalX(Constants.VERTICAL_MIDDLE_X - getWidth()/2);
         this.setTerminalY(Constants.DETECTION_ZONE_END-Constants.BASE/2);
-        actionVelocity = 0.5f;
+        actionVelocity = 0.3f;
 
         super.abstractObjectInit();
 
@@ -60,6 +65,7 @@ public class BrunoVertical extends Bruno {
     }
 
     protected void setColorAndTexture(int bValue){ //TODO all bodies and all heads
+        Gdx.app.log(TAG," in vertical bruno setColorAndTexture ----");
         headXoffset = 0;
         headYoffset = 0;
         bodyOffsetX = 0;
@@ -136,7 +142,7 @@ public class BrunoVertical extends Bruno {
     public void moveMeToAndSetTerminalYWithBounce(float x, float y){
         setTerminalY(y);
         brunosManager.addToInMovementIds(id);
-        addAction(sequence(Actions.moveTo(x,y,actionVelocity*(Math.abs(getY()-y)/40), Interpolation.swing),
+        addAction(sequence(Actions.moveTo(x,y,actionVelocity*(Math.abs(getY()-y)/40), Interpolation.pow2),
                 run(new Runnable() {
                     public void run() {
                         brunosManager.notificationBrunoMoved(id);
@@ -206,9 +212,11 @@ public class BrunoVertical extends Bruno {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+
         //batch.setProjectionMatrix(camera.combined);
         // batch.draw(regTex,this.getX(),this.getY());
         if(getY()>Constants.DETECTION_ZONE_END-getHeight()) {
+           // Gdx.app.log(TAG, "draw vertical bruno "+brunoValue);
             batch.setColor(this.getColor());
             batch.draw(brunoBodyReg.getTexture(),
                     this.getX() + offsetX + bodyOffsetX, this.getY() + offsetY,

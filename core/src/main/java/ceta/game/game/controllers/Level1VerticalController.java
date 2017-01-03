@@ -49,7 +49,7 @@ public class Level1VerticalController extends NoCvController {
 
     @Override
     protected void testCollisionsInController (boolean isDynamic) {
-        Gdx.app.log(TAG," testCollisionsInController ");
+      //  Gdx.app.log(TAG," testCollisionsInController ");
         BrunoVertical lastBruno = getLastBruno();
         if (!brunosManager.isUpdatingBrunosPositions()) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
