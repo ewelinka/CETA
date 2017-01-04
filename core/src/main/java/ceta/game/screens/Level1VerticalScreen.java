@@ -59,7 +59,7 @@ public class Level1VerticalScreen extends AbstractGameScreen {
 //        worldController.dispose();
 //        worldRenderer.dispose();
 //        stage.dispose();
-        Gdx.input.setCatchBackKey(false);
+       // Gdx.input.setCatchBackKey(false);
         dispose();
     }
 

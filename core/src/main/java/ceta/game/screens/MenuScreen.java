@@ -89,7 +89,7 @@ public class MenuScreen extends AbstractGameScreen {
     };
     public void show (){
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2));
-
+        Gdx.input.setCatchBackKey(false);
         buildStage();
     };
     public void hide (){

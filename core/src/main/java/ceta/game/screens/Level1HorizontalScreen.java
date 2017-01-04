@@ -1,20 +1,13 @@
 package ceta.game.screens;
 
-import java.util.Date;
-import java.util.List;
-
-import ceta.game.game.renderers.WorldRenderer;
 import ceta.game.game.controllers.Level1HorizontalController;
-import ceta.game.util.AudioManager;
+import ceta.game.game.renderers.WorldRenderer;
 import ceta.game.util.Constants;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.illposed.osc.OSCListener;
-import com.illposed.osc.OSCMessage;
 
 /**
  * Created by ewe on 8/23/16.
@@ -66,7 +59,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen{
     public void hide() {
         Gdx.app.log(TAG," we start the HIDE of the screen ! " +Gdx.graphics.getWidth()+" h "+Gdx.graphics.getHeight());
 
-        Gdx.input.setCatchBackKey(false);
+     //   Gdx.input.setCatchBackKey(false);
         dispose();
     }
 
