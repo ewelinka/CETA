@@ -56,7 +56,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     public MenuScreen (DirectedGame game) {
         super(game,0);
-        GamePreferences.instance.setLastLevel(1); // TODO delete after testing
+       // GamePreferences.instance.setLastLevel(0); // TODO delete after testing
     }
 
 
@@ -102,7 +102,9 @@ public class MenuScreen extends AbstractGameScreen {
     private void onPlayClicked () {
         ScreenTransition transition = ScreenTransitionFade.init(0.75f);
         //game.setScreen(screen1, transition);
-        game.getLevelsManager().goToNextLevel();
+
+        game.getLevelsManager().goToCurrentLevel();
+//        game.getLevelsManager().goToNextLevel();
         //game.setScreen(new Level1VerticalScreen(game,1), transition);
     }
     

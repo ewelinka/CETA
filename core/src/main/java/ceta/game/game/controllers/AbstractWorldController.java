@@ -53,10 +53,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected float timeToWaitForReading;
 
 
-    public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
+
+
+    public AbstractWorldController(DirectedGame game, Stage stage, int levelJson) {
         this.game = game;
         this.stage = stage;
-        levelParams = getLevelParams(levelNr);
+
+        levelParams = getLevelParams(levelJson);
         AudioManager.instance.setStage(stage);
 
         if(GamePreferences.instance.actionSubmit) {
@@ -71,6 +74,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
         init();
         localInit();
+        newPriceRegister();
     }
 
 
@@ -134,13 +138,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             Gdx.app.debug(TAG, "Action submit");
         }
         else if(keycode == Input.Keys.N){
-            GamePreferences.instance.addOneToLastLevelAndSave();
+           // GamePreferences.instance.addOneToLastLevelAndSave();
             game.getLevelsManager().goToNextLevel();
         }
 
         else if(keycode == Input.Keys.B){
-            GamePreferences.instance.subtractOneToLastLevelAndSave();
-            game.getLevelsManager().goToNextLevel();
+//            GamePreferences.instance.subtractOneToLastLevelAndSave();
+//            game.getLevelsManager().goToNextLevel();
+            game.getLevelsManager().goToPreviousLevel();
         }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {
@@ -304,9 +309,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         if (goldcoin.getActions().size == 0) { // we act just one time!
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
+            priceCollectedRegister(); //notify from controller to ResultsManager
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
                 goldcoin.wasCollected();
+                newPriceRegister();
 
             } else {
                 screenFinished = true;
@@ -324,10 +331,12 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             bruno.moveHead();
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
+            priceCollectedRegister(); //notify from controller to ResultsManager
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
                 Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+goldcoin.getX()+" y "+goldcoin.getY());
                 goldcoin.wasEaten(bruno.getX(), bruno.getEatPointY());
+                newPriceRegister();
 
             } else {
                 screenFinished = true;
@@ -345,10 +354,12 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             bruno.moveHead();
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
+            priceCollectedRegister(); //notify from controller to ResultsManager
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
                 Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
                 goldcoin.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
+                newPriceRegister();
 
             } else {
                 screenFinished = true;
@@ -424,7 +435,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
         // ignore if its not left mouse button or first touch pointer
         if(screenY < 150) {
-            GamePreferences.instance.addOneToLastLevelAndSave();
+            //GamePreferences.instance.addOneToLastLevelAndSave();
             game.getLevelsManager().goToNextLevel();
         }
 
@@ -454,6 +465,17 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             return false;
 
     }
+
+    protected void priceCollectedRegister(){
+        game.resultsManager.priceCollected(level.price.getDisplayNumber());
+    }
+    protected void addIntent(){
+        game.resultsManager.addIntent();
+    }
+    protected void newPriceRegister(){
+        game.resultsManager.newPriceAppeard(score+1,game.getLevelsManager().getCurrentLevel());
+    }
+
 
 
 

@@ -75,6 +75,7 @@ public class NoCvController extends AbstractWorldController {
                     moveMade = true;
                   //  Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
                     setCountdownOn(false);
+                    addIntent(); // for results manager
                     virtualBlocksManager.setWaitForFirstMove(true);
                     virtualBlocksManager.resetDetectedAndRemoved();
                 } else // we still count

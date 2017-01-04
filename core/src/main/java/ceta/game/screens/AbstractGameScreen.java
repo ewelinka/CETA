@@ -23,13 +23,13 @@ public abstract class AbstractGameScreen  implements Screen {
     protected Stage stage;
     protected AbstractWorldRenderer worldRenderer;
     protected AbstractWorldController worldController;
-    protected int levelNr;
+    protected int levelJson;
 
 
-    public AbstractGameScreen (DirectedGame game, int levelNr) {
+    public AbstractGameScreen (DirectedGame game, int levelJson) {
 
         this.game = game;
-        this.levelNr = levelNr;
+        this.levelJson = levelJson;
     }
 
     // Subclasses must load actors in this method

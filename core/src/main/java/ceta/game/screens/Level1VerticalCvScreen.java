@@ -24,7 +24,7 @@ public class Level1VerticalCvScreen extends Level1VerticalScreen {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
         // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
-        worldController = new Level1VerticalCvController(game,stage,levelNr);
+        worldController = new Level1VerticalCvController(game,stage,levelJson);
         // Todo here we should make camera stuff and fitviewport
         worldRenderer = new WorldRenderer1VerticalCV(worldController,stage, false); //false because is vertical!!
         // android back key

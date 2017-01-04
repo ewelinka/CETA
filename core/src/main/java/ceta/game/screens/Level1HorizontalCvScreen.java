@@ -27,7 +27,7 @@ public class Level1HorizontalCvScreen extends Level1HorizontalScreen {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
         // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
-        worldController = new Level1HorizontalCvController(game,stage,levelNr);
+        worldController = new Level1HorizontalCvController(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
         worldRenderer = new WorldRendererCV(worldController,stage); // default set number line to horizontal

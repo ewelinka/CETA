@@ -1,5 +1,6 @@
 package ceta.game.screens;
 
+import ceta.game.managers.ResultsManager;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.managers.LevelsManager;
 import com.badlogic.gdx.Game;
@@ -25,6 +26,7 @@ public abstract class DirectedGame extends Game {
     private ScreenTransition screenTransition;
 
     protected LevelsManager levelsManager;
+    public ResultsManager resultsManager;
 
 
     @Override
