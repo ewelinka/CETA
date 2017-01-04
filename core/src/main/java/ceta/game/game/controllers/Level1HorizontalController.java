@@ -1,14 +1,9 @@
 package ceta.game.game.controllers;
 
-import ceta.game.game.Assets;
 import ceta.game.game.levels.Level1Horizontal;
-import ceta.game.game.levels.LevelHorizontal;
-import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.ArmPiece;
-import ceta.game.game.objects.Price;
 import ceta.game.managers.RoboticArmManager;
 import ceta.game.managers.VirtualBlocksManager;
-import ceta.game.managers.VirtualBlocksManagerOSC;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.*;
 import com.badlogic.gdx.Gdx;
@@ -88,10 +83,6 @@ public class Level1HorizontalController extends NoCvController{
         roboticArmManager.update(toAdd,toRemove);
     }
 
-    public VirtualBlocksManagerOSC getVirtualBlocksManagerOSC(){
-        return  new VirtualBlocksManagerOSC(stage);
-        //return virtualBlocksManager;
-    }
 
 
 }
