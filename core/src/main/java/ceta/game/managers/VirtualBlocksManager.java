@@ -110,7 +110,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
             }
 
             if (vBlock.getWasDetected()) {
-                Gdx.app.log(TAG, "DETE CTED "+ vBlock.getBlockValue());
+               // Gdx.app.log(TAG, "DETE CTED "+ vBlock.getBlockValue());
                 nowDetectedVals.add(vBlock.getBlockValue());
             }
         }

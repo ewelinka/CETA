@@ -163,7 +163,8 @@ public class BrunosManager {
         return inMovementIds.contains(id);
     }
 
-    public boolean isUpdatingBrunosPositions(){
+    public boolean isUpdatingBrunosPositions(){ //TODO think if it won't be easier if we iterate over brunos and ask if they have actions
+        // no actions => all finished moving
         return inMovementIds.size() > 0;
     }
 

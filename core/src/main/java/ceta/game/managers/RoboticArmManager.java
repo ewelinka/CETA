@@ -31,8 +31,7 @@ public class RoboticArmManager {
 
     public RoboticArmManager(Stage stage){
         this.stage = stage;
-        // hardcoded
-        initialX = -200;
+        initialX =  Constants.HORIZONTAL_ZERO_X;
         initialY = Constants.PRICE_Y_HORIZONTAL;
 
     }

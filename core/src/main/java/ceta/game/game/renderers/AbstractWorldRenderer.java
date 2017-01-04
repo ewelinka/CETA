@@ -156,7 +156,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         batch.begin();
         int counter  = 0;
 
-        for(int i = -200; i<240;i+=Constants.BASE){
+        for(int i = Constants.HORIZONTAL_ZERO_X; i<=Constants.HORIZONTAL_ZERO_X+10*Constants.BASE;i+=Constants.BASE){
             if(levelMinimumNumber+counter == chosenNr)
                 font.setColor(0,153,0,1);
             else
@@ -216,7 +216,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
         shRenderer.setColor(1, 1, 1, 1);
 
-        for(int i = -200; i<=200;i+=Constants.BASE){
+        for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+10*Constants.BASE;i+=Constants.BASE){
             shRenderer.line(i , Constants.DETECTION_ZONE_END, i,Constants.VIEWPORT_HEIGHT/2 - 100);
         }
 //        shRenderer.setColor(0, 0, 1, 1);
