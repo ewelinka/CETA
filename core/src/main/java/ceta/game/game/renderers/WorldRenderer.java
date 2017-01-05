@@ -4,20 +4,14 @@ import ceta.game.game.Assets;
 import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Disposable;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
@@ -86,7 +80,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
     protected void renderCounter(SpriteBatch batch){
         // TODO
 
-        float rotationNow = (worldController.getCountdownCurrentTime()*360)/Constants.CONTDOWN_MAX;
+        float rotationNow = (worldController.getCountdownCurrentTime()*360)/Constants.COUNTDOWN_MAX;
        // Gdx.app.log(TAG, " === "+rotationNow);
 
         // we render countdown!

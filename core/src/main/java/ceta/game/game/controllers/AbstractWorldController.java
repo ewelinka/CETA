@@ -20,7 +20,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Json;
 
@@ -99,7 +98,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         timeLeftScreenFinishedDelay = 0;
         moveMade = false;
         //localCountdownMax = GamePreferences.instance.countdownMax;
-        localCountdownMax = Constants.CONTDOWN_MAX;
+        localCountdownMax = Constants.COUNTDOWN_MAX;
         currentErrors = 0;
 
         actionSubmitInit();
