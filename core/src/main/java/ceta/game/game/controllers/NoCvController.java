@@ -68,19 +68,19 @@ public class NoCvController extends AbstractWorldController {
                 countdownMove();
                 // if we reached the time
                 if (countdownCurrentTime < 0) {
-                   // Gdx.app.log(TAG, "wowowoowow action submit!");
-//                int[] a =  {1,2};
-                    readDetectedPiecesAndSetTimeToWait();
-                    updateDigitalRepresentations();
+                    readDetectedAndSaveIntent();
+                    updateDigitalRepresentations(); // ACTION SUBMIT !
                     moveMade = true;
-                  //  Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
                     setCountdownOn(false);
-                    addIntent(); // for results manager
                     virtualBlocksManager.setWaitForFirstMove(true);
                     virtualBlocksManager.resetDetectedAndRemoved();
                 } else // we still count
                     countdownCurrentTime -= deltaTime;
             }
+        }
+        else{
+            //resetIntentStart();
+            virtualBlocksManager.resetNoChangesSince(); // after reading we start to count "timeToWait"
         }
 
         cameraHelper.update(deltaTime);
@@ -88,10 +88,11 @@ public class NoCvController extends AbstractWorldController {
 
     }
 
-    private void readDetectedPiecesAndSetTimeToWait(){
+
+
+    private void readDetectedAndSaveIntent(){
         ArrayList<Integer> toReadVals = virtualBlocksManager.getNowDetectedVals();
-        AudioManager.instance.readTheSum(toReadVals);
-        timeToWaitForReading = toReadVals.size(); // seconds
+        readDetectedAndSaveIntentGeneric(toReadVals);
     }
 
     @Override

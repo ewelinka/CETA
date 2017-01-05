@@ -289,6 +289,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
                 moveMade = false;
             } else{
+
                 //TODO check if the price number and number line position ==
                 // if == -> its a good answer
                 // if not -> error
@@ -308,7 +309,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         if (goldcoin.getActions().size == 0) { // we act just one time!
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
-            priceCollectedRegister(); //notify from controller to ResultsManager
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
                 goldcoin.wasCollected();
@@ -330,7 +330,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             bruno.moveHead();
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
-            priceCollectedRegister(); //notify from controller to ResultsManager
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
                 Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+goldcoin.getX()+" y "+goldcoin.getY());
@@ -353,7 +352,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             bruno.moveHead();
             AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
             score += 1;
-            priceCollectedRegister(); //notify from controller to ResultsManager
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
                 Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
@@ -393,15 +391,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         countdownCurrentTime = localCountdownMax;
     }
 
-    public void readBlockValues(ArrayList<Pair> toReadBlocks){
-        //TODO
-        ArrayList<Integer> a = new ArrayList<Integer>();
-        for(int i =0;i<toReadBlocks.size();i++){
-            a.add(toReadBlocks.get(i).getValue());
-        }
-
-        AudioManager.instance.readTheSum(a);
-    }
 
 
     public void resetScore(){
@@ -465,14 +454,31 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     }
 
-    protected void priceCollectedRegister(){
-        game.resultsManager.priceCollected(level.price.getDisplayNumber());
-    }
-    protected void addIntent(){
-        game.resultsManager.addIntent();
+
+
+    protected void addIntentToResults(int kidResponse, int priceValue){
+
+        boolean wasSuccessful = (kidResponse == priceValue);
+        game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue);
     }
     protected void newPriceRegister(){
-        game.resultsManager.newPriceAppeard(score+1,game.getLevelsManager().getCurrentLevel());
+        game.resultsManager.newPriceAppeared(score+1,game.getLevelsManager().getCurrentLevel());
+    }
+
+    protected void readDetectedAndSaveIntentGeneric(ArrayList<Integer> toReadVals){
+        AudioManager.instance.readTheSum(toReadVals);
+        timeToWaitForReading = toReadVals.size(); // seconds
+
+        int sum = 0;
+        for( Integer i : toReadVals ) {
+            sum += i;
+        }
+
+        addIntentToResults(sum,level.price.getDisplayNumber());
+    }
+
+    protected void resetIntentStart(){
+        game.resultsManager.resetIntentStart();
     }
 
 

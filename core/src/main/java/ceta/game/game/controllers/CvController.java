@@ -3,10 +3,13 @@ package ceta.game.game.controllers;
 import ceta.game.CetaGame;
 import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.DirectedGame;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
+import java.util.ArrayList;
 
 /**
  * Created by ewe on 12/2/16.
@@ -69,12 +72,12 @@ public class CvController extends AbstractWorldController {
                 countdownMove();
                 //setPlayerInactive(false);
                 if (countdownCurrentTime < 0) {
-                    updateDigitalRepresentations();
+                    readDetectedAndSaveIntent();
+                    updateDigitalRepresentations(); // ACTION SUBMIT !
                     moveMade = true;
                     cvBlocksManager.resetDetectedAndRemoved();
                     Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
                     setCountdownOn(false);
-                    addIntent(); // for results manager
                     cvBlocksManager.setWaitForFirstMove(true);
                     cvBlocksManager.resetNoChangesSince();
                 } else {
@@ -82,10 +85,20 @@ public class CvController extends AbstractWorldController {
                 }
             }
         }
+        else{
+            //resetIntentStart(); //
+            cvBlocksManager.resetNoChangesSince();
+        }
 
         cameraHelper.update(deltaTime);
 
     }
+
+    private void readDetectedAndSaveIntent(){
+        ArrayList<Integer> toReadVals = cvBlocksManager.getNowDetectedVals();
+        readDetectedAndSaveIntentGeneric(toReadVals);
+    }
+
 
     @Override
     protected void testCollisionsInController(boolean isDynamic) {
