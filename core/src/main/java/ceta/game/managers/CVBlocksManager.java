@@ -129,9 +129,9 @@ public class CVBlocksManager extends AbstractBlocksManager {
         if(detectionReady) {
             if(results.size() > 0) {
                 currentBlocks = results.get(0);
-                Gdx.app.error(TAG," very very wrong -> empty result!");
             }
             else {
+                Gdx.app.error(TAG," very very wrong -> empty result!");
                 currentBlocks =  new HashSet<Block>();
             }
 
