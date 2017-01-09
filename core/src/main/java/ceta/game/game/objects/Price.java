@@ -26,27 +26,32 @@ public class Price extends AbstractGameObject {
     private int startNumber;
     private int endNumber;
     private int currentNumber; // current position between 1 and 10
-
+    // price dynamics
     private boolean isDynamic;
     private int maxReturn;
     private int returnCounter;
     private boolean isMovingVertical;
-
-
+    //price position in the world
     private float myStartX;
     private float myStartY;
     private int rotationVelocity;
     private int verticalMiddleXPrice = Constants.VERTICAL_MIDDLE_X + Constants.PRICE_X_OFFSET;
+    // price type associated to the number 1 to 4
+    private int priceTypeNr;
+    private boolean isLast;
 
 
+
+    public Price(int vel, int startNr, int priceReturn, int priceType){ this(true,vel,startNr,priceReturn, priceType);}
 
     public Price(int vel, int startNr, int priceReturn) {
-        this(true, vel, startNr, priceReturn); // horizontal
+        this(true, vel, startNr, priceReturn, 1); // horizontal
     }
 
 
-    public Price(boolean isMovingVertical, int vel, int startNr, int priceReturn) {
+    public Price(boolean isMovingVertical, int vel, int startNr, int priceReturn, int priceType) {
         this.isMovingVertical = isMovingVertical;
+        this.priceTypeNr = priceType;
         init();
         localInit(vel,startNr,priceReturn);
 
@@ -55,10 +60,30 @@ public class Price extends AbstractGameObject {
 
 
     public void init () {
-        regTex = Assets.instance.toCollect.screw;
-        this.setSize(Constants.BASE,Constants.BASE);
+        setTexture();
         super.init();
 
+    }
+
+    private void setTexture(){
+        Gdx.app.log(TAG,"set price texture -> texture nr "+priceTypeNr);
+
+        switch(priceTypeNr){
+            case 1:
+                regTex = Assets.instance.toCollect.price1;
+                break;
+            case 2:
+                regTex = Assets.instance.toCollect.price2;
+                break;
+            case 3:
+                regTex = Assets.instance.toCollect.price3;
+                break;
+            case 4:
+                regTex = Assets.instance.toCollect.price4;
+                break;
+        }
+
+        this.setSize(Constants.BASE,Constants.BASE);
     }
 
     private void localInit(int vel, int start, int priceReturn){
@@ -80,11 +105,12 @@ public class Price extends AbstractGameObject {
         }
 
         setInitialPosition();
+        isLast = false;
     }
 
     public void update(float deltaTime){
-
-        if(!hasActions()) {
+        //Gdx.app.log(TAG, " update price!! has actions: "+ !hasActions()+ " is last "+isLast+ " now scale "+priceScale + " get scale x" +getScaleX());
+        if(!hasActions() && !isLast) {
             adjustScale(deltaTime);
             if (isDynamic) {
                 rotation += (deltaTime * rotationVelocity);
@@ -203,7 +229,7 @@ public class Price extends AbstractGameObject {
                     parallel(Actions.moveTo(toX,toY,0.5f),
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
-                    Actions.color(Color.WHITE),
+                    //Actions.color(Color.WHITE),
                     Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, myStartY),
                     Actions.scaleTo(1, 1)
             ));
@@ -231,7 +257,7 @@ public class Price extends AbstractGameObject {
                     parallel(Actions.moveTo(toX,toY,0.5f),
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
-                    Actions.color(Color.WHITE),
+                    //Actions.color(Color.WHITE),
                     Actions.moveTo(verticalMiddleXPrice-getWidth()/2 ,myStartY + currentNumber*Constants.BASE - getHeight()/2),
                     Actions.scaleTo(1,1)
 
@@ -281,13 +307,10 @@ public class Price extends AbstractGameObject {
     }
 
     public void lastCollected(){
+        isLast = true;
 
         addAction(sequence(
-                parallel(
-                        Actions.scaleTo(1.5f,1.5f,0.1f),
-                        Actions.color(Color.GOLD,0.1f)
-
-                ),
+                Actions.scaleTo(1.5f,1.5f,0.1f),
                 Actions.scaleTo(0.0f,0.0f,0.05f)
         ));
 
@@ -321,7 +344,7 @@ public class Price extends AbstractGameObject {
                 parallel(Actions.moveTo(toX, toY, 0.5f),
                         Actions.scaleTo(0, 0, 0.5f)),
                 delay(0.2f),
-                Actions.color(Color.WHITE),
+               // Actions.color(Color.WHITE),
                 Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.PRICE_Y_HORIZONTAL),
                 Actions.scaleTo(1, 1)
         ));
@@ -329,7 +352,7 @@ public class Price extends AbstractGameObject {
 
 
     public void lastEaten(float whereX, float whereY){
-
+        isLast = true;
         addAction(parallel(Actions.moveTo(whereX,whereY,0.5f),
                 Actions.scaleTo(0,0,0.5f)));
 
@@ -384,7 +407,7 @@ public class Price extends AbstractGameObject {
                     parallel(Actions.moveTo(toX,toY,0.5f),
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
-                    Actions.color(Color.WHITE),
+                    //Actions.color(Color.WHITE),
                     Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight()),
                     Actions.scaleTo(1, 1)
             ));
@@ -416,7 +439,7 @@ public class Price extends AbstractGameObject {
                     parallel(Actions.moveTo(whereX,whereY,0.5f),
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
-                    Actions.color(Color.WHITE),
+                   // Actions.color(Color.WHITE),
                     Actions.moveTo(Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END + newPosition * Constants.BASE - getHeight() / 2),
                     Actions.scaleTo(1, 1)
             ));
@@ -444,6 +467,8 @@ public class Price extends AbstractGameObject {
     public boolean isDynamic(){
         return isDynamic;
     }
+
+    public int getPriceTypeNr(){ return priceTypeNr;}
 
 
 

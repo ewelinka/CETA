@@ -19,7 +19,7 @@ public class Level3Horizontal extends LevelHorizontal {
     public void init() {
         bruno = new BrunoMovingHorizontal();
         // default horizontal
-        price = new Price(levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
+        price = new Price(levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn, 4);
 
         // add actors
         stage.addActor(bruno);

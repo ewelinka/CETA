@@ -445,7 +445,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         level.update(deltaTime); //stage.act()
     }
 
-    public boolean timeForReadOver(float deltaTime){
+    public boolean isTimeForReadOver(float deltaTime){
         timeToWaitForReading-=deltaTime;
         if(timeToWaitForReading<0)
             return true;
@@ -457,7 +457,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
     protected void addIntentToResults(int kidResponse, int priceValue){
-
         boolean wasSuccessful = (kidResponse == priceValue);
         game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue);
     }
@@ -479,6 +478,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     protected void resetIntentStart(){
         game.resultsManager.resetIntentStart();
+    }
+
+
+    public int getCurrentPriceType(){
+        return level.price.getPriceTypeNr();
     }
 
 

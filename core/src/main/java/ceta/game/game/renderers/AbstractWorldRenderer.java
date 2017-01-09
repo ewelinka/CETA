@@ -226,6 +226,9 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
 
+    protected int getCurrentPriceImgNr(){
+        return worldController.getCurrentPriceType();
+    }
 
 
 

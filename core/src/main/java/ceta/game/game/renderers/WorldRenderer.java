@@ -21,12 +21,14 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 public class WorldRenderer extends AbstractWorldRenderer {
     public static final String TAG = WorldRenderer.class.getName();
     protected FeedbackRenderer feedbackRenderer;
+    protected int currentPriceTypeNr;
 
     public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
         this.stage = stage;
         this.worldController = worldController;
         this.numberLineIsHorizontal = numberLineIsHorizontal;
         feedbackRenderer = new FeedbackRenderer(stage);
+        currentPriceTypeNr = worldController.getCurrentPriceType();
         init();
     }
 
@@ -131,7 +133,21 @@ public class WorldRenderer extends AbstractWorldRenderer {
     protected void renderGuiScore (SpriteBatch batch) {
         float x =  -Constants.VIEWPORT_WIDTH/2 + 10;
         float y = Constants.VIEWPORT_HEIGHT/2 - 50;
-        batch.draw(Assets.instance.toCollect.screw,x,y,40,40);
+        switch(currentPriceTypeNr){
+            case 1:
+                batch.draw(Assets.instance.toCollect.price1,x,y,40,40);
+                break;
+            case 2:
+                batch.draw(Assets.instance.toCollect.price2,x,y,40,40);
+                break;
+            case 3:
+                batch.draw(Assets.instance.toCollect.price3,x,y,40,40);
+                break;
+            case 4:
+                batch.draw(Assets.instance.toCollect.price4,x,y,40,40);
+                break;
+        }
+
         // TODO hardcoded position!
         bigFont.draw(batch, worldController.score+"",x+50,y+30);
     }

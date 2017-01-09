@@ -1,17 +1,10 @@
 package ceta.game.screens;
 
-import ceta.game.CetaGame;
 import ceta.game.game.Assets;
-import ceta.game.transitions.ScreenTransition;
-import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -33,6 +26,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
     private ImageButton btnStartGame;
     private Image imgBackground;
     private Image congrats;
+    private Image thumb;
 
 
     public CongratulationsScreen(DirectedGame game) {
@@ -81,23 +75,37 @@ public class CongratulationsScreen extends AbstractGameScreen {
     private Table buildBackgroundLayer () {
         Table layer = new Table();
         imgBackground = new Image(Assets.instance.finishBackGround.finishBack);
-        congrats = new Image(Assets.instance.finishBackGround.excelentWork);
+        congrats = new Image(Assets.instance.finishBackGround.excellentWork);
 
         layer.addActor(imgBackground);
+        imgBackground.setSize(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
         imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
-        imgBackground.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2,
-                40);
+        imgBackground.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2, 0);
         //imgBackground.setHeight(Constants.VIEWPORT_HEIGHT/2);
 
         layer.addActor(congrats);
         congrats.setOrigin(congrats.getWidth() / 2, congrats.getHeight() / 2);
-        congrats.setPosition(0,400);
+        congrats.setPosition(0,600);
         congrats.addAction(sequence(
                 scaleTo(0, 0),
                 delay(0.3f),
-                parallel(moveBy(0, 100, 1.5f, Interpolation.swingOut),
+                parallel(moveBy(0, -100, 3.0f, Interpolation.swingOut),
                         scaleTo(1.0f, 1.0f, 0.25f, Interpolation.linear),
-                        alpha(1.0f, 0.5f))));
+                        alpha(1.0f, 0.5f)),
+                run(new Runnable() {
+                    public void run() {
+                        game.getLevelsManager().goToNextLevel();
+                    }
+                })
+        ));
+
+        thumb = new Image(Assets.instance.finishBackGround.thumbUp);
+        layer.addActor(thumb);
+        thumb.setOrigin(thumb.getWidth() / 2, thumb.getHeight() / 2);
+        thumb.setPosition(0 - thumb.getWidth(),400);
+        thumb.addAction(moveTo(-20, 100, 1.5f, Interpolation.bounceOut));
+
+
         return layer;
     }
 

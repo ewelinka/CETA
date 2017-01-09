@@ -3,9 +3,7 @@ package ceta.game.game.controllers;
 import ceta.game.CetaGame;
 import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.DirectedGame;
-import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -49,7 +47,7 @@ public class CvController extends AbstractWorldController {
             setPlayerInactive(false);
         }
 
-        if(timeForReadOver(deltaTime)) {
+        if(isTimeForReadOver(deltaTime)) {
 
             // we start to act after kids move
             if (!cvBlocksManager.isWaitForFirstMove()) {

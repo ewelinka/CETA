@@ -42,6 +42,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetMenu menu;
     public AssetButtons buttons;
 
+    public AssetTree tree;
+
     // singleton: prevent instantiation from other classes
     private Assets() {
     }
@@ -98,6 +100,7 @@ public class Assets implements Disposable, AssetErrorListener {
         finishBackGround = new AssetFinishBackground(atlas);
         menu = new AssetMenu(atlas);
         buttons = new AssetButtons(atlas);
+        tree = new AssetTree(atlas);
     }
 
     @Override
@@ -174,6 +177,19 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion feedbackZoneV1CV;
         public final TextureAtlas.AtlasRegion feedbackZoneV1Tablet;
 
+        public final TextureAtlas.AtlasRegion gearYellow1;
+        public final TextureAtlas.AtlasRegion gearYellow2;
+        public final TextureAtlas.AtlasRegion gearYellow3;
+        public final TextureAtlas.AtlasRegion gearViolet1;
+        public final TextureAtlas.AtlasRegion gearViolet2;
+        public final TextureAtlas.AtlasRegion gearViolet3;
+        public final TextureAtlas.AtlasRegion gearBlue1;
+        public final TextureAtlas.AtlasRegion cloud1;
+        public final TextureAtlas.AtlasRegion cloud2;
+        public final TextureAtlas.AtlasRegion cloud3;
+        public final TextureAtlas.AtlasRegion cloud4;
+        public final TextureAtlas.AtlasRegion cloud5;
+
 
 
         public AssetBackground (TextureAtlas atlas) {
@@ -187,6 +203,19 @@ public class Assets implements Disposable, AssetErrorListener {
             feedbackZoneCV = atlas.findRegion("feedbackZone360x360") ;
             feedbackZoneV1CV = atlas.findRegion("workZoneV2");
             feedbackZoneV1Tablet = atlas.findRegion("workZoneV2tablet");
+            gearYellow1  = atlas.findRegion("doradoA");
+            gearYellow2  = atlas.findRegion("doradoB");
+            gearYellow3  = atlas.findRegion("doradoC");
+            gearViolet1 = atlas.findRegion("violeta");
+            gearViolet2 = atlas.findRegion("violetaB");
+            gearViolet3 = atlas.findRegion("violetaD");
+            gearBlue1 = atlas.findRegion("azul");
+            cloud1 = atlas.findRegion("nubeA");
+            cloud2 = atlas.findRegion("nubeB");
+            cloud3 = atlas.findRegion("nubeC");
+            cloud4 = atlas.findRegion("nubeD");
+            cloud5 = atlas.findRegion("nubeE");
+
 
         }
     }
@@ -281,11 +310,19 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetObjectsToCollect {
         public final TextureAtlas.AtlasRegion coin;
         public final TextureAtlas.AtlasRegion screw;
+        public final TextureAtlas.AtlasRegion price1;
+        public final TextureAtlas.AtlasRegion price2;
+        public final TextureAtlas.AtlasRegion price3;
+        public final TextureAtlas.AtlasRegion price4;
 
 
         public AssetObjectsToCollect (TextureAtlas atlas) {
             coin = atlas.findRegion("coin");
             screw = atlas.findRegion("screw");
+            price1 = atlas.findRegion("premio1");
+            price2 = atlas.findRegion("premio2");
+            price3 = atlas.findRegion("premio3");
+            price4 = atlas.findRegion("premio4");
 
 
         }
@@ -337,13 +374,38 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetFinishBackground{
         public final TextureAtlas.AtlasRegion finishBack;
-        public final TextureAtlas.AtlasRegion excelentWork;
+        public final TextureAtlas.AtlasRegion excellentWork;
+        public final TextureAtlas.AtlasRegion thumbUp;
 
         public AssetFinishBackground(TextureAtlas atlas) {
             finishBack = atlas.findRegion("engranajes");
-            excelentWork = atlas.findRegion("excelentetrabajo");
+            excellentWork = atlas.findRegion("excelentetrabajo");
+            thumbUp = atlas.findRegion("manitoarriba");
 
         }
+    }
+
+    public class AssetTree{
+        public final TextureAtlas.AtlasRegion tree;
+        public final TextureAtlas.AtlasRegion gear1;
+        public final TextureAtlas.AtlasRegion gear2;
+        public final TextureAtlas.AtlasRegion gear3;
+        public final TextureAtlas.AtlasRegion gear4;
+        public final TextureAtlas.AtlasRegion gear5;
+        public final TextureAtlas.AtlasRegion arrow;
+
+        public  AssetTree(TextureAtlas atlas) {
+            tree = atlas.findRegion("arbol-guia"); // is smaller but we will scale up
+            gear1 = atlas.findRegion("engranaje");
+            gear2 = atlas.findRegion("engranaje1");
+            gear3 = atlas.findRegion("engranaje2");
+            gear4 = atlas.findRegion("engranaje3");
+            gear5 = atlas.findRegion("engranaje4");
+            arrow = atlas.findRegion("flecha");
+
+
+        }
+
     }
 
     public class AssetButtons{

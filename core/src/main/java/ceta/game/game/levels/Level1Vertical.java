@@ -21,7 +21,7 @@ public class Level1Vertical extends LevelHorizontal {
     @Override
     public void init() {
         Gdx.app.log(TAG,"init Level 1 Vertical");
-        price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
+        price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn, 1);
 
         tube = new Tube(12);
         //tube.setWidth(Constants.BASE*1.5f);

@@ -76,21 +76,7 @@ public class ResultsManager {
     public void resetIntentStart(){
         intentStartDate = new Date();
     }
-//
-//    public void priceCollected(int priceVal){
-//        priceValue = priceVal;
-//        intentEndDate = new Date();
-//        collectionTimeMillis = intentStartDate.getTime() - intentEndDate.getTime();
-//        saveData();
-//    }
 
-//    private void saveData(){
-//        // write data to file
-//        // level, price Nr, price val, response, intents nr, intenet result (1 or 0), time appeared, time collected, difference in millis
-//         toSave = levelNumber+","+priceNumber+","+priceValue+","+response+"'"+intentsNr+","+successfulIntent+","
-//                +sdf.format(intentStartDate)+","+justTime.format(intentEndDate)+","+collectionTimeMillis+"\n";
-//        Gdx.app.log(TAG,"save data "+toSave);
-//        file.writeString(toSave,true);
-//
-//    }
+    public int getIntentsNr(){return intentsNr;}
+
 }

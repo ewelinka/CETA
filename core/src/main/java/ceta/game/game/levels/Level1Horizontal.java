@@ -22,7 +22,7 @@ public class Level1Horizontal extends LevelHorizontal {
         bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(), Constants.DETECTION_ZONE_END);
 
         // default horizontal
-        price = new Price(levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
+        price = new Price(levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn, 2);
 
         // add actors
         stage.addActor(bruno);
