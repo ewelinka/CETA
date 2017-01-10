@@ -37,10 +37,10 @@ public class CongratulationsScreen extends AbstractGameScreen {
     public void buildStage() {
 
         Table layerBackground = buildBackgroundLayer();
-        Table playMenu = buildPlayMenu();
+        //Table playMenu = buildPlayMenu();
 
         stage.addActor(layerBackground);
-        stage.addActor(playMenu);
+        //stage.addActor(playMenu);
     }
 
     public void render (float deltaTime){
@@ -69,7 +69,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
     private void onPlayClicked () {
 //        ScreenTransition transition = ScreenTransitionFade.init(0.75f);
 //        game.setScreen(new Level1HorizontalScreen(game), transition);
-        game.getLevelsManager().goToNextLevel();
+        game.getLevelsManager().goToFirstUncompletedLevel();
     }
 
     private Table buildBackgroundLayer () {
@@ -94,7 +94,8 @@ public class CongratulationsScreen extends AbstractGameScreen {
                         alpha(1.0f, 0.5f)),
                 run(new Runnable() {
                     public void run() {
-                        game.getLevelsManager().goToNextLevel();
+                        game.setScreen(new TreeScreen(game));
+                        //game.getLevelsManager().goToNextLevel();
                     }
                 })
         ));

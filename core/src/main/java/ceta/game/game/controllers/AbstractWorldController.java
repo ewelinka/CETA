@@ -138,13 +138,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
         else if(keycode == Input.Keys.N){
            // GamePreferences.instance.addOneToLastLevelAndSave();
-            game.getLevelsManager().goToNextLevel();
+            game.getLevelsManager().goToNextLevelWorkaround();
         }
 
         else if(keycode == Input.Keys.B){
 //            GamePreferences.instance.subtractOneToLastLevelAndSave();
 //            game.getLevelsManager().goToNextLevel();
-            game.getLevelsManager().goToPreviousLevel();
+            game.getLevelsManager().goToPreviousLevelWorkaround();
         }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {
@@ -166,10 +166,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public void goToCongratulationsScreen () {
-        // switch to final screen
-       // ScreenTransition transition = ScreenTransitionFade.init(1);
-        GamePreferences.instance.setLastLevel(GamePreferences.instance.lastLevel+1);
-
+        game.getLevelsManager().onLevelCompleted();
         game.setScreen(new CongratulationsScreen(game), oneSegFadeIn);
 
     }
@@ -423,8 +420,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
         // ignore if its not left mouse button or first touch pointer
         if(screenY < 150) {
-            //GamePreferences.instance.addOneToLastLevelAndSave();
-            game.getLevelsManager().goToNextLevel();
+            game.getLevelsManager().goToNextLevelWorkaround();
         }
 
         return true;
@@ -461,7 +457,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue);
     }
     protected void newPriceRegister(){
-        game.resultsManager.newPriceAppeared(score+1,game.getLevelsManager().getCurrentLevel());
+        game.resultsManager.newPriceAppeared(score+1,game.getLevelsManager().getLastLevelCompleted());
     }
 
     protected void readDetectedAndSaveIntentGeneric(ArrayList<Integer> toReadVals){

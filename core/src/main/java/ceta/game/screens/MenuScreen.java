@@ -1,6 +1,5 @@
 package ceta.game.screens;
 
-import ceta.game.CetaGame;
 import ceta.game.game.Assets;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
@@ -9,11 +8,7 @@ import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -21,8 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.text.DecimalFormat;
@@ -103,7 +96,7 @@ public class MenuScreen extends AbstractGameScreen {
         ScreenTransition transition = ScreenTransitionFade.init(0.75f);
         //game.setScreen(screen1, transition);
 
-        game.getLevelsManager().goToCurrentLevel();
+        game.getLevelsManager().goToFirstUncompletedLevel();
 //        game.getLevelsManager().goToNextLevel();
         //game.setScreen(new Level1VerticalScreen(game,1), transition);
     }
