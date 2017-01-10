@@ -399,8 +399,8 @@ public class Assets implements Disposable, AssetErrorListener {
             gear1 = atlas.findRegion("engranaje");
             gear2 = atlas.findRegion("engranaje1");
             gear3 = atlas.findRegion("engranaje2");
-            gear4 = atlas.findRegion("engranaje3");
-            gear5 = atlas.findRegion("engranaje4");
+            gear4 = atlas.findRegion("engranajes3");
+            gear5 = atlas.findRegion("engranajes4");
             arrow = atlas.findRegion("flecha");
 
 
