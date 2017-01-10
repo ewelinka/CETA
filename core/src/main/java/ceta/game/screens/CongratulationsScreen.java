@@ -94,7 +94,8 @@ public class CongratulationsScreen extends AbstractGameScreen {
                         alpha(1.0f, 0.5f)),
                 run(new Runnable() {
                     public void run() {
-                        game.setScreen(new TreeScreen(game));
+                        game.getLevelsManager().goToFirstUncompletedLevel();
+                        //game.setScreen(new TreeScreen(game));
                         //game.getLevelsManager().goToNextLevel();
                     }
                 })

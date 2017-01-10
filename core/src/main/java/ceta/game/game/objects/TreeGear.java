@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
 /**
@@ -16,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 public class TreeGear extends Actor {
     public static final String TAG = TreeGear.class.getName();
 
-    public TextureRegion regTex;
+    private TextureRegion regTex;
     private boolean isActive;
     private float gearRotation;
 
@@ -58,6 +59,11 @@ public class TreeGear extends Actor {
                 regTex.getRegionWidth(), regTex.getRegionHeight(), false,false);
         batch.setColor(1,1,1,1);
 
+    }
+
+    public void activateGear(){
+        addAction(Actions.color(Color.WHITE,0.5f));
+        setActive(true);
     }
 
     public void setActive(boolean setIsActive){

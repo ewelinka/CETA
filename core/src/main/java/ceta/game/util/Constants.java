@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
  * Created by ewe on 7/25/16.
  */
 public class Constants {
-    public static final boolean WITH_CV = true;
+    public static final boolean WITH_CV = false;
 
     public static final int MARGIN_FADE  = 100;
     public static final int COUNTDOWN_MAX = 1; // in seconds
@@ -23,7 +23,13 @@ public class Constants {
     public static final String LEVELS_FOLDER = "levels";
 
     public static final int BASE = 40;
-    public static final int errorsForHint = 5;
+    public static final int ERRORS_FOR_HINT = 5;
+
+    public static final int L1_COMPLETED_NR = 2;
+    public static final int L2_COMPLETED_NR = 4;
+    public static final int L3_COMPLETED_NR = 6;
+    public static final int L4_COMPLETED_NR = 8;
+    public static final int L5_COMPLETED_NR = 10;
 
 
 

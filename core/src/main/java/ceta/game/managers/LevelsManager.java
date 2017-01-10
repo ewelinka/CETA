@@ -50,10 +50,26 @@ public class LevelsManager {
     }
 
     public void goToFirstUncompletedLevel(){
-        if(Constants.WITH_CV) {
-            goToLevelCV(lastLevelCompleted);
+        //first we check if we deal with an important change
+        if( lastLevelCompleted == Constants.L1_COMPLETED_NR
+                || lastLevelCompleted == Constants.L2_COMPLETED_NR
+                || lastLevelCompleted == Constants.L3_COMPLETED_NR
+                || lastLevelCompleted == Constants.L4_COMPLETED_NR
+                || lastLevelCompleted == Constants.L5_COMPLETED_NR){
+            game.setScreen(new TreeScreen(game));
+        }else { // if no important change -> we just go to next level
+            if (Constants.WITH_CV) {
+                goToLevelCV(lastLevelCompleted);
+            } else {
+                goToLevelTablet(lastLevelCompleted);
+            }
         }
-        else {
+    }
+
+    public void goToFirstUncompletedLevelFromTree(){
+        if (Constants.WITH_CV) {
+            goToLevelCV(lastLevelCompleted);
+        } else {
             goToLevelTablet(lastLevelCompleted);
         }
 
@@ -95,19 +111,37 @@ public class LevelsManager {
                 game.setScreen(new Level1HorizontalScreen(game, 1), transition);
                 break;
             case 1:
-                game.setScreen(new Level1VerticalScreen(game, 1), transition);
+                game.setScreen(new Level1HorizontalScreen(game, 2), transition);
                 break;
             case 2:
-                game.setScreen(new Level2HorizontalScreen(game, 1), transition);
+                game.setScreen(new Level1VerticalScreen(game, 1), transition);
                 break;
             case 3:
-                game.setScreen(new Level2VerticalScreen(game, 1), transition);
+                game.setScreen(new Level1VerticalScreen(game, 2), transition);
                 break;
             case 4:
-                game.setScreen(new Level3HorizontalScreen(game, 1), transition);
+                game.setScreen(new Level2HorizontalScreen(game, 1), transition);
                 break;
             case 5:
+                game.setScreen(new Level2HorizontalScreen(game, 2), transition);
+                break;
+            case 6:
+                game.setScreen(new Level2VerticalScreen(game, 1), transition);
+                break;
+            case 7:
+                game.setScreen(new Level2VerticalScreen(game, 2), transition);
+                break;
+            case 8:
+                game.setScreen(new Level3HorizontalScreen(game, 1), transition);
+                break;
+            case 9:
+                game.setScreen(new Level3HorizontalScreen(game, 2), transition);
+                break;
+            case 10:
                 game.setScreen(new Level3VerticalScreen(game, 1), transition);
+                break;
+            case 11:
+                game.setScreen(new Level3VerticalScreen(game, 2), transition);
                 break;
             default:
                 GamePreferences.instance.setLastLevel(0); // we go to the beginning

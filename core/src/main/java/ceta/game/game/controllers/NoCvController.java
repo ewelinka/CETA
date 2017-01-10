@@ -27,7 +27,7 @@ public class NoCvController extends AbstractWorldController {
     @Override
     protected boolean isPlayerInactive() {
        //TODO add errors check and set if too much or too less
-        if ((virtualBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT)&& (currentErrors > Constants.errorsForHint)) {
+        if ((virtualBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT)&& (currentErrors > Constants.ERRORS_FOR_HINT)) {
             setPlayerInactive(true);
         }
         return playerInactive;

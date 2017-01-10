@@ -32,9 +32,6 @@ public abstract class AbstractGameScreen  implements Screen {
         this.levelJson = levelJson;
     }
 
-    // Subclasses must load actors in this method
-    //public abstract void buildStage();
-
     public abstract void render (float deltaTime);
     public abstract void resize (int width, int height);
     public abstract void show ();
