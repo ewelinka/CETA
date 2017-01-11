@@ -3,6 +3,7 @@ package ceta.game.game.controllers;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.Constants;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
@@ -25,12 +26,9 @@ public class NoCvController extends AbstractWorldController {
     }
 
     @Override
-    protected boolean isPlayerInactive() {
-       //TODO add errors check and set if too much or too less
-        if ((virtualBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT)&& (currentErrors > Constants.ERRORS_FOR_HINT)) {
-            setPlayerInactive(true);
-        }
-        return playerInactive;
+    public boolean isPlayerInactive() {
+        //TODO add errors check and set if too much or too less
+        return ((virtualBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT) && (currentErrors >= Constants.ERRORS_FOR_HINT));
     }
 
     @Override
@@ -39,6 +37,14 @@ public class NoCvController extends AbstractWorldController {
 
         virtualBlocksManager.updateDetected();
         // we start to act after kids move
+
+        if(isPlayerInactive()){
+            Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
+            setPlayerInactive(true);
+            //cvBlocksManager.resetNoChangesSince();
+        }else{
+            setPlayerInactive(false);
+        }
 
         if(isTimeForReadOver(deltaTime)) {
             if (!virtualBlocksManager.isWaitForFirstMove()) { // just for action submit!
@@ -75,7 +81,7 @@ public class NoCvController extends AbstractWorldController {
         }
         else{
             //resetIntentStart();
-            virtualBlocksManager.resetNoChangesSince(); // after reading we start to count "timeToWait"
+            virtualBlocksManager.resetNoChangesSince(); // after reading we start to count "timeToWait" and interactivity
         }
 
         cameraHelper.update(deltaTime);

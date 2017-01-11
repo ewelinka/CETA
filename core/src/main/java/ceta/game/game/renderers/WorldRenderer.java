@@ -2,6 +2,7 @@ package ceta.game.game.renderers;
 
 import ceta.game.game.Assets;
 import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.graphics.Color;
@@ -20,7 +21,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  */
 public class WorldRenderer extends AbstractWorldRenderer {
     public static final String TAG = WorldRenderer.class.getName();
-    protected FeedbackRenderer feedbackRenderer;
+    //protected FeedbackRenderer feedbackRenderer;
     protected int currentPriceTypeNr;
 
     public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
@@ -28,6 +29,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         this.worldController = worldController;
         this.numberLineIsHorizontal = numberLineIsHorizontal;
         feedbackRenderer = new FeedbackRenderer(stage);
+        shouldRenderClue = false;
         currentPriceTypeNr = worldController.getCurrentPriceType();
         init();
     }
@@ -74,6 +76,20 @@ public class WorldRenderer extends AbstractWorldRenderer {
         }
         //renderPriceValue(spriteBatch);
         renderGui(spriteBatch);
+
+
+        if(worldController.isPlayerInactive() ){
+            if (!feedbackRenderer.getManoImg().hasActions()) {
+                feedbackRenderer.renderClue(worldController.isTooMuch());
+                shouldRenderClue = true;
+            }
+        }else{
+            // if we didn't notify yet
+            if(shouldRenderClue){
+                feedbackRenderer.stopRenderClue();
+                shouldRenderClue = false;
+            }
+        }
 
     }
 

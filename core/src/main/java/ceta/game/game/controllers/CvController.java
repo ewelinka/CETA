@@ -42,7 +42,6 @@ public class CvController extends AbstractWorldController {
         if(isPlayerInactive()){
             Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
             setPlayerInactive(true);
-            //cvBlocksManager.resetNoChangesSince();
         }else{
             setPlayerInactive(false);
         }
@@ -126,14 +125,9 @@ public class CvController extends AbstractWorldController {
     }
 
     @Override
-    protected boolean isPlayerInactive() {
+    public boolean isPlayerInactive() {
         //TODO control current errors in action submit
-        if((cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT) && (currentErrors > Constants.ERRORS_FOR_HINT)) {
-            setPlayerInactive(true);
-        }
-        return playerInactive;
-
-
+        return ((cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT) && (currentErrors >= Constants.ERRORS_FOR_HINT));
     }
 
     @Override

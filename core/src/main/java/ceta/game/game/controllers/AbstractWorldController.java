@@ -48,6 +48,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected boolean moveMade;
     private int localCountdownMax;
     protected int currentErrors;
+    protected boolean isTooMuch;
     protected int timeToWait;
     protected float timeToWaitForReading;
 
@@ -85,7 +86,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected abstract void localInit();
     protected abstract void updateDigitalRepresentations();
     protected abstract void countdownMove();
-    protected abstract boolean isPlayerInactive();
+    public abstract boolean isPlayerInactive();
 
 
     public void init () {
@@ -100,6 +101,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         //localCountdownMax = GamePreferences.instance.countdownMax;
         localCountdownMax = Constants.COUNTDOWN_MAX;
         currentErrors = 0;
+        isTooMuch = false;
 
         actionSubmitInit();
         adjustCamera();
@@ -378,7 +380,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void setCountdownOn(boolean isOn){
         //Gdx.app.log(TAG, " setCountdownOn "+isOn);
         if(isOn) {
-
             AudioManager.instance.play(Assets.instance.sounds.buzz);
         }
         else {
@@ -454,8 +455,20 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     protected void addIntentToResults(int kidResponse, int priceValue){
         boolean wasSuccessful = (kidResponse == priceValue);
+        isTooMuch = (kidResponse > priceValue);
         game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue);
+        errorCheck(wasSuccessful);
     }
+
+    private void errorCheck(boolean wasSuccessful){
+        if(wasSuccessful)
+            currentErrors = 0;
+        else
+            currentErrors +=1;
+
+        Gdx.app.log(TAG, " new intent with result: "+wasSuccessful+ " we have now "+currentErrors+" errors acumulated, is too much:  "+isTooMuch);
+    }
+
     protected void newPriceRegister(){
         game.resultsManager.newPriceAppeared(score+1,game.getLevelsManager().getLastLevelCompleted());
     }
@@ -480,6 +493,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public int getCurrentPriceType(){
         return level.price.getPriceTypeNr();
     }
+
+    public boolean isTooMuch(){ return isTooMuch;}
 
 
 

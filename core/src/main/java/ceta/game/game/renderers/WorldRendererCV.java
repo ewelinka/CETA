@@ -19,13 +19,10 @@ import com.badlogic.gdx.utils.Align;
 public class WorldRendererCV extends WorldRenderer {
     public static final String TAG = WorldRendererCV.class.getName();
    // private FeedbackRenderer feedbackRenderer;
-    private boolean shouldRenderClue;
+
 
     public WorldRendererCV(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
         super(worldController, stage, numberLineIsHorizontal);
-
-        shouldRenderClue = false;
-
     }
 
     public WorldRendererCV(AbstractWorldController worldController, Stage stage) {
@@ -51,9 +48,7 @@ public class WorldRendererCV extends WorldRenderer {
 
     }
 
-    public void stopRenderClue(){
-        feedbackRenderer.stopRenderClue();
-    }
+
 
 //
 //    @Override

@@ -29,6 +29,8 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected BitmapFont bigFont;
     protected BitmapFont counterFont;
     protected AbstractWorldController worldController;
+    protected FeedbackRenderer feedbackRenderer;
+    protected boolean shouldRenderClue;
     protected Stage stage;
     protected Image imgBackground;
 

@@ -38,21 +38,6 @@ public class TreeArrow extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        //Gdx.app.log(TAG, "this.getColor()  "+ this.getColor());
-        //batch.setProjectionMatrix(camera.combined);
-        // batch.draw(regTex,this.getX(),this.getY());
-        //batch.setColor(this.getColor());
         batch.draw(regTex,this.getX(),this.getY()+arrowYoffset);
-
-//        batch.draw(regTex.getTexture(),
-//                this.getX(), this.getY()+ arrowYoffset,
-//                this.getOriginX(), this.getOriginY(),
-//                this.getWidth() ,this.getHeight(),
-//                this.getScaleX(), this.getScaleY(),
-//                0,
-//                regTex.getRegionX(), regTex.getRegionY(),
-//                regTex.getRegionWidth(), regTex.getRegionHeight(), false,false);
-//        batch.setColor(1,1,1,1);
-
     }
 }
