@@ -262,14 +262,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                 moveMade = false;
             }
         }
@@ -306,7 +306,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected void onCollisionBrunoWithPrice(Price goldcoin) {
         //Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (goldcoin.getActions().size == 0) { // we act just one time!
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupCoin);
             score += 1;
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
@@ -327,7 +327,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
        // Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (goldcoin.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupCoin);
             score += 1;
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
@@ -349,7 +349,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         // Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (goldcoin.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupCoin);
             score += 1;
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {

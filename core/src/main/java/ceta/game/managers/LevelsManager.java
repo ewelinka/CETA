@@ -82,19 +82,37 @@ public class LevelsManager {
                 game.setScreen(new Level1HorizontalCvScreen(game, 1), transition);
                 break;
             case 1:
-                game.setScreen(new Level1VerticalCvScreen(game, 1), transition);
+                game.setScreen(new Level1HorizontalCvScreen(game, 2), transition);
                 break;
             case 2:
-                game.setScreen(new Level2HorizontalCvScreen(game, 1), transition);
+                game.setScreen(new Level1VerticalCvScreen(game, 1), transition);
                 break;
             case 3:
-                game.setScreen(new Level2VerticalCvScreen(game, 1), transition);
+                game.setScreen(new Level1VerticalCvScreen(game, 2), transition);
                 break;
             case 4:
-                game.setScreen(new Level3HorizontalCvScreen(game, 1), transition);
+                game.setScreen(new Level2HorizontalCvScreen(game, 1), transition);
                 break;
             case 5:
+                game.setScreen(new Level2HorizontalCvScreen(game, 2), transition);
+                break;
+            case 6:
+                game.setScreen(new Level2VerticalCvScreen(game, 1), transition);
+                break;
+            case 7:
+                game.setScreen(new Level2VerticalCvScreen(game, 2), transition);
+                break;
+            case 8:
+                game.setScreen(new Level3HorizontalCvScreen(game, 1), transition);
+                break;
+            case 9:
+                game.setScreen(new Level3HorizontalCvScreen(game, 2), transition);
+                break;
+            case 10:
                 game.setScreen(new Level3VerticalCvScreen(game, 1), transition);
+                break;
+            case 11:
+                game.setScreen(new Level3VerticalCvScreen(game, 2), transition);
                 break;
             default:
                 GamePreferences.instance.setLastLevel(0); // we go to the beginning

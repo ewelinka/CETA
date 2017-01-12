@@ -79,14 +79,14 @@ public class Level3VerticalCvController extends CvController {
                     moveMade = false;
                 } else {
                     if (moveMade) {
-                        AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                         moveMade = false;
                     }
 
                 }
             }else{ // no blocks on the table
                 if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
             }
@@ -117,11 +117,6 @@ public class Level3VerticalCvController extends CvController {
         }
     }
 
-
-
-
-
-
     private void updateBrunoVertical(ArrayList<Pair> toAdd, ArrayList<Integer> toRemoveValues){
         int toAddNr = 0;
         int toRemoveNr = 0;
@@ -131,7 +126,6 @@ public class Level3VerticalCvController extends CvController {
         }
         for(int i=0; i< toAdd.size();i++) {
             toAddNr+=toAdd.get(i).getValue();
-
         }
 
         if((toAddNr - toRemoveNr) != 0)

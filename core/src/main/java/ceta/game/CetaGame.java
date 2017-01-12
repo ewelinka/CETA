@@ -42,11 +42,8 @@ public class CetaGame extends DirectedGame {
 		//setScreen(new Level3VerticalScreen(this,1),transition);
 
 		//setScreen(new MenuScreen(this),transition);
-		setScreen(new TreeScreen(this,true));
-		//setScreen(new Level2VerticalCvScreen(this,1),transition);
-		//setScreen(new Level2VerticalScreen(this,1),transition);
-		//setScreen(level1Screen,transition);
-		//setScreen(new CongratulationsScreen(this),transition);
+		setScreen(new TutorialScreen(this));
+
 
 	}
 
@@ -87,32 +84,6 @@ public class CetaGame extends DirectedGame {
 	public boolean hasNewFrame(){
 		return hasNewFrame;
 	}
-
-
-//	public void initReceiver(OSCListener listener){
-//		this.receiver =  new OSCReceiver("/wizardOfOz", 12345, listener);
-//		//TODO aqui hay que pasarle el level1Screen como OSCListener
-//	}
-//
-//	public void startOSCReceiver(){
-//		this.receiver.start();
-//	}
-//
-//	public void stopOSCReceiver(){
-//		this.receiver.stop();
-//	}
-//	public String getLocalIp() {
-//		return localIp;
-//	}
-//	public void setLocalIp(String localIp) {
-//		this.localIp = localIp;
-//	}
-//
-//
-//	public Level1HorizontalScreen getLevel1HorizontalScreen(){
-//		return level1Screen;
-//	}
-	
 
 	
 }

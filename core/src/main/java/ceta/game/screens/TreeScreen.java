@@ -34,7 +34,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     public TreeScreen(DirectedGame game, boolean gameInit) {
-        super(game,1);
+        super(game);
         this.gameInit = gameInit;
 
     }

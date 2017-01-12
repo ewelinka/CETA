@@ -25,9 +25,10 @@ public abstract class AbstractGameScreen  implements Screen {
     protected AbstractWorldController worldController;
     protected int levelJson;
 
-
+    public AbstractGameScreen (DirectedGame game){
+        this(game,0);
+    }
     public AbstractGameScreen (DirectedGame game, int levelJson) {
-
         this.game = game;
         this.levelJson = levelJson;
     }

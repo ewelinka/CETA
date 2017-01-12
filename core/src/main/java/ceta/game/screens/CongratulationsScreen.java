@@ -30,11 +30,11 @@ public class CongratulationsScreen extends AbstractGameScreen {
 
 
     public CongratulationsScreen(DirectedGame game) {
-        super(game,1);
+        super(game);
     }
 
 
-    public void buildStage() {
+    private void buildStage() {
 
         Table layerBackground = buildBackgroundLayer();
         //Table playMenu = buildPlayMenu();

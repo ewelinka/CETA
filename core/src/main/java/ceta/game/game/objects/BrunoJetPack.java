@@ -21,6 +21,7 @@ public class BrunoJetPack extends BrunoVertical {
     private float fireYScale, fireXScale, oscillationY;
     private int fireYDirection, fireXDirection, oscillationYDirection;
     private float maxYFlame;
+    private int inclination;
 
 
 
@@ -33,6 +34,7 @@ public class BrunoJetPack extends BrunoVertical {
         fireYScale = fireXScale = 0.5f;
         fireYDirection = fireXDirection = oscillationYDirection =1;
         oscillationY =0;
+        inclination = -8;
 
     }
 
@@ -79,7 +81,7 @@ public class BrunoJetPack extends BrunoVertical {
                 this.getOriginX(), this.getOriginY(),
                 brunoBodyReg.getRegionWidth() + 4, brunoBodyReg.getRegionHeight(),
                 this.getScaleX(), this.getScaleY(),
-                0,
+                inclination,
                 brunoBodyReg.getRegionX(), brunoBodyReg.getRegionY(),
                 brunoBodyReg.getRegionWidth(), brunoBodyReg.getRegionHeight(), lookingLeft, false);
 
@@ -88,7 +90,7 @@ public class BrunoJetPack extends BrunoVertical {
                 0, 0,
                 brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(),
                 this.getScaleX(), this.getScaleY(),
-                this.getRotation(),
+                this.getRotation()+inclination,
                 brunoHeadReg.getRegionX(), brunoHeadReg.getRegionY(),
                 brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(), lookingLeft, false);
 

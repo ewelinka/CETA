@@ -130,7 +130,7 @@ public class BrunoVertical extends Bruno {
     public void moveMeToAndSetTerminalY(float x, float y){
         setTerminalY(y);
         brunosManager.addToInMovementIds(id);
-        addAction(sequence(Actions.moveTo(x,y,actionVelocity),
+        addAction(sequence(Actions.moveTo(x,y,actionVelocity*3),
                 run(new Runnable() {
                     public void run() {
                         brunosManager.notificationBrunoMoved(id);
