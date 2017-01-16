@@ -23,7 +23,7 @@ public class Constants {
     public static final String LEVELS_FOLDER = "levels";
 
     public static final int BASE = 40;
-    public static final int ERRORS_FOR_HINT = 5;
+    public static final int ERRORS_FOR_HINT = 2;
 
     public static final int L1_COMPLETED_NR = 2;
     public static final int L2_COMPLETED_NR = 4;
@@ -63,6 +63,7 @@ public class Constants {
 
             DETECTION_LIMIT = (int)-VIEWPORT_HEIGHT/2 + 160;
             DETECTION_ZONE_END = DETECTION_LIMIT + 200;
+
 
 
         }

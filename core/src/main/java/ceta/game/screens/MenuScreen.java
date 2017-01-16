@@ -70,6 +70,8 @@ public class MenuScreen extends AbstractGameScreen {
 
     public void render (float deltaTime){
         Gdx.gl.glClearColor(0, 0, 0, 1);
+        //Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(deltaTime);
         stage.draw();
@@ -92,7 +94,7 @@ public class MenuScreen extends AbstractGameScreen {
     public void pause (){};
 
     private void onPlayClicked () {
-        ScreenTransition transition = ScreenTransitionFade.init(0.75f);
+       // ScreenTransition transition = ScreenTransitionFade.init(0.75f);
         //game.setScreen(screen1, transition);
 
         game.getLevelsManager().goToFirstUncompletedLevel();

@@ -92,7 +92,7 @@ public class BrunoVertical extends Bruno {
                 brunoBodyReg = Assets.instance.bruno.body03body;
                 headXoffset = 5;
                 headYoffset = -5;
-                bodyOffsetX = -3;
+                bodyOffsetX = -10;
                 break;
             case 4:
                 setColor(Color.CYAN);

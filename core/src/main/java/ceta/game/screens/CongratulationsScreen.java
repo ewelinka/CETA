@@ -1,6 +1,7 @@
 package ceta.game.screens;
 
 import ceta.game.game.Assets;
+import ceta.game.game.objects.Gear;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -27,6 +28,9 @@ public class CongratulationsScreen extends AbstractGameScreen {
     private Image imgBackground;
     private Image congrats;
     private Image thumb;
+    //private Gear gear;
+    private int gearsNr = 15;
+    private boolean moveToNextLevel;
 
 
     public CongratulationsScreen(DirectedGame game) {
@@ -36,16 +40,23 @@ public class CongratulationsScreen extends AbstractGameScreen {
 
     private void buildStage() {
 
-        Table layerBackground = buildBackgroundLayer();
+        //Table layerBackground = buildBackgroundLayer();
         //Table playMenu = buildPlayMenu();
-
-        stage.addActor(layerBackground);
+        moveToNextLevel =false;
+        stage.clear();
+        buildBackgroundLayer();
         //stage.addActor(playMenu);
     }
 
     public void render (float deltaTime){
+        if(moveToNextLevel){
+            game.getLevelsManager().goToFirstUncompletedLevel();
+            moveToNextLevel = false;
+        }
+        //blue!
         Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         stage.act(deltaTime);
         stage.draw();
 
@@ -56,7 +67,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
     };
     public void show (){
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
-
+        Gdx.input.setCatchBackKey(true); // from congrats you con go to menu
         buildStage();
     };
     public void hide (){
@@ -72,18 +83,23 @@ public class CongratulationsScreen extends AbstractGameScreen {
         game.getLevelsManager().goToFirstUncompletedLevel();
     }
 
-    private Table buildBackgroundLayer () {
-        Table layer = new Table();
+    private void buildBackgroundLayer () {
+       // Table layer = new Table();
         imgBackground = new Image(Assets.instance.finishBackGround.finishBack);
         congrats = new Image(Assets.instance.finishBackGround.excellentWork);
 
-        layer.addActor(imgBackground);
+        //stage.addActor(imgBackground);
         imgBackground.setSize(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
         imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
         imgBackground.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2, 0);
-        //imgBackground.setHeight(Constants.VIEWPORT_HEIGHT/2);
+//
+        for(int i = 0; i< gearsNr;i++){
+            //gear = new Gear();
+            stage.addActor(new Gear());
+        }
 
-        layer.addActor(congrats);
+
+        stage.addActor(congrats);
         congrats.setOrigin(congrats.getWidth() / 2, congrats.getHeight() / 2);
         congrats.setPosition(0,600);
         congrats.addAction(sequence(
@@ -92,23 +108,25 @@ public class CongratulationsScreen extends AbstractGameScreen {
                 parallel(moveBy(0, -100, 3.0f, Interpolation.swingOut),
                         scaleTo(1.0f, 1.0f, 0.25f, Interpolation.linear),
                         alpha(1.0f, 0.5f)),
+//                delay(1.0f),
                 run(new Runnable() {
                     public void run() {
-                        game.getLevelsManager().goToFirstUncompletedLevel();
-                        //game.setScreen(new TreeScreen(game));
+                        moveToNextLevel = true;
+                        //game.getLevelsManager().goToFirstUncompletedLevel();
+                        //game.setScreen(new TreeScreen(game), ScreenTransitionFade.init(1.75f));
                         //game.getLevelsManager().goToNextLevel();
                     }
                 })
         ));
 
         thumb = new Image(Assets.instance.finishBackGround.thumbUp);
-        layer.addActor(thumb);
+        stage.addActor(thumb);
         thumb.setOrigin(thumb.getWidth() / 2, thumb.getHeight() / 2);
         thumb.setPosition(0 - thumb.getWidth(),400);
         thumb.addAction(moveTo(-20, 100, 1.5f, Interpolation.bounceOut));
 
 
-        return layer;
+        //return layer;
     }
 
     private Table buildPlayMenu () {

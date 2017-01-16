@@ -204,7 +204,7 @@ public class Assets implements Disposable, AssetErrorListener {
             feedbackZoneTablet= atlas.findRegion("feedbackTablet");
             feedbackZoneCV = atlas.findRegion("feedbackZone360x360") ;
             feedbackZoneV1CV = atlas.findRegion("workZoneV2");
-            feedbackZoneV1Tablet = atlas.findRegion("workZoneV2tablet");
+            feedbackZoneV1Tablet = atlas.findRegion("workZoneV2tablet2");
             gearYellow1  = atlas.findRegion("doradoA");
             gearYellow2  = atlas.findRegion("doradoB");
             gearYellow3  = atlas.findRegion("doradoC");
@@ -357,7 +357,7 @@ public class Assets implements Disposable, AssetErrorListener {
             finalTube = atlas.findRegion("tubo_final");
             mask = atlas.findRegion("mega_mascara");
             maskArm = atlas.findRegion("mega_brazo");
-            tubeVertical = atlas.findRegion("tuboVertical");
+            tubeVertical = atlas.findRegion("tuboVertical2");
 
 
 //            Array<TextureAtlas.AtlasRegion> regions = null;

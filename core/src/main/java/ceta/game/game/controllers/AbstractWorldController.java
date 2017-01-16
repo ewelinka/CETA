@@ -148,6 +148,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 //            game.getLevelsManager().goToNextLevel();
             game.getLevelsManager().goToPreviousLevelWorkaround();
         }
+        else if(keycode == Input.Keys.C){
+            goToCongratulationsScreen();
+        }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {
             cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.bruno);

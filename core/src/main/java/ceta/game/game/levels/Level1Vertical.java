@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class Level1Vertical extends LevelHorizontal {
     public static final String TAG = Level1Vertical.class.getName();
     public Tube tube;
+    private int adjustX;
 
     public Level1Vertical(Stage stage, LevelParams levelParams) {
         super(stage, levelParams);
@@ -20,12 +21,13 @@ public class Level1Vertical extends LevelHorizontal {
 
     @Override
     public void init() {
+        adjustX = -40;
         Gdx.app.log(TAG,"init Level 1 Vertical");
         price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn, 1);
 
         tube = new Tube(12);
         //tube.setWidth(Constants.BASE*1.5f);
-        tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2,Constants.DETECTION_ZONE_END -tube.getHeight()); //TODO change for no-cv!!!
+        tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2 + adjustX,Constants.DETECTION_ZONE_END -tube.getHeight()); //TODO change for no-cv!!!
 
         // add actors
         stage.addActor(price);

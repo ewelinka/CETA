@@ -20,7 +20,7 @@ public class Tube extends AbstractGameObject {
     }
 
     public void init(){
-        this.setSize(regTex.getRegionWidth()*1.2f,200);
+        this.setSize(regTex.getRegionWidth(),regTex.getRegionHeight());
         // now we can set the values that depend on size
         super.init();
 

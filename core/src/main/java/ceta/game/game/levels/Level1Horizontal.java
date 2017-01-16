@@ -17,9 +17,9 @@ public class Level1Horizontal extends LevelHorizontal {
     public void init() {
 
         bruno = new MegaBrunoWithArm();
-        bruno.setSize(bruno.getWidth()*429/bruno.getHeight(),429); // scale to aspirador robot
-        //bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(),Constants.DETECTION_ZONE_END);
-        bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(), Constants.DETECTION_ZONE_END);
+        //bruno.setSize(bruno.getWidth()*429/bruno.getHeight(),429); // scale to aspirador robot
+        bruno.setPosition(-473,Constants.DETECTION_ZONE_END);
+        //bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(), Constants.DETECTION_ZONE_END);
 
         // default horizontal
         price = new Price(levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn, 2);
