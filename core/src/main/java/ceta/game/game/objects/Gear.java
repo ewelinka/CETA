@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -16,9 +17,12 @@ public class Gear extends Actor {
     private float rotation;
     private int rotationSpeed;
     private float transparency;
+    private int nr;
+    private TextureAtlas.AtlasRegion [] gears = {Assets.instance.background.gearGray1,Assets.instance.background.gearGray2};
 
-    public Gear (){
-        regTex = Assets.instance.background.gearBlue1;
+    public Gear (int nr){
+        this.nr = nr;
+        regTex = gears[nr%2];
         init();
         initRandom();
 
@@ -47,10 +51,9 @@ public class Gear extends Actor {
         rotationSpeed = MathUtils.random(10,100);
         rotation = MathUtils.random(360);
         this.setRotation(rotation);
-        float scale = MathUtils.random(0.7f,2.2f);
-        this.setScale(scale,scale);
-        this.setPosition(MathUtils.random(0,Constants.VIEWPORT_WIDTH),MathUtils.random(0,Constants.VIEWPORT_HEIGHT/3));
-        transparency =  MathUtils.random(0.4f,0.9f);
+        setScale(MathUtils.random(0.7f,1.0f));
+        this.setPosition(nr *90 +MathUtils.random(10,20),MathUtils.random(10,100));
+        transparency =  MathUtils.random(0.8f,1.0f);
 
     }
 

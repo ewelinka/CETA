@@ -23,7 +23,12 @@ public abstract class AbstractLevel {
     }
     public abstract void init ();
 
-    public abstract void render(SpriteBatch batch);
+    public void render(SpriteBatch batch) {
+        price.toFront();
+        bruno.toFront();
+
+        stage.draw();
+    }
 
     public void update(float deltaTime) {
         price.update(deltaTime);

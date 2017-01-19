@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 12/2/16.
  */
-public class Level3Horizontal extends LevelHorizontal {
+public class Level3Horizontal extends AbstractLevel {
     private Gear gear;
     public Level3Horizontal(Stage stage, LevelParams levelParams) {
         super(stage, levelParams);

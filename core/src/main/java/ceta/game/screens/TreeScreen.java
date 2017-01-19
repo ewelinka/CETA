@@ -17,6 +17,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 /**
  * Created by ewe on 1/9/17.
  */
@@ -86,23 +90,23 @@ public class TreeScreen extends AbstractGameScreen {
         imgBackground.setPosition(0, 0);
         stage.addActor(imgBackground);
 
-        level1gear = new TreeGear(Assets.instance.tree.gear1);
+        level1gear = new TreeGear(Assets.instance.tree.gear1,Assets.instance.tree.gear1inactive);
         level1gear.setPosition(300, 340);
         stage.addActor(level1gear);
 
-        level2gear = new TreeGear(Assets.instance.tree.gear2);
+        level2gear = new TreeGear(Assets.instance.tree.gear2,Assets.instance.tree.gear2inactive);
         level2gear.setPosition(160, 357);
         stage.addActor(level2gear);
 
-        level3gear = new TreeGear(Assets.instance.tree.gear3);
+        level3gear = new TreeGear(Assets.instance.tree.gear3,Assets.instance.tree.gear3inactive);
         level3gear.setPosition(224, 437);
         stage.addActor(level3gear);
 
-        level4gear = new TreeGear(Assets.instance.tree.gear4);
+        level4gear = new TreeGear(Assets.instance.tree.gear4,Assets.instance.tree.gear4inactive);
         level4gear.setPosition(238, 320);
         stage.addActor(level4gear);
 
-        level5gear = new TreeGear(Assets.instance.tree.gear5);
+        level5gear = new TreeGear(Assets.instance.tree.gear5,Assets.instance.tree.gear5inactive);
         level5gear.setPosition(335, 481);
         stage.addActor(level5gear);
 
@@ -169,25 +173,25 @@ public class TreeScreen extends AbstractGameScreen {
                 break;
             case 1:
                 arrow.setPosition(434,328);
-                arrow.addAction(Actions.moveTo(90,336,2f));
+                arrow.addAction(sequence(delay(1.5f),moveTo(90,336,2f)));
                 level1gear.setActive(false);
                 level1gear.activateGear();
                 break;
             case 2:
                 arrow.setPosition(90,336);
-                arrow.addAction(Actions.moveTo(86,433,2f));
+                arrow.addAction(sequence(delay(1.5f),moveTo(86,433,2f)));
                 level2gear.setActive(false);
                 level2gear.activateGear();
                 break;
             case 3:
                 arrow.setPosition(86,433);
-                arrow.addAction(Actions.moveTo(257,273,2f));
+                arrow.addAction(sequence(delay(1.5f),moveTo(257,273,2f)));
                 level3gear.setActive(false);
                 level3gear.activateGear();
                 break;
             case 4:
                 arrow.setPosition(257,273);
-                arrow.addAction(Actions.moveTo(444,425,2f));
+                arrow.addAction(sequence(delay(1.5f),moveTo(444,425,2f)));
                 level4gear.setActive(false);
                 level4gear.activateGear();
                 break;

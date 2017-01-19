@@ -65,7 +65,14 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderDetectionZoneImg(spriteBatch);
         renderBackgroundImg(spriteBatch);
         renderHelperNumberLines(shapeRenderer);
+        renderWorldAndOver();
+
+
+    }
+
+    protected void renderWorldAndOver(){
         renderWorld(spriteBatch);
+
 
         if(worldController.isNumberLineVisible())
             renderHelperNumbers(spriteBatch);
@@ -90,7 +97,6 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 shouldRenderClue = false;
             }
         }
-
     }
 
 

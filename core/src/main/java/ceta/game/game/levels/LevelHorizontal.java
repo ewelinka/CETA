@@ -37,14 +37,6 @@ public class LevelHorizontal extends AbstractLevel {
 
 
 
-    @Override
-    public void render(SpriteBatch batch) {
-        price.toFront();
-        bruno.toFront();
-
-        stage.draw();
-    }
-
 
 
 }

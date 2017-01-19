@@ -135,7 +135,7 @@ public class LevelsManager {
                 game.setScreen(new Level1VerticalScreen(game, 1), transition);
                 break;
             case 3:
-                game.setScreen(new Level1VerticalScreen(game, 2), transition);
+                game.setScreen(new Level1VerticalMovingScreen(game, 2), transition);
                 break;
             case 4:
                 game.setScreen(new Level2HorizontalScreen(game, 1), transition);

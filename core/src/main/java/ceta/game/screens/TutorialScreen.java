@@ -6,9 +6,11 @@ import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -17,7 +19,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 
 /**
  * Created by ewe on 1/11/17.
@@ -25,10 +26,14 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 public class TutorialScreen  extends AbstractGameScreen {
     private static final String TAG = TutorialScreen.class.getName();
     private ImageButton btnStartGame;
-    private Image imgBackground;
+    private Image imgBackground, imgBackground2;
+    private boolean goingVisible;
+    private float changeStay;
 
     public TutorialScreen(DirectedGame game) {
         super(game);
+        goingVisible = true;
+        changeStay = 1.5f;
     }
 
     @Override
@@ -37,6 +42,20 @@ public class TutorialScreen  extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(deltaTime);
         stage.draw();
+        if(!imgBackground.hasActions()){
+            if(goingVisible) {
+                //imgBackground.addAction(Actions.alpha(0, changeStay));
+                imgBackground.addAction(sequence(Actions.alpha(0),delay(changeStay)));
+
+                goingVisible = false;
+
+            }else{
+                //imgBackground.addAction(Actions.alpha(1, changeStay));
+                imgBackground.addAction(sequence(Actions.alpha(1),delay(changeStay)));
+
+                goingVisible = true;
+            }
+        }
 
     }
 
@@ -81,25 +100,38 @@ public class TutorialScreen  extends AbstractGameScreen {
 
     private Table buildBackgroundLayer () {
         Table layer = new Table();
-        imgBackground = new Image(Assets.instance.background.back2);
+//        imgBackground = new Image(Assets.instance.background.back2);
+        Texture t1 = new Texture(Gdx.files.local("tutorial/tutorial1.png"));
+        t1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        imgBackground = new Image(new TextureRegion(t1, 0, 0, 600, 1024));
+       // logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
+        Texture t2 = new Texture(Gdx.files.local("tutorial/tutorial2.png"));
+        t2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        imgBackground2 = new Image(new TextureRegion(t2, 0, 0, 600, 1024));
+
+        layer.addActor(imgBackground2);
+        imgBackground2.setSize(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
+        imgBackground2.setOrigin(imgBackground2.getWidth() / 2, imgBackground2.getHeight() / 2);
+        imgBackground2.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2, 0);
 
         layer.addActor(imgBackground);
         imgBackground.setSize(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
         imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
         imgBackground.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2, 0);
 
-
+        //imgBackground.addAction(Actions.alpha(1,changeStay));
+        imgBackground.addAction(sequence(Actions.alpha(1),delay(changeStay*2)));
 
         return layer;
     }
 
     private Table buildPlayMenu () {
         // TODO button for "skip tutorial"
-        btnStartGame = new ImageButton(Assets.instance.buttons.playButtonStyle);
+        btnStartGame = new ImageButton(Assets.instance.buttons.understoodButtonStyle);
 
         Table tbl = new Table();
         tbl.add(btnStartGame);
-        tbl.setPosition(Constants.VIEWPORT_WIDTH/2 - tbl.getWidth()/2 , 100);
+        tbl.setPosition(Constants.VIEWPORT_WIDTH/2 - tbl.getWidth()/2 , 80);
         btnStartGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -110,6 +142,7 @@ public class TutorialScreen  extends AbstractGameScreen {
     }
 
     private void onPlayClicked () {
-        game.setScreen(new TreeScreen(game,true), ScreenTransitionFade.init(1));
+        game.setScreen(new SimpleMenu(game), ScreenTransitionFade.init(1));
+        //game.setScreen(new TreeScreen(game,true), ScreenTransitionFade.init(1));
     }
 }

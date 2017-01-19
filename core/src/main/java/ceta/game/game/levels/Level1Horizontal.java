@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 12/27/16.
  */
-public class Level1Horizontal extends LevelHorizontal {
+public class Level1Horizontal extends AbstractLevel {
     public Level1Horizontal(Stage stage, LevelParams levelParams) {
         super(stage, levelParams);
     }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 11/11/16.
  */
-public class Level1Vertical extends LevelHorizontal {
+public class Level1Vertical extends AbstractLevel {
     public static final String TAG = Level1Vertical.class.getName();
     public Tube tube;
     private int adjustX;

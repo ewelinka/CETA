@@ -29,7 +29,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
     private Image congrats;
     private Image thumb;
     //private Gear gear;
-    private int gearsNr = 15;
+    private int gearsNr = 5;
     private boolean moveToNextLevel;
 
 
@@ -54,7 +54,8 @@ public class CongratulationsScreen extends AbstractGameScreen {
             moveToNextLevel = false;
         }
         //blue!
-        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
+        //Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
+        Gdx.gl.glClearColor(184 / 255.0f, 1 , 226/ 255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(deltaTime);
@@ -84,18 +85,11 @@ public class CongratulationsScreen extends AbstractGameScreen {
     }
 
     private void buildBackgroundLayer () {
-       // Table layer = new Table();
-        imgBackground = new Image(Assets.instance.finishBackGround.finishBack);
-        congrats = new Image(Assets.instance.finishBackGround.excellentWork);
 
-        //stage.addActor(imgBackground);
-        imgBackground.setSize(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
-        imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
-        imgBackground.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2, 0);
-//
+        congrats = new Image(Assets.instance.finishBackGround.excellentWork);
         for(int i = 0; i< gearsNr;i++){
             //gear = new Gear();
-            stage.addActor(new Gear());
+            stage.addActor(new Gear(i));
         }
 
 

@@ -17,12 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 public class TreeGear extends Actor {
     public static final String TAG = TreeGear.class.getName();
 
-    private TextureRegion regTex;
+    private TextureRegion regTex, regTexActive, regTexInactive;
     private boolean isActive;
     private float gearRotation;
 
-    public TreeGear (TextureAtlas.AtlasRegion region) {
-        regTex = region;
+    public TreeGear (TextureAtlas.AtlasRegion regionActive, TextureAtlas.AtlasRegion regionInactive) {
+        regTex = regionActive;
+        regTexInactive = regionInactive;
+        regTexActive  =regionActive;
         setOrigin(regTex.getRegionWidth()/2,regTex.getRegionHeight()/2);
         setColor(Color.WHITE);
         setActive(true);
@@ -62,15 +64,21 @@ public class TreeGear extends Actor {
     }
 
     public void activateGear(){
-        addAction(Actions.color(Color.WHITE,0.5f));
+        //addAction(Actions.color(Color.WHITE,0.5f));
         setActive(true);
+        setColor(1,1,1,0);
+        addAction(Actions.alpha(1,1.5f));
+        //addAction(Actions.color(Color.WHITE,0.5f));
     }
 
     public void setActive(boolean setIsActive){
         isActive = setIsActive;
         if(!isActive) {
            // Gdx.app.log(TAG, " set me gray ");
-            setColor(Color.BLUE);
+            regTex = regTexInactive;
+           // setColor(Color.BLUE);
+        }else{
+            regTex  =regTexActive;
         }
     }
 }

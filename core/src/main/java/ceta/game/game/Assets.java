@@ -32,16 +32,12 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetBackground background;
     public AssetObjectsToCollect toCollect;
     public AssetRoboticParts roboticParts;
-
     public AssetFeedback feedback;
-
     public AssetSounds sounds;
     public AssetMusic music;
-
     public AssetFinishBackground finishBackGround;
     public AssetMenu menu;
     public AssetButtons buttons;
-
     public AssetTree tree;
 
     // singleton: prevent instantiation from other classes
@@ -185,12 +181,19 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion gearViolet1;
         public final TextureAtlas.AtlasRegion gearViolet2;
         public final TextureAtlas.AtlasRegion gearViolet3;
+        public final TextureAtlas.AtlasRegion gearGray1;
+        public final TextureAtlas.AtlasRegion gearGray2;
+        public final TextureAtlas.AtlasRegion gearGray3;
+        public final TextureAtlas.AtlasRegion gearGray4;
         public final TextureAtlas.AtlasRegion gearBlue1;
         public final TextureAtlas.AtlasRegion cloud1;
         public final TextureAtlas.AtlasRegion cloud2;
         public final TextureAtlas.AtlasRegion cloud3;
         public final TextureAtlas.AtlasRegion cloud4;
         public final TextureAtlas.AtlasRegion cloud5;
+
+        public final TextureAtlas.AtlasRegion cityO1;
+        public final TextureAtlas.AtlasRegion cityO2;
 
 
 
@@ -211,12 +214,18 @@ public class Assets implements Disposable, AssetErrorListener {
             gearViolet1 = atlas.findRegion("violeta");
             gearViolet2 = atlas.findRegion("violetaB");
             gearViolet3 = atlas.findRegion("violetaD");
+            gearGray1 = atlas.findRegion("engrana01");
+            gearGray2 = atlas.findRegion("engrana02");
+            gearGray3 = atlas.findRegion("engrana03");
+            gearGray4 = atlas.findRegion("engrana04");
             gearBlue1 = atlas.findRegion("azul");
             cloud1 = atlas.findRegion("nubeA");
             cloud2 = atlas.findRegion("nubeB");
             cloud3 = atlas.findRegion("nubeC");
             cloud4 = atlas.findRegion("nubeD");
             cloud5 = atlas.findRegion("nubeE");
+            cityO1 = atlas.findRegion("cityO1");
+            cityO2 = atlas.findRegion("cityO2");
 
 
         }
@@ -250,6 +259,9 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion thoraxEnergy;
         public final TextureAtlas.AtlasRegion jetPack;
         public final TextureAtlas.AtlasRegion fire;
+        public final TextureAtlas.AtlasRegion initHead;
+        public final TextureAtlas.AtlasRegion initBody;
+
 
         public AssetBruno (TextureAtlas atlas) {
             body = atlas.findRegion("robot02");
@@ -278,6 +290,8 @@ public class Assets implements Disposable, AssetErrorListener {
             mega2 = atlas.findRegion("mega2");
             jetPack = atlas.findRegion("jetpack");
             fire = atlas.findRegion("fuegoJetpack");
+            initHead  = atlas.findRegion("brunoGrande_cabeza");
+            initBody  = atlas.findRegion("brunoGrande_cuerpo");
 
             Array<TextureAtlas.AtlasRegion> regions = null;
             regions = atlas.findRegions("camina");
@@ -394,6 +408,11 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion gear3;
         public final TextureAtlas.AtlasRegion gear4;
         public final TextureAtlas.AtlasRegion gear5;
+        public final TextureAtlas.AtlasRegion gear1inactive;
+        public final TextureAtlas.AtlasRegion gear2inactive;
+        public final TextureAtlas.AtlasRegion gear3inactive;
+        public final TextureAtlas.AtlasRegion gear4inactive;
+        public final TextureAtlas.AtlasRegion gear5inactive;
         public final TextureAtlas.AtlasRegion arrow;
 
         public  AssetTree(TextureAtlas atlas) {
@@ -404,6 +423,11 @@ public class Assets implements Disposable, AssetErrorListener {
             gear4 = atlas.findRegion("engranajes3");
             gear5 = atlas.findRegion("engranajes4");
             arrow = atlas.findRegion("flecha");
+            gear1inactive = atlas.findRegion("faltante");
+            gear2inactive = atlas.findRegion("faltante1");
+            gear3inactive = atlas.findRegion("faltante2");
+            gear4inactive = atlas.findRegion("faltante3");
+            gear5inactive = atlas.findRegion("faltante4");
 
 
         }
@@ -412,12 +436,30 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetButtons{
         public final ImageButton.ImageButtonStyle playButtonStyle;
+        public final ImageButton.ImageButtonStyle levelsButtonStyle;
+        public final ImageButton.ImageButtonStyle exitButtonStyle;
+        public final ImageButton.ImageButtonStyle understoodButtonStyle;
 
         public  AssetButtons(TextureAtlas atlas) {
             playButtonStyle = new ImageButton.ImageButtonStyle();  //Instaciate
-            playButtonStyle.up = new TextureRegionDrawable(atlas.findRegion("jugar")); //Set image for not pressed button
-            playButtonStyle.down= new TextureRegionDrawable(atlas.findRegion("jugar2"));  //Set image for pressed
-            playButtonStyle.over= new TextureRegionDrawable(atlas.findRegion("jugar2"));
+            playButtonStyle.up = new TextureRegionDrawable(atlas.findRegion("jugar-1")); //Set image for not pressed button
+            playButtonStyle.down= new TextureRegionDrawable(atlas.findRegion("jugar-2"));  //Set image for pressed
+            playButtonStyle.over= new TextureRegionDrawable(atlas.findRegion("jugar-2"));
+
+            levelsButtonStyle = new ImageButton.ImageButtonStyle();  //Instaciate
+            levelsButtonStyle.up = new TextureRegionDrawable(atlas.findRegion("niveles-1")); //Set image for not pressed button
+            levelsButtonStyle.down= new TextureRegionDrawable(atlas.findRegion("niveles-2"));  //Set image for pressed
+            levelsButtonStyle.over= new TextureRegionDrawable(atlas.findRegion("niveles-2"));
+
+            exitButtonStyle = new ImageButton.ImageButtonStyle();  //Instaciate
+            exitButtonStyle.up = new TextureRegionDrawable(atlas.findRegion("salir-1")); //Set image for not pressed button
+            exitButtonStyle.down= new TextureRegionDrawable(atlas.findRegion("salir-2"));  //Set image for pressed
+            exitButtonStyle.over= new TextureRegionDrawable(atlas.findRegion("salir-2"));
+
+            understoodButtonStyle = new ImageButton.ImageButtonStyle();  //Instaciate
+            understoodButtonStyle.up = new TextureRegionDrawable(atlas.findRegion("entendido-1")); //Set image for not pressed button
+            understoodButtonStyle.down= new TextureRegionDrawable(atlas.findRegion("entendido-2"));  //Set image for pressed
+            understoodButtonStyle.over= new TextureRegionDrawable(atlas.findRegion("entendido-2"));
 
         }
 
