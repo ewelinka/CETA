@@ -37,6 +37,12 @@ public class Level1VerticalController extends NoCvController {
     }
 
     @Override
+    public void update(float delta){
+        super.update(delta);
+        virtualBlocksManager.adaptXposition(-180);
+    }
+
+    @Override
     protected void updateDigitalRepresentations() {
         brunosManager.update(virtualBlocksManager.getNewDetected(), virtualBlocksManager.getToRemove());
     }

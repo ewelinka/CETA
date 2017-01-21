@@ -29,11 +29,11 @@ public class Gear extends Actor {
     }
 
     public Gear (float x, float y){
-        regTex = Assets.instance.background.gearYellow2;
+        regTex = Assets.instance.background.gearGray1;
         init();
         rotation = 0;
         rotationSpeed = 10;
-        this.setScale(2);
+        this.setScale(1);
         this.setPosition(x,y);
         transparency = 1;
     }

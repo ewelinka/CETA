@@ -37,7 +37,7 @@ public class City {
         this.batch = batch;
         this.camera = camera;
         cloud = Assets.instance.background.cloud1;
-        cloudX = 600;
+        cloudX = 0;
         cloudSpeed = 35;
 
         cityHalf = Assets.instance.background.cityO1;
@@ -47,7 +47,7 @@ public class City {
 
         cityFrontHalf = Assets.instance.background.cityO2;
         cityFrontX = 0;
-        cityFrontX2 = cityFrontX + cityFrontHalf.getRegionWidth();
+        cityFrontX2 = cityFrontX + cityFrontHalf.getRegionWidth()-5;
         cityFrontSpeed = 55;
 
         colorRectHeight = 200;
@@ -58,16 +58,21 @@ public class City {
         cloudX =  (cloudX+(deltaTime*cloudSpeed))%(Constants.VIEWPORT_WIDTH+100);
         cityX =  (cityX+(deltaTime*citySpeed))%(Constants.VIEWPORT_WIDTH+cityHalf.getRegionWidth());
         cityX2 =  (cityX2+(deltaTime*citySpeed))%(Constants.VIEWPORT_WIDTH+cityHalf.getRegionWidth());
-        cityFrontX =  (cityFrontX+(deltaTime*cityFrontSpeed))%(Constants.VIEWPORT_WIDTH+cityFrontHalf.getRegionWidth());
-        cityFrontX2 =  (cityFrontX2+(deltaTime*cityFrontSpeed))%(Constants.VIEWPORT_WIDTH+cityFrontHalf.getRegionWidth());
+        cityFrontX =  (cityFrontX+(deltaTime*cityFrontSpeed));
+        cityFrontX2 =  (cityFrontX2+(deltaTime*cityFrontSpeed));
+        if(cityFrontX >= 1240) //1240 = Constants.VIEWPORT_WIDTH +cityHalf.getRegionWidth()
+            cityFrontX = -30;
 
+        if(cityFrontX2 >= 1240)
+            cityFrontX2 = -30;
+
+        Gdx.app.log(TAG," x "+cityFrontX + " x2 "+cityFrontX2);
     }
 
     public void drawAll(){
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         drawClouds();
-
         drawCity();
         drawFrontCity();
         drawFillRect();
@@ -76,15 +81,16 @@ public class City {
     }
 
     private void drawClouds(){
-        drawOneCloud(300 - cloudX, 200, 1);
-        drawOneCloud(300 - cloudX, 100, 1.3f);
+        drawOneCloud(300 - cloudX, 390, 1);
+        drawOneCloud(300 - cloudX, 270, 1.3f);
+        drawOneCloud(300 - cloudX, 330, 1.7f);
     }
 
     private void drawOneCloud(float x, float y, float scale){
         batch.draw(cloud.getTexture(),
                 x*scale, y,
                 0,0,
-                cloud.getRegionWidth()/scale , cloud.getRegionHeight(),
+                cloud.getRegionWidth() , cloud.getRegionHeight(),
                 scale, scale,
                 0,
                 cloud.getRegionX(), cloud.getRegionY(),
@@ -105,7 +111,7 @@ public class City {
     }
 
     private void drawCity(){
-        drawCityPart(300 - cityX,Constants.DETECTION_ZONE_END+colorRectHeight+15);
+        drawCityPart(300 - cityX ,Constants.DETECTION_ZONE_END+colorRectHeight+15);
         drawCityPart(300 - cityX2,Constants.DETECTION_ZONE_END+colorRectHeight+15);
 
 

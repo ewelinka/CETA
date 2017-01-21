@@ -23,7 +23,7 @@ public class Level3Horizontal extends AbstractLevel {
         // default horizontal
         price = new Price(levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn, 4);
 
-        gear = new Gear(-Constants.VIEWPORT_WIDTH/2 -10,Constants.DETECTION_ZONE_END);
+        gear = new Gear(-Constants.VIEWPORT_WIDTH/2 -110,Constants.DETECTION_ZONE_END);
         // add actors
         stage.addActor(bruno);
         stage.addActor(price);

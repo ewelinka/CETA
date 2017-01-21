@@ -6,6 +6,7 @@ import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.TimeUtils;
 import javafx.scene.layout.VBox;
 
@@ -216,6 +217,16 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         Gdx.app.log(TAG,"we should remove index: "+index);
 
         virtualBlocksOnStage.get(index).goHomeAndRemove();
+    }
+
+    public void adaptXposition(int limit){
+        for(int i = 0; i< virtualBlocksOnStage.size();i++){
+            VirtualBlock vb = virtualBlocksOnStage.get(i);
+            if(vb.getWasDetected() && (vb.getX() < limit)){
+                vb.addAction(Actions.moveTo(limit+2, vb.getY(),0.3f));
+            }
+        }
+
     }
 
 
