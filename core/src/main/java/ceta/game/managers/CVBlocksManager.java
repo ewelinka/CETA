@@ -173,13 +173,14 @@ public class CVBlocksManager extends AbstractBlocksManager {
                     shouldBeUpdated = true;
                 }
 
-//                float rotatedBy = calculateRotation(newDetectedCVBlocks.get(i).getOrientation(),getBlockById(newId).getRotation());
-//                if(Math.abs(rotatedBy) > noMovementRot){
-//                  //  Gdx.app.log(TAG,"rotation > "+noMovementRot+" now:  "+radianToStage(newDetectedCVBlocks.get(i).getOrientation())+" before: "+getBlockById(newId).getRotation());
-//                    shouldBeUpdated =true;
-//                }
+                //Vector2(shouldRotateTo,actualDiff)
+                Vector2 rotateInfo = calculateRotation(newDetectedCVBlocks.get(i).getOrientation(),getBlockById(newId).getRotation());
+                if(rotateInfo.y > noMovementRot){
+                  //  Gdx.app.log(TAG,"rotation > "+noMovementRot+" now:  "+radianToStage(newDetectedCVBlocks.get(i).getOrientation())+" before: "+getBlockById(newId).getRotation());
+                    shouldBeUpdated =true;
+                }
 
-                if(true) {
+                if(shouldBeUpdated) {
 //                    updateBlockCV(nBlock.getId(),
 //                            xToStage(nBlock.getCenter().y),
 //                            yToStage(nBlock.getCenter().x),
@@ -188,7 +189,8 @@ public class CVBlocksManager extends AbstractBlocksManager {
                     updateBlockAndLieCV(nBlock.getId(),
                             xToStage(nBlock.getCenter().y),
                             yToStage(nBlock.getCenter().x),
-                            radianToStage(nBlock.getOrientation())
+                            radianToStage(nBlock.getOrientation()),
+                            rotateInfo.x
                     );
 //                    updateBlockRotationCV(nBlock.getId(),
 //                            xToStage(nBlock.getCenter().y),
@@ -213,28 +215,25 @@ public class CVBlocksManager extends AbstractBlocksManager {
         }
     }
 
-    private float calculateRotation(float nowRadianRotation, float beforeDegreesRotation){
-        final VirtualBlock vBlock = getBlockById(id);
-        float previousRotation = vBlock.getRotation();
-        float nowRotation = rotDegreesNow;
+    private Vector2 calculateRotation(float nowRadianRotation, float previousRotation){
+        float nowRotation = radianToStage(nowRadianRotation);
         float diff = nowRotation - previousRotation;
         float shouldRotateTo = nowRotation;
+        float actualDiff = Math.abs(diff);
 
         if(Math.abs(diff)>180){
             if(diff < 0){
                 shouldRotateTo = 360 + nowRotation;
             }
             else{
-                shouldRotateTo = -360 + diff;
+                shouldRotateTo = -360 + nowRotation;
             }
+            actualDiff = 360 - Math.abs(diff);
         }
 
+        Gdx.app.log(TAG,"calculateRotation: nowRot "+nowRotation+" before "+previousRotation+ " shouldRotateTo "+shouldRotateTo+" actualDiff "+actualDiff);
+        return new Vector2(shouldRotateTo,actualDiff);
 
-
-        Gdx.app.log(TAG," nowRot "+radianToStage(nowRadianRotation)+" before "+beforeDegreesRotation+ " diff "+diff);
-        return diff;
-
-        //return Math.abs(radianToStage(nowRadianRotation) - beforeDegreesRotation) > noMovementRot;
     }
 
     private void checkStrikesAndDecideIfRemove(int id){
@@ -301,24 +300,10 @@ public class CVBlocksManager extends AbstractBlocksManager {
         //waitForFirstMove = false;
     }
 
-    private void updateBlockAndLieCV(int id, float px, float py, final float rotDegreesNow){
-
+    private void updateBlockAndLieCV(int id, float px, float py, final float rotDegreesNow, float shouldRotateTo){
         final VirtualBlock vBlock = getBlockById(id);
-        float previousRotation = vBlock.getRotation();
-        float nowRotation = rotDegreesNow;
-        float diff = nowRotation - previousRotation;
-        float shouldRotateTo = nowRotation;
+        Gdx.app.log(TAG,"updateBlockAndLieCV: rotDegreesNow "+rotDegreesNow+" shouldRotateTo "+shouldRotateTo);
 
-        if(Math.abs(diff)>180){
-            if(diff < 0){
-                shouldRotateTo = 360 + nowRotation;
-            }
-            else{
-                shouldRotateTo = -360 + diff;
-            }
-        }
-        Gdx.app.log(TAG," rotDegreesNow "+rotDegreesNow+" previousRotation "+previousRotation+" shouldRotateTo "+shouldRotateTo);
-//       vBlock.clearActions();
         if(!vBlock.hasActions()) {
             vBlock.addAction(sequence(
                     parallel(
