@@ -309,15 +309,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             if (score < levelParams.operationsNumberToPass) {
                 goldcoin.wasCollected();
                 newPriceRegister();
-                game.resultsManager.setLastToFinal();
 
             } else {
                 screenFinished = true;
                 goldcoin.lastCollected();
                 timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
-
-
             }
+            game.resultsManager.setLastToFinal();
         }
     }
 
@@ -332,15 +330,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+goldcoin.getX()+" y "+goldcoin.getY());
                 goldcoin.wasEaten(bruno.getX(), bruno.getEatPointY());
                 newPriceRegister();
-                game.resultsManager.setLastToFinal();
 
             } else {
                 screenFinished = true;
                 goldcoin.lastEaten(bruno.getX(), bruno.getEatPointY());
                 timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
-
-
             }
+            game.resultsManager.setLastToFinal();
         }
     }
 
@@ -355,15 +351,12 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
                 goldcoin.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
                 newPriceRegister();
-                game.resultsManager.setLastToFinal();
-
             } else {
                 screenFinished = true;
                 goldcoin.lastEaten(bruno.getX(), bruno.getEatPointY());
                 timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
-
-
             }
+            game.resultsManager.setLastToFinal();
         }
     }
 
@@ -509,41 +502,46 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         int correctAnswer = level.price.getDisplayNumber();
         int nowSolutionNr = game.resultsManager.getLastSolutionNr();
         int lastFinalSolutionNr = game.resultsManager.getLastFinalSolutionNr();
+        Gdx.app.log(TAG,"lastFinalSolutionNr "+lastFinalSolutionNr);
+        if(lastFinalSolutionNr!=0) { // we start with lastFinalSolution = 0;
 
-        if((correctAnswer + lastFinalSolutionNr) == nowSolutionNr){
-            for(int i=0;i<lastFinalSolution.size();i++){
-                Solution lastSolutionBlock = lastFinalSolution.get(i);
-                Gdx.app.log(TAG," for i "+i+" id "+lastSolutionBlock.getId());
-                boolean lastBlockPresent = false;
-                for(int j=0;j<nowSolution.size();j++) {
-                    VirtualBlock nowSolutionBlock = nowSolution.get(j);
-                    Gdx.app.log(TAG," for j "+j+" id "+nowSolutionBlock.getBlockId());
-                    if(lastSolutionBlock.getId() == nowSolutionBlock.getBlockId()) {
-                        Gdx.app.log(TAG,"i id == j id");
-                        lastBlockPresent = true;
-                        //TODO check distances
-//                        Gdx.app.log(TAG,"lastSolutionBlock pos "+lastSolutionBlock.getPosition());
-//                        Gdx.app.log(TAG,"nowSolutionBlock pos" +nowSolutionBlock.getCenterVector());
-//                        Gdx.app.log(TAG,"dist "+nowSolutionBlock.getCenterVector().dst(lastSolutionBlock.getPosition()));
-                        if(nowSolutionBlock.getCenterVector().dst(lastSolutionBlock.getPosition())>Constants.NO_MOVEMENT_DIST){
-                            Gdx.app.log(TAG," same id but big distance!!");
-                            lastBlockPresent = false;
+            if ((correctAnswer + lastFinalSolutionNr) == nowSolutionNr) {
+                for (int i = 0; i < lastFinalSolution.size(); i++) {
+                    Solution lastSolutionBlock = lastFinalSolution.get(i);
+                   /// Gdx.app.log(TAG, " for i " + i + " id " + lastSolutionBlock.getId());
+                    boolean lastBlockPresent = false;
+                    for (int j = 0; j < nowSolution.size(); j++) {
+                        VirtualBlock nowSolutionBlock = nowSolution.get(j);
+                        //Gdx.app.log(TAG, " for j " + j + " id " + nowSolutionBlock.getBlockId());
+                        if (lastSolutionBlock.getId() == nowSolutionBlock.getBlockId()) {
+                         //   Gdx.app.log(TAG, "i id == j id");
+                            lastBlockPresent = true;
+                            if (nowSolutionBlock.getCenterVector().dst(lastSolutionBlock.getPosition()) > Constants.NO_MOVEMENT_DIST) {
+                                Gdx.app.log(TAG, " same id but big distance!!");
+                                lastBlockPresent = false;
+                            }
                         }
                     }
+                    if (!lastBlockPresent) {
+                        Gdx.app.log(TAG, "BREAK! TABLE CLEANED: TRUE!");
+                        setTableCleaned(true);
+                        return;
+                    }
                 }
-                if(!lastBlockPresent){
-                    Gdx.app.log(TAG,"BREAK! TABLE CLEANED: TRUE!");
-                    tableCleaned = true;
-                    return;
-                }
+                setTableCleaned(false); // if we checked and everything in -> the table wasn't clean
+                return;
+            } else {
+                setTableCleaned(true);
             }
-        }else{
-            tableCleaned = true;
         }
     }
 
     public boolean wasTableCleaned(){
         return tableCleaned;
+    }
+
+    private void setTableCleaned(boolean wasCleaned){
+        tableCleaned = wasCleaned;
     }
 
     public ArrayList<Solution> getLastFinalSolution(){

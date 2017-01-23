@@ -6,6 +6,7 @@ import ceta.game.game.objects.VirtualBlock;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,6 +27,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
     public static final String TAG = WorldRenderer.class.getName();
     //protected FeedbackRenderer feedbackRenderer;
     protected int currentPriceTypeNr;
+    private boolean isPlayingCleanTable;
 
     public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
         this.stage = stage;
@@ -34,6 +36,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         feedbackRenderer = new FeedbackRenderer(stage);
         shouldRenderClue = false;
         currentPriceTypeNr = worldController.getCurrentPriceType();
+        isPlayingCleanTable = false;
         init();
     }
 
@@ -76,7 +79,6 @@ public class WorldRenderer extends AbstractWorldRenderer {
     protected void renderWorldAndOver(){
         renderWorld(spriteBatch);
 
-
         if(worldController.isNumberLineVisible())
             renderHelperNumbers(spriteBatch);
 
@@ -87,24 +89,29 @@ public class WorldRenderer extends AbstractWorldRenderer {
         //renderPriceValue(spriteBatch);
         renderGui(spriteBatch);
 
+       // Gdx.app.log(TAG," wasTableCleaned "+ worldController.wasTableCleaned()+" isPlayingCleanTable "+isPlayingCleanTable);
 
-        if(worldController.isPlayerInactive() ){
-            if (!feedbackRenderer.getManoImg().hasActions()) {
-                feedbackRenderer.renderClue(worldController.isTooMuch());
-                shouldRenderClue = true;
-            }
-        }else{
-            // if we didn't notify yet
-            if(shouldRenderClue){
-                feedbackRenderer.stopRenderClue();
-                shouldRenderClue = false;
-            }
-        }
-
-
-        if(worldController.wasTableCleaned()){
+        if(!worldController.wasTableCleaned() && !isPlayingCleanTable){
             //renderOldBlocks();
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.cleanTable);
+            isPlayingCleanTable = true;
+        }else { // if its not cleaning table problem, we give hint
+            if (worldController.isPlayerInactive()) {
+                if (!feedbackRenderer.getManoImg().hasActions()) {
+                    feedbackRenderer.renderClue(worldController.isTooMuch());
+                    shouldRenderClue = true;
+                }
+            } else {
+                // if we didn't notify yet
+                if (shouldRenderClue) {
+                    feedbackRenderer.stopRenderClue();
+                    shouldRenderClue = false;
+                }
+            }
         }
+
+
+
     }
     private void renderOldBlocks(ArrayList<VirtualBlock> oldblocks){
         for(int i = 0; i < oldblocks.size();i++){
