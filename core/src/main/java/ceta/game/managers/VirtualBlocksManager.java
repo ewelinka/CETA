@@ -47,6 +47,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         setWaitForFirstMove(true);
         noChangesSince = TimeUtils.millis();
         nowDetectedVals = new ArrayList<Integer>();
+        nowDetectedBlocks = new ArrayList<VirtualBlock>();
     }
 
     private void initBlocks(){
@@ -59,6 +60,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     @Override
     public void updateDetected() {
         nowDetectedVals.clear();
+        nowDetectedBlocks.clear();
         // we check what changed
         for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
             VirtualBlock vBlock = virtualBlocksOnStage.get(i);
@@ -113,6 +115,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
             if (vBlock.getWasDetected()) {
                // Gdx.app.log(TAG, "DETE CTED "+ vBlock.getBlockValue());
                 nowDetectedVals.add(vBlock.getBlockValue());
+                nowDetectedBlocks.add(vBlock);
             }
         }
 

@@ -1,9 +1,14 @@
 package ceta.game.managers;
 
+import ceta.game.game.objects.VirtualBlock;
+import ceta.game.util.Pair;
+import ceta.game.util.Solution;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 
@@ -30,12 +35,21 @@ public class ResultsManager {
     private String toSave;
     private byte successfulIntent; // 1=yes, 0=no
 
+    private ArrayList<VirtualBlock> lastSolution;
+    private ArrayList<Solution> lastFinalSolution;
+
+    private int lastSolutionNr;
+    private int lastFinalSolutionNr;
+
     public ResultsManager() {
         sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss.SSS");
         justTime = new SimpleDateFormat("HH:mm:ss.SSS");
         file = Gdx.files.local("results.csv");
         Gdx.app.log(TAG, " AAAAAAA "+ Gdx.files.getLocalStoragePath()+ " available: "+Gdx.files.isLocalStorageAvailable());
-
+        lastSolution = new ArrayList<VirtualBlock>();
+        lastFinalSolution = new ArrayList<Solution>();
+        lastFinalSolutionNr = 0;
+        lastSolutionNr = 0;
         //String text = file.readString();
         //Gdx.app.log(TAG,text);
     }
@@ -70,6 +84,45 @@ public class ResultsManager {
 
         // now we reset the start
         intentStartDate = intentEndDate;
+        lastSolutionNr = kidResponse;
+
+    }
+
+    public ArrayList<VirtualBlock> getLastSolution(){
+        return lastSolution;
+    }
+
+    public int getLastSolutionNr(){
+        return lastSolutionNr;
+    }
+
+    public ArrayList<Solution> getLastFinalSolution(){
+        return lastFinalSolution;
+    }
+
+    public int getLastFinalSolutionNr(){
+        return lastFinalSolutionNr;
+    }
+
+    public void setLastToFinal(){
+        Gdx.app.log(TAG," final solution set!");
+        lastFinalSolution.clear();
+        for(int i =0;i<lastSolution.size();i++) {
+            VirtualBlock last = lastSolution.get(i);
+            lastFinalSolution.add(new Solution(last.getCenterVector().x,last.getCenterVector().y,last.getBlockId()));
+        }
+        lastFinalSolutionNr = lastSolutionNr;
+
+        for(int i=0;i<lastSolution.size();i++){
+            Gdx.app.log(TAG," final solution id"+lastSolution.get(i).getBlockId()
+                    +" x "+lastSolution.get(i).getCenterVector().x
+                    +" val "+lastSolution.get(i).getBlockValue());
+        }
+    }
+
+    public void saveLastSolution(ArrayList<VirtualBlock> lastBlocks){
+        Gdx.app.log(TAG, " saving last solution: "+lastBlocks.size());
+        lastSolution = lastBlocks;
 
     }
 

@@ -66,6 +66,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/5.mp3", Sound.class);
         assetManager.load("sounds/muchas.mp3", Sound.class);
         assetManager.load("sounds/pocas.mp3", Sound.class);
+        assetManager.load("sounds/quita.mp3", Sound.class);
         // load music
         assetManager.load("music/song1.mp3", Music.class);
 
@@ -482,6 +483,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public final Sound tooMuch;
         public final Sound tooFew;
+        public final Sound cleanTable;
 
 
         public AssetSounds (AssetManager am) {
@@ -502,6 +504,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
             tooMuch = am.get("sounds/muchas.mp3", Sound.class);
             tooFew = am.get("sounds/pocas.mp3", Sound.class);
+            cleanTable = am.get("sounds/quita.mp3", Sound.class);
 
         }
     }

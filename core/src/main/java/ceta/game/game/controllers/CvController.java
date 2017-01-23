@@ -37,17 +37,15 @@ public class CvController extends AbstractWorldController {
         }
         /// detection-related end
 
-
         /// inactivity?
         if(isPlayerInactive()){
-            Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
+            //Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
             setPlayerInactive(true);
         }else{
             setPlayerInactive(false);
         }
 
         if(isTimeForReadOver(deltaTime)) {
-
             // we start to act after kids move
             if (!cvBlocksManager.isWaitForFirstMove()) {
                 if (cvBlocksManager.getTimeWithoutChange() > timeToWait) {
@@ -64,12 +62,11 @@ public class CvController extends AbstractWorldController {
                     }
                 }
             }
-
             if (countdownOn) {
                 countdownMove();
                 //setPlayerInactive(false);
                 if (countdownCurrentTime < 0) {
-                    readDetectedAndSaveIntent();
+                    readDetectedSaveIntentAndLastSolution();
                     updateDigitalRepresentations(); // ACTION SUBMIT !
                     moveMade = true;
                     cvBlocksManager.resetDetectedAndRemoved();
@@ -86,14 +83,16 @@ public class CvController extends AbstractWorldController {
             //resetIntentStart(); //
             cvBlocksManager.resetNoChangesSince();
         }
-
         cameraHelper.update(deltaTime);
 
     }
 
-    private void readDetectedAndSaveIntent(){
+    @Override
+    protected void readDetectedSaveIntentAndLastSolution(){
         ArrayList<Integer> toReadVals = cvBlocksManager.getNowDetectedVals();
         readDetectedAndSaveIntentGeneric(toReadVals);
+        saveLastSolution(cvBlocksManager.getNowDetectedBlocks());
+        checkIfTableCleaned();
     }
 
 

@@ -3,10 +3,7 @@ package ceta.game.game.controllers;
 import ceta.game.game.Assets;
 import ceta.game.game.levels.AbstractLevel;
 import ceta.game.game.levels.LevelParams;
-import ceta.game.game.objects.AbstractGameObject;
-import ceta.game.game.objects.Bruno;
-import ceta.game.game.objects.BrunoVertical;
-import ceta.game.game.objects.Price;
+import ceta.game.game.objects.*;
 import ceta.game.screens.DirectedGame;
 import ceta.game.screens.CongratulationsScreen;
 import ceta.game.screens.MenuScreen;
@@ -51,6 +48,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected boolean isTooMuch;
     protected int timeToWait;
     protected float timeToWaitForReading;
+    protected boolean tableCleaned;
 
 
 
@@ -80,7 +78,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public abstract void update(float delta);
     protected abstract void testCollisionsInController(boolean isDynamic);
-
+    protected abstract void readDetectedSaveIntentAndLastSolution();
 
 
     protected abstract void localInit();
@@ -102,6 +100,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         localCountdownMax = Constants.COUNTDOWN_MAX;
         currentErrors = 0;
         isTooMuch = false;
+        tableCleaned = true;
 
         actionSubmitInit();
         adjustCamera();
@@ -290,11 +289,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             if (r1.overlaps(r2)) {
                 onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
                 moveMade = false;
-            } else{
-
-                //TODO check if the price number and number line position ==
-                // if == -> its a good answer
-                // if not -> error
             }
         }
     }
@@ -315,6 +309,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             if (score < levelParams.operationsNumberToPass) {
                 goldcoin.wasCollected();
                 newPriceRegister();
+                game.resultsManager.setLastToFinal();
 
             } else {
                 screenFinished = true;
@@ -337,6 +332,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+goldcoin.getX()+" y "+goldcoin.getY());
                 goldcoin.wasEaten(bruno.getX(), bruno.getEatPointY());
                 newPriceRegister();
+                game.resultsManager.setLastToFinal();
 
             } else {
                 screenFinished = true;
@@ -359,6 +355,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
                 goldcoin.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
                 newPriceRegister();
+                game.resultsManager.setLastToFinal();
 
             } else {
                 screenFinished = true;
@@ -484,13 +481,20 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         for( Integer i : toReadVals ) {
             sum += i;
         }
-
         addIntentToResults(sum,level.price.getDisplayNumber());
     }
+
+    protected void saveLastSolution(ArrayList<VirtualBlock> detectedBlocks){
+        game.resultsManager.saveLastSolution(detectedBlocks);
+    }
+
+
 
     protected void resetIntentStart(){
         game.resultsManager.resetIntentStart();
     }
+
+
 
 
     public int getCurrentPriceType(){
@@ -498,6 +502,53 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public boolean isTooMuch(){ return isTooMuch;}
+
+    protected void checkIfTableCleaned(){
+        ArrayList<VirtualBlock> nowSolution = game.resultsManager.getLastSolution();
+        ArrayList<Solution> lastFinalSolution = game.resultsManager.getLastFinalSolution();
+        int correctAnswer = level.price.getDisplayNumber();
+        int nowSolutionNr = game.resultsManager.getLastSolutionNr();
+        int lastFinalSolutionNr = game.resultsManager.getLastFinalSolutionNr();
+
+        if((correctAnswer + lastFinalSolutionNr) == nowSolutionNr){
+            for(int i=0;i<lastFinalSolution.size();i++){
+                Solution lastSolutionBlock = lastFinalSolution.get(i);
+                Gdx.app.log(TAG," for i "+i+" id "+lastSolutionBlock.getId());
+                boolean lastBlockPresent = false;
+                for(int j=0;j<nowSolution.size();j++) {
+                    VirtualBlock nowSolutionBlock = nowSolution.get(j);
+                    Gdx.app.log(TAG," for j "+j+" id "+nowSolutionBlock.getBlockId());
+                    if(lastSolutionBlock.getId() == nowSolutionBlock.getBlockId()) {
+                        Gdx.app.log(TAG,"i id == j id");
+                        lastBlockPresent = true;
+                        //TODO check distances
+//                        Gdx.app.log(TAG,"lastSolutionBlock pos "+lastSolutionBlock.getPosition());
+//                        Gdx.app.log(TAG,"nowSolutionBlock pos" +nowSolutionBlock.getCenterVector());
+//                        Gdx.app.log(TAG,"dist "+nowSolutionBlock.getCenterVector().dst(lastSolutionBlock.getPosition()));
+                        if(nowSolutionBlock.getCenterVector().dst(lastSolutionBlock.getPosition())>Constants.NO_MOVEMENT_DIST){
+                            Gdx.app.log(TAG," same id but big distance!!");
+                            lastBlockPresent = false;
+                        }
+                    }
+                }
+                if(!lastBlockPresent){
+                    Gdx.app.log(TAG,"BREAK! TABLE CLEANED: TRUE!");
+                    tableCleaned = true;
+                    return;
+                }
+            }
+        }else{
+            tableCleaned = true;
+        }
+    }
+
+    public boolean wasTableCleaned(){
+        return tableCleaned;
+    }
+
+    public ArrayList<Solution> getLastFinalSolution(){
+        return game.resultsManager.getLastFinalSolution();
+    }
 
 
 

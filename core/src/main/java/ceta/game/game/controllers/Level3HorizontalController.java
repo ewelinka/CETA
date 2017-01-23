@@ -52,7 +52,7 @@ public class Level3HorizontalController extends NoCvController  {
 
 
     private void testCollisionsStatic () {
-        Gdx.app.log(TAG," testCollisionsStatic ======");
+        //Gdx.app.log(TAG," testCollisionsStatic ======");
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {

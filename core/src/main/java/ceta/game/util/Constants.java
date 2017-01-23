@@ -31,6 +31,8 @@ public class Constants {
     public static final int L4_COMPLETED_NR = 8;
     public static final int L5_COMPLETED_NR = 10;
 
+    public static final int NO_MOVEMENT_DIST = 15;
+
 
 
 

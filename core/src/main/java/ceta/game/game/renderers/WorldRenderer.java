@@ -2,6 +2,7 @@ package ceta.game.game.renderers;
 
 import ceta.game.game.Assets;
 import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.game.objects.VirtualBlock;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
+
+import java.util.ArrayList;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
@@ -96,6 +99,17 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 feedbackRenderer.stopRenderClue();
                 shouldRenderClue = false;
             }
+        }
+
+
+        if(worldController.wasTableCleaned()){
+            //renderOldBlocks();
+        }
+    }
+    private void renderOldBlocks(ArrayList<VirtualBlock> oldblocks){
+        for(int i = 0; i < oldblocks.size();i++){
+            oldblocks.get(i).setColor(Color.RED);
+            oldblocks.get(i).draw(spriteBatch,1);
         }
     }
 

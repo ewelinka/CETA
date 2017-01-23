@@ -82,11 +82,12 @@ public class CVBlocksManager extends AbstractBlocksManager {
         newIds = new ArrayList<Integer>();
         oldIds = new ArrayList<Integer>();
         nowDetectedVals = new ArrayList<Integer>();
+        nowDetectedBlocks = new ArrayList<VirtualBlock>();
 
         virtualBlocksOnStage = new ArrayList<VirtualBlock>();
         detectionReady = false;
 
-        noMovementDist = 10;
+        noMovementDist = Constants.NO_MOVEMENT_DIST;
         noMovementRot = 20;
         setWaitForFirstMove(true);
 
@@ -139,6 +140,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
             newIds.clear();
             newDetectedCVBlocks.clear();
             nowDetectedVals.clear();
+            nowDetectedBlocks.clear();
 
 
             for (Block i : currentBlocks) {
@@ -146,6 +148,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
                 newIds.add(i.getId());
                 newDetectedCVBlocks.add(i);
                 nowDetectedVals.add(i.getValue());
+                nowDetectedBlocks.add(getBlockById(i.getId()));
             }
             Gdx.app.log(TAG, "blocks detected " + currentBlocks.size() + " new ids " + Arrays.toString(newIds.toArray()) + " old: " + Arrays.toString(oldIds.toArray()));
 

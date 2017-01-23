@@ -22,6 +22,7 @@ public abstract class AbstractBlocksManager {
     protected long noChangesSince;
     protected ArrayList<VirtualBlock> virtualBlocksOnStage;
     ArrayList<Integer> nowDetectedVals;
+    ArrayList<VirtualBlock> nowDetectedBlocks;
 
 
     public abstract void init();
@@ -101,6 +102,10 @@ public abstract class AbstractBlocksManager {
 
     public synchronized ArrayList<Integer> getNowDetectedVals(){
         return nowDetectedVals;
+    }
+
+    public synchronized ArrayList<VirtualBlock> getNowDetectedBlocks(){
+        return nowDetectedBlocks;
     }
 
 
