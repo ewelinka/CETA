@@ -28,7 +28,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public AssetBruno bruno;
     public AssetBox box;
-    public AssetCoin coin;
     public AssetBackground background;
     public AssetObjectsToCollect toCollect;
     public AssetRoboticParts roboticParts;
@@ -88,7 +87,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
         bruno = new AssetBruno(atlas);
         box = new AssetBox(atlas);
-        coin = new AssetCoin(atlas);
         background = new AssetBackground(atlas);
         feedback = new AssetFeedback(atlas);
         sounds = new AssetSounds(assetManager);
@@ -315,18 +313,8 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
-    public class AssetCoin{
-        public final TextureAtlas.AtlasRegion coin;
-
-        public AssetCoin (TextureAtlas atlas) {
-            coin = atlas.findRegion("coin");
-
-        }
-    }
 
     public class AssetObjectsToCollect {
-        public final TextureAtlas.AtlasRegion coin;
-        public final TextureAtlas.AtlasRegion screw;
         public final TextureAtlas.AtlasRegion price1;
         public final TextureAtlas.AtlasRegion price2;
         public final TextureAtlas.AtlasRegion price3;
@@ -334,8 +322,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public AssetObjectsToCollect (TextureAtlas atlas) {
-            coin = atlas.findRegion("coin");
-            screw = atlas.findRegion("screw");
             price1 = atlas.findRegion("premio1");
             price2 = atlas.findRegion("premio2");
             price3 = atlas.findRegion("premio3");
@@ -374,28 +360,14 @@ public class Assets implements Disposable, AssetErrorListener {
             maskArm = atlas.findRegion("mega_brazo");
             tubeVertical = atlas.findRegion("tuboVertical2");
 
-
-//            Array<TextureAtlas.AtlasRegion> regions = null;
-//            regions = atlas.findRegions("boxA");
-//            animatedOneLoop = new Animation(1.0f , regions,Animation.PlayMode.LOOP_PINGPONG);
-//            regions = atlas.findRegions("boxA");
-//            animatedOneIn = new Animation(1.0f, regions);
-//            regions = atlas.findRegions("boxA");
-//            animatedOneOut = new Animation(1.0f , regions, Animation.PlayMode.REVERSED);
-
-
-
-
         }
     }
 
     public class AssetFinishBackground{
-        public final TextureAtlas.AtlasRegion finishBack;
         public final TextureAtlas.AtlasRegion excellentWork;
         public final TextureAtlas.AtlasRegion thumbUp;
 
         public AssetFinishBackground(TextureAtlas atlas) {
-            finishBack = atlas.findRegion("engranajes");
             excellentWork = atlas.findRegion("excelentetrabajo");
             thumbUp = atlas.findRegion("manitoarriba");
 
@@ -469,7 +441,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetSounds {
 //        public final Sound jump;
 //        public final Sound jumpWithFeather;
-        public final Sound pickupCoin;
+        public final Sound pickupPrice;
 //        public final Sound pickupFeather;
         public final Sound liveLost;
         public final Sound buzz;
@@ -489,8 +461,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public AssetSounds (AssetManager am) {
 //            jump = am.get("sounds/jump.wav", Sound.class);
 //            jumpWithFeather = am.get("sounds/jump_with_feather.wav", Sound.class);
-            //pickupCoin = am.get("sounds/pickup_coin.wav", Sound.class);
-            pickupCoin = am.get("sounds/yuju.mp3", Sound.class);
+            //pickupPrice = am.get("sounds/pickup_coin.wav", Sound.class);
+            pickupPrice = am.get("sounds/yuju.mp3", Sound.class);
 //            pickupFeather = am.get("sounds/pickup_feather.wav", Sound.class);
             liveLost = am.get("sounds/live_lost.wav", Sound.class);
            // buzz = am.get("sounds/buzz.wav", Sound.class);

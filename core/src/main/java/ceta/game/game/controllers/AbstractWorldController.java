@@ -300,60 +300,60 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         cameraHelper.setPosition(x, y);
     }
 
-    protected void onCollisionBrunoWithPrice(Price goldcoin) {
+    protected void onCollisionBrunoWithPrice(Price price) {
         //Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (goldcoin.getActions().size == 0) { // we act just one time!
-            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupCoin);
+        if (price.getActions().size == 0) { // we act just one time!
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
             score += 1;
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
-                goldcoin.wasCollected();
+                price.wasCollected();
                 newPriceRegister();
 
             } else {
                 screenFinished = true;
-                goldcoin.lastCollected();
+                price.lastCollected();
                 timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
             }
             game.resultsManager.setLastToFinal();
         }
     }
 
-    protected void  onCollisionBrunoWithPriceVertical(Price goldcoin, Bruno bruno){
+    protected void  onCollisionBrunoWithPriceVertical(Price price, Bruno bruno){
        // Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (goldcoin.getActions().size == 0) { // we act just one time!
+        if (price.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
-            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupCoin);
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
             score += 1;
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
-                Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+goldcoin.getX()+" y "+goldcoin.getY());
-                goldcoin.wasEaten(bruno.getX(), bruno.getEatPointY());
+                Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+price.getX()+" y "+price.getY());
+                price.wasEaten(bruno.getX(), bruno.getEatPointY());
                 newPriceRegister();
 
             } else {
                 screenFinished = true;
-                goldcoin.lastEaten(bruno.getX(), bruno.getEatPointY());
+                price.lastEaten(bruno.getX(), bruno.getEatPointY());
                 timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
             }
             game.resultsManager.setLastToFinal();
         }
     }
 
-    protected void onCollisionBrunoWithPriceHorizontal3(Price goldcoin, Bruno bruno){
+    protected void onCollisionBrunoWithPriceHorizontal3(Price price, Bruno bruno){
         // Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (goldcoin.getActions().size == 0) { // we act just one time!
+        if (price.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
-            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupCoin);
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
             score += 1;
             //TODO some nice yupi animation
             if (score < levelParams.operationsNumberToPass) {
                 Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
-                goldcoin.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
+                price.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
                 newPriceRegister();
             } else {
                 screenFinished = true;
-                goldcoin.lastEaten(bruno.getX(), bruno.getEatPointY());
+                price.lastEaten(bruno.getX(), bruno.getEatPointY());
                 timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
             }
             game.resultsManager.setLastToFinal();
@@ -442,6 +442,10 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         else
             return false;
 
+    }
+
+    public boolean isReadOver(){
+        return timeToWaitForReading<0;
     }
 
 

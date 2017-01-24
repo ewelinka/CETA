@@ -91,7 +91,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
        // Gdx.app.log(TAG," wasTableCleaned "+ worldController.wasTableCleaned()+" isPlayingCleanTable "+isPlayingCleanTable);
 
-        if(!worldController.wasTableCleaned() && !isPlayingCleanTable){
+        if(!worldController.wasTableCleaned() && !isPlayingCleanTable && worldController.isReadOver()){
             //renderOldBlocks();
             AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.cleanTable);
             isPlayingCleanTable = true;
@@ -196,23 +196,6 @@ public class WorldRenderer extends AbstractWorldRenderer {
     }
 
 
-    private void renderWin(){
-        imgBackground = new Image(Assets.instance.finishBackGround.finishBack);
-        stage.addActor(imgBackground);
-        imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
-        imgBackground.setPosition(-Constants.VIEWPORT_WIDTH/2,-400);
-        imgBackground.addAction(sequence(
-//                moveTo(135, -20),
-                scaleTo(0, 0),
-//                fadeOut(0),
-               // delay(0.5f),
-                parallel(moveBy(0, 100, 1.5f, Interpolation.swingOut),
-                        scaleTo(1.0f, 1.0f, 0.25f, Interpolation.linear),
-                        alpha(1.0f, 0.5f)),
-                alpha(0,1f),
-                removeActor()
-        ));
-    }
 
 
 }

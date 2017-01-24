@@ -320,7 +320,6 @@ public class CVBlocksManager extends AbstractBlocksManager {
             ));
         }
         noChangesSince = TimeUtils.millis();
-        //waitForFirstMove = false;
     }
 
 
