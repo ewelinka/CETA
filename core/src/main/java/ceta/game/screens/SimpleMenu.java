@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import javafx.scene.control.Tab;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
@@ -21,7 +22,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  */
 public class SimpleMenu extends AbstractGameScreen {
     private ImageButton btnMenuPlay, btnMenuExit, btnLevels;
-    private Image imgBackground, brunoHead,brunoBody;
+    private Image imgBackground, brunoHead,brunoBody,screw;
 
     public SimpleMenu(DirectedGame game) {
         super(game);
@@ -152,14 +153,31 @@ public class SimpleMenu extends AbstractGameScreen {
         //
         brunoBody.setPosition(50,40);
         brunoHead.setPosition(50,40+brunoBody.getHeight()-10);
-        brunoHead.addAction(sequence(delay(2.0f),Actions.rotateBy(50,2.0f),Actions.rotateBy(-50,2.0f)));
-        //stage.addActor(brunoBody);
+
+        brunoHead.addAction(sequence(delay(2.0f),Actions.rotateBy(50,1.0f),Actions.rotateBy(-50,0.8f)));
+
+
+        screw = new Image(Assets.instance.toCollect.price1);
+        screw.setSize(40,40);
+        screw.setOrigin(screw.getWidth()/2,screw.getHeight()/2);
+        screw.setPosition(Constants.VIEWPORT_WIDTH/2,50+brunoBody.getHeight()-10);
+        screw.addAction(
+                parallel(Actions.rotateBy(640, 3.0f),
+
+                sequence(Actions.moveTo(brunoHead.getX() +40,screw.getY(),3.0f),parallel(
+                Actions.moveTo(brunoHead.getX()-25,screw.getY()-20,0.3f),
+                Actions.scaleTo(0,0,0.3f)
+        ))));
+
         layer.addActor(brunoBody);
+        layer.addActor(screw);
         layer.addActor(brunoHead);
         return layer;
 
 
     }
+
+
 
     private void onPlayClicked () {
         // ScreenTransition transition = ScreenTransitionFade.init(0.75f);

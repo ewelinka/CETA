@@ -153,10 +153,14 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetFeedback {
         public final TextureAtlas.AtlasRegion hand;
         public final TextureAtlas.AtlasRegion wheel;
+        public final TextureAtlas.AtlasRegion tutorial1;
+        public final TextureAtlas.AtlasRegion tutorial2;
 
         public AssetFeedback (TextureAtlas atlas) {
             hand = atlas.findRegion("mano");
             wheel = atlas.findRegion("wheel");
+            tutorial1 = atlas.findRegion("tutorial1");
+            tutorial2 =  atlas.findRegion("tutorial2");
 
         }
     }
@@ -373,6 +377,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         }
     }
+
 
     public class AssetTree{
         public final TextureAtlas.AtlasRegion tree;

@@ -101,18 +101,14 @@ public class TutorialScreen  extends AbstractGameScreen {
     private Table buildBackgroundLayer () {
         Table layer = new Table();
 //        imgBackground = new Image(Assets.instance.background.back2);
-        Texture t1 = new Texture(Gdx.files.local("tutorial/tutorial1.png"));
-        t1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        imgBackground = new Image(new TextureRegion(t1, 0, 0, 600, 1024));
-       // logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
-        Texture t2 = new Texture(Gdx.files.local("tutorial/tutorial2.png"));
-        t2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        imgBackground2 = new Image(new TextureRegion(t2, 0, 0, 600, 1024));
+
+        imgBackground = new Image(Assets.instance.feedback.tutorial1);
+        imgBackground2 = new Image(Assets.instance.feedback.tutorial2);
 
         layer.addActor(imgBackground2);
         imgBackground2.setSize(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
         imgBackground2.setOrigin(imgBackground2.getWidth() / 2, imgBackground2.getHeight() / 2);
-        imgBackground2.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2, 0);
+        imgBackground2.setPosition((Constants.VIEWPORT_WIDTH-imgBackground2.getWidth())/2, 0);
 
         layer.addActor(imgBackground);
         imgBackground.setSize(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);

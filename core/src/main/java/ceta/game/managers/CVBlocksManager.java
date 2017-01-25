@@ -231,7 +231,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
             actualDiff = 360 - Math.abs(diff);
         }
 
-        Gdx.app.log(TAG,"calculateRotation: nowRot "+nowRotation+" before "+previousRotation+ " shouldRotateTo "+shouldRotateTo+" actualDiff "+actualDiff);
+       // Gdx.app.log(TAG,"calculateRotation: nowRot "+nowRotation+" before "+previousRotation+ " shouldRotateTo "+shouldRotateTo+" actualDiff "+actualDiff);
         return new Vector2(shouldRotateTo,actualDiff);
 
     }

@@ -25,6 +25,7 @@ public class ResultsManager {
     private Date intentEndDate;
     private int intentsNr;
     private int priceValue;
+    private int priceDisplayNumber;
     private int priceNumber;
     private int response;
     private int levelNumber;
@@ -63,7 +64,7 @@ public class ResultsManager {
         levelNumber = levelNr;
     }
 
-    public void addIntent(boolean wasSuccessful, int kidResponse, int priceVal){
+    public void addIntent(boolean wasSuccessful, int kidResponse, int priceVal, int priceDisplayNr){
         Gdx.app.log(TAG," addIntent +1 to "+intentsNr);
         intentsNr+=1;
         intentEndDate = new Date();
@@ -76,8 +77,9 @@ public class ResultsManager {
 
         response = kidResponse;
         priceValue = priceVal;
-        // level, price Nr, price val, response, intents nr, intenet result (1 or 0), time appeared, time collected, difference in millis
-        toSave = levelNumber+","+priceNumber+","+priceValue+","+response+","+intentsNr+","+successfulIntent+","
+        priceDisplayNumber = priceDisplayNr;
+        // level, price Nr, price val, priceDiplayNr, response, intents nr, intenet result (1 or 0), time appeared, time collected, difference in millis
+        toSave = levelNumber+","+priceNumber+","+priceValue+","+priceDisplayNumber+","+response+","+intentsNr+","+successfulIntent+","
                 +sdf.format(intentStartDate)+","+justTime.format(intentEndDate)+","+collectionTimeMillis+"\n";
         Gdx.app.log(TAG,"save data "+toSave);
         file.writeString(toSave,true);

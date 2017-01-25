@@ -32,14 +32,14 @@ public class FeedbackRenderer {
         fadeIn = true;
         manoImg = new Image(Assets.instance.feedback.hand);
         countdownWheel = new Image(Assets.instance.feedback.wheel);
-        feedbackMiddlePoint = Constants.DETECTION_ZONE_END - (Constants.DETECTION_ZONE_END - Constants.DETECTION_LIMIT)/2;
+        feedbackMiddlePoint = Constants.DETECTION_ZONE_END - (Constants.DETECTION_ZONE_END - Constants.DETECTION_LIMIT)/2 ;
         init();
 
     }
 
     public void init(){
         manoImg.setColor(1,1,1,0);
-        manoImg.setSize(manoImg.getWidth()/4,manoImg.getHeight()/4);
+        manoImg.setSize(manoImg.getWidth(),manoImg.getHeight());
         manoImg.setOrigin(manoImg.getWidth() / 2, manoImg.getHeight() / 2);
         stage.addActor(manoImg);
 
@@ -74,10 +74,10 @@ public class FeedbackRenderer {
         AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.tooMuch);
         manoImg.toFront();
         manoImg.setColor(1,1,1,0);
-        manoImg.setPosition(0-manoImg.getWidth()/2,feedbackMiddlePoint - manoImg.getHeight());
+        manoImg.setPosition(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth()/2,feedbackMiddlePoint - manoImg.getHeight()+50);
         manoImg.addAction(sequence(
                 alpha(1,0.3f),
-                moveTo(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth()/2,-Constants.VIEWPORT_HEIGHT/2-manoImg.getHeight(),2.0f),
+                moveTo(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth(),-Constants.VIEWPORT_HEIGHT/2-manoImg.getHeight(),2.0f),
                 delay(2.0f)
         ));
 
@@ -87,9 +87,9 @@ public class FeedbackRenderer {
         AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.tooFew);
         manoImg.toFront();
         manoImg.setColor(1,1,1,1);
-        manoImg.setPosition(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth()/2,-Constants.VIEWPORT_HEIGHT/2-manoImg.getHeight());
+        manoImg.setPosition(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth(),-Constants.VIEWPORT_HEIGHT/2-manoImg.getHeight());
         manoImg.addAction(sequence(
-                moveTo(0-manoImg.getWidth()/2,feedbackMiddlePoint - manoImg.getHeight(),2.0f),
+                moveTo(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth()/2,feedbackMiddlePoint - manoImg.getHeight()+50,2.0f),
                 alpha(0,0.3f),
                 delay(2.0f)
         ));

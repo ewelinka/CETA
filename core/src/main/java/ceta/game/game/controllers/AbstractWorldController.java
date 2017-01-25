@@ -450,10 +450,10 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
 
-    protected void addIntentToResults(int kidResponse, int priceValue){
+    protected void addIntentToResults(int kidResponse, int priceValue, int priceDisplayNumber){
         boolean wasSuccessful = (kidResponse == priceValue);
         isTooMuch = (kidResponse > priceValue);
-        game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue);
+        game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue,priceDisplayNumber);
         errorCheck(wasSuccessful);
     }
 
@@ -478,7 +478,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         for( Integer i : toReadVals ) {
             sum += i;
         }
-        addIntentToResults(sum,level.price.getDisplayNumber());
+        addIntentToResults(sum,level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber());
     }
 
     protected void saveLastSolution(ArrayList<VirtualBlock> detectedBlocks){
@@ -503,7 +503,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected void checkIfTableCleaned(){
         ArrayList<VirtualBlock> nowSolution = game.resultsManager.getLastSolution();
         ArrayList<Solution> lastFinalSolution = game.resultsManager.getLastFinalSolution();
-        int correctAnswer = level.price.getDisplayNumber();
+        int correctAnswer = level.price.getCorrectAnswerToPut();
         int nowSolutionNr = game.resultsManager.getLastSolutionNr();
         int lastFinalSolutionNr = game.resultsManager.getLastFinalSolutionNr();
         Gdx.app.log(TAG,"lastFinalSolutionNr "+lastFinalSolutionNr);
