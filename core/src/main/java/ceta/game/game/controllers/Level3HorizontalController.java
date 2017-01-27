@@ -35,9 +35,7 @@ public class Level3HorizontalController extends NoCvController  {
 
         level = new Level3Horizontal(stage,levelParams);
         xZero = Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2;
-       // level.bruno.setSize(Constants.BASE*1,Constants.BASE*5);
-//        level.bruno.setPosition(Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2,0);
-//        level.bruno.setTerminalX(Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2);
+
         cameraHelper.setTarget(null);
         score = 0;
         virtualBlocksManager.init();
@@ -54,6 +52,7 @@ public class Level3HorizontalController extends NoCvController  {
     private void testCollisionsStatic () {
         //Gdx.app.log(TAG," testCollisionsStatic ======");
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
+            ((Level3Horizontal)level).gear.setRotationSpeed(0);
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
                 r1.set(level.bruno.getX()+level.bruno.getWidth()/2 - 2,
@@ -87,6 +86,7 @@ public class Level3HorizontalController extends NoCvController  {
     private void testCollisionsDynamic () {
         //Gdx.app.log(TAG," testCollisionsDynamic ======");
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
+            ((Level3Horizontal)level).gear.setRotationSpeed(0);
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
                 r1.set(level.bruno.getX()+level.bruno.getWidth()/2 -2,
@@ -135,13 +135,16 @@ public class Level3HorizontalController extends NoCvController  {
     }
 
     private void moveBruno(int howMany){
-        if(howMany>0)
+        if(howMany>0) {
             level.bruno.setLookingLeft(false);
-        else
+
+        }
+        else {
             level.bruno.setLookingLeft(true);
+        }
         Gdx.app.log(TAG, " move bruno "+howMany);
+        ((Level3Horizontal)level).gear.setRotationSpeed(20*howMany);
         float currentTerminalX = level.bruno.getTerminalX();
-       // level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.DETECTION_ZONE_END);
         level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.DETECTION_ZONE_END);
 
     }

@@ -94,6 +94,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
         if(!worldController.wasTableCleaned() && !isPlayingCleanTable && worldController.isReadOver()){
             //renderOldBlocks();
             AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.cleanTable);
+            feedbackRenderer.renderTooMuchClue();
+
             isPlayingCleanTable = true;
         }else { // if its not cleaning table problem, we give hint
             if (worldController.isPlayerInactive()) {

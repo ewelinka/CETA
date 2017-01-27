@@ -6,8 +6,6 @@ import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -29,33 +27,53 @@ public class TutorialScreen  extends AbstractGameScreen {
     private Image imgBackground, imgBackground2;
     private boolean goingVisible;
     private float changeStay;
+    private float tutorialTimeMillis;
+    private int maxTutorialTimeSec;
+    private boolean isChanging;
 
     public TutorialScreen(DirectedGame game) {
         super(game);
         goingVisible = true;
         changeStay = 1.5f;
+        tutorialTimeMillis = 0;
+        maxTutorialTimeSec = 4;
+        isChanging = false;
     }
 
     @Override
     public void render(float deltaTime) {
-        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(deltaTime);
-        stage.draw();
-        if(!imgBackground.hasActions()){
-            if(goingVisible) {
+        tutorialTimeMillis+=deltaTime;
+        Gdx.app.log(TAG,"now passed "+tutorialTimeMillis);
+        if((tutorialTimeMillis > maxTutorialTimeSec) && !isChanging) {
+            game.setScreen(new TreeScreen(game, true), ScreenTransitionFade.init(1));
+            isChanging = true;
+
+        }
+
+
+        if (!imgBackground.hasActions()) {
+            if (goingVisible) {
                 //imgBackground.addAction(Actions.alpha(0, changeStay));
-                imgBackground.addAction(sequence(Actions.alpha(0),delay(changeStay)));
+                imgBackground.addAction(sequence(Actions.alpha(0), delay(changeStay)));
 
                 goingVisible = false;
 
-            }else{
+            } else {
                 //imgBackground.addAction(Actions.alpha(1, changeStay));
-                imgBackground.addAction(sequence(Actions.alpha(1),delay(changeStay)));
+                imgBackground.addAction(sequence(Actions.alpha(1), delay(changeStay)));
 
                 goingVisible = true;
             }
         }
+
+
+        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f, 0xed / 255.0f, 0xff / 255.0f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act(deltaTime);
+        stage.draw();
+
+
+
 
     }
 
@@ -68,6 +86,7 @@ public class TutorialScreen  extends AbstractGameScreen {
 
     @Override
     public void show() {
+        tutorialTimeMillis = 0;
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
         buildStage();
     }
@@ -94,7 +113,7 @@ public class TutorialScreen  extends AbstractGameScreen {
         Table playMenu = buildPlayMenu();
 
         stage.addActor(layerBackground);
-        stage.addActor(playMenu);
+        //stage.addActor(playMenu);
 
     }
 
@@ -138,7 +157,7 @@ public class TutorialScreen  extends AbstractGameScreen {
     }
 
     private void onPlayClicked () {
-        game.setScreen(new SimpleMenu(game), ScreenTransitionFade.init(1));
-        //game.setScreen(new TreeScreen(game,true), ScreenTransitionFade.init(1));
+        //game.setScreen(new SimpleMenuScreen(game), ScreenTransitionFade.init(1));
+        game.setScreen(new TreeScreen(game,true), ScreenTransitionFade.init(1));
     }
 }

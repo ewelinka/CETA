@@ -133,8 +133,12 @@ public class Price extends AbstractGameObject {
 
     private void adjustScale(float deltaTime){
         priceScale += (deltaTime/2*multiplicationFactorForScale);
-        if(priceScale > 1.5 || priceScale < 0.85)
-            multiplicationFactorForScale*=-1;
+        if(priceScale > 1.5 )
+            multiplicationFactorForScale=-1;
+
+        if( priceScale < 0.85)
+            multiplicationFactorForScale=1;
+
         setScale(priceScale);
     }
 

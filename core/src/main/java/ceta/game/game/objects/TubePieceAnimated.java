@@ -36,7 +36,7 @@ public class TubePieceAnimated extends ArmPiece{
 
     @Override
     protected void setColorAndTexture(int val){
-        setColor(Color.YELLOW);
+        //setColor(Color.YELLOW);
         regTex = Assets.instance.roboticParts.tubeUnit;
 
     }

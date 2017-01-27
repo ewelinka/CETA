@@ -32,7 +32,7 @@ public class Gear extends Actor {
         regTex = Assets.instance.background.gearGray1;
         init();
         rotation = 0;
-        rotationSpeed = 10;
+        rotationSpeed = 0;
         this.setScale(1);
         this.setPosition(x,y);
         transparency = 1;
@@ -73,6 +73,10 @@ public class Gear extends Actor {
                 regTex.getRegionWidth(), regTex.getRegionHeight(), false,false);
         batch.setColor(1,1,1,1);
 
+    }
+
+    public void setRotationSpeed(int nowRotationSpeed){
+        rotationSpeed = nowRotationSpeed;
     }
 
 

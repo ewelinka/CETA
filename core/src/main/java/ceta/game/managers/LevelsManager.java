@@ -174,4 +174,5 @@ public class LevelsManager {
     public int getLastLevelCompleted(){
         return lastLevelCompleted;
     }
+    public int getCurrentLevel(){ return lastLevelCompleted+1;}
 }

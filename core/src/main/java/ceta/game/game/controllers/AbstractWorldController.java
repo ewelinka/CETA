@@ -467,7 +467,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     protected void newPriceRegister(){
-        game.resultsManager.newPriceAppeared(score+1,game.getLevelsManager().getLastLevelCompleted());
+        game.resultsManager.newPriceAppeared(score+1,game.getLevelsManager().getCurrentLevel()); // we register now level not last level completed!
     }
 
     protected void readDetectedAndSaveIntentGeneric(ArrayList<Integer> toReadVals){

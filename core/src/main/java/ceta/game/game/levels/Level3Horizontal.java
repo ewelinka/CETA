@@ -5,13 +5,14 @@ import ceta.game.game.objects.BrunoMovingHorizontal;
 import ceta.game.game.objects.Gear;
 import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Created by ewe on 12/2/16.
  */
 public class Level3Horizontal extends AbstractLevel {
-    private Gear gear;
+    public Gear gear;
     public Level3Horizontal(Stage stage, LevelParams levelParams) {
         super(stage, levelParams);
 
@@ -29,4 +30,5 @@ public class Level3Horizontal extends AbstractLevel {
         stage.addActor(price);
         stage.addActor(gear);
     }
+
 }

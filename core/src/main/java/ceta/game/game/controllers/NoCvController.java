@@ -3,6 +3,7 @@ package ceta.game.game.controllers;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.Constants;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
@@ -74,7 +75,6 @@ public class NoCvController extends AbstractWorldController {
             }
         }
         else{
-            //resetIntentStart();
             virtualBlocksManager.resetNoChangesSince(); // after reading we start to count "timeToWait" and interactivity
         }
 

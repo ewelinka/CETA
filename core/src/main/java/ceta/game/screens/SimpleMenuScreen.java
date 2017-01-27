@@ -1,6 +1,7 @@
 package ceta.game.screens;
 
 import ceta.game.game.Assets;
+import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -13,18 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import javafx.scene.control.Tab;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
  * Created by ewe on 1/17/17.
  */
-public class SimpleMenu extends AbstractGameScreen {
+public class SimpleMenuScreen extends AbstractGameScreen {
     private ImageButton btnMenuPlay, btnMenuExit, btnLevels;
     private Image imgBackground, brunoHead,brunoBody,screw;
 
-    public SimpleMenu(DirectedGame game) {
+    public SimpleMenuScreen(DirectedGame game) {
         super(game);
     }
 
@@ -78,7 +77,8 @@ public class SimpleMenu extends AbstractGameScreen {
         stack.setSize(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2);
         //stack.setPosition(0,0);
         stack.add(layerBackground);
-        stack.add(buttons);
+
+        //    stack.add(buttons);
         stack.add(bruno);
         stage.addActor(stack);
 
@@ -154,7 +154,18 @@ public class SimpleMenu extends AbstractGameScreen {
         brunoBody.setPosition(50,40);
         brunoHead.setPosition(50,40+brunoBody.getHeight()-10);
 
-        brunoHead.addAction(sequence(delay(2.0f),Actions.rotateBy(50,1.0f),Actions.rotateBy(-50,0.8f)));
+        brunoHead.addAction(sequence(
+                delay(2.0f),
+                Actions.rotateBy(50,1.0f),
+                Actions.rotateBy(-50,0.8f),
+                delay(2.0f),
+                run(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new TutorialScreen(game),ScreenTransitionFade.init(1.75f));
+                    }
+                })
+        ));
 
 
         screw = new Image(Assets.instance.toCollect.price1);
@@ -162,12 +173,17 @@ public class SimpleMenu extends AbstractGameScreen {
         screw.setOrigin(screw.getWidth()/2,screw.getHeight()/2);
         screw.setPosition(Constants.VIEWPORT_WIDTH/2,50+brunoBody.getHeight()-10);
         screw.addAction(
-                parallel(Actions.rotateBy(640, 3.0f),
-
-                sequence(Actions.moveTo(brunoHead.getX() +40,screw.getY(),3.0f),parallel(
-                Actions.moveTo(brunoHead.getX()-25,screw.getY()-20,0.3f),
-                Actions.scaleTo(0,0,0.3f)
-        ))));
+                parallel(
+                        Actions.rotateBy(640, 3.0f),
+                        sequence(
+                                Actions.moveTo(brunoHead.getX() +40,screw.getY(),3.0f),
+                                parallel(
+                                        Actions.moveTo(brunoHead.getX()-25,screw.getY()-20,0.3f),
+                                        Actions.scaleTo(0,0,0.3f)
+                                )
+                        )
+                )
+        );
 
         layer.addActor(brunoBody);
         layer.addActor(screw);

@@ -56,9 +56,9 @@ public class FeedbackRenderer {
     public void renderClue(boolean isTooMuch){ // we already checked if mano has actions in world renderer
         Gdx.app.log(TAG,"renderClue");
         if (isTooMuch)
-            renderTooMuchClue();
+            renderAndReadTooMuchClue();
         else
-            renderTooFewClue();
+            renderAndReadTooFewClue();
 
     }
 
@@ -70,8 +70,12 @@ public class FeedbackRenderer {
         ));
     }
 
-    private void renderTooMuchClue(){
+    private void renderAndReadTooMuchClue(){
         AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.tooMuch);
+        renderTooMuchClue();
+    }
+
+    public void renderTooMuchClue(){
         manoImg.toFront();
         manoImg.setColor(1,1,1,0);
         manoImg.setPosition(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth()/2,feedbackMiddlePoint - manoImg.getHeight()+50);
@@ -83,8 +87,12 @@ public class FeedbackRenderer {
 
     }
 
-    private void renderTooFewClue(){
+    private void renderAndReadTooFewClue(){
         AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.tooFew);
+        renderTooFewClue();
+    }
+
+    private void renderTooFewClue(){
         manoImg.toFront();
         manoImg.setColor(1,1,1,1);
         manoImg.setPosition(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth(),-Constants.VIEWPORT_HEIGHT/2-manoImg.getHeight());

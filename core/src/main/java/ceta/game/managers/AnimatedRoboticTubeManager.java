@@ -18,7 +18,6 @@ public class AnimatedRoboticTubeManager extends RoboticArmManager {
     public static final String TAG = AnimatedRoboticTubeManager.class.getName();
     private ArrayList<TubePieceAnimated> armPiecesAnim;
     private float terminalDelay;
-    private float currentDelayPassed;
     private final float animationSpeed = 0.3f;
 
 
@@ -31,7 +30,6 @@ public class AnimatedRoboticTubeManager extends RoboticArmManager {
         lastX = initialX;
         armPiecesAnim = new ArrayList<TubePieceAnimated>();
         terminalDelay = 0;
-        currentDelayPassed = 0;
 
     }
 
@@ -62,7 +60,7 @@ public class AnimatedRoboticTubeManager extends RoboticArmManager {
 
     protected void addArms(ArrayList<Pair> toAdd, int howMany){
         terminalDelay = 0; // TODO we check if we should start in 0 or there is somenthing in movement; change if NO action submit
-        int currentKey = 0; // we need it if we have to check for ids to generate new false ids
+        int currentKey; // we need it if we have to check for ids to generate new false ids
 
         for(int i=0; i< howMany;i++) {
 

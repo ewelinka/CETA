@@ -133,7 +133,8 @@ public class Level3VerticalController extends NoCvController {
 
         Gdx.app.log(TAG, " move bruno "+howMany);
         float currentTerminalY = level.bruno.getTerminalY();
-        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalYWithBounce(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2, currentTerminalY + howMany* Constants.BASE);
+//        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalYWithBounce(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2, currentTerminalY + howMany* Constants.BASE);
+        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalYWithBounce(level.bruno.getX(), currentTerminalY + howMany* Constants.BASE);
 
     }
 
