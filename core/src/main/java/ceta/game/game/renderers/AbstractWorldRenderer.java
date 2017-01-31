@@ -125,7 +125,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         TextureAtlas.AtlasRegion b = Assets.instance.background.back3;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(b.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END,
+        batch.draw(b.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.GROUND_LEVEL,
                 b.getRegionWidth()/2, b.getRegionHeight()/2,
                 b.getRegionWidth(), b.getRegionHeight(),
                 1, 1,
@@ -142,7 +142,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
         shRenderer.setColor(1, 1, 1, 1);
 
-        for(int i = Constants.DETECTION_ZONE_END; i<=(Constants.DETECTION_ZONE_END +400); i+=Constants.BASE){
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +400); i+=Constants.BASE){
             shRenderer.line(-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
         }
 
@@ -162,7 +162,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
                 fontNumberLine.setColor(0,153,0,1);
             else
                 fontNumberLine.setColor(0,0,0,0.7f);
-            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.DETECTION_ZONE_END,0, Align.center,false);
+            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL,0, Align.center,false);
 
             counter+=1;
         }
@@ -178,7 +178,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         batch.begin();
         int counter  = 0;
 
-        for(int i = Constants.DETECTION_ZONE_END; i<=(Constants.DETECTION_ZONE_END +400); i+=Constants.BASE){
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +400); i+=Constants.BASE){
             String text = counter+"";
             GlyphLayout layout = new GlyphLayout(fontNumberLine, text);
             if(levelMinimumNumber+counter == chosenNr)
@@ -218,7 +218,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.setColor(1, 1, 1, 1);
 
         for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+10*Constants.BASE;i+=Constants.BASE){
-            shRenderer.line(i , Constants.DETECTION_ZONE_END, i,Constants.VIEWPORT_HEIGHT/2 - 100);
+            shRenderer.line(i , Constants.GROUND_LEVEL, i,Constants.VIEWPORT_HEIGHT/2 - 100);
         }
 //        shRenderer.setColor(0, 0, 1, 1);
 //        shRenderer.line(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END, Constants.VIEWPORT_WIDTH/2,Constants.DETECTION_ZONE_END);

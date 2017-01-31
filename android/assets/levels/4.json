@@ -1,6 +1,7 @@
 {
   level: 4,
-  operationsNumberToPass: 3,
+  operationsNumberToPassToNext: 2,
+  operationsToFinishLevel: 1,
   operations: [],
   numberMin: 0,
   numberMax: 10,

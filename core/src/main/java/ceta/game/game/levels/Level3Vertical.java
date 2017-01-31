@@ -1,5 +1,6 @@
 package ceta.game.game.levels;
 
+import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.game.objects.BrunoJetPack;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.game.objects.Price;
@@ -16,8 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 public class Level3Vertical extends  AbstractLevel {
     public static final String TAG = Level3Vertical.class.getName();
 
-    public Level3Vertical(Stage stage, LevelParams levelParams) {
-        super(stage, levelParams);
+    public Level3Vertical(Stage stage, LevelParams levelParams, AbstractWorldController worldController) {
+        super(stage, levelParams,worldController);
     }
 
 
@@ -27,15 +28,15 @@ public class Level3Vertical extends  AbstractLevel {
 
         bruno = new BrunoJetPack(1,new BrunosManager(stage)); // this one is moving, brunos manager doesn't matter
         bruno.setSize(Constants.BASE, Constants.BASE);
-        bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 - 100,Constants.DETECTION_ZONE_END-bruno.getHeight()/2);
+        bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 - 100,Constants.GROUND_LEVEL-bruno.getHeight()/2);
 
         // bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X , -bruno.getHeight());
         // change default horizontal to horizontal moving by first param "false"
-        price = new Price(false, 4, levelParams);
+        price = new Price(false, 4, levelParams, worldController);
         if(price.isDynamic())
-            bruno.addAction(Actions.moveTo(0-bruno.getWidth()/2,Constants.DETECTION_ZONE_END-bruno.getHeight()/2,1.5f));
+            bruno.addAction(Actions.moveTo(0-bruno.getWidth()/2,Constants.GROUND_LEVEL-bruno.getHeight()/2,1.5f));
         else
-            bruno.addAction(Actions.moveTo(Constants.VERTICAL_MIDDLE_X - bruno.getWidth()/2,Constants.DETECTION_ZONE_END-bruno.getHeight()/2,1.5f));
+            bruno.addAction(Actions.moveTo(Constants.VERTICAL_MIDDLE_X - bruno.getWidth()/2,Constants.GROUND_LEVEL-bruno.getHeight()/2,1.5f));
 
 
         // add actors

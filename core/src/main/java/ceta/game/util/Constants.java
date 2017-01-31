@@ -46,6 +46,7 @@ public class Constants {
 
     public static int DETECTION_ZONE_END ;
     public static int DETECTION_LIMIT; // just for tablet-only
+    public static int GROUND_LEVEL;
 
     public static final int HORIZONTAL_ZERO_X = -160;
     public static final int VERTICAL_MIDDLE_X = -233;
@@ -69,6 +70,7 @@ public class Constants {
 
 
         }
+        GROUND_LEVEL = DETECTION_ZONE_END + 20;
         DRAW_START = DETECTION_ZONE_END + 10;
         PRICE_Y_HORIZONTAL = DETECTION_ZONE_END + 6*BASE;
 

@@ -30,7 +30,7 @@ public class Level1HorizontalController extends NoCvController{
         roboticArmManager = new RoboticArmManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        level = new Level1Horizontal(stage, levelParams);
+        level = new Level1Horizontal(stage, levelParams, this);
 
         virtualBlocksManager.init();
         roboticArmManager.init();

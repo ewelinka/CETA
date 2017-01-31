@@ -30,7 +30,7 @@ public class Level2VerticalCvController extends CvController {
         cvBlocksManager = new CVBlocksManager(game,stage);
 
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        level = new Level2Vertical(stage,levelParams);
+        level = new Level2Vertical(stage,levelParams, this);
         cameraHelper.setTarget(null);
         score = 0;
         cvBlocksManager.init();

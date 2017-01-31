@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.MathUtils;
 
+import java.util.UUID;
+
+import static java.util.UUID.randomUUID;
+
 /**
  * Created by ewe on 10/6/16.
  */
@@ -16,6 +20,7 @@ public class GamePreferences {
     public float virtualBlocksAlpha;
     public int lastLevel;
     public int totalScore;
+    public String randomId;
 
     private GamePreferences () {
         prefs = Gdx.app.getPreferences(Constants.PREFERENCES);
@@ -27,6 +32,7 @@ public class GamePreferences {
         countdownMax = MathUtils.clamp(prefs.getFloat("countdownMax", 5), 0, 10);
         lastLevel = prefs.getInteger("lastLevel",0);
         totalScore = prefs.getInteger("totalScore",0);
+        randomId = prefs.getString("randomId", randomUUID ().toString());
         // TODO now start in 0 always, just for testing than remove!!
         lastLevel = 0;
 
@@ -38,6 +44,7 @@ public class GamePreferences {
         prefs.putFloat("countdownMax", countdownMax);
         prefs.putInteger("lastLevel",lastLevel);
         prefs.putInteger("totalScore",totalScore);
+        prefs.putString("randomId", randomId);
         prefs.flush();
     }
 

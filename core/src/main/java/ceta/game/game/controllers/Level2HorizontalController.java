@@ -29,7 +29,7 @@ public class Level2HorizontalController extends Level1HorizontalController {
         roboticArmManager = new AnimatedRoboticTubeManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        level = new LevelHorizontal(stage, levelParams);
+        level = new LevelHorizontal(stage, levelParams, this);
         cameraHelper.setTarget(null);
         score = 0;
         virtualBlocksManager.init();

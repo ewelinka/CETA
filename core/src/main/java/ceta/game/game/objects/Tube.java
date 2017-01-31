@@ -11,7 +11,7 @@ import com.badlogic.gdx.Gdx;
  */
 public class Tube extends AbstractGameObject {
 
-    public Tube(int val){
+    public Tube(){
         regTex = Assets.instance.roboticParts.tubeVertical;
         init();
     }

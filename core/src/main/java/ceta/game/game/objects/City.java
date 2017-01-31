@@ -105,14 +105,14 @@ public class City {
 //                cityHalf.getRegionX()+10,cityHalf.getRegionY()+cityHalf.getRegionHeight()-10,10,10,false,false);
 
         batch.draw(cityFrontHalf.getTexture(),
-                -Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END,
+                -Constants.VIEWPORT_WIDTH/2, Constants.GROUND_LEVEL,
                 Constants.VIEWPORT_WIDTH,colorRectHeight,
                 cityFrontHalf.getRegionX()+10,cityFrontHalf.getRegionY()+cityFrontHalf.getRegionHeight()-15,10,10,false,false);
     }
 
     private void drawCity(){
-        drawCityPart(300 - cityX ,Constants.DETECTION_ZONE_END+colorRectHeight+15);
-        drawCityPart(300 - cityX2,Constants.DETECTION_ZONE_END+colorRectHeight+15);
+        drawCityPart(300 - cityX ,Constants.GROUND_LEVEL+colorRectHeight+15);
+        drawCityPart(300 - cityX2,Constants.GROUND_LEVEL+colorRectHeight+15);
 
 
     }
@@ -130,8 +130,8 @@ public class City {
     }
 
     private void drawFrontCity(){
-        drawFrontCityPart(300 - cityFrontX,Constants.DETECTION_ZONE_END+colorRectHeight);
-        drawFrontCityPart(300 - cityFrontX2,Constants.DETECTION_ZONE_END+colorRectHeight);
+        drawFrontCityPart(300 - cityFrontX,Constants.GROUND_LEVEL+colorRectHeight);
+        drawFrontCityPart(300 - cityFrontX2,Constants.GROUND_LEVEL+colorRectHeight);
 
     }
 

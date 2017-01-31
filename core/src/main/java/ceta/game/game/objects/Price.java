@@ -1,15 +1,12 @@
 package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
+import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
@@ -47,19 +44,22 @@ public class Price extends AbstractGameObject {
     private int priceTypeNr;
     private boolean isLast;
 
+    private AbstractWorldController worldController;
 
 
-    public Price( int priceType, LevelParams levelParams){
+
+    public Price( int priceType, LevelParams levelParams, AbstractWorldController worldController){
         // by default horizontal
-        this(true, priceType, levelParams);}
+        this(true, priceType, levelParams, worldController);}
 
-    public Price(LevelParams levelParams) {
+    public Price(LevelParams levelParams, AbstractWorldController worldController) {
         // by default horizontal, and by default first price type
-        this(true, 1, levelParams);
+        this(true, 1, levelParams, worldController);
     }
 
 
-    public Price(boolean isMovingVertical, int priceType, LevelParams levelParams) {
+    public Price(boolean isMovingVertical, int priceType, LevelParams levelParams, AbstractWorldController worldController) {
+        this.worldController = worldController;
         this.isMovingVertical = isMovingVertical;
         this.priceTypeNr = priceType;
         init();
@@ -86,11 +86,11 @@ public class Price extends AbstractGameObject {
             isRandom = true;
 
 
-        if(levelParams.operations.length > 0) {
+        if(levelParams.operations.length > 0) { // we should do X operations
             maxOperations = levelParams.operations.length;
         }
         else
-            maxOperations= levelParams.operationsNumberToPass;
+            maxOperations= levelParams.operationsToFinishLevel;
 
         localInit();
 
@@ -126,7 +126,7 @@ public class Price extends AbstractGameObject {
 
     private void localInit(){
         myStartX = Constants.HORIZONTAL_ZERO_X;
-        myStartY = Constants.DETECTION_ZONE_END;
+        myStartY = Constants.GROUND_LEVEL;
         rotationVelocity = 30;
         priceScale = 1;
         multiplicationFactorForScale = 1;
@@ -178,7 +178,7 @@ public class Price extends AbstractGameObject {
 
     private void updateVerticalFalling(float deltaTime){
         // TODO perhaps a constant that defines where the ground is
-        if(this.getY() < Constants.DETECTION_ZONE_END-this.getHeight()) { // when below number line
+        if(this.getY() < Constants.GROUND_LEVEL-this.getHeight()) { // when below number line
             returnCounter-=1;
             if(returnCounter<0){
                 setPositionStartAbove(); // new position!
@@ -204,6 +204,8 @@ public class Price extends AbstractGameObject {
     }
 
     private void setInitialPosition() {
+        worldController.onNewPricePosition(currentOperationNr); //we register new price
+
         if(isRandom)
             setInitialRandomPosition();
         else
@@ -393,12 +395,12 @@ public class Price extends AbstractGameObject {
         currentOperationNr+=1;
 
         if(currentOperationNr > maxOperations){
-            //TODO go to final screen....
-            //setPosition();
+            // ist over ! we wait that controller finish this level
+            worldController.onLevelFinished();
             setVisible(false);
 
         }else {
-
+            worldController.onNewPricePosition(currentOperationNr);
             if (isRandom) {
                 int newPosition = MathUtils.random(1, maxShift);
                 while (newPosition == currentNumber) {
@@ -468,12 +470,12 @@ public class Price extends AbstractGameObject {
                             Actions.scaleTo(0,0,0.5f)),
                     delay(0.2f),
                    // Actions.color(Color.WHITE),
-                    Actions.moveTo(Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END + currentNumber * Constants.BASE - getHeight() / 2),
+                    Actions.moveTo(Constants.VIEWPORT_WIDTH / 2, Constants.GROUND_LEVEL + currentNumber * Constants.BASE - getHeight() / 2),
                     Actions.scaleTo(1, 1)
             ));
         }
         else {
-            actionNotEaten(Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END + currentNumber * Constants.BASE - getHeight() / 2);
+            actionNotEaten(Constants.VIEWPORT_WIDTH / 2, Constants.GROUND_LEVEL + currentNumber * Constants.BASE - getHeight() / 2);
         }
 
 

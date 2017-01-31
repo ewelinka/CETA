@@ -47,12 +47,12 @@ public class EnergyManager extends BrunosManager {
 
         brunoVertical = new BrunoVertical(1,this);
         brunoVertical.setPosition(Constants.VERTICAL_MIDDLE_X - brunoVertical.getWidth()/2,
-                Constants.DETECTION_ZONE_END-brunoVertical.getHeight()/2);
+                Constants.GROUND_LEVEL-brunoVertical.getHeight()/2);
 
         energyUnit = new Image(Assets.instance.bruno.energy);
         energyUnit.setSize(Constants.BASE-8,Constants.BASE);
         energyUnit.setScale(1,0);
-        energyUnit.setPosition(Constants.VERTICAL_MIDDLE_X - energyUnit.getWidth()/2+2, Constants.DETECTION_ZONE_END);
+        energyUnit.setPosition(Constants.VERTICAL_MIDDLE_X - energyUnit.getWidth()/2+2, Constants.GROUND_LEVEL);
         energyUnit.setColor(Color.YELLOW);
 
 //        head = new Image(Assets.instance.bruno.headEnergy);
@@ -67,7 +67,7 @@ public class EnergyManager extends BrunosManager {
         base = new Image(Assets.instance.bruno.baseEnergy);
         base.setSize(Constants.BASE-4,10);
         base.setPosition(Constants.VERTICAL_MIDDLE_X - base.getWidth()/2+2,
-                Constants.DETECTION_ZONE_END-base.getHeight());
+                Constants.GROUND_LEVEL-base.getHeight());
 
 //
         stage.addActor(base);

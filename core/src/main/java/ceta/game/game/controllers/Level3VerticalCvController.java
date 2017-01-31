@@ -30,12 +30,12 @@ public class Level3VerticalCvController extends CvController {
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
         cvBlocksManager = new CVBlocksManager(game,stage);
-        level = new Level3Vertical(stage,levelParams);
+        level = new Level3Vertical(stage,levelParams,this);
 
         // Bruno will be flying
         //level.bruno.setSize(Constants.BASE*1,Constants.BASE*1);
 
-        yZero = Constants.DETECTION_ZONE_END-level.bruno.getHeight()/2;
+        yZero = Constants.GROUND_LEVEL-level.bruno.getHeight()/2;
 
 //        level.bruno.setTerminalX(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2);
 //        level.bruno.setTerminalY(-Constants.BASE/2);

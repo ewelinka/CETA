@@ -59,12 +59,17 @@ public class LevelsManager {
                 || lastLevelCompleted == Constants.L5_COMPLETED_NR){
             game.setScreen(new TreeScreen(game),ScreenTransitionFade.init(0.75f));
         }else { // if no important change -> we just go to next level
-            if (Constants.WITH_CV) {
-                goToLevelCV(lastLevelCompleted);
-            } else {
-                goToLevelTablet(lastLevelCompleted);
-            }
+            goToUncompletedLevel();
         }
+    }
+
+    public void goToUncompletedLevel(){
+        if (Constants.WITH_CV) {
+            goToLevelCV(lastLevelCompleted);
+        } else {
+            goToLevelTablet(lastLevelCompleted);
+        }
+
     }
 
     public void goToFirstUncompletedLevelFromTree(){

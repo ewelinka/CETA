@@ -26,7 +26,7 @@ public class Level1VerticalController extends NoCvController {
     @Override
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
-        level = new Level1Vertical(stage, levelParams);
+        level = new Level1Vertical(stage, levelParams, this);
         virtualBlocksManager = new VirtualBlocksManager(stage);
         brunosManager = new BrunosManager(stage);
 

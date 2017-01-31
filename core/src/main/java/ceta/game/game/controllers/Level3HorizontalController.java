@@ -33,7 +33,7 @@ public class Level3HorizontalController extends NoCvController  {
 
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        level = new Level3Horizontal(stage,levelParams);
+        level = new Level3Horizontal(stage,levelParams, this);
         xZero = Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2;
 
         cameraHelper.setTarget(null);
@@ -59,8 +59,8 @@ public class Level3HorizontalController extends NoCvController  {
                         level.bruno.getY() ,
                         4, level.bruno.getHeight());
                 r2.set(level.price.getX()+level.price.getWidth()/2 - 2,
-                        Constants.DETECTION_ZONE_END,
-                        4, Math.abs(Constants.DETECTION_ZONE_END) + level.price.getY() +   level.price.bounds.height);
+                        Constants.GROUND_LEVEL,
+                        4, Math.abs(Constants.GROUND_LEVEL) + level.price.getY() +   level.price.bounds.height);
 
                 if (r1.overlaps(r2)) {
                     //onCollisionBrunoWithPrice(level.price);
@@ -145,7 +145,7 @@ public class Level3HorizontalController extends NoCvController  {
         Gdx.app.log(TAG, " move bruno "+howMany);
         ((Level3Horizontal)level).gear.setRotationSpeed(20*howMany);
         float currentTerminalX = level.bruno.getTerminalX();
-        level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.DETECTION_ZONE_END);
+        level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.GROUND_LEVEL);
 
     }
 

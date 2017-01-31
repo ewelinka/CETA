@@ -1,5 +1,6 @@
 package ceta.game.game.levels;
 
+import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.game.objects.Bruno;
 import ceta.game.game.objects.Price;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,12 +16,16 @@ public abstract class AbstractLevel {
 
     protected Stage stage;
     protected LevelParams levelParams;
+    protected AbstractWorldController worldController;
 
-    public AbstractLevel(Stage stage, LevelParams levelParams){
+    public AbstractLevel(Stage stage, LevelParams levelParams, AbstractWorldController worldController){
         this.stage = stage;
         this.levelParams = levelParams;
+        this.worldController = worldController;
         init();
     }
+
+
     public abstract void init ();
 
     public void render(SpriteBatch batch) {

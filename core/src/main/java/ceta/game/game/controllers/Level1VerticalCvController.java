@@ -33,7 +33,7 @@ public class Level1VerticalCvController extends CvController {
     @Override
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
-        level = new Level1Vertical(stage, levelParams);
+        level = new Level1Vertical(stage, levelParams, this);
         cvBlocksManager = new CVBlocksManager(game,stage);
         brunosManager = new BrunosManager(stage);
 

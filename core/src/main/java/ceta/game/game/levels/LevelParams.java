@@ -10,7 +10,8 @@ import com.badlogic.gdx.utils.JsonValue;
  */
 public class LevelParams {
     public int level;
-    public int operationsNumberToPass;
+    public int operationsNumberToPassToNext; // we have to collect at least X to pass
+    public int operationsToFinishLevel; // operations that should APPEAR before level finish
     public int[] operations;
     public int numberMin;
     public int numberMax;

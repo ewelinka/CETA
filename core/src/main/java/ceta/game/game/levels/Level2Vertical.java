@@ -1,5 +1,6 @@
 package ceta.game.game.levels;
 
+import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.game.objects.Price;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,8 +13,8 @@ public class Level2Vertical extends AbstractLevel {
     public static final String TAG = Level2Vertical.class.getName();
 
 
-    public Level2Vertical(Stage stage, LevelParams levelParams){
-        super(stage,levelParams);
+    public Level2Vertical(Stage stage, LevelParams levelParams, AbstractWorldController worldController){
+        super(stage,levelParams, worldController);
 
     };
 
@@ -23,7 +24,7 @@ public class Level2Vertical extends AbstractLevel {
 
         // bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X , -bruno.getHeight());
         // change default horizontal to horizontal moving by first param "false"
-        price = new Price(false,3,levelParams);
+        price = new Price(false,3,levelParams, worldController);
 
         // add actors
         //stage.addActor(bruno);

@@ -28,7 +28,7 @@ public class BrunosManager {
         this.stage = stage;
         // hardcoded
         //initialY = 0;
-        initialY = Constants.DETECTION_ZONE_END;
+        initialY = Constants.GROUND_LEVEL;
 
     }
 

@@ -1,5 +1,6 @@
 package ceta.game.game.levels;
 
+import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.game.objects.MegaBrunoWithArm;
 import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;
@@ -9,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * Created by ewe on 12/27/16.
  */
 public class Level1Horizontal extends AbstractLevel {
-    public Level1Horizontal(Stage stage, LevelParams levelParams) {
-        super(stage, levelParams);
+    public Level1Horizontal(Stage stage, LevelParams levelParams, AbstractWorldController worldController) {
+        super(stage, levelParams, worldController);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class Level1Horizontal extends AbstractLevel {
         //bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(), Constants.DETECTION_ZONE_END);
 
         // default horizontal
-        price = new Price(2, levelParams);
+        price = new Price(2, levelParams, worldController);
 
         // add actors
         stage.addActor(bruno);

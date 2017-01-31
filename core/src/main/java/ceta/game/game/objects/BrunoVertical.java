@@ -54,9 +54,9 @@ public class BrunoVertical extends Bruno {
         Gdx.app.log(TAG," in vertical bruno init ----");
         headState = HEAD_STATE.FIXED;
         this.setSize(Constants.BASE,Constants.BASE*brunoValue); // now we can set the values that depend on size
-        this.setPosition(Constants.VERTICAL_MIDDLE_X - getWidth()/2 ,Constants.DETECTION_ZONE_END-Constants.BASE/2);
+        this.setPosition(Constants.VERTICAL_MIDDLE_X - getWidth()/2 ,Constants.GROUND_LEVEL-Constants.BASE/2);
         this.setTerminalX(Constants.VERTICAL_MIDDLE_X - getWidth()/2);
-        this.setTerminalY(Constants.DETECTION_ZONE_END-Constants.BASE/2);
+        this.setTerminalY(Constants.GROUND_LEVEL-Constants.BASE/2);
         actionVelocity = 0.3f;
 
         super.abstractObjectInit();
@@ -215,7 +215,7 @@ public class BrunoVertical extends Bruno {
 
         //batch.setProjectionMatrix(camera.combined);
         // batch.draw(regTex,this.getX(),this.getY());
-        if(getY()>Constants.DETECTION_ZONE_END-getHeight()) {
+        if(getY()>Constants.GROUND_LEVEL-getHeight()) {
            // Gdx.app.log(TAG, "draw vertical bruno "+brunoValue);
             batch.setColor(this.getColor());
             batch.draw(brunoBodyReg.getTexture(),

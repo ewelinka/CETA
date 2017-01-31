@@ -33,7 +33,7 @@ public class Level1HorizontalCvController extends CvController {
         roboticArmManager = new RoboticArmManager(stage);
         cvBlocksManager = new CVBlocksManager(game,stage);
 
-        level = new Level1Horizontal(stage, levelParams);
+        level = new Level1Horizontal(stage, levelParams, this);
 
         cvBlocksManager.init();
         roboticArmManager.init();

@@ -42,7 +42,7 @@ public class BrunoJetPack extends BrunoVertical {
     public void act(float delta) {
         super.act(delta);
 
-        float maxMagnitude = (getY() - Constants.DETECTION_ZONE_END + 20)/200;
+        float maxMagnitude = (getY() - Constants.GROUND_LEVEL + 20)/200;
         maxYFlame = 0.5f + maxMagnitude;
        // Gdx.app.log(TAG," max flame "+maxYFlame+" maxMagnitude " +maxMagnitude +" fireScale "+fireYScale + " fireDirection "+fireYDirection);
         //Gdx.app.log(TAG," ad "+((maxMagnitude*10+1)/1000));

@@ -78,7 +78,7 @@ public class WorldRendererCV extends WorldRenderer {
         TextureAtlas.AtlasRegion b = Assets.instance.background.back3;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(b.getTexture(), -Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END,
+        batch.draw(b.getTexture(), -Constants.VIEWPORT_WIDTH / 2, Constants.GROUND_LEVEL,
                 b.getRegionWidth() / 2, b.getRegionHeight() / 2,
                 b.getRegionWidth(), b.getRegionHeight(),
                 1, 1,
