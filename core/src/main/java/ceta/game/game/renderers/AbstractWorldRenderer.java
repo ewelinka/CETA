@@ -25,9 +25,8 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected OrthographicCamera camera;
     protected SpriteBatch spriteBatch;
     protected ShapeRenderer shapeRenderer;
-    protected BitmapFont font;
-    protected BitmapFont bigFont;
-    protected BitmapFont counterFont;
+    protected BitmapFont fontNumberLine;
+    protected BitmapFont normalGuiFont,smallGuiFont;
     protected AbstractWorldController worldController;
     protected FeedbackRenderer feedbackRenderer;
     protected boolean shouldRenderClue;
@@ -160,10 +159,10 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
         for(int i = Constants.HORIZONTAL_ZERO_X; i<=Constants.HORIZONTAL_ZERO_X+10*Constants.BASE;i+=Constants.BASE){
             if(levelMinimumNumber+counter == chosenNr)
-                font.setColor(0,153,0,1);
+                fontNumberLine.setColor(0,153,0,1);
             else
-                font.setColor(0,0,0,0.7f);
-            font.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.DETECTION_ZONE_END,0, Align.center,false);
+                fontNumberLine.setColor(0,0,0,0.7f);
+            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.DETECTION_ZONE_END,0, Align.center,false);
 
             counter+=1;
         }
@@ -181,12 +180,12 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
         for(int i = Constants.DETECTION_ZONE_END; i<=(Constants.DETECTION_ZONE_END +400); i+=Constants.BASE){
             String text = counter+"";
-            GlyphLayout layout = new GlyphLayout(font, text);
+            GlyphLayout layout = new GlyphLayout(fontNumberLine, text);
             if(levelMinimumNumber+counter == chosenNr)
-                font.setColor(0,153,0,1);
+                fontNumberLine.setColor(0,153,0,1);
             else
-                font.setColor(0,0,0,0.7f);
-            font.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
+                fontNumberLine.setColor(0,0,0,0.7f);
+            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
 
             counter+=1;
         }
@@ -238,7 +237,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     public void dispose() {
         spriteBatch.dispose();
         shapeRenderer.dispose();
-//        font.dispose();
+//        fontNumberLine.dispose();
 //        counterFont.dispose();
     }
 }

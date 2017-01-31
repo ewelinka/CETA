@@ -23,7 +23,7 @@ public class Level1Vertical extends AbstractLevel {
     public void init() {
         adjustX = -40;
         Gdx.app.log(TAG,"init Level 1 Vertical");
-        price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.numberMax, levelParams.priceReturn, 1);
+        price = new Price(false, 1, levelParams);
 
         tube = new Tube(12);
         //tube.setWidth(Constants.BASE*1.5f);

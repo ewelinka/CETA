@@ -25,8 +25,8 @@ public class LevelHorizontal extends AbstractLevel {
         //bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(),Constants.DETECTION_ZONE_END);
         bruno.setPosition(-480,Constants.DETECTION_ZONE_END);
 
-        // default horizontal
-        price = new Price(levelParams.priceVelocity,levelParams.numberMin, levelParams.numberMax, levelParams.priceReturn);
+        // default horizontal, default 1 representation
+        price = new Price(levelParams);
 
         // add actors
         stage.addActor(bruno);

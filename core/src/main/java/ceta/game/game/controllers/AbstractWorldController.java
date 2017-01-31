@@ -34,6 +34,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public CameraHelper cameraHelper;
     public AbstractLevel level;
     public int score;
+    private int operationsFinished;
     public DirectedGame game;
     protected boolean countdownOn;
     protected float countdownCurrentTime;
@@ -92,6 +93,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(null);
         score = 0;
+        operationsFinished = 0;
         oneSegFadeIn = ScreenTransitionFade.init(1);
         playerInactive = false;
         timeLeftScreenFinishedDelay = 0;
@@ -170,7 +172,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public void goToCongratulationsScreen () {
-        game.getLevelsManager().onLevelCompleted();
+        game.getLevelsManager().onLevelCompleted(score);
         game.setScreen(new CongratulationsScreen(game), oneSegFadeIn);
 
     }
@@ -305,15 +307,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         if (price.getActions().size == 0) { // we act just one time!
             AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
             score += 1;
-            //TODO some nice yupi animation
-            if (score < levelParams.operationsNumberToPass) {
+            if (notYetPassTheLevel()) {
                 price.wasCollected();
                 newPriceRegister();
 
             } else {
-                screenFinished = true;
                 price.lastCollected();
-                timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
+                finishTheScreen();
             }
             game.resultsManager.setLastToFinal();
         }
@@ -325,16 +325,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             bruno.moveHead();
             AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
             score += 1;
-            //TODO some nice yupi animation
-            if (score < levelParams.operationsNumberToPass) {
+            if (notYetPassTheLevel()) {
                 Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+price.getX()+" y "+price.getY());
                 price.wasEaten(bruno.getX(), bruno.getEatPointY());
                 newPriceRegister();
 
             } else {
-                screenFinished = true;
                 price.lastEaten(bruno.getX(), bruno.getEatPointY());
-                timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
+                finishTheScreen();
             }
             game.resultsManager.setLastToFinal();
         }
@@ -346,21 +344,22 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             bruno.moveHead();
             AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
             score += 1;
-            //TODO some nice yupi animation
-            if (score < levelParams.operationsNumberToPass) {
+            if (notYetPassTheLevel()) {
                 Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
                 price.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
                 newPriceRegister();
             } else {
-                screenFinished = true;
                 price.lastEaten(bruno.getX(), bruno.getEatPointY());
-                timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
+                finishTheScreen();
             }
             game.resultsManager.setLastToFinal();
         }
     }
 
-
+    public void finishTheScreen(){
+        screenFinished = true;
+        timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
+    }
 
     public boolean getCountdownOn(){
         return countdownOn;
@@ -395,7 +394,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public int getOperationsNumberToPass(){
-        return levelParams.operationsNumberToPass;
+        return level.price.getMaxOperations();
+
     }
 
 
@@ -428,6 +428,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 goToCongratulationsScreen();
         }
         else{
+            testScreenOver();
             testCollisions(); // winning condition checked
         }
 
@@ -492,7 +493,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
 
+    private boolean notYetPassTheLevel(){
+        Gdx.app.log(TAG," we have to collect "+getOperationsNumberToPass()+" now have: "+ getOpertiosnNumber() );
+        return getOpertiosnNumber() < getOperationsNumberToPass();
+    }
 
+    private boolean operationsNumberCompleted(){
+        return getOpertiosnNumber() > getOperationsNumberToPass();
+    }
 
     public int getCurrentPriceType(){
         return level.price.getPriceTypeNr();
@@ -552,6 +560,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         return game.resultsManager.getLastFinalSolution();
     }
 
+    private int getOpertiosnNumber(){
+        return level.price.getCurrentOperationNr();
+    }
+
+    private void testScreenOver(){
+        if(operationsNumberCompleted())
+            finishTheScreen();
+    }
 
 
 

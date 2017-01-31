@@ -115,18 +115,21 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetFonts {
         public final BitmapFont defaultSmall;
-        public final BitmapFont defaultNormal;
+        public final BitmapFont defaultNormal, defaultNumberLine;
         public final BitmapFont defaultBig;
         public AssetFonts () {
-            // create three fonts using Libgdx's 15px bitmap font
-            defaultSmall = new BitmapFont(Gdx.files.internal("fonts/YuantiBold-24.fnt"), false);
+            // create three fonts using Libgdx's 15px bitmap fontNumberLine
+            defaultNumberLine = new BitmapFont(Gdx.files.internal("fonts/YuantiBold-24.fnt"), false);
+            defaultSmall = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
             defaultNormal = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
             defaultBig = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
-            // set font sizes
-            defaultSmall.getData().setScale(1.0f);
+            // set fontNumberLine sizes
+            defaultNumberLine.getData().setScale(1.0f);
+            defaultSmall.getData().setScale(0.8f);
             defaultNormal.getData().setScale(1.0f);
             defaultBig.getData().setScale(2.5f);
             // enable linear texture filtering for smooth fonts
+            defaultNumberLine.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             defaultSmall.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             defaultNormal.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             defaultBig.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

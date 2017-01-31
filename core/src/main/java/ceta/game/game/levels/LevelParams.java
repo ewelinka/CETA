@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.JsonValue;
 public class LevelParams {
     public int level;
     public int operationsNumberToPass;
+    public int[] operations;
     public int numberMin;
     public int numberMax;
     public String numberOrOperation;

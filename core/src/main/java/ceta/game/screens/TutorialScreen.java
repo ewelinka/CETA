@@ -43,7 +43,7 @@ public class TutorialScreen  extends AbstractGameScreen {
     @Override
     public void render(float deltaTime) {
         tutorialTimeMillis+=deltaTime;
-        Gdx.app.log(TAG,"now passed "+tutorialTimeMillis);
+        //Gdx.app.log(TAG,"now passed "+tutorialTimeMillis);
         if((tutorialTimeMillis > maxTutorialTimeSec) && !isChanging) {
             game.setScreen(new TreeScreen(game, true), ScreenTransitionFade.init(1));
             isChanging = true;

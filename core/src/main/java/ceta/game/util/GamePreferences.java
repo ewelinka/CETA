@@ -15,6 +15,7 @@ public class GamePreferences {
     public float countdownMax;
     public float virtualBlocksAlpha;
     public int lastLevel;
+    public int totalScore;
 
     private GamePreferences () {
         prefs = Gdx.app.getPreferences(Constants.PREFERENCES);
@@ -25,6 +26,7 @@ public class GamePreferences {
         virtualBlocksAlpha = MathUtils.clamp(prefs.getFloat("virtualBlocksAlpha", 1.0f), 0.0f, 1.0f);
         countdownMax = MathUtils.clamp(prefs.getFloat("countdownMax", 5), 0, 10);
         lastLevel = prefs.getInteger("lastLevel",0);
+        totalScore = prefs.getInteger("totalScore",0);
         // TODO now start in 0 always, just for testing than remove!!
         lastLevel = 0;
 
@@ -35,6 +37,13 @@ public class GamePreferences {
         prefs.putFloat("virtualBlocksAlpha", virtualBlocksAlpha);
         prefs.putFloat("countdownMax", countdownMax);
         prefs.putInteger("lastLevel",lastLevel);
+        prefs.putInteger("totalScore",totalScore);
+        prefs.flush();
+    }
+
+    public void addToTotalScore(int newScore){
+        totalScore = totalScore+newScore;
+        prefs.putInteger("totalScore", totalScore);
         prefs.flush();
     }
 

@@ -22,9 +22,10 @@ public class LevelsManager {
         lastLevelCompleted = GamePreferences.instance.lastLevel;
     }
 
-    public void onLevelCompleted(){
+    public void onLevelCompleted(int score){
         lastLevelCompleted +=1;
         GamePreferences.instance.setLastLevel(lastLevelCompleted);
+        GamePreferences.instance.addToTotalScore(score);
     }
 
     public void goToNextLevelWorkaround(){
@@ -132,10 +133,10 @@ public class LevelsManager {
                 game.setScreen(new Level1HorizontalScreen(game, 2), transition);
                 break;
             case 2:
-                game.setScreen(new Level1VerticalScreen(game, 1), transition);
+                game.setScreen(new Level1VerticalScreen(game, 3), transition);
                 break;
             case 3:
-                game.setScreen(new Level1VerticalMovingScreen(game, 2), transition);
+                game.setScreen(new Level1VerticalMovingScreen(game, 4), transition);
                 break;
             case 4:
                 game.setScreen(new Level2HorizontalScreen(game, 1), transition);

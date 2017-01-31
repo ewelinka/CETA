@@ -66,7 +66,7 @@ public class City {
         if(cityFrontX2 >= 1240)
             cityFrontX2 = -30;
 
-        Gdx.app.log(TAG," x "+cityFrontX + " x2 "+cityFrontX2);
+        //Gdx.app.log(TAG," x "+cityFrontX + " x2 "+cityFrontX2);
     }
 
     public void drawAll(){

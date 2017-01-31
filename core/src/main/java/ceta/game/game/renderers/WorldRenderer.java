@@ -6,19 +6,14 @@ import ceta.game.game.objects.VirtualBlock;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
  * Created by ewe on 7/25/16.
@@ -49,9 +44,9 @@ public class WorldRenderer extends AbstractWorldRenderer {
         levelMinimumNumber = worldController.getMinimumNumber();
 
         spriteBatch = new SpriteBatch();
-        font = Assets.instance.fonts.defaultSmall;
-        bigFont = Assets.instance.fonts.defaultNormal;
-        counterFont = Assets.instance.fonts.defaultBig;
+        fontNumberLine = Assets.instance.fonts.defaultNumberLine;
+        normalGuiFont = Assets.instance.fonts.defaultNormal;
+        smallGuiFont = Assets.instance.fonts.defaultSmall;
         shapeRenderer = new ShapeRenderer();
 
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
@@ -163,17 +158,17 @@ public class WorldRenderer extends AbstractWorldRenderer {
         batch.end();
     }
 
-    protected void renderPriceValue(SpriteBatch batch){
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        font.setColor(Color.RED);
-        font.draw(batch, worldController.level.price.getDisplayNumber()+"",
-                worldController.level.price.getX()+worldController.level.price.getWidth()/2,
-                worldController.level.price.getY()+worldController.level.price.getHeight()+10,
-                0,Align.center,false);
-        font.setColor(Color.WHITE);
-        batch.end();
-    }
+//    protected void renderPriceValue(SpriteBatch batch){
+//        batch.setProjectionMatrix(camera.combined);
+//        batch.begin();
+//        fontNumberLine.setColor(Color.RED);
+//        fontNumberLine.draw(batch, worldController.level.price.getDisplayNumber()+"",
+//                worldController.level.price.getX()+worldController.level.price.getWidth()/2,
+//                worldController.level.price.getY()+worldController.level.price.getHeight()+10,
+//                0,Align.center,false);
+//        fontNumberLine.setColor(Color.WHITE);
+//        batch.end();
+//    }
 
     protected void renderGuiScore (SpriteBatch batch) {
         float x =  -Constants.VIEWPORT_WIDTH/2 + 10;
@@ -194,7 +189,11 @@ public class WorldRenderer extends AbstractWorldRenderer {
         }
 
         // TODO hardcoded position!
-        bigFont.draw(batch, worldController.score+"",x+50,y+30);
+        normalGuiFont.draw(batch, worldController.score+"",x+50,y+30);
+
+        // total score
+        batch.draw(Assets.instance.toCollect.price1,x+500,y,30,30);
+        smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+500+40,y+25);
     }
 
 
