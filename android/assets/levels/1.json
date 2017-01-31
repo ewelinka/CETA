@@ -1,8 +1,9 @@
 {
   level: 1,
   operationsNumberToPass: 2,
-  numberMin: 0,
-  numberMax: 10,
+  operations: [1,2],
+  numberMin: 10 ,
+  numberMax: 20,
   numberOrOperation: "number",
   priceReturn: -1
   priceVelocity: -100,
