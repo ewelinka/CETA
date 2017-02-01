@@ -425,6 +425,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
     public int getMinimumNumber(){ return levelParams.numberMin;}
+    public int getMaximumNumber(){ return levelParams.numberMax;}
 
     public boolean isNumberLineVisible(){ return levelParams.visibleNumberLine;}
 

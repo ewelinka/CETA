@@ -32,6 +32,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         shouldRenderClue = false;
         currentPriceTypeNr = worldController.getCurrentPriceType();
         isPlayingCleanTable = false;
+        maxShift = worldController.getMaximumNumber() - worldController.getMinimumNumber();
         init();
     }
 

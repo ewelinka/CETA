@@ -66,7 +66,8 @@ public class FeedbackRenderer {
         Gdx.app.log(TAG,"stopRenderClue");
         manoImg.clearActions();
         manoImg.addAction(sequence(
-                alpha(0,0.2f)
+                alpha(0,0.2f),
+                moveTo(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth()/2,-Constants.VIEWPORT_HEIGHT/2-manoImg.getHeight())
         ));
     }
 

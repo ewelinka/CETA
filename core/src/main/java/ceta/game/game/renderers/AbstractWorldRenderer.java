@@ -36,6 +36,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     protected int levelMinimumNumber;
     protected boolean numberLineIsHorizontal;
+    protected int maxShift;
 
 
     public abstract void init();
@@ -142,7 +143,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
         shRenderer.setColor(1, 1, 1, 1);
 
-        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*10); i+=Constants.BASE){
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=Constants.BASE){
             shRenderer.line(-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
         }
 
@@ -157,7 +158,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         batch.begin();
         int counter  = 0;
 
-        for(int i = Constants.HORIZONTAL_ZERO_X; i<=Constants.HORIZONTAL_ZERO_X+10*Constants.BASE;i+=Constants.BASE){
+        for(int i = Constants.HORIZONTAL_ZERO_X; i<=Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
             if(levelMinimumNumber+counter == chosenNr)
                 fontNumberLine.setColor(0,153,0,1);
             else
@@ -178,7 +179,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         batch.begin();
         int counter  = 0;
 
-        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*10); i+=Constants.BASE){
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=Constants.BASE){
             String text = counter+"";
             GlyphLayout layout = new GlyphLayout(fontNumberLine, text);
             if(levelMinimumNumber+counter == chosenNr)
@@ -217,12 +218,9 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
         shRenderer.setColor(1, 1, 1, 1);
 
-        for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+10*Constants.BASE;i+=Constants.BASE){
+        for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
             shRenderer.line(i , Constants.GROUND_LEVEL, i,Constants.VIEWPORT_HEIGHT/2 - 100);
         }
-//        shRenderer.setColor(0, 0, 1, 1);
-//        shRenderer.line(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END, Constants.VIEWPORT_WIDTH/2,Constants.DETECTION_ZONE_END);
-
         shRenderer.end();
     }
 

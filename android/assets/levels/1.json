@@ -2,7 +2,7 @@
   level: 1,
   operationsNumberToPassToNext: 2,
   operationsToFinishLevel: 2,
-  operations: [1,2],
+  operations: [11,20],
   numberMin: 10 ,
   numberMax: 20,
   numberOrOperation: "number",

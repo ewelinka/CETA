@@ -56,10 +56,8 @@ public class TreeScreen extends AbstractGameScreen {
         arrowPositions = new int[][]{
                 {86,433},
                 {90,336},
-
                 {210,275},
                 {320,280},
-
                 {437,328},
                 {444,425}
         };
@@ -241,6 +239,7 @@ public class TreeScreen extends AbstractGameScreen {
                 arrow.addAction(sequence(delay(1.5f),Actions.alpha(0,1f)));
                 level6gear.setActive(false);
                 level6gear.activateGear();
+                // TODO thats all falks!
                 break;
 
         }

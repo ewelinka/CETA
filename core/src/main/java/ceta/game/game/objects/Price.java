@@ -63,12 +63,15 @@ public class Price extends AbstractGameObject {
         this.isMovingVertical = isMovingVertical;
         this.priceTypeNr = priceType;
         init();
-        operations = levelParams.operations;
         velocity = levelParams.priceVelocity;
         startNumber = levelParams.numberMin;
         endNumber = levelParams.numberMax;
         maxShift = endNumber - startNumber;
         maxReturn = levelParams.priceReturn;
+
+
+        operations = adjustOperations(levelParams.operations);
+
         returnCounter = maxReturn;
         currentOperationNr = 1; //first operation!
 
@@ -478,6 +481,16 @@ public class Price extends AbstractGameObject {
             actionNotEaten(Constants.VIEWPORT_WIDTH / 2, Constants.GROUND_LEVEL + currentNumber * Constants.BASE - getHeight() / 2);
         }
 
+
+    }
+
+    private int[] adjustOperations(int[] toAdjust){
+        int [] adjusted = new int[toAdjust.length];
+        for(int i = 0; i< toAdjust.length;i++){
+            adjusted[i] = toAdjust[i] - startNumber;
+        }
+
+        return adjusted;
 
     }
 
