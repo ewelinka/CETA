@@ -142,7 +142,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
         shRenderer.setColor(1, 1, 1, 1);
 
-        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +400); i+=Constants.BASE){
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*10); i+=Constants.BASE){
             shRenderer.line(-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
         }
 
@@ -178,7 +178,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         batch.begin();
         int counter  = 0;
 
-        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +400); i+=Constants.BASE){
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*10); i+=Constants.BASE){
             String text = counter+"";
             GlyphLayout layout = new GlyphLayout(fontNumberLine, text);
             if(levelMinimumNumber+counter == chosenNr)

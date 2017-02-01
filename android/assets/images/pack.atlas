@@ -4,269 +4,130 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-01cuerpo
-  rotate: false
-  xy: 712, 2
-  size: 35, 21
-  orig: 35, 21
-  offset: 0, 0
-  index: -1
-04cuerpo
-  rotate: false
-  xy: 712, 25
-  size: 48, 133
-  orig: 48, 133
-  offset: 0, 0
-  index: -1
-arbol-guia
-  rotate: false
-  xy: 2, 254
-  size: 450, 768
-  orig: 450, 768
-  offset: 0, 0
-  index: -1
-baseEnergia
-  rotate: false
-  xy: 887, 5
-  size: 30, 6
-  orig: 30, 6
-  offset: 0, 0
-  index: -1
-bombillaB
-  rotate: false
-  xy: 574, 255
-  size: 29, 57
-  orig: 29, 57
-  offset: 0, 0
-  index: -1
-box
-  rotate: false
-  xy: 813, 4
-  size: 72, 72
-  orig: 72, 72
-  offset: 0, 0
-  index: -1
-casitarbol
-  rotate: false
-  xy: 574, 314
-  size: 68, 62
-  orig: 68, 62
-  offset: 0, 0
-  index: -1
-cityO2
-  rotate: false
-  xy: 2, 15
-  size: 640, 237
-  orig: 640, 237
-  offset: 0, 0
-  index: -1
-copper3
-  rotate: false
-  xy: 762, 78
-  size: 240, 80
-  orig: 240, 80
-  offset: 0, 0
-  index: -1
-empezar
-  rotate: false
-  xy: 454, 617
-  size: 176, 119
-  orig: 176, 119
-  offset: 0, 0
-  index: -1
-empezarjuego2
-  rotate: false
-  xy: 454, 617
-  size: 176, 119
-  orig: 176, 119
-  offset: 0, 0
-  index: -1
-empezarjuego
-  rotate: false
-  xy: 454, 496
-  size: 176, 119
-  orig: 176, 119
-  offset: 0, 0
-  index: -1
-excelentetrabajo
-  rotate: false
-  xy: 454, 738
-  size: 557, 284
-  orig: 557, 284
-  offset: 0, 0
-  index: -1
-faltante
-  rotate: false
-  xy: 454, 255
-  size: 118, 121
-  orig: 118, 121
-  offset: 0, 0
-  index: -1
-flecha
-  rotate: false
-  xy: 762, 3
-  size: 49, 73
-  orig: 49, 73
-  offset: 0, 0
-  index: -1
-fuego
-  rotate: false
-  xy: 1004, 150
-  size: 17, 8
-  orig: 17, 8
-  offset: 0, 0
-  index: -1
-fuegoJetpack
-  rotate: false
-  xy: 749, 6
-  size: 9, 17
-  orig: 9, 17
-  offset: 0, 0
-  index: -1
-jetpack
-  rotate: false
-  xy: 605, 262
-  size: 32, 33
-  orig: 32, 33
-  offset: 0, 0
-  index: -1
-jugar-1
-  rotate: false
-  xy: 454, 378
-  size: 174, 116
-  orig: 174, 116
-  offset: 0, 0
-  index: -1
-manitoarriba
-  rotate: false
-  xy: 644, 160
-  size: 363, 576
-  orig: 363, 576
-  offset: 0, 0
-  index: -1
-toraxEnergia
-  rotate: false
-  xy: 605, 297
-  size: 35, 15
-  orig: 35, 15
-  offset: 0, 0
-  index: -1
-tuboVertical
-  rotate: false
-  xy: 644, 13
-  size: 66, 145
-  orig: 66, 145
-  offset: 0, 0
-  index: -1
-tubo_final
-  rotate: false
-  xy: 887, 13
-  size: 132, 63
-  orig: 132, 63
-  offset: 0, 0
-  index: -1
-
-pack2.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
 01cabeza
   rotate: false
-  xy: 830, 2
+  xy: 2, 2
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
   index: -1
+01cuerpo
+  rotate: false
+  xy: 99, 13
+  size: 35, 21
+  orig: 35, 21
+  offset: 0, 0
+  index: -1
+02bruno
+  rotate: false
+  xy: 561, 60
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: -1
 02cabeza
   rotate: false
-  xy: 870, 9
+  xy: 969, 447
   size: 40, 25
   orig: 40, 25
   offset: 0, 0
   index: -1
-04bruno
+03cabeza
   rotate: false
-  xy: 670, 107
-  size: 50, 160
-  orig: 50, 160
+  xy: 642, 2
+  size: 41, 39
+  orig: 41, 39
   offset: 0, 0
   index: -1
 04cabeza
   rotate: false
-  xy: 726, 4
+  xy: 830, 11
   size: 45, 30
   orig: 45, 30
   offset: 0, 0
   index: -1
-05bruno
-  rotate: false
-  xy: 604, 419
-  size: 55, 200
-  orig: 55, 200
-  offset: 0, 0
-  index: -1
 05cabeza
   rotate: false
-  xy: 773, 10
+  xy: 42, 10
   size: 55, 24
   orig: 55, 24
   offset: 0, 0
   index: -1
 05cuerpo
   rotate: false
-  xy: 966, 89
+  xy: 561, 142
   size: 41, 178
   orig: 41, 178
   offset: 0, 0
   index: -1
+baseEnergia
+  rotate: false
+  xy: 42, 2
+  size: 30, 6
+  orig: 30, 6
+  offset: 0, 0
+  index: -1
 camina
   rotate: false
-  xy: 604, 332
+  xy: 969, 735
   size: 53, 85
   orig: 53, 85
   offset: 0, 0
   index: 1
 camina
   rotate: false
-  xy: 966, 2
+  xy: 969, 648
   size: 53, 85
   orig: 53, 85
   offset: 0, 0
   index: 2
-copper4
+camina
   rotate: false
-  xy: 404, 6
-  size: 320, 80
-  orig: 320, 80
+  xy: 969, 561
+  size: 53, 85
+  orig: 53, 85
+  offset: 0, 0
+  index: 3
+caminaCabeza
+  rotate: false
+  xy: 685, 5
+  size: 53, 36
+  orig: 53, 36
   offset: 0, 0
   index: -1
-copper5
+camina_parado
   rotate: false
-  xy: 2, 6
-  size: 400, 80
-  orig: 400, 80
+  xy: 969, 474
+  size: 53, 85
+  orig: 53, 85
   offset: 0, 0
   index: -1
-engrana01
+carrito
   rotate: false
-  xy: 726, 36
-  size: 238, 231
-  orig: 238, 231
+  xy: 561, 2
+  size: 79, 39
+  orig: 79, 39
+  offset: 0, 0
+  index: -1
+energia
+  rotate: false
+  xy: 969, 822
+  size: 30, 200
+  orig: 30, 200
   offset: 0, 0
   index: -1
 engrana04
   rotate: false
-  xy: 604, 621
+  xy: 604, 43
   size: 406, 401
   orig: 406, 401
   offset: 0, 0
   index: -1
-feedbackZone360x360
+excelentetrabajo
   rotate: false
-  xy: 670, 269
-  size: 345, 350
-  orig: 345, 350
+  xy: 2, 36
+  size: 557, 284
+  orig: 557, 284
   offset: 0, 0
   index: -1
 fondoN
@@ -276,11 +137,171 @@ fondoN
   orig: 600, 700
   offset: 0, 0
   index: -1
-workZoneV2tablet
+fruto
   rotate: false
-  xy: 2, 88
-  size: 666, 232
-  orig: 666, 232
+  xy: 787, 3
+  size: 41, 38
+  orig: 41, 38
+  offset: 0, 0
+  index: -1
+fuego
+  rotate: false
+  xy: 911, 33
+  size: 17, 8
+  orig: 17, 8
+  offset: 0, 0
+  index: -1
+fuegoJetpack
+  rotate: false
+  xy: 1001, 1005
+  size: 9, 17
+  orig: 9, 17
+  offset: 0, 0
+  index: -1
+hojitas
+  rotate: false
+  xy: 740, 4
+  size: 45, 37
+  orig: 45, 37
+  offset: 0, 0
+  index: -1
+jetpack
+  rotate: false
+  xy: 877, 8
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
+manitoarriba
+  rotate: false
+  xy: 604, 446
+  size: 363, 576
+  orig: 363, 576
+  offset: 0, 0
+  index: -1
+toraxEnergia
+  rotate: false
+  xy: 561, 43
+  size: 35, 15
+  orig: 35, 15
+  offset: 0, 0
+  index: -1
+
+pack2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+04cuerpo
+  rotate: false
+  xy: 974, 265
+  size: 48, 133
+  orig: 48, 133
+  offset: 0, 0
+  index: -1
+arbol-guia
+  rotate: false
+  xy: 2, 253
+  size: 450, 768
+  orig: 450, 768
+  offset: 0, 0
+  index: -1
+casitarbol
+  rotate: false
+  xy: 906, 959
+  size: 102, 62
+  orig: 102, 62
+  offset: 0, 0
+  index: -1
+cityO2
+  rotate: false
+  xy: 2, 14
+  size: 640, 237
+  orig: 640, 237
+  offset: 0, 0
+  index: -1
+engrana01
+  rotate: false
+  xy: 644, 20
+  size: 238, 231
+  orig: 238, 231
+  offset: 0, 0
+  index: -1
+engrana02
+  rotate: false
+  xy: 884, 120
+  size: 132, 131
+  orig: 132, 131
+  offset: 0, 0
+  index: -1
+engranaje
+  rotate: false
+  xy: 906, 400
+  size: 94, 98
+  orig: 94, 98
+  offset: 0, 0
+  index: -1
+inicio
+  rotate: false
+  xy: 454, 253
+  size: 450, 768
+  orig: 450, 768
+  offset: 0, 0
+  index: -1
+nubeC
+  rotate: false
+  xy: 906, 556
+  size: 96, 75
+  orig: 96, 75
+  offset: 0, 0
+  index: -1
+nubeD
+  rotate: false
+  xy: 906, 875
+  size: 99, 82
+  orig: 99, 82
+  offset: 0, 0
+  index: -1
+nubeE
+  rotate: false
+  xy: 906, 500
+  size: 96, 54
+  orig: 96, 54
+  offset: 0, 0
+  index: -1
+salir-1
+  rotate: false
+  xy: 906, 754
+  size: 97, 119
+  orig: 97, 119
+  offset: 0, 0
+  index: -1
+salir-2
+  rotate: false
+  xy: 906, 633
+  size: 97, 119
+  orig: 97, 119
+  offset: 0, 0
+  index: -1
+tubo120
+  rotate: false
+  xy: 884, 2
+  size: 120, 51
+  orig: 120, 51
+  offset: 0, 0
+  index: -1
+tuboVertical
+  rotate: false
+  xy: 906, 253
+  size: 66, 145
+  orig: 66, 145
+  offset: 0, 0
+  index: -1
+tubo_final
+  rotate: false
+  xy: 884, 55
+  size: 132, 63
+  orig: 132, 63
   offset: 0, 0
   index: -1
 
@@ -289,228 +310,130 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-01bruno
+03cuerpo
   rotate: false
-  xy: 752, 8
-  size: 40, 40
-  orig: 40, 40
+  xy: 968, 2
+  size: 46, 98
+  orig: 46, 98
   offset: 0, 0
   index: -1
-02cuerpo
+05bruno
   rotate: false
-  xy: 838, 191
-  size: 36, 59
-  orig: 36, 59
+  xy: 951, 818
+  size: 55, 200
+  orig: 55, 200
   offset: 0, 0
   index: -1
-03bruno
+brunoGrande_cabeza
   rotate: false
-  xy: 972, 60
-  size: 46, 121
-  orig: 46, 121
+  xy: 670, 204
+  size: 151, 128
+  orig: 151, 128
   offset: 0, 0
   index: -1
-1
+copper3
   rotate: false
-  xy: 570, 2
-  size: 40, 40
-  orig: 40, 40
+  xy: 726, 2
+  size: 240, 80
+  orig: 240, 80
   offset: 0, 0
   index: -1
-2
+copper4
   rotate: false
-  xy: 488, 2
-  size: 80, 40
-  orig: 80, 40
+  xy: 404, 2
+  size: 320, 80
+  orig: 320, 80
   offset: 0, 0
   index: -1
-3
-  rotate: false
-  xy: 366, 2
-  size: 120, 40
-  orig: 120, 40
-  offset: 0, 0
-  index: -1
-4
-  rotate: false
-  xy: 204, 2
-  size: 160, 40
-  orig: 160, 40
-  offset: 0, 0
-  index: -1
-5
+copper5
   rotate: false
   xy: 2, 2
-  size: 200, 40
-  orig: 200, 40
+  size: 400, 80
+  orig: 400, 80
   offset: 0, 0
   index: -1
-bombillaA
+empezar
   rotate: false
-  xy: 906, 254
-  size: 28, 53
-  orig: 28, 53
+  xy: 823, 225
+  size: 176, 119
+  orig: 176, 119
   offset: 0, 0
   index: -1
-energia
+empezarjuego2
   rotate: false
-  xy: 806, 50
-  size: 30, 200
-  orig: 30, 200
+  xy: 823, 225
+  size: 176, 119
+  orig: 176, 119
   offset: 0, 0
   index: -1
-engrana02
+engranaje2
   rotate: false
-  xy: 838, 50
-  size: 132, 131
-  orig: 132, 131
+  xy: 951, 677
+  size: 71, 67
+  orig: 71, 67
   offset: 0, 0
   index: -1
-engranaje1
+entendido-1
   rotate: false
-  xy: 906, 406
-  size: 92, 95
-  orig: 92, 95
+  xy: 800, 346
+  size: 220, 118
+  orig: 220, 118
   offset: 0, 0
   index: -1
-engranajes4
+entendido-2
   rotate: false
-  xy: 612, 2
-  size: 43, 46
-  orig: 43, 46
+  xy: 670, 84
+  size: 220, 118
+  orig: 220, 118
   offset: 0, 0
   index: -1
-faltante1
+faltante
   rotate: false
-  xy: 906, 309
-  size: 92, 95
-  orig: 92, 95
+  xy: 892, 102
+  size: 118, 121
+  orig: 118, 121
   offset: 0, 0
   index: -1
-hojitas
+faltante2
   rotate: false
-  xy: 920, 11
-  size: 45, 37
-  orig: 45, 37
+  xy: 951, 746
+  size: 71, 70
+  orig: 71, 70
   offset: 0, 0
   index: -1
-hojitasA
+feedbackZone360x360
   rotate: false
-  xy: 972, 5
-  size: 31, 53
-  orig: 31, 53
+  xy: 604, 668
+  size: 345, 350
+  orig: 345, 350
   offset: 0, 0
   index: -1
-inicio
+fondoV
   rotate: false
-  xy: 2, 252
-  size: 450, 768
-  orig: 450, 768
+  xy: 2, 318
+  size: 600, 700
+  orig: 600, 700
   offset: 0, 0
   index: -1
-mega_mascara
+tuboVertical2
   rotate: false
-  xy: 878, 183
-  size: 140, 67
-  orig: 140, 67
-  offset: 0, 0
-  index: -1
-nubeA
-  rotate: false
-  xy: 657, 4
-  size: 93, 44
-  orig: 93, 44
-  offset: 0, 0
-  index: -1
-nubeB
-  rotate: false
-  xy: 906, 503
-  size: 93, 58
-  orig: 93, 58
-  offset: 0, 0
-  index: -1
-nubeC
-  rotate: false
-  xy: 906, 619
-  size: 96, 75
-  orig: 96, 75
-  offset: 0, 0
-  index: -1
-nubeD
-  rotate: false
-  xy: 906, 938
-  size: 99, 82
-  orig: 99, 82
-  offset: 0, 0
-  index: -1
-nubeE
-  rotate: false
-  xy: 906, 563
-  size: 96, 54
-  orig: 96, 54
-  offset: 0, 0
-  index: -1
-parteB
-  rotate: false
-  xy: 2, 44
-  size: 600, 206
-  orig: 600, 206
-  offset: 0, 0
-  index: -1
-premio1
-  rotate: false
-  xy: 794, 8
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-premio2
-  rotate: false
-  xy: 836, 8
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-premio3
-  rotate: false
-  xy: 878, 8
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-salir-1
-  rotate: false
-  xy: 906, 817
-  size: 97, 119
-  orig: 97, 119
-  offset: 0, 0
-  index: -1
-salir-2
-  rotate: false
-  xy: 906, 696
-  size: 97, 119
-  orig: 97, 119
-  offset: 0, 0
-  index: -1
-tubo80
-  rotate: false
-  xy: 936, 256
-  size: 80, 51
-  orig: 80, 51
-  offset: 0, 0
-  index: -1
-tutorial1
-  rotate: false
-  xy: 454, 252
-  size: 450, 768
-  orig: 450, 768
+  xy: 604, 334
+  size: 194, 332
+  orig: 194, 332
   offset: 0, 0
   index: -1
 wheel
   rotate: false
-  xy: 604, 50
+  xy: 800, 466
   size: 200, 200
   orig: 200, 200
+  offset: 0, 0
+  index: -1
+workZoneV2tablet
+  rotate: false
+  xy: 2, 84
+  size: 666, 232
+  orig: 666, 232
   offset: 0, 0
   index: -1
 
@@ -519,163 +442,219 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-02bruno
+02cuerpo
   rotate: false
-  xy: 974, 786
-  size: 40, 80
-  orig: 40, 80
+  xy: 982, 79
+  size: 36, 59
+  orig: 36, 59
   offset: 0, 0
   index: -1
-03cabeza
+03bruno
   rotate: false
-  xy: 167, 3
-  size: 41, 39
-  orig: 41, 39
+  xy: 958, 707
+  size: 46, 121
+  orig: 46, 121
   offset: 0, 0
   index: -1
-03cuerpo
+04bruno
   rotate: false
-  xy: 974, 920
-  size: 46, 98
-  orig: 46, 98
+  xy: 906, 668
+  size: 50, 160
+  orig: 50, 160
   offset: 0, 0
   index: -1
-brunoGrande_cabeza
+2
   rotate: false
-  xy: 454, 368
-  size: 151, 128
-  orig: 151, 128
+  xy: 583, 6
+  size: 80, 40
+  orig: 80, 40
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 366, 6
+  size: 120, 40
+  orig: 120, 40
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 204, 6
+  size: 160, 40
+  orig: 160, 40
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 2, 6
+  size: 200, 40
+  orig: 200, 40
+  offset: 0, 0
+  index: -1
+azul
+  rotate: false
+  xy: 937, 508
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+bombillaA
+  rotate: false
+  xy: 906, 501
+  size: 28, 53
+  orig: 28, 53
+  offset: 0, 0
+  index: -1
+bombillaB
+  rotate: false
+  xy: 906, 556
+  size: 29, 57
+  orig: 29, 57
   offset: 0, 0
   index: -1
 brunoGrande_cuerpo
   rotate: false
-  xy: 675, 264
+  xy: 863, 140
   size: 151, 112
   orig: 151, 112
   offset: 0, 0
   index: -1
-caminaCabeza
+copper
   rotate: false
-  xy: 210, 6
-  size: 53, 36
-  orig: 53, 36
-  offset: 0, 0
-  index: -1
-carrito
-  rotate: false
-  xy: 86, 3
-  size: 79, 39
-  orig: 79, 39
+  xy: 936, 426
+  size: 80, 80
+  orig: 80, 80
   offset: 0, 0
   index: -1
 copper2
   rotate: false
-  xy: 828, 208
+  xy: 642, 54
   size: 160, 80
   orig: 160, 80
   offset: 0, 0
   index: -1
-engrana03
+doradoA
   rotate: false
-  xy: 454, 498
-  size: 518, 520
-  orig: 518, 520
+  xy: 906, 344
+  size: 80, 80
+  orig: 80, 80
   offset: 0, 0
   index: -1
-engranaje
+doradoB
   rotate: false
-  xy: 864, 36
-  size: 118, 117
-  orig: 118, 117
+  xy: 906, 262
+  size: 80, 80
+  orig: 80, 80
   offset: 0, 0
   index: -1
-entendido-1
+empezarjuego
   rotate: false
-  xy: 607, 378
-  size: 220, 118
-  orig: 220, 118
+  xy: 804, 15
+  size: 176, 119
+  orig: 176, 119
   offset: 0, 0
   index: -1
-entendido-2
+engranaje1
   rotate: false
-  xy: 642, 35
-  size: 220, 118
-  orig: 220, 118
+  xy: 906, 927
+  size: 92, 95
+  orig: 92, 95
+  offset: 0, 0
+  index: -1
+engranajes4
+  rotate: false
+  xy: 710, 6
+  size: 43, 46
+  orig: 43, 46
+  offset: 0, 0
+  index: -1
+engranajes5
+  rotate: false
+  xy: 755, 12
+  size: 46, 40
+  orig: 46, 40
+  offset: 0, 0
+  index: -1
+faltante1
+  rotate: false
+  xy: 906, 830
+  size: 92, 95
+  orig: 92, 95
   offset: 0, 0
   index: -1
 faltante4
   rotate: false
-  xy: 974, 868
+  xy: 665, 2
   size: 43, 50
   orig: 43, 50
   offset: 0, 0
   index: -1
-jugar-2
+faltante5
   rotate: false
-  xy: 829, 380
-  size: 174, 116
-  orig: 174, 116
+  xy: 958, 590
+  size: 46, 40
+  orig: 46, 40
   offset: 0, 0
   index: -1
-mega_brazo
+flecha
   rotate: false
-  xy: 829, 290
-  size: 171, 88
-  orig: 171, 88
+  xy: 958, 632
+  size: 49, 73
+  orig: 49, 73
+  offset: 0, 0
+  index: -1
+flor
+  rotate: false
+  xy: 906, 615
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1
+hojitasA
+  rotate: false
+  xy: 988, 371
+  size: 31, 53
+  orig: 31, 53
   offset: 0, 0
   index: -1
 niveles-1
   rotate: false
-  xy: 454, 250
+  xy: 642, 136
   size: 219, 116
   orig: 219, 116
   offset: 0, 0
   index: -1
-premio4
+nubeA
   rotate: false
-  xy: 2, 2
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-tubo
-  rotate: false
-  xy: 44, 2
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-tubo160
-  rotate: false
-  xy: 642, 197
-  size: 160, 51
-  orig: 160, 51
-  offset: 0, 0
-  index: -1
-tubo200
-  rotate: false
-  xy: 804, 155
-  size: 200, 51
-  orig: 200, 51
+  xy: 488, 2
+  size: 93, 44
+  orig: 93, 44
   offset: 0, 0
   index: -1
 tubo40
   rotate: false
-  xy: 974, 733
+  xy: 982, 26
   size: 40, 51
   orig: 40, 51
   offset: 0, 0
   index: -1
+tutorial1
+  rotate: false
+  xy: 2, 254
+  size: 450, 768
+  orig: 450, 768
+  offset: 0, 0
+  index: -1
 tutorial2
   rotate: false
-  xy: 2, 250
+  xy: 454, 254
   size: 450, 768
   orig: 450, 768
   offset: 0, 0
   index: -1
 workZoneV2tablet2
   rotate: false
-  xy: 2, 44
+  xy: 2, 48
   size: 638, 204
   orig: 638, 204
   offset: 0, 0
@@ -686,135 +665,184 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-azul
+01bruno
   rotate: false
-  xy: 604, 560
-  size: 80, 80
-  orig: 80, 80
+  xy: 951, 846
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: -1
-camina
+1
   rotate: false
-  xy: 604, 309
-  size: 53, 85
-  orig: 53, 85
-  offset: 0, 0
-  index: 3
-camina_parado
-  rotate: false
-  xy: 964, 771
-  size: 53, 85
-  orig: 53, 85
+  xy: 2, 4
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: -1
-cityO1
+box
   rotate: false
-  xy: 2, 71
-  size: 640, 201
-  orig: 640, 201
-  offset: 0, 0
-  index: -1
-copper
-  rotate: false
-  xy: 800, 776
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-doradoA
-  rotate: false
-  xy: 604, 478
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-doradoB
-  rotate: false
-  xy: 686, 560
-  size: 80, 80
-  orig: 80, 80
+  xy: 849, 65
+  size: 72, 72
+  orig: 72, 72
   offset: 0, 0
   index: -1
 doradoC
   rotate: false
-  xy: 800, 694
+  xy: 897, 257
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-engranaje2
+engrana03
   rotate: false
-  xy: 686, 409
-  size: 71, 67
-  orig: 71, 67
+  xy: 2, 502
+  size: 518, 520
+  orig: 518, 520
   offset: 0, 0
   index: -1
 engranajes3
   rotate: false
-  xy: 955, 704
+  xy: 951, 888
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
-faltante2
-  rotate: false
-  xy: 882, 704
-  size: 71, 70
-  orig: 71, 70
-  offset: 0, 0
-  index: -1
 faltante3
   rotate: false
-  xy: 124, 2
+  xy: 951, 955
   size: 65, 67
   orig: 65, 67
   offset: 0, 0
   index: -1
-fondoV
+fondoAutos
   rotate: false
-  xy: 2, 274
-  size: 600, 700
-  orig: 600, 700
+  xy: 522, 339
+  size: 475, 252
+  orig: 475, 252
+  offset: 0, 0
+  index: -1
+jugar-1
+  rotate: false
+  xy: 500, 103
+  size: 174, 116
+  orig: 174, 116
+  offset: 0, 0
+  index: -1
+jugar-2
+  rotate: false
+  xy: 721, 221
+  size: 174, 116
+  orig: 174, 116
+  offset: 0, 0
+  index: -1
+mano
+  rotate: false
+  xy: 2, 46
+  size: 496, 454
+  orig: 496, 454
+  offset: 0, 0
+  index: -1
+mega
+  rotate: false
+  xy: 522, 593
+  size: 427, 429
+  orig: 427, 429
+  offset: 0, 0
+  index: -1
+mega_brazo
+  rotate: false
+  xy: 676, 131
+  size: 171, 88
+  orig: 171, 88
+  offset: 0, 0
+  index: -1
+mega_mascara
+  rotate: false
+  xy: 702, 62
+  size: 140, 67
+  orig: 140, 67
   offset: 0, 0
   index: -1
 niveles-2
   rotate: false
-  xy: 800, 858
+  xy: 500, 221
   size: 219, 116
   orig: 219, 116
   offset: 0, 0
   index: -1
-tubo120
+nubeB
   rotate: false
-  xy: 2, 18
-  size: 120, 51
-  orig: 120, 51
+  xy: 702, 2
+  size: 93, 58
+  orig: 93, 58
   offset: 0, 0
   index: -1
-tuboVertical2
+premio1
   rotate: false
-  xy: 604, 642
-  size: 194, 332
-  orig: 194, 332
+  xy: 44, 4
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+premio2
+  rotate: false
+  xy: 951, 804
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+premio3
+  rotate: false
+  xy: 86, 4
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+premio4
+  rotate: false
+  xy: 951, 762
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+tubo
+  rotate: false
+  xy: 128, 4
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+tubo200
+  rotate: false
+  xy: 500, 50
+  size: 200, 51
+  orig: 200, 51
+  offset: 0, 0
+  index: -1
+tubo80
+  rotate: false
+  xy: 797, 9
+  size: 80, 51
+  orig: 80, 51
   offset: 0, 0
   index: -1
 violeta
   rotate: false
-  xy: 882, 776
+  xy: 849, 139
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaB
   rotate: false
-  xy: 604, 396
+  xy: 931, 175
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaD
   rotate: false
-  xy: 686, 478
+  xy: 931, 93
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
@@ -827,56 +855,56 @@ filter: Nearest,Nearest
 repeat: none
 blocksZoneTablet
   rotate: false
-  xy: 2, 2
+  xy: 431, 437
   size: 578, 197
   orig: 578, 197
   offset: 0, 0
   index: -1
-mano
+cityO1
   rotate: false
-  xy: 2, 201
-  size: 496, 454
-  orig: 496, 454
+  xy: 2, 2
+  size: 640, 201
+  orig: 640, 201
   offset: 0, 0
   index: -1
-mega
+feedbackTablet
   rotate: false
-  xy: 500, 226
+  xy: 431, 238
+  size: 578, 197
+  orig: 578, 197
+  offset: 0, 0
+  index: -1
+mega2
+  rotate: false
+  xy: 2, 205
   size: 427, 429
   orig: 427, 429
   offset: 0, 0
   index: -1
+tubo160
+  rotate: false
+  xy: 670, 945
+  size: 160, 51
+  orig: 160, 51
+  offset: 0, 0
+  index: -1
 workZoneV2
   rotate: false
-  xy: 2, 657
+  xy: 2, 636
   size: 666, 360
   orig: 666, 360
   offset: 0, 0
   index: -1
 
 pack7.png
-size: 1024,512
+size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-feedbackTablet
+parteB
   rotate: false
-  xy: 431, 256
-  size: 578, 197
-  orig: 578, 197
-  offset: 0, 0
-  index: -1
-fondoAutos
-  rotate: false
-  xy: 431, 2
-  size: 475, 252
-  orig: 475, 252
-  offset: 0, 0
-  index: -1
-mega2
-  rotate: false
-  xy: 2, 24
-  size: 427, 429
-  orig: 427, 429
+  xy: 2, 2
+  size: 600, 206
+  orig: 600, 206
   offset: 0, 0
   index: -1

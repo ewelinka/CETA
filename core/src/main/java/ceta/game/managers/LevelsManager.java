@@ -56,7 +56,8 @@ public class LevelsManager {
                 || lastLevelCompleted == Constants.L2_COMPLETED_NR
                 || lastLevelCompleted == Constants.L3_COMPLETED_NR
                 || lastLevelCompleted == Constants.L4_COMPLETED_NR
-                || lastLevelCompleted == Constants.L5_COMPLETED_NR){
+                || lastLevelCompleted == Constants.L5_COMPLETED_NR
+                || lastLevelCompleted == Constants.L6_COMPLETED_NR){
             game.setScreen(new TreeScreen(game),ScreenTransitionFade.init(0.75f));
         }else { // if no important change -> we just go to next level
             goToUncompletedLevel();
