@@ -91,6 +91,7 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		// the video encoder so we don't have to scale.
 		if(this.mCamera==null && openCvInit)
 			openCamera(VIDEO_WIDTH, VIDEO_HEIGHT, DESIRED_PREVIEW_FPS);
+
 	}
 
 	@Override
@@ -128,45 +129,47 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 
 	private void openCamera(int desiredWidth, int desiredHeight, int desiredFps) {
 		if (mCamera != null) {
-			throw new RuntimeException("camera already initialized");
+			//throw new RuntimeException("camera already initialized");
 		}
+		else {
 
-		Camera.CameraInfo info = new Camera.CameraInfo();
+			Camera.CameraInfo info = new Camera.CameraInfo();
 
-		// Try to find a front-facing camera (e.g. for videoconferencing).
-		int numCameras = Camera.getNumberOfCameras();
-		for (int i = 0; i < numCameras; i++) {
-			Camera.getCameraInfo(i, info);
-			if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-				mCamera = Camera.open(i);
-				break;
+			// Try to find a front-facing camera (e.g. for videoconferencing).
+			int numCameras = Camera.getNumberOfCameras();
+			for (int i = 0; i < numCameras; i++) {
+				Camera.getCameraInfo(i, info);
+				if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+					mCamera = Camera.open(i);
+					break;
+				}
 			}
-		}
-		if (mCamera == null) {
-			Log.d(TAG, "No front-facing camera found; opening default");
-			mCamera = Camera.open();    // opens first back-facing camera
-		}
-		if (mCamera == null) {
-			throw new RuntimeException("Unable to open camera");
-		}
+			if (mCamera == null) {
+				Log.d(TAG, "No front-facing camera found; opening default");
+				mCamera = Camera.open();    // opens first back-facing camera
+			}
+			if (mCamera == null) {
+				throw new RuntimeException("Unable to open camera");
+			}
 
-		Camera.Parameters parms = mCamera.getParameters();
+			Camera.Parameters parms = mCamera.getParameters();
 
-		CameraUtils.choosePreviewSize(parms, desiredWidth, desiredHeight);
-		CameraUtils.choosePreviewFormat(parms, ImageFormat.NV21);
-		// Try to set the frame rate to a constant value.
-		mCameraPreviewThousandFps = CameraUtils.chooseFixedPreviewFps(parms, desiredFps * 1000);
+			CameraUtils.choosePreviewSize(parms, desiredWidth, desiredHeight);
+			CameraUtils.choosePreviewFormat(parms, ImageFormat.NV21);
+			// Try to set the frame rate to a constant value.
+			mCameraPreviewThousandFps = CameraUtils.chooseFixedPreviewFps(parms, desiredFps * 1000);
 
-		// Give the camera a hint that we're recording video.  This can have a big
-		// impact on frame rate.
+			// Give the camera a hint that we're recording video.  This can have a big
+			// impact on frame rate.
 //		parms.setRecordingHint(true);
-		
-		mCamera.setParameters(parms);
 
-		Camera.Size cameraPreviewSize = parms.getPreviewSize();
-		String previewFacts = cameraPreviewSize.width + "x" + cameraPreviewSize.height +
-				" @" + (mCameraPreviewThousandFps / 1000.0f) + "fps";
-		Log.i(TAG, "Camera config: " + previewFacts);
+			mCamera.setParameters(parms);
+
+			Camera.Size cameraPreviewSize = parms.getPreviewSize();
+			String previewFacts = cameraPreviewSize.width + "x" + cameraPreviewSize.height +
+					" @" + (mCameraPreviewThousandFps / 1000.0f) + "fps";
+			Log.i(TAG, "Camera config: " + previewFacts);
+		}
 	}
 
 
