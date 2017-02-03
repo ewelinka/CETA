@@ -151,6 +151,42 @@ public class AudioManager {
 
     }
 
+    public void readNumber(int nr){
+        switch (nr){
+            case 1:
+                playWithoutInterruption(Assets.instance.sounds.one);
+                break;
+            case 2:
+                playWithoutInterruption(Assets.instance.sounds.two);
+                break;
+            case 3:
+                playWithoutInterruption(Assets.instance.sounds.three);
+                break;
+            case 4:
+                playWithoutInterruption(Assets.instance.sounds.four);
+                break;
+            case 5:
+                playWithoutInterruption(Assets.instance.sounds.five);
+                break;
+            case 6:
+                playWithoutInterruption(Assets.instance.sounds.six);
+                break;
+            case 7:
+                playWithoutInterruption(Assets.instance.sounds.seven);
+                break;
+            case 8:
+                playWithoutInterruption(Assets.instance.sounds.eight);
+                break;
+            case 9:
+                playWithoutInterruption(Assets.instance.sounds.nine);
+                break;
+            case 10:
+                playWithoutInterruption(Assets.instance.sounds.ten);
+                break;
+        }
+
+    }
+
     public void stopSound(){
         if(currentSound!= null) currentSound.stop();
     }

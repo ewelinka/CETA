@@ -42,7 +42,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         // polygon will be set for checks
         polygon = new Polygon();
         xSpace = 60;
-        ySpace = 25;
+        ySpace = 35;
         initBlocks();
         setWaitForFirstMove(true);
         noChangesSince = TimeUtils.millis();

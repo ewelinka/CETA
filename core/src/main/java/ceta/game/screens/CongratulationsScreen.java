@@ -33,8 +33,9 @@ public class CongratulationsScreen extends AbstractGameScreen {
     private boolean moveToNextLevel;
 
 
-    public CongratulationsScreen(DirectedGame game) {
+    public CongratulationsScreen(DirectedGame game, int score) {
         super(game);
+        game.getLevelsManager().onLevelCompleted(score);
     }
 
 

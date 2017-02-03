@@ -9,6 +9,7 @@ import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
@@ -24,10 +25,28 @@ public class WorldRenderer extends AbstractWorldRenderer {
     protected int currentPriceTypeNr;
     private boolean isPlayingCleanTable;
 
+    public WorldRenderer(AbstractWorldController worldController, Stage stage) {
+        this(worldController,stage,true); //default horizontal number line
+
+    }
+
+    public WorldRenderer(AbstractWorldController worldController, Stage stage,TextureAtlas.AtlasRegion imgBackground) {
+        this(worldController,stage,true,imgBackground); //default horizontal number line
+
+    }
+
     public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
+        this(worldController,stage,numberLineIsHorizontal, Assets.instance.background.back3);
+    }
+
+
+
+    public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal,TextureAtlas.AtlasRegion imgBackground) {
         this.stage = stage;
         this.worldController = worldController;
         this.numberLineIsHorizontal = numberLineIsHorizontal;
+        this.imgBackground = imgBackground;
+
         feedbackRenderer = new FeedbackRenderer(stage);
         shouldRenderClue = false;
         currentPriceTypeNr = worldController.getCurrentPriceType();
@@ -36,10 +55,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         init();
     }
 
-    public WorldRenderer(AbstractWorldController worldController, Stage stage) {
-        this(worldController,stage,true); //default horizontal number line
 
-    }
 
     public void init () {
         levelMinimumNumber = worldController.getMinimumNumber();

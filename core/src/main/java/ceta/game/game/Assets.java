@@ -25,9 +25,8 @@ public class Assets implements Disposable, AssetErrorListener {
     private AssetManager assetManager;
 
     public AssetFonts fonts;
-
+    public AssetVirtualBlocks box;
     public AssetBruno bruno;
-    public AssetBox box;
     public AssetBackground background;
     public AssetObjectsToCollect toCollect;
     public AssetRoboticParts roboticParts;
@@ -86,7 +85,7 @@ public class Assets implements Disposable, AssetErrorListener {
         fonts = new AssetFonts();
 
         bruno = new AssetBruno(atlas);
-        box = new AssetBox(atlas);
+        box = new AssetVirtualBlocks(atlas);
         background = new AssetBackground(atlas);
         feedback = new AssetFeedback(atlas);
         sounds = new AssetSounds(assetManager);
@@ -136,14 +135,14 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
-    public class AssetBox {
+    public class AssetVirtualBlocks {
         public final TextureAtlas.AtlasRegion box;
         public final TextureAtlas.AtlasRegion box2;
         public final TextureAtlas.AtlasRegion box3;
         public final TextureAtlas.AtlasRegion box4;
         public final TextureAtlas.AtlasRegion box5;
 
-        public AssetBox (TextureAtlas atlas) {
+        public AssetVirtualBlocks(TextureAtlas atlas) {
             box = atlas.findRegion("1");
             box2 = atlas.findRegion("2");
             box3 = atlas.findRegion("3");
@@ -158,18 +157,20 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion wheel;
         public final TextureAtlas.AtlasRegion tutorial1;
         public final TextureAtlas.AtlasRegion tutorial2;
+        public final TextureAtlas.AtlasRegion justHand;
 
         public AssetFeedback (TextureAtlas atlas) {
             hand = atlas.findRegion("mano");
             wheel = atlas.findRegion("wheel");
             tutorial1 = atlas.findRegion("tutorial1");
             tutorial2 =  atlas.findRegion("tutorial2");
+            justHand = atlas.findRegion("manoSola");
 
         }
     }
 
     public class AssetBackground {
-        public final TextureAtlas.AtlasRegion back;
+        public final TextureAtlas.AtlasRegion back1;
         public final TextureAtlas.AtlasRegion back2;
         public final TextureAtlas.AtlasRegion back3;
         public final TextureAtlas.AtlasRegion backStart;
@@ -201,10 +202,12 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion cityO1;
         public final TextureAtlas.AtlasRegion cityO2;
 
+        public final TextureAtlas.AtlasRegion bigScrew;
+
 
 
         public AssetBackground (TextureAtlas atlas) {
-            back = atlas.findRegion("fondoC");
+            back1 = atlas.findRegion("fondoAutos");
             back2 = atlas.findRegion("fondoN");
             back3 = atlas.findRegion("fondoV");
             backStart = atlas.findRegion("inicio");
@@ -232,6 +235,7 @@ public class Assets implements Disposable, AssetErrorListener {
             cloud5 = atlas.findRegion("nubeE");
             cityO1 = atlas.findRegion("cityO1");
             cityO2 = atlas.findRegion("cityO2");
+            bigScrew = atlas.findRegion("tornillo-intro");
 
 
         }
@@ -462,7 +466,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound two;
         public final Sound three;
         public final Sound four;
-        public final Sound five;
+        public final Sound five,six,seven,eight,nine,ten;
+
         public final Sound plus;
 
         public final Sound tooMuch;
@@ -484,6 +489,14 @@ public class Assets implements Disposable, AssetErrorListener {
             three = am.get("sounds/3.mp3", Sound.class);
             four = am.get("sounds/4.mp3", Sound.class);
             five = am.get("sounds/5.mp3", Sound.class);
+            six=five;
+            seven=five;
+            eight=five;
+            nine =five;
+            ten = five;
+
+
+
             plus = am.get("sounds/buzz.wav", Sound.class);
 
             tooMuch = am.get("sounds/muchas.mp3", Sound.class);

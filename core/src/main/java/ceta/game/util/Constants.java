@@ -40,7 +40,7 @@ public class Constants {
     public static int PRICE_Y_HORIZONTAL; // where price will be if number line horizontal
     public static int DRAW_START;
 
-    public static final int ACTION_SUBMIT_WAIT = 1000;
+    public static final int ACTION_SUBMIT_WAIT = 1500;
     public static final int INACTIVITY_LIMIT = 5000;
     public static final float TIME_DELAY_SCREEN_FINISHED = 1.0f;
 

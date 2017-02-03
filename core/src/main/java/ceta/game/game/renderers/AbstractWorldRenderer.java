@@ -31,7 +31,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected FeedbackRenderer feedbackRenderer;
     protected boolean shouldRenderClue;
     protected Stage stage;
-    protected Image imgBackground;
+    protected TextureAtlas.AtlasRegion imgBackground;
 
 
     protected int levelMinimumNumber;
@@ -123,16 +123,24 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
     protected void renderBackgroundImg(SpriteBatch batch){
-        TextureAtlas.AtlasRegion b = Assets.instance.background.back3;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(b.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.GROUND_LEVEL,
-                b.getRegionWidth()/2, b.getRegionHeight()/2,
-                b.getRegionWidth(), b.getRegionHeight(),
-                1, 1,
-                0,
-                b.getRegionX(), b.getRegionY(),
-                b.getRegionWidth(), b.getRegionHeight(), false,false);
+        if(numberLineIsHorizontal)
+            batch.draw(imgBackground.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.GROUND_LEVEL,
+                    imgBackground.getRegionWidth()/2,imgBackground.getRegionHeight()/2,
+                    imgBackground.getRegionWidth(), imgBackground.getRegionHeight(),
+                    1, 1,
+                    0,
+                    imgBackground.getRegionX(), imgBackground.getRegionY(),
+                    imgBackground.getRegionWidth(), imgBackground.getRegionHeight(), false,false);
+        else
+            batch.draw(imgBackground.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END,
+                    imgBackground.getRegionWidth()/2,imgBackground.getRegionHeight()/2,
+                    imgBackground.getRegionWidth(), imgBackground.getRegionHeight(),
+                    1, 1,
+                    0,
+                    imgBackground.getRegionX(), imgBackground.getRegionY(),
+                    imgBackground.getRegionWidth(), imgBackground.getRegionHeight(), false,false);
         batch.end();
     }
 

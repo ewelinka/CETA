@@ -19,6 +19,10 @@ public class WorldRenderer1Vertical extends WorldRenderer{
         super(worldController, stage, numberLineIsHorizontal);
     }
 
+    public WorldRenderer1Vertical(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal,TextureAtlas.AtlasRegion imgBackground) {
+        super(worldController, stage, numberLineIsHorizontal,imgBackground);
+    }
+
     @Override
     protected void renderDetectionZoneImg(SpriteBatch batch) {
         TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksTablet;

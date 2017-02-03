@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import javafx.scene.control.Tab;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
@@ -162,14 +161,14 @@ public class SimpleMenuScreen extends AbstractGameScreen {
                 run(new Runnable() {
                     @Override
                     public void run() {
-                        game.setScreen(new TutorialScreen(game),ScreenTransitionFade.init(1.75f));
+                        game.setScreen(new TutorialCvScreen(game),ScreenTransitionFade.init(1.75f));
                     }
                 })
         ));
 
 
-        screw = new Image(Assets.instance.toCollect.price1);
-        screw.setSize(40,40);
+        screw = new Image(Assets.instance.background.bigScrew);
+        screw.setSize(36,43);
         screw.setOrigin(screw.getWidth()/2,screw.getHeight()/2);
         screw.setPosition(Constants.VIEWPORT_WIDTH/2,50+brunoBody.getHeight()-10);
         screw.addAction(

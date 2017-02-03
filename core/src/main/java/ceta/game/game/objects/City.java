@@ -32,6 +32,7 @@ public class City {
     private int cityFrontSpeed;
 
     private int colorRectHeight;
+    private int cityGround;
 
     public City(SpriteBatch batch, OrthographicCamera camera){
         this.batch = batch;
@@ -51,6 +52,8 @@ public class City {
         cityFrontSpeed = 55;
 
         colorRectHeight = 200;
+
+        cityGround = Constants.DETECTION_ZONE_END;
 
     }
 
@@ -105,14 +108,14 @@ public class City {
 //                cityHalf.getRegionX()+10,cityHalf.getRegionY()+cityHalf.getRegionHeight()-10,10,10,false,false);
 
         batch.draw(cityFrontHalf.getTexture(),
-                -Constants.VIEWPORT_WIDTH/2, Constants.GROUND_LEVEL,
+                -Constants.VIEWPORT_WIDTH/2, cityGround,
                 Constants.VIEWPORT_WIDTH,colorRectHeight,
                 cityFrontHalf.getRegionX()+10,cityFrontHalf.getRegionY()+cityFrontHalf.getRegionHeight()-15,10,10,false,false);
     }
 
     private void drawCity(){
-        drawCityPart(300 - cityX ,Constants.GROUND_LEVEL+colorRectHeight+15);
-        drawCityPart(300 - cityX2,Constants.GROUND_LEVEL+colorRectHeight+15);
+        drawCityPart(300 - cityX ,cityGround+colorRectHeight+15);
+        drawCityPart(300 - cityX2,cityGround+colorRectHeight+15);
 
 
     }
@@ -130,8 +133,8 @@ public class City {
     }
 
     private void drawFrontCity(){
-        drawFrontCityPart(300 - cityFrontX,Constants.GROUND_LEVEL+colorRectHeight);
-        drawFrontCityPart(300 - cityFrontX2,Constants.GROUND_LEVEL+colorRectHeight);
+        drawFrontCityPart(300 - cityFrontX,cityGround+colorRectHeight);
+        drawFrontCityPart(300 - cityFrontX2,cityGround+colorRectHeight);
 
     }
 

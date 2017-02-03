@@ -1,5 +1,6 @@
 package ceta.game.screens;
 
+import ceta.game.game.Assets;
 import ceta.game.game.controllers.Level1HorizontalController;
 import ceta.game.game.renderers.WorldRenderer;
 import ceta.game.util.Constants;
@@ -50,7 +51,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen{
         worldController = new Level1HorizontalController(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRenderer(worldController,stage); // default set number line to horizontal
+        worldRenderer = new WorldRenderer(worldController,stage, Assets.instance.background.back1); // default set number line to horizontal
         // android back key
         Gdx.input.setCatchBackKey(true);
     }
