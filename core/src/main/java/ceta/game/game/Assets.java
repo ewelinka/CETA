@@ -62,6 +62,14 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/3.mp3", Sound.class);
         assetManager.load("sounds/4.mp3", Sound.class);
         assetManager.load("sounds/5.mp3", Sound.class);
+        assetManager.load("sounds/6.mp3", Sound.class);
+        assetManager.load("sounds/7.mp3", Sound.class);
+        assetManager.load("sounds/8.mp3", Sound.class);
+        assetManager.load("sounds/9.mp3", Sound.class);
+        assetManager.load("sounds/10.mp3", Sound.class);
+        assetManager.load("sounds/11.mp3", Sound.class);
+        assetManager.load("sounds/12.mp3", Sound.class);
+        assetManager.load("sounds/13.mp3", Sound.class);
         assetManager.load("sounds/muchas.mp3", Sound.class);
         assetManager.load("sounds/pocas.mp3", Sound.class);
         assetManager.load("sounds/quita.mp3", Sound.class);
@@ -124,7 +132,7 @@ public class Assets implements Disposable, AssetErrorListener {
             defaultBig = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
             // set fontNumberLine sizes
             defaultNumberLine.getData().setScale(1.0f);
-            defaultSmall.getData().setScale(0.8f);
+            defaultSmall.getData().setScale(0.7f);
             defaultNormal.getData().setScale(1.0f);
             defaultBig.getData().setScale(2.5f);
             // enable linear texture filtering for smooth fonts
@@ -466,7 +474,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound two;
         public final Sound three;
         public final Sound four;
-        public final Sound five,six,seven,eight,nine,ten;
+        public final Sound five,six,seven,eight,nine,ten,eleven,twelve,thirteen;
 
         public final Sound plus;
 
@@ -489,11 +497,14 @@ public class Assets implements Disposable, AssetErrorListener {
             three = am.get("sounds/3.mp3", Sound.class);
             four = am.get("sounds/4.mp3", Sound.class);
             five = am.get("sounds/5.mp3", Sound.class);
-            six=five;
-            seven=five;
-            eight=five;
-            nine =five;
-            ten = five;
+            six=am.get("sounds/6.mp3", Sound.class);
+            seven=am.get("sounds/7.mp3", Sound.class);
+            eight=am.get("sounds/8.mp3", Sound.class);
+            nine =am.get("sounds/9.mp3", Sound.class);
+            ten = am.get("sounds/10.mp3", Sound.class);
+            eleven= am.get("sounds/11.mp3", Sound.class);
+            twelve= am.get("sounds/12.mp3", Sound.class);
+            thirteen= am.get("sounds/13.mp3", Sound.class);
 
 
 

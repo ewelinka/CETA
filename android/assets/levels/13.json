@@ -1,12 +1,12 @@
 {
-  level: 4,
+  level: 13,
   operationsNumberToPassToNext: 2,
   operationsToFinishLevel: 4,
-  operations: [2,5,2,6],
-  numberMin: 0,
-  numberMax: 13,
+  operations: [],
+  numberMin: 10,
+  numberMax: 20,
   numberOrOperation: "number",
-  priceReturn: -1,
-  priceVelocity: -100,
+  priceReturn: 3,
+  priceVelocity: -400,
   visibleNumberLine: true
 }

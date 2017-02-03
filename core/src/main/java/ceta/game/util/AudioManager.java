@@ -183,6 +183,15 @@ public class AudioManager {
             case 10:
                 playWithoutInterruption(Assets.instance.sounds.ten);
                 break;
+            case 11:
+                playWithoutInterruption(Assets.instance.sounds.eleven);
+                break;
+            case 12:
+                playWithoutInterruption(Assets.instance.sounds.twelve);
+                break;
+            case 13:
+                playWithoutInterruption(Assets.instance.sounds.thirteen);
+                break;
         }
 
     }

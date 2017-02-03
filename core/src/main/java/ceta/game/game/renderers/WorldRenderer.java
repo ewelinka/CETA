@@ -188,8 +188,14 @@ public class WorldRenderer extends AbstractWorldRenderer {
 //    }
 
     protected void renderGuiScore (SpriteBatch batch) {
-        float x =  -Constants.VIEWPORT_WIDTH/2 + 10;
+        float x =  -Constants.VIEWPORT_WIDTH/2 + 15;
         float y = Constants.VIEWPORT_HEIGHT/2 - 50;
+
+
+        batch.draw(Assets.instance.background.blocksTablet,
+                x-15,y-10,
+                Constants.VIEWPORT_WIDTH,60);
+
         switch(currentPriceTypeNr){
             case 1:
                 batch.draw(Assets.instance.toCollect.price1,x,y,40,40);
@@ -205,12 +211,13 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 break;
         }
 
+
         // TODO hardcoded position!
         normalGuiFont.draw(batch, worldController.score+"",x+50,y+30);
 
         // total score
-        batch.draw(Assets.instance.toCollect.price1,x+500,y,30,30);
-        smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+500+40,y+25);
+        batch.draw(Assets.instance.toCollect.price1,x+485,y+5,25,25);
+        smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+515,y+25);
     }
 
 

@@ -25,12 +25,12 @@ public class Constants {
     public static final int BASE = 40;
     public static final int ERRORS_FOR_HINT = 2;
 
-    public static final int L1_COMPLETED_NR = 2; // 2 = laste level, 3 first level in L2
-    public static final int L2_COMPLETED_NR = 4; // last level to complete then we pass to L3
-    public static final int L3_COMPLETED_NR = 6;
-    public static final int L4_COMPLETED_NR = 8;
-    public static final int L5_COMPLETED_NR = 10;
-    public static final int L6_COMPLETED_NR = 12;
+    public static final int L1_COMPLETED_NR = 6; // 2 = laste level, 3 first level in L2
+    public static final int L2_COMPLETED_NR = 12; // last level to complete then we pass to L3
+    public static final int L3_COMPLETED_NR = 18;
+    public static final int L4_COMPLETED_NR = 24;
+    public static final int L5_COMPLETED_NR = 30;
+    public static final int L6_COMPLETED_NR = 36;
 
     public static final int NO_MOVEMENT_DIST = 15;
 
