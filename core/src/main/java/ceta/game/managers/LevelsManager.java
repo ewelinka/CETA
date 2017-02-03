@@ -139,112 +139,112 @@ public class LevelsManager {
                 game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 2:
-                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 3:
                 game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 4:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 5:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition); // island 1 over
+                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition); // island 1 over
                 break;
 
             case 6:
-                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 7:
-                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 8:
-                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 9:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 10:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 11:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition); // island 2 over
+                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition); // island 2 over
                 break;
 
             case 12:
-                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 13:
-                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 14:
-                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 15:
-                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
                 break;
             case 16:
-                game.setScreen(new Level2VerticalScreen(game,lastLevelFinished+1), transition);
-                break;
-            case 17:
-                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition); // island 3 over
-                break;
-
-            case 18:
-                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 19:
-                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 20:
-                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 21:
-                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 22:
-                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 23:
-                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition); // island 4 over
-                break;
-
-            case 24:
-                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 25:
-                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 26:
                 game.setScreen(new Level3HorizontalScreen(game,lastLevelFinished+1), transition);
                 break;
-            case 27:
-                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 28:
-                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 29:
-                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition); // island 5 over
-                break;
-
-            case 30:
-                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 31:
-                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 32:
-                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 33:
-                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 34:
-                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 35:
-                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition); // island 6 over
-                break;
+//            case 17:
+//                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition); // island 3 over
+//                break;
+//
+//            case 18:
+//                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 19:
+//                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 20:
+//                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 21:
+//                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 22:
+//                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 23:
+//                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition); // island 4 over
+//                break;
+//
+//            case 24:
+//                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 25:
+//                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 26:
+//                game.setScreen(new Level3HorizontalScreen(game,lastLevelFinished+1), transition);
+//                break;
+//            case 27:
+//                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 28:
+//                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 29:
+//                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition); // island 5 over
+//                break;
+//
+//            case 30:
+//                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 31:
+//                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 32:
+//                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 33:
+//                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 34:
+//                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition);
+//                break;
+//            case 35:
+//                game.setScreen(new Level3VerticalScreen(game, lastLevelFinished+1), transition); // island 6 over
+//                break;
 
             default:
                 GamePreferences.instance.setLastLevel(0); // we go to the beginning

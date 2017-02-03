@@ -42,7 +42,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         // polygon will be set for checks
         polygon = new Polygon();
         xSpace = 60;
-        ySpace = 35;
+        ySpace = 45;
         initBlocks();
         setWaitForFirstMove(true);
         noChangesSince = TimeUtils.millis();
@@ -144,15 +144,15 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         switch(virtualBlock.getBlockValue()){
             case 1:
                 virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 60 +xSpace,
-                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*2 + Constants.BASE);
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*1.5f + Constants.BASE);
                 break;
             case 2:
                 virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 60 + xSpace*2 + Constants.BASE , // 1
-                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*2 + Constants.BASE);
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*1.5f + Constants.BASE);
                 break;
             case 3:
                 virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 60 + xSpace*3 + Constants.BASE*3 , // 1,2
-                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*2 + Constants.BASE);
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*1.5f + Constants.BASE);
                 break;
             case 4:
                 virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 40+ xSpace,

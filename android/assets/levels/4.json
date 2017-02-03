@@ -1,8 +1,8 @@
 {
   level: 4,
-  operationsNumberToPassToNext: 2,
-  operationsToFinishLevel: 4,
-  operations: [2,5,2,6],
+  operationsNumberToPassToNext: 6,
+  operationsToFinishLevel: 6,
+  operations: [2,7,2,8,2,9],
   numberMin: 0,
   numberMax: 13,
   numberOrOperation: "number",

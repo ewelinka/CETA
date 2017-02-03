@@ -2,11 +2,11 @@
   level: 12,
   operationsNumberToPassToNext: 2,
   operationsToFinishLevel: 3,
-  operations: [13,15,17],
-  numberMin: 5,
-  numberMax: 18,
+  operations: [21,23,25],
+  numberMin: 15,
+  numberMax: 25,
   numberOrOperation: "number",
-  priceReturn: -1,
-  priceVelocity: -100,
+  priceReturn: 3,
+  priceVelocity: -400,
   visibleNumberLine: true
 }

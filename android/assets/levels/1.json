@@ -1,6 +1,6 @@
 {
   level: 1,
-  operationsNumberToPassToNext: 2,
+  operationsNumberToPassToNext: 3,
   operationsToFinishLevel: 3,
   operations: [1,2,3],
   numberMin: 0 ,

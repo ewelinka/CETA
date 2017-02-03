@@ -19,7 +19,7 @@ public class TutorialScreen extends AbstractGameScreen{
     private boolean paused;
 
     public TutorialScreen(DirectedGame game) {
-        super(game, 0);
+        super(game, 1);
     } // 0 json for intro
 
 

@@ -82,7 +82,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
         //renderDetectionZone(shapeRenderer);
         renderDetectionZoneImg(spriteBatch);
         renderBackgroundImg(spriteBatch);
-        renderHelperNumberLines(shapeRenderer);
+        if(worldController.isNumberLineVisible())
+            renderHelperNumberLines(shapeRenderer);
         renderWorldAndOver();
 
 
@@ -91,8 +92,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
     protected void renderWorldAndOver(){
         renderWorld(spriteBatch);
 
-        if(worldController.isNumberLineVisible())
-            renderHelperNumbers(spriteBatch);
+
+        renderHelperNumbers(spriteBatch);
 
         if (worldController.getCountdownOn()) {
             if(GamePreferences.instance.actionSubmit)
