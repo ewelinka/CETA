@@ -667,184 +667,198 @@ filter: Nearest,Nearest
 repeat: none
 01bruno
   rotate: false
-  xy: 951, 846
+  xy: 973, 879
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 1
   rotate: false
-  xy: 2, 4
+  xy: 973, 921
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 box
   rotate: false
-  xy: 849, 65
+  xy: 808, 486
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
+cityO1
+  rotate: false
+  xy: 2, 458
+  size: 640, 201
+  orig: 640, 201
+  offset: 0, 0
+  index: -1
 doradoC
   rotate: false
-  xy: 897, 257
+  xy: 891, 881
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-engrana03
-  rotate: false
-  xy: 2, 502
-  size: 518, 520
-  orig: 518, 520
-  offset: 0, 0
-  index: -1
 engranajes3
   rotate: false
-  xy: 951, 888
+  xy: 882, 503
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
 faltante3
   rotate: false
-  xy: 951, 955
+  xy: 842, 570
   size: 65, 67
   orig: 65, 67
   offset: 0, 0
   index: -1
-fondoAutos
-  rotate: false
-  xy: 522, 339
-  size: 475, 252
-  orig: 475, 252
-  offset: 0, 0
-  index: -1
 jugar-1
   rotate: false
-  xy: 500, 103
+  xy: 670, 734
   size: 174, 116
   orig: 174, 116
   offset: 0, 0
   index: -1
 jugar-2
   rotate: false
-  xy: 721, 221
+  xy: 846, 692
   size: 174, 116
   orig: 174, 116
   offset: 0, 0
   index: -1
 mano
   rotate: false
-  xy: 2, 46
+  xy: 2, 2
   size: 496, 454
   orig: 496, 454
   offset: 0, 0
   index: -1
-mega
+manoSola
   rotate: false
-  xy: 522, 593
-  size: 427, 429
-  orig: 427, 429
+  xy: 500, 2
+  size: 496, 454
+  orig: 496, 454
   offset: 0, 0
   index: -1
 mega_brazo
   rotate: false
-  xy: 676, 131
+  xy: 670, 644
   size: 171, 88
   orig: 171, 88
   offset: 0, 0
   index: -1
 mega_mascara
   rotate: false
-  xy: 702, 62
+  xy: 872, 810
   size: 140, 67
   orig: 140, 67
   offset: 0, 0
   index: -1
 niveles-2
   rotate: false
-  xy: 500, 221
+  xy: 670, 905
   size: 219, 116
   orig: 219, 116
   offset: 0, 0
   index: -1
 nubeB
   rotate: false
-  xy: 702, 2
+  xy: 891, 963
   size: 93, 58
   orig: 93, 58
   offset: 0, 0
   index: -1
 premio1
   rotate: false
-  xy: 44, 4
+  xy: 800, 602
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 premio2
   rotate: false
-  xy: 951, 804
+  xy: 800, 560
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 premio3
   rotate: false
-  xy: 86, 4
+  xy: 882, 461
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 premio4
   rotate: false
-  xy: 951, 762
+  xy: 924, 461
   size: 40, 40
   orig: 40, 40
+  offset: 0, 0
+  index: -1
+tornillo-intro
+  rotate: false
+  xy: 644, 550
+  size: 72, 87
+  orig: 72, 87
   offset: 0, 0
   index: -1
 tubo
   rotate: false
-  xy: 128, 4
+  xy: 966, 544
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
+tubo160
+  rotate: false
+  xy: 843, 639
+  size: 160, 51
+  orig: 160, 51
+  offset: 0, 0
+  index: -1
 tubo200
   rotate: false
-  xy: 500, 50
+  xy: 670, 852
   size: 200, 51
   orig: 200, 51
   offset: 0, 0
   index: -1
 tubo80
   rotate: false
-  xy: 797, 9
+  xy: 909, 586
   size: 80, 51
   orig: 80, 51
   offset: 0, 0
   index: -1
 violeta
   rotate: false
-  xy: 849, 139
+  xy: 644, 468
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaB
   rotate: false
-  xy: 931, 175
+  xy: 718, 557
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaD
   rotate: false
-  xy: 931, 93
+  xy: 726, 475
   size: 80, 80
   orig: 80, 80
+  offset: 0, 0
+  index: -1
+workZoneV2
+  rotate: false
+  xy: 2, 661
+  size: 666, 360
+  orig: 666, 360
   offset: 0, 0
   index: -1
 
@@ -855,55 +869,55 @@ filter: Nearest,Nearest
 repeat: none
 blocksZoneTablet
   rotate: false
-  xy: 431, 437
+  xy: 431, 71
   size: 578, 197
   orig: 578, 197
   offset: 0, 0
   index: -1
-cityO1
+engrana03
+  rotate: false
+  xy: 2, 433
+  size: 518, 520
+  orig: 518, 520
+  offset: 0, 0
+  index: -1
+fondoAutos
+  rotate: false
+  xy: 522, 270
+  size: 475, 252
+  orig: 475, 252
+  offset: 0, 0
+  index: -1
+mega
   rotate: false
   xy: 2, 2
-  size: 640, 201
-  orig: 640, 201
-  offset: 0, 0
-  index: -1
-feedbackTablet
-  rotate: false
-  xy: 431, 238
-  size: 578, 197
-  orig: 578, 197
-  offset: 0, 0
-  index: -1
-mega2
-  rotate: false
-  xy: 2, 205
   size: 427, 429
   orig: 427, 429
   offset: 0, 0
   index: -1
-tubo160
+mega2
   rotate: false
-  xy: 670, 945
-  size: 160, 51
-  orig: 160, 51
-  offset: 0, 0
-  index: -1
-workZoneV2
-  rotate: false
-  xy: 2, 636
-  size: 666, 360
-  orig: 666, 360
+  xy: 522, 524
+  size: 427, 429
+  orig: 427, 429
   offset: 0, 0
   index: -1
 
 pack7.png
-size: 1024,256
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-parteB
+feedbackTablet
   rotate: false
   xy: 2, 2
+  size: 578, 197
+  orig: 578, 197
+  offset: 0, 0
+  index: -1
+parteB
+  rotate: false
+  xy: 2, 201
   size: 600, 206
   orig: 600, 206
   offset: 0, 0
