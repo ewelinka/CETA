@@ -71,7 +71,7 @@ public class ResultsManager {
         levelNumber = levelNr;
     }
 
-    public void addIntent(boolean wasSuccessful, int kidResponse, int priceVal, int priceDisplayNr, ArrayList<Integer> toReadVals){
+    public void addIntent(boolean wasSuccessful, int kidResponse, int priceVal, int priceDisplayNr, ArrayList<Integer> toReadVals, int score){
         Gdx.app.log(TAG," addIntent +1 to "+intentsNr);
         //String id = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
 
@@ -90,11 +90,15 @@ public class ResultsManager {
         response = kidResponse;
         priceValue = priceVal;
         priceDisplayNumber = priceDisplayNr;
-        // level, price Nr, price val, priceDiplayNr, response, responseBlocks, response blocks number, intents nr, intnet result (1 or 0), time appeared, time collected, difference in millis
+        // level, price Nr, price val, priceDiplayNr, response, responseBlocks, response blocks number, intents nr, intnet result (1 or 0),
+        // time appeared, time collected, difference in millis
+        // current score, total score
+        // id
         toSave = levelNumber+","+priceNumber+","+priceValue+","+priceDisplayNumber+","
                 +response+","+formatResponseBlocks(responseBlocks)+","+responseBlocks.size()+","
                 +intentsNr+","+successfulIntent+","
-                +sdf.format(intentStartDate)+","+justTime.format(intentEndDate)+","+collectionTimeMillis
+                +sdf.format(intentStartDate)+","+justTime.format(intentEndDate)+","+collectionTimeMillis+","
+                +score+","+GamePreferences.instance.totalScore+","
                 +randomId+"\n";
         Gdx.app.log(TAG,"save data "+toSave);
         file.writeString(toSave,true);

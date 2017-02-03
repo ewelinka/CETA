@@ -64,14 +64,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         checkLevelParams();
         AudioManager.instance.setStage(stage);
 
-        if(GamePreferences.instance.actionSubmit) {
-            timeToWait = Constants.ACTION_SUBMIT_WAIT;
-            Gdx.app.log(TAG, " time to wait!!! "+timeToWait);
-        }
-        else {
-            timeToWait = 0;
-            Gdx.app.log(TAG, "no time to wait!!!");
-        }
+
+        timeToWait = Constants.ACTION_SUBMIT_WAIT;
+
         init();
         localInit();
     }
@@ -173,8 +168,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public void goToCongratulationsScreen () {
-        game.getLevelsManager().onLevelCompleted(score);
-        game.setScreen(new CongratulationsScreen(game), oneSegFadeIn);
+
+        game.setScreen(new CongratulationsScreen(game,score), oneSegFadeIn);
 
     }
 
@@ -467,16 +462,19 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public boolean isTimeForReadOver(float deltaTime){
-        timeToWaitForReading-=deltaTime;
-        if(timeToWaitForReading<0)
-            return true;
-        else
-            return false;
+//        timeToWaitForReading-=deltaTime;
+//        if(timeToWaitForReading<0)
+//            return true;
+//        else
+//            return false;
+        return true;
 
     }
 
     public boolean isReadOver(){
-        return timeToWaitForReading<0;
+
+       // return timeToWaitForReading<0;
+        return true;
     }
 
 
@@ -484,7 +482,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected void addIntentToResults(int kidResponse, int priceValue, int priceDisplayNumber, ArrayList<Integer> toReadVals){
         boolean wasSuccessful = (kidResponse == priceValue);
         isTooMuch = (kidResponse > priceValue);
-        game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue,priceDisplayNumber, toReadVals);
+        game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue,priceDisplayNumber, toReadVals, score);
         errorCheck(wasSuccessful);
     }
 
@@ -500,13 +498,16 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
     protected void readDetectedAndSaveIntentGeneric(ArrayList<Integer> toReadVals){
-        AudioManager.instance.readTheSum(toReadVals);
+        //AudioManager.instance.readTheSum(toReadVals);
+
         timeToWaitForReading = toReadVals.size(); // seconds
 
         int sum = 0;
         for( Integer i : toReadVals ) {
             sum += i;
         }
+
+        AudioManager.instance.readNumber(sum);
         addIntentToResults(sum,level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), toReadVals);
     }
 
