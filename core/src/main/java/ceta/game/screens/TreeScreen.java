@@ -3,6 +3,7 @@ package ceta.game.screens;
 import ceta.game.game.Assets;
 import ceta.game.game.objects.TreeArrow;
 import ceta.game.game.objects.TreeGear;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
@@ -34,6 +35,8 @@ public class TreeScreen extends AbstractGameScreen {
     private TreeArrow arrow;
     private int[][] gearsPositions;
     private int[][] arrowPositions;
+    private float automaticPassTime;
+    private boolean shouldPass;
 
     private boolean gameInit;
 
@@ -43,6 +46,8 @@ public class TreeScreen extends AbstractGameScreen {
 
     public TreeScreen(DirectedGame game, boolean gameInit) {
         super(game);
+        automaticPassTime = Constants.AUTOMATIC_LEVEL_PASS;
+        shouldPass = true;
         this.gameInit = gameInit;
         gearsPositions = new int[][]{
                 {228, 437},
@@ -65,6 +70,12 @@ public class TreeScreen extends AbstractGameScreen {
 
     @Override
     public void render(float deltaTime) {
+        if(automaticPassTime < 0 && shouldPass){
+            game.getLevelsManager().goToFirstUncompletedLevelFromTree();
+            shouldPass = false;
+        }
+        else
+            automaticPassTime-=deltaTime;
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(deltaTime);
@@ -141,6 +152,12 @@ public class TreeScreen extends AbstractGameScreen {
 
         enableGears();
 
+
+        //addPlayButton();
+
+    }
+
+    private void addPlayButton(){
         btnMenuPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
         stage.addActor(btnMenuPlay);
         btnMenuPlay.setSize(88*2,60*2);
@@ -151,7 +168,6 @@ public class TreeScreen extends AbstractGameScreen {
                 onPlayClicked();
             }
         });
-
 
     }
 
@@ -201,6 +217,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     private void enableGearsWithAnimation(int newActivated){
+        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.levelPassed);
         switch(newActivated){
             case 0:
                 break;

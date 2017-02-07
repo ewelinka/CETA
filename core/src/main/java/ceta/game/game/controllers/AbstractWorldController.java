@@ -7,6 +7,7 @@ import ceta.game.game.objects.*;
 import ceta.game.screens.DirectedGame;
 import ceta.game.screens.CongratulationsScreen;
 import ceta.game.screens.MenuScreen;
+import ceta.game.screens.TreeScreen;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.*;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
@@ -52,16 +54,20 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected boolean tableCleaned;
     private boolean happyEnd;
 
+    protected int operationsNumberToPassToNext;
 
 
 
-    public AbstractWorldController(DirectedGame game, Stage stage, int levelJson) {
+
+
+    public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
         this.game = game;
         this.stage = stage;
         oneSegFadeIn = ScreenTransitionFade.init(1);
 
-        levelParams = getLevelParams(levelJson);
-        checkLevelParams();
+        //levelParams = getLevelParams(levelNr);
+        loadLevelParamsFromCsv(levelNr);
+        checkLevelParamsAnsSetOperationsToPassToNext();
         AudioManager.instance.setStage(stage);
 
 
@@ -164,7 +170,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void backToMenu () {
         // switch to menu screen
        // ScreenTransition transition = ScreenTransitionFade.init(1);
-        game.setScreen(new MenuScreen(game), oneSegFadeIn);
+        game.setScreen(new TreeScreen(game,true), oneSegFadeIn);
     }
 
     public void goToCongratulationsScreen () {
@@ -390,7 +396,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         return json.fromJson(LevelParams.class, Gdx.files.internal(Constants.LEVELS_FOLDER+"/"+levelNr+".json"));
     }
 
-    private void checkLevelParams(){
+    protected void loadLevelParamsFromCsv(int levelNr){
+        levelParams = LevelsCsv.instance.getParams(levelNr);
+    }
+
+    private void checkLevelParamsAnsSetOperationsToPassToNext(){
         if(levelParams.operations.length > 0) { // NOT RANDOM CASE
             if(levelParams.operations.length < levelParams.operationsToFinishLevel ) {
                 Gdx.app.log(TAG, "we adjust operations to finish!  was: " + levelParams.operationsToFinishLevel + " now " + levelParams.operations.length);
@@ -403,13 +413,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 //                levelParams.operationsToFinishLevel = levelParams.operationsNumberToPassToNext;
 //            }
         }
-
-
-        if (levelParams.operationsNumberToPassToNext > levelParams.operationsToFinishLevel){
-            Gdx.app.log(TAG,"strange! finish with no posibility to collect! "+levelParams.operationsNumberToPassToNext +" "+levelParams.operationsToFinishLevel);
-            levelParams.operationsNumberToPassToNext = levelParams.operationsToFinishLevel;
-        }
-
+        operationsNumberToPassToNext = MathUtils.round(levelParams.operationsToFinishLevel*0.8f);
+        Gdx.app.log(TAG,"to finish level "+levelParams.operationsToFinishLevel+" to pass: "+operationsNumberToPassToNext);
 
     }
 
@@ -589,7 +594,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     private int getOperationsToPassToNextLevel(){
-        return levelParams.operationsNumberToPassToNext;
+        return operationsNumberToPassToNext;
     }
 
 //    private void testScreenOver(){

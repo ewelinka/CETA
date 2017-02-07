@@ -11,9 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * Created by ewe on 12/27/16.
  */
 public class WorldRenderer1VerticalCV extends WorldRendererCV {
-    private int adjustX = 216;
-    public WorldRenderer1VerticalCV(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
-        super(worldController, stage, numberLineIsHorizontal);
+    private int adjustX = 162;
+    public WorldRenderer1VerticalCV(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal,TextureAtlas.AtlasRegion  regtex) {
+        super(worldController, stage, numberLineIsHorizontal,regtex);
     }
 
     @Override

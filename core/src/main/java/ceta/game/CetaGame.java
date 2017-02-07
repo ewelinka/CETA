@@ -35,36 +35,38 @@ public class CetaGame extends DirectedGame {
 		levelsManager = new LevelsManager(this);
 		resultsManager = new ResultsManager();
 
+
 		// load music
 		AudioManager.instance.play(Assets.instance.music.song01);
 		ScreenTransition transition = ScreenTransitionFade.init(1);
 		//setScreen(new MenuScreen(this),transition);
 		//setScreen(new Level3VerticalScreen(this,1),transition);
 
-		//setScreen(new MenuScreen(this),transition);
+		//setScreen(new SimpleMenuScreen(this),transition);
 		//setScreen(new Level1VerticalMovingScreen(this, 2), transition);
 		//setScreen(new TutorialScreen(this));
 		setScreen(new TreeScreen(this,true));
+		//setScreen(new Level1VerticalCvScreen(this, 2, Assets.instance.staticBackground.city1), transition);
 
 
 	}
 
 	public void setLastFrame(Mat frame){
-		Gdx.app.log(TAG,"Setting last frame setLastFrame!");
+	//	Gdx.app.log(TAG,"Setting last frame setLastFrame!");
 		synchronized (syncObject) {
 			if(!this.frameBlocked) {
-				Gdx.app.log(TAG,"Setting new frame!");
+			//	Gdx.app.log(TAG,"Setting new frame!");
 				this.lastFrame = frame.clone();
 				this.hasNewFrame = true;
 			}else{
-				Gdx.app.log(TAG,"blocked frame!");
+		//		Gdx.app.log(TAG,"blocked frame!");
 			}
 		}
 	}
 
 	public Mat getAndBlockLastFrame(){
 		synchronized (syncObject) {
-			Gdx.app.log(TAG,"blocking frame!");
+	//		Gdx.app.log(TAG,"blocking frame!");
 			this.frameBlocked = true;
 			this.hasNewFrame = false;
 			return this.lastFrame;

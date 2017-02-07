@@ -17,8 +17,8 @@ public class WorldRenderer1VerticalMoving extends WorldRenderer {
     private int adjustX = 50;
     private int adjustY = 0;
 
-    public WorldRenderer1VerticalMoving(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
-        super(worldController, stage, numberLineIsHorizontal);
+    public WorldRenderer1VerticalMoving(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal,TextureAtlas.AtlasRegion  regtex) {
+        super(worldController, stage, numberLineIsHorizontal,regtex);
         city = new City(spriteBatch, camera);
 
     }

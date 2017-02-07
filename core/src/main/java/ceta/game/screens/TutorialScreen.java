@@ -52,7 +52,7 @@ public class TutorialScreen extends AbstractGameScreen{
         worldController = new Level1HorizontalController(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRenderer(worldController,stage, Assets.instance.background.back1); // default set number line to horizontal
+        worldRenderer = new WorldRenderer(worldController,stage,regTex); // default set number line to horizontal
         // android back key
         Gdx.input.setCatchBackKey(true);
     }

@@ -33,6 +33,9 @@ public class GamePreferences {
         lastLevel = prefs.getInteger("lastLevel",0);
         totalScore = prefs.getInteger("totalScore",0);
         randomId = prefs.getString("randomId", randomUUID ().toString());
+
+        prefs.putString("randomId", randomId);
+        prefs.flush();
         // TODO now start in 0 always, just for testing than remove!!
         lastLevel = 0;
 

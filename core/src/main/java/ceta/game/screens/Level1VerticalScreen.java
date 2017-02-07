@@ -8,6 +8,7 @@ import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -19,9 +20,9 @@ public class Level1VerticalScreen extends AbstractGameScreen {
     private static final String TAG = Level1VerticalScreen.class.getName();
     private boolean paused;
 
-    public Level1VerticalScreen(DirectedGame game, int levelNr) {
+    public Level1VerticalScreen(DirectedGame game, int levelNr,TextureAtlas.AtlasRegion  regtex) {
 
-        super(game,levelNr);
+        super(game,levelNr,regtex);
 
 
     }
@@ -48,7 +49,7 @@ public class Level1VerticalScreen extends AbstractGameScreen {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1VerticalController(game, stage,levelJson);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRenderer1Vertical(worldController,stage, false, Assets.instance.background.back2); //false to indicate isVertical
+        worldRenderer = new WorldRenderer1Vertical(worldController,stage, false,regTex); //false to indicate isVertical
         // android back key
         Gdx.input.setCatchBackKey(true);
     }

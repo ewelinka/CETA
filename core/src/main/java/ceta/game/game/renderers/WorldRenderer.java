@@ -25,19 +25,19 @@ public class WorldRenderer extends AbstractWorldRenderer {
     protected int currentPriceTypeNr;
     private boolean isPlayingCleanTable;
 
-    public WorldRenderer(AbstractWorldController worldController, Stage stage) {
-        this(worldController,stage,true); //default horizontal number line
-
-    }
+//    public WorldRenderer(AbstractWorldController worldController, Stage stage) {
+//        this(worldController,stage,true); //default horizontal number line
+//
+//    }
 
     public WorldRenderer(AbstractWorldController worldController, Stage stage,TextureAtlas.AtlasRegion imgBackground) {
         this(worldController,stage,true,imgBackground); //default horizontal number line
 
     }
 
-    public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
-        this(worldController,stage,numberLineIsHorizontal, Assets.instance.background.back3);
-    }
+//    public WorldRenderer(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
+//        this(worldController,stage,numberLineIsHorizontal, Assets.instance.staticBackground.tubes5);
+//    }
 
 
 
@@ -106,7 +106,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
         if(!worldController.wasTableCleaned() && !isPlayingCleanTable && worldController.isReadOver()){
             //renderOldBlocks();
-            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.cleanTable);
+            AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.cleanTable);
             feedbackRenderer.renderTooMuchClue();
 
             isPlayingCleanTable = true;
@@ -217,8 +217,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
         normalGuiFont.draw(batch, worldController.score+"",x+50,y+30);
 
         // total score
-        batch.draw(Assets.instance.toCollect.price1,x+485,y+5,25,25);
-        smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+515,y+25);
+        batch.draw(Assets.instance.feedback.prices,x+465,y,40,40);
+        smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+515,y+27);
     }
 
 
