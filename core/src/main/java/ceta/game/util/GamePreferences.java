@@ -65,4 +65,11 @@ public class GamePreferences {
 
     }
 
+    public void forceGlobalScore(int newGlobalScore){
+        totalScore = newGlobalScore;
+        prefs.putInteger("totalScore", totalScore);
+        prefs.flush();
+
+    }
+
 }

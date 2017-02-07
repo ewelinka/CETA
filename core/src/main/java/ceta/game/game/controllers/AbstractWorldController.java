@@ -4,10 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.game.levels.AbstractLevel;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.*;
-import ceta.game.screens.DirectedGame;
-import ceta.game.screens.CongratulationsScreen;
-import ceta.game.screens.MenuScreen;
-import ceta.game.screens.TreeScreen;
+import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.*;
@@ -55,9 +52,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     private boolean happyEnd;
 
     protected int operationsNumberToPassToNext;
-
-
-
 
 
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
@@ -171,6 +165,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         // switch to menu screen
        // ScreenTransition transition = ScreenTransitionFade.init(1);
         game.setScreen(new TreeScreen(game,true), oneSegFadeIn);
+       // game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
     }
 
     public void goToCongratulationsScreen () {
@@ -438,9 +433,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
 
-    @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-        // ignore if its not left mouse button or first touch pointer
-        if(screenY < 150) {
+    @Override
+    public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        Gdx.app.log(TAG," TOUCHED "+screenX+ " "+screenY);
+        if(screenX >570 && screenY < 40){
+            game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
+        }
+        else if(screenY < 150) {
             game.getLevelsManager().goToNextLevelWorkaround();
         }
 

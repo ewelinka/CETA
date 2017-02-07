@@ -295,6 +295,16 @@ public class LevelsManager {
 
     }
 
+    public void forceLevel(int forcedLevel){
+        if(forcedLevel<1)
+            Gdx.app.log(TAG,"wroooong");
+        else {
+            GamePreferences.instance.setLastLevel(forcedLevel - 1);
+            lastLevelCompleted = forcedLevel - 1;
+        }
+
+    }
+
 
     public int getLastLevelCompleted(){
         return lastLevelCompleted;
