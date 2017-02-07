@@ -8,6 +8,7 @@ import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -64,6 +65,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         fontNumberLine = Assets.instance.fonts.defaultNumberLine;
         normalGuiFont = Assets.instance.fonts.defaultNormal;
         smallGuiFont = Assets.instance.fonts.defaultSmall;
+        bigGuiFont =  Assets.instance.fonts.defaultBig;
         shapeRenderer = new ShapeRenderer();
 
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
@@ -79,9 +81,10 @@ public class WorldRenderer extends AbstractWorldRenderer {
       //  clearWhite();
         //clearBlue();
         clearGray();
-        //renderBelowTheGround(spriteBatch);
+        renderBelowTheGround(spriteBatch);
         renderDetectionZoneImg(spriteBatch);
         renderBackgroundImg(spriteBatch);
+
         if(worldController.isNumberLineVisible())
             renderHelperNumberLines(shapeRenderer);
         renderWorldAndOver();
@@ -155,10 +158,11 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
                 );
         batch.setColor(1,1,1,1);
-//        String text = worldController.getCountdownCurrentTime()+"";
-//        GlyphLayout layout = new GlyphLayout(counterFont, text);
+
+        String text = worldController.getNowDetectedSum()+"";
+        GlyphLayout layout = new GlyphLayout(bigGuiFont, text);
 //        counterFont.setColor(Color.RED);
-//        counterFont.draw(batch, text+"", 0 - layout.width/2, -6 * Constants.BASE-100);
+       bigGuiFont.draw(batch, text, 0 , feedbackRenderer.getFeedbackMiddlePoint()+layout.height/2,0,Align.center,false);
        batch.end();
 
 
@@ -193,9 +197,15 @@ public class WorldRenderer extends AbstractWorldRenderer {
         float y = Constants.VIEWPORT_HEIGHT/2 - 50;
 
 
-        batch.draw(Assets.instance.background.blocksTablet,
-                x-15,y-10,
-                Constants.VIEWPORT_WIDTH,60);
+        batch.draw(Assets.instance.background.guiGearL,
+                -Constants.VIEWPORT_WIDTH/2-54,Constants.VIEWPORT_HEIGHT/2-90,
+                184,188);
+
+        batch.draw(Assets.instance.background.guiGearR,
+                Constants.VIEWPORT_WIDTH/2-190,Constants.VIEWPORT_HEIGHT/2-85,
+                269,259);
+
+        renderLevelNumber(batch);
 
         switch(currentPriceTypeNr){
             case 1:
@@ -217,8 +227,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
         normalGuiFont.draw(batch, worldController.score+"",x+50,y+30);
 
         // total score
-        batch.draw(Assets.instance.feedback.prices,x+465,y,40,40);
-        smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+515,y+27);
+        batch.draw(Assets.instance.feedback.prices,x+475,y,40,40);
+        smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+525,y+27);
     }
 
 

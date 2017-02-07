@@ -4,11 +4,15 @@ import ceta.game.game.objects.BrunoVertical;
 import ceta.game.util.Constants;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
  * Created by ewe on 11/7/16.
@@ -33,6 +37,18 @@ public class BrunosManager {
     }
 
     public void init(){
+        int brunoVal = MathUtils.random(5);
+        BrunoVertical initBruno= new BrunoVertical(brunoVal,this);
+        initBruno.setPosition(Constants.VERTICAL_MIDDLE_X-initBruno.getWidth()/2,Constants.GROUND_LEVEL-initBruno.getHeight());
+        initBruno.addAction(sequence(
+                Actions.moveTo(initBruno.getX(),Constants.GROUND_LEVEL-15,0.1f*brunoVal),
+                delay(0.5f),
+                moveTo(initBruno.getX(),Constants.GROUND_LEVEL-initBruno.getHeight(),0.1f*brunoVal),
+                removeActor()
+        ));
+
+        stage.addActor(initBruno);
+
         lastY = initialY;
         brunos = new ArrayList<BrunoVertical>();
         brunosToAdd = new ArrayList<BrunoVertical>();

@@ -33,6 +33,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public CameraHelper cameraHelper;
     public AbstractLevel level;
     public int score;
+    public int levelNr;
 
     public DirectedGame game;
     protected boolean countdownOn;
@@ -57,6 +58,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
         this.game = game;
         this.stage = stage;
+        this.levelNr = levelNr;
         oneSegFadeIn = ScreenTransitionFade.init(1);
 
         //levelParams = getLevelParams(levelNr);
@@ -81,6 +83,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected abstract void updateDigitalRepresentations();
     protected abstract void countdownMove();
     public abstract boolean isPlayerInactive();
+
+    public abstract int getNowDetectedSum();
 
 
     public void init () {
@@ -622,11 +626,15 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     }
 
+    public int getLevelNr(){ return levelNr;}
+
     public void onNewPricePosition(int currentOperationNr){
         currentErrors  = 0;
         game.resultsManager.newPriceAppeared(currentOperationNr,game.getLevelsManager().getCurrentLevel()); // we register now level not last level completed!
 
     }
+
+
 
 
 

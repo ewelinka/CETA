@@ -27,12 +27,13 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected SpriteBatch spriteBatch;
     protected ShapeRenderer shapeRenderer;
     protected BitmapFont fontNumberLine;
-    protected BitmapFont normalGuiFont,smallGuiFont;
+    protected BitmapFont normalGuiFont,smallGuiFont,bigGuiFont;
     protected AbstractWorldController worldController;
     protected FeedbackRenderer feedbackRenderer;
     protected boolean shouldRenderClue;
     protected Stage stage;
     protected TextureAtlas.AtlasRegion imgBackground;
+    protected  String levelTxt = "Nivel ";
 
 
     protected int levelMinimumNumber;
@@ -160,7 +161,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         if(numberLineIsHorizontal)
             batch.draw(imgBackground.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.GROUND_LEVEL,
                     imgBackground.getRegionWidth()/2,imgBackground.getRegionHeight()/2,
-                    imgBackground.getRegionWidth(), imgBackground.getRegionHeight(),
+                    600, 700,
                     1, 1,
                     0,
                     imgBackground.getRegionX(), imgBackground.getRegionY(),
@@ -168,7 +169,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         else
             batch.draw(imgBackground.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END,
                     imgBackground.getRegionWidth()/2,imgBackground.getRegionHeight()/2,
-                    imgBackground.getRegionWidth(), imgBackground.getRegionHeight(),
+                    600, 700,
                     1, 1,
                     0,
                     imgBackground.getRegionX(), imgBackground.getRegionY(),
@@ -206,6 +207,17 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.end();
     }
 
+    protected void renderLevelNumber(SpriteBatch batch){
+        GlyphLayout layout = new GlyphLayout(bigGuiFont, levelTxt+worldController.getLevelNr());
+//        batch.setProjectionMatrix(camera.combined);
+//        batch.begin();
+        bigGuiFont.setColor(0,0,0,0.7f);
+        bigGuiFont.draw(batch, levelTxt+worldController.getLevelNr(), 0, 500,0, Align.center,false);
+//        batch.end();
+
+
+    }
+
 
 
 
@@ -221,7 +233,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
             else
                 fontNumberLine.setColor(0,0,0,0.7f);
             fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL,0, Align.center,false);
-            //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -70,0, Align.center,false);
+            //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false);
 
 
             counter+=1;

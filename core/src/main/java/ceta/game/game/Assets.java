@@ -134,12 +134,12 @@ public class Assets implements Disposable, AssetErrorListener {
             defaultNumberLine = new BitmapFont(Gdx.files.internal("fonts/YuantiBold-24.fnt"), false);
             defaultSmall = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
             defaultNormal = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
-            defaultBig = new BitmapFont(Gdx.files.internal("fonts/silom-32.fnt"), false);
+            defaultBig = new BitmapFont(Gdx.files.internal("fonts/silom-60.fnt"), false);
             // set fontNumberLine sizes
             defaultNumberLine.getData().setScale(1.0f);
             defaultSmall.getData().setScale(0.7f);
             defaultNormal.getData().setScale(1.0f);
-            defaultBig.getData().setScale(2.5f);
+            defaultBig.getData().setScale(1.0f);
             // enable linear texture filtering for smooth fonts
             defaultNumberLine.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             defaultSmall.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -252,6 +252,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion cityO2;
 
         public final TextureAtlas.AtlasRegion bigScrew;
+        public final TextureAtlas.AtlasRegion guiGearL,guiGearR;
 
 
 
@@ -282,6 +283,8 @@ public class Assets implements Disposable, AssetErrorListener {
             cityO1 = atlas.findRegion("cityO1");
             cityO2 = atlas.findRegion("cityO2");
             bigScrew = atlas.findRegion("tornillo-intro");
+            guiGearL = atlas.findRegion("guiGearL");
+            guiGearR = atlas.findRegion("guiGearR");
 
 
         }
@@ -351,7 +354,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
             Array<TextureAtlas.AtlasRegion> regions = null;
             regions = atlas.findRegions("camina");
-            walk = new Animation(0.3f , regions);
+            walk = new Animation(0.1f , regions);
 
 
 

@@ -95,6 +95,17 @@ public class CvController extends AbstractWorldController {
         checkIfTableCleaned();
     }
 
+    @Override
+    public int getNowDetectedSum(){
+        ArrayList<Integer> toReadVals = cvBlocksManager.getNowDetectedVals();
+        int sum = 0;
+        for( Integer i : toReadVals ) {
+            sum += i;
+        }
+        return sum;
+
+    }
+
 
     @Override
     protected void testCollisionsInController(boolean isDynamic) {

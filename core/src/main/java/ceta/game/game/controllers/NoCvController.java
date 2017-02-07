@@ -83,6 +83,17 @@ public class NoCvController extends AbstractWorldController {
 
     }
 
+    @Override
+    public int getNowDetectedSum(){
+        ArrayList<Integer> toReadVals = virtualBlocksManager.getNowDetectedVals();
+        int sum = 0;
+        for( Integer i : toReadVals ) {
+            sum += i;
+        }
+        return sum;
+
+    }
+
 
     @Override
     protected void readDetectedSaveIntentAndLastSolution(){

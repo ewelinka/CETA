@@ -133,6 +133,8 @@ public class FeedbackRenderer {
         fadeIn = true;
     }
 
+    public int getFeedbackMiddlePoint(){return feedbackMiddlePoint;}
+
     public Image getManoImg(){
         return manoImg;
     }

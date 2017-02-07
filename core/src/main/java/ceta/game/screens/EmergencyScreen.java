@@ -52,16 +52,16 @@ public class EmergencyScreen extends AbstractGameScreen  {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         txtLastLevel = new TextField("",skin);
         txtLastLevel.setMessageText("Go to level");
-        txtLastLevel.setPosition(230, 630);
+        txtLastLevel.setPosition(230, 830);
         stage.addActor(txtLastLevel);
 
         txtLastScore= new TextField("",skin);
         txtLastScore.setMessageText("Last score");
-        txtLastScore.setPosition(230, 530);
+        txtLastScore.setPosition(230, 730);
         stage.addActor(txtLastScore);
 
         btnPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
-        btnPlay.setPosition(230,230);
+        btnPlay.setPosition(230,530);
         btnPlay.addListener(new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
