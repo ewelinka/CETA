@@ -307,8 +307,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     private void genericOnCollision(){
         AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
         currentErrors = 0;
-        score += 1;
         game.resultsManager.setLastToFinal();
+        game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(),score);
+        score += 1;
     }
 
     protected void onCollisionBrunoWithPrice(Price price) {
@@ -514,6 +515,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
         AudioManager.instance.readNumber(sum);
         addIntentToResults(sum,level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), toReadVals);
+
     }
 
     protected void saveLastSolution(ArrayList<VirtualBlock> detectedBlocks){
@@ -622,6 +624,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public void onNewPricePosition(int currentOperationNr){
+        currentErrors  = 0;
         game.resultsManager.newPriceAppeared(currentOperationNr,game.getLevelsManager().getCurrentLevel()); // we register now level not last level completed!
 
     }

@@ -904,10 +904,17 @@ mega2
   index: -1
 
 pack7.png
-size: 1024,512
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+abajo5
+  rotate: false
+  xy: 2, 458
+  size: 600, 390
+  orig: 600, 390
+  offset: 0, 0
+  index: -1
 mano
   rotate: false
   xy: 2, 2

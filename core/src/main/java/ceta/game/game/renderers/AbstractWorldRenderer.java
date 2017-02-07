@@ -89,10 +89,29 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.end();
     }
 
+    protected void renderBelowTheGround(SpriteBatch batch){
+        TextureAtlas.AtlasRegion belowZone = Assets.instance.staticBackground.belowTheGround;
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+//        batch.draw(belowZone.getTexture(),
+//                -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
+//                0,0,
+//                Constants.VIEWPORT_WIDTH, Constants.DETECTION_ZONE_END-Constants.DETECTION_LIMIT,
+//                1, 1,
+//                0,
+//                belowZone.getRegionX(), belowZone.getRegionY(),
+//                belowZone.getRegionWidth(), belowZone.getRegionHeight(), false,false);
+        batch.draw(belowZone.getTexture(),
+                -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
+                Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT/2+Constants.GROUND_LEVEL,
+                belowZone.getRegionX(), belowZone.getRegionY(),
+                belowZone.getRegionWidth(), belowZone.getRegionHeight(), false,false);
+
+        batch.end();
+
+    }
+
     protected void renderDetectionZoneImg(SpriteBatch batch){
-        // render for pieces
-        //TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksTablet;
-        // render for deposite
         TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -119,8 +138,6 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
 
         batch.end();
-
-
 
     }
 
@@ -204,6 +221,8 @@ public abstract class AbstractWorldRenderer implements Disposable {
             else
                 fontNumberLine.setColor(0,0,0,0.7f);
             fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL,0, Align.center,false);
+            //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -70,0, Align.center,false);
+
 
             counter+=1;
         }

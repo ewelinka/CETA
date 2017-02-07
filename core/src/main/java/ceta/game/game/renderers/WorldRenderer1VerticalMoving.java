@@ -28,6 +28,7 @@ public class WorldRenderer1VerticalMoving extends WorldRenderer {
 
         clearGray();
         renderMoving();
+        //renderBelowTheGround(spriteBatch);
         renderDetectionZoneImg(spriteBatch);
         renderHelperNumberLines(shapeRenderer);
         renderWorldAndOver();
@@ -45,7 +46,7 @@ public class WorldRenderer1VerticalMoving extends WorldRenderer {
 
     @Override
     protected void renderDetectionZoneImg(SpriteBatch batch) {
-        TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksTablet;
+       // TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksTablet;
         // render for deposite
         TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneV1Tablet;
 
