@@ -1,10 +1,12 @@
 package ceta.game.managers;
 
+import ceta.game.game.Assets;
 import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
+import com.badlogic.gdx.Gdx;
 //import com.sun.tools.internal.jxc.apt.Const;
 
 /**
@@ -51,6 +53,7 @@ public class LevelsManager {
     }
 
     public void goToFirstUncompletedLevel(){
+        Gdx.app.log(TAG,"lastLevelCompleted "+lastLevelCompleted);
         //first we check if we deal with an important change
         if( lastLevelCompleted == Constants.L1_COMPLETED_NR
                 || lastLevelCompleted == Constants.L2_COMPLETED_NR
@@ -84,114 +87,151 @@ public class LevelsManager {
 
 
     private void goToLevelCV(int lastLevelFinished){
+        int lev = lastLevelFinished+1;
         switch(lastLevelFinished){
             case 0:
-                game.setScreen(new Level1HorizontalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1HorizontalCvScreen(game, lev, Assets.instance.staticBackground.city1), transition);
                 break;
             case 1:
-                game.setScreen(new Level1HorizontalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1HorizontalCvScreen(game, lev, Assets.instance.staticBackground.city1), transition);
                 break;
             case 2:
-                game.setScreen(new Level1VerticalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalCvScreen(game, lev, Assets.instance.staticBackground.city2), transition);
                 break;
             case 3:
-                game.setScreen(new Level1VerticalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalCvScreen(game, lev, Assets.instance.staticBackground.city2), transition);
                 break;
+
             case 4:
-                game.setScreen(new Level2HorizontalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1HorizontalCvScreen(game, lev, Assets.instance.staticBackground.tubes3), transition);
                 break;
             case 5:
-                game.setScreen(new Level2HorizontalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1HorizontalCvScreen(game, lev, Assets.instance.staticBackground.tubes3), transition);
                 break;
             case 6:
-                game.setScreen(new Level2VerticalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalCvScreen(game, lev, Assets.instance.staticBackground.tubes2), transition);
                 break;
             case 7:
-                game.setScreen(new Level2VerticalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalCvScreen(game, lev, Assets.instance.staticBackground.tubes2), transition);
                 break;
             case 8:
-                game.setScreen(new Level3HorizontalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalCvScreen(game, lev, Assets.instance.staticBackground.tubes2), transition);
                 break;
+
+
             case 9:
-                game.setScreen(new Level3HorizontalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2HorizontalCvScreen(game, lev, Assets.instance.staticBackground.city3), transition);
                 break;
             case 10:
-                game.setScreen(new Level3VerticalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2HorizontalCvScreen(game, lev, Assets.instance.staticBackground.city3), transition);
                 break;
             case 11:
-                game.setScreen(new Level3VerticalCvScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2HorizontalCvScreen(game, lev, Assets.instance.staticBackground.city3), transition);
                 break;
+            case 12:
+                game.setScreen(new Level2VerticalCvScreen(game, lev, Assets.instance.staticBackground.city4), transition);
+                break;
+
+
+            case 13:
+                game.setScreen(new Level2VerticalCvScreen(game, lev, Assets.instance.staticBackground.clouds3), transition);
+                break;
+            case 14:
+                game.setScreen(new Level2VerticalCvScreen(game, lev, Assets.instance.staticBackground.clouds3), transition);
+                break;
+
+
+            case 15:
+                game.setScreen(new Level3HorizontalCvScreen(game, lev, Assets.instance.staticBackground.tubes5), transition);
+                break;
+
+            case 16:
+                game.setScreen(new Level3HorizontalCvScreen(game,lev, Assets.instance.staticBackground.tubes5), transition);
+                break;
+            case 17:
+                game.setScreen(new Level3VerticalCvScreen(game, lev, Assets.instance.staticBackground.clouds1), transition);
+                break;
+            case 18:
+                game.setScreen(new Level3VerticalCvScreen(game, lev, Assets.instance.staticBackground.clouds1), transition);
+                break;
+
             default:
                 GamePreferences.instance.setLastLevel(0); // we go to the beginning
                 lastLevelCompleted = 0;
-                game.setScreen(new MenuScreen(game), transition);
+                game.setScreen(new SimpleMenuScreen(game), transition);
                 break;
         }
 
     }
 
     private void goToLevelTablet(int lastLevelFinished){
+        int lev = lastLevelFinished+1;
         switch(lastLevelFinished){
             case 0:
-                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1HorizontalScreen(game, lev, Assets.instance.staticBackground.city1), transition);
                 break;
             case 1:
-                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1HorizontalScreen(game, lev, Assets.instance.staticBackground.city1), transition);
                 break;
             case 2:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalScreen(game, lev, Assets.instance.staticBackground.city2), transition);
                 break;
             case 3:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalScreen(game, lev, Assets.instance.staticBackground.city2), transition);
                 break;
+
             case 4:
-                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1HorizontalScreen(game, lev, Assets.instance.staticBackground.tubes3), transition);
                 break;
             case 5:
-                game.setScreen(new Level1HorizontalScreen(game, lastLevelFinished+1), transition); // island 1 over
+                game.setScreen(new Level1HorizontalScreen(game, lev, Assets.instance.staticBackground.tubes3), transition);
                 break;
-
             case 6:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalScreen(game, lev, Assets.instance.staticBackground.tubes2), transition);
                 break;
             case 7:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level1VerticalScreen(game, lev, Assets.instance.staticBackground.tubes2), transition);
                 break;
             case 8:
-                game.setScreen(new Level1VerticalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 9:
-                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 10:
-                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
-                break;
-            case 11:
-                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition); // island 2 over
+                game.setScreen(new Level1VerticalScreen(game, lev, Assets.instance.staticBackground.tubes2), transition);
                 break;
 
-            case 12:
-                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
+
+            case 9:
+                game.setScreen(new Level2HorizontalScreen(game, lev, Assets.instance.staticBackground.city3), transition);
                 break;
+            case 10:
+                game.setScreen(new Level2HorizontalScreen(game, lev, Assets.instance.staticBackground.city3), transition);
+                break;
+            case 11:
+                game.setScreen(new Level2HorizontalScreen(game, lev, Assets.instance.staticBackground.city3), transition);
+                break;
+            case 12:
+                game.setScreen(new Level2VerticalScreen(game, lev, Assets.instance.staticBackground.city4), transition);
+                break;
+
+
             case 13:
-                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2VerticalScreen(game, lev, Assets.instance.staticBackground.clouds3), transition);
                 break;
             case 14:
-                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level2VerticalScreen(game, lev, Assets.instance.staticBackground.clouds3), transition);
                 break;
+
+
             case 15:
-                game.setScreen(new Level3HorizontalScreen(game, lastLevelFinished+1), transition);
+                game.setScreen(new Level3HorizontalScreen(game, lev, Assets.instance.staticBackground.tubes5), transition);
                 break;
+
             case 16:
-                game.setScreen(new Level3HorizontalScreen(game,lastLevelFinished+1), transition);
+                game.setScreen(new Level3HorizontalScreen(game,lev, Assets.instance.staticBackground.tubes5), transition);
                 break;
-//            case 17:
-//                game.setScreen(new Level2VerticalScreen(game, lastLevelFinished+1), transition); // island 3 over
-//                break;
-//
-//            case 18:
-//                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
-//                break;
+            case 17:
+                game.setScreen(new Level3VerticalScreen(game, lev, Assets.instance.staticBackground.clouds1), transition);
+                break;
+            case 18:
+                game.setScreen(new Level3VerticalScreen(game, lev, Assets.instance.staticBackground.clouds1), transition);
+                break;
 //            case 19:
 //                game.setScreen(new Level2HorizontalScreen(game, lastLevelFinished+1), transition);
 //                break;
@@ -249,7 +289,7 @@ public class LevelsManager {
             default:
                 GamePreferences.instance.setLastLevel(0); // we go to the beginning
                 lastLevelCompleted = 0;
-                game.setScreen(new MenuScreen(game), transition);
+                game.setScreen(new SimpleMenuScreen(game), transition);
                 break;
         }
 

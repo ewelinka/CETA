@@ -7,6 +7,8 @@ import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -17,8 +19,12 @@ public class Level1HorizontalScreen extends AbstractGameScreen{
     private static final String TAG = Level1HorizontalScreen.class.getName();
     private boolean paused;
 
-    public Level1HorizontalScreen(DirectedGame game, int levelNr) {
-        super(game, levelNr);
+//    public Level1HorizontalScreen(DirectedGame game, int levelNr) {
+//        super(game, levelNr);
+//    }
+
+    public Level1HorizontalScreen(DirectedGame game, int levelNr, TextureAtlas.AtlasRegion regtex) {
+        super(game, levelNr, regtex);
     }
 
 
@@ -51,7 +57,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen{
         worldController = new Level1HorizontalController(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRenderer(worldController,stage, Assets.instance.background.back1); // default set number line to horizontal
+        worldRenderer = new WorldRenderer(worldController,stage,regTex); // default set number line to horizontal
         // android back key
         Gdx.input.setCatchBackKey(true);
     }

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
@@ -37,6 +38,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected int levelMinimumNumber;
     protected boolean numberLineIsHorizontal;
     protected int maxShift;
+    private  int dotsDist = 5;
 
 
     public abstract void init();
@@ -122,6 +124,19 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
+    private void drawDottedLine(ShapeRenderer shapeRenderer, int dotDist, float x1, float y1, float x2, float y2) {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Point);
+
+        Vector2 vec2 = new Vector2(x2, y2).sub(new Vector2(x1, y1));
+        float length = vec2.len();
+        for(int i = 0; i < length; i += dotDist) {
+            vec2.clamp(length - i, length - i);
+            shapeRenderer.point(x1 + vec2.x, y1 + vec2.y, 0);
+        }
+
+        shapeRenderer.end();
+    }
+
     protected void renderBackgroundImg(SpriteBatch batch){
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -158,6 +173,23 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
         shRenderer.end();
     }
+
+    protected void renderHelperDottedLinesHorizontal(ShapeRenderer shRenderer) {
+        Gdx.gl.glLineWidth(1);
+        shRenderer.setProjectionMatrix(camera.combined);
+        shRenderer.setColor(1, 1, 1, 1);
+
+
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=Constants.BASE){
+            //shRenderer.line(-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
+            drawDottedLine(shRenderer,dotsDist,-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
+        }
+
+
+        shRenderer.end();
+    }
+
+
 
 
     protected void renderHelperNumbersVertical(SpriteBatch batch){
@@ -211,10 +243,14 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
     protected void renderHelperNumberLines(ShapeRenderer shRenderer) {
-        if(numberLineIsHorizontal)
-            renderHelperNumberLinesVertical(shRenderer);
-        else
-            renderHelperNumberLinesHorizontal(shRenderer);
+        if(numberLineIsHorizontal) {
+//            renderHelperNumberLinesVertical(shRenderer);
+            renderHelperDottedLinesVertical(shRenderer);
+        }
+        else {
+            renderHelperDottedLinesHorizontal(shRenderer);
+            //renderHelperNumberLinesHorizontal(shRenderer);
+        }
 
     }
 
@@ -231,6 +267,19 @@ public abstract class AbstractWorldRenderer implements Disposable {
         }
         shRenderer.end();
     }
+
+    protected void renderHelperDottedLinesVertical(ShapeRenderer shRenderer){
+        Gdx.gl.glLineWidth(1);
+        shRenderer.setProjectionMatrix(camera.combined);
+        shRenderer.setColor(1, 1, 1, 1);
+
+        for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
+            //shRenderer.line(i , Constants.GROUND_LEVEL, i,Constants.VIEWPORT_HEIGHT/2 - 100);
+            drawDottedLine(shRenderer,dotsDist,i , Constants.GROUND_LEVEL, i,Constants.VIEWPORT_HEIGHT/2 - 100);
+        }
+        shRenderer.end();
+    }
+
 
 
     protected int getCurrentPriceImgNr(){

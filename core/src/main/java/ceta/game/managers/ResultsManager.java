@@ -51,13 +51,17 @@ public class ResultsManager {
     public ResultsManager() {
         sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss.SSS");
         justTime = new SimpleDateFormat("HH:mm:ss.SSS");
-        file = Gdx.files.local("results.csv");
+        //file = Gdx.files.local("results.csv");
+        randomId = GamePreferences.instance.randomId;
+
+       // file = Gdx.files.external("./ceta-results/results.csv");
+        file = Gdx.files.external("./Download/results_"+randomId+".csv");
         Gdx.app.log(TAG, " AAAAAAA "+ Gdx.files.getLocalStoragePath()+ " available: "+Gdx.files.isLocalStorageAvailable());
         lastSolution = new ArrayList<VirtualBlock>();
         lastFinalSolution = new ArrayList<Solution>();
         lastFinalSolutionNr = 0;
         lastSolutionNr = 0;
-        randomId = GamePreferences.instance.randomId;
+
         //String text = file.readString();
         //Gdx.app.log(TAG,text);
     }

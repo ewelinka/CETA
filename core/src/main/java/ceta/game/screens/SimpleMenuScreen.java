@@ -84,7 +84,7 @@ public class SimpleMenuScreen extends AbstractGameScreen {
     }
     private Table buildBackgroundLayer () {
         Table layer = new Table();
-        imgBackground = new Image(Assets.instance.background.backStart);
+        imgBackground = new Image(Assets.instance.staticBackground.backStart);
         //imgBackground.setSize(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
         imgBackground.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2, 0);

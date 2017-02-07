@@ -15,13 +15,10 @@ public class WorldRenderer1Vertical extends WorldRenderer{
     private int adjustX = 50;
     private int adjustY = 0;
 
-    public WorldRenderer1Vertical(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
-        super(worldController, stage, numberLineIsHorizontal);
+    public WorldRenderer1Vertical(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal,TextureAtlas.AtlasRegion  regtex) {
+        super(worldController, stage, numberLineIsHorizontal,regtex);
     }
 
-    public WorldRenderer1Vertical(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal,TextureAtlas.AtlasRegion imgBackground) {
-        super(worldController, stage, numberLineIsHorizontal,imgBackground);
-    }
 
     @Override
     protected void renderDetectionZoneImg(SpriteBatch batch) {

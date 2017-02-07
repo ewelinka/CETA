@@ -21,6 +21,7 @@ public class Constants {
     public static final String SKIN_UI = "visui/uiskin.json";
 
     public static final String LEVELS_FOLDER = "levels";
+    public static final float AUTOMATIC_LEVEL_PASS = 4.6f;
 
     public static final int BASE = 40;
     public static final int ERRORS_FOR_HINT = 2;
@@ -41,7 +42,7 @@ public class Constants {
     public static int DRAW_START;
 
     public static final int ACTION_SUBMIT_WAIT = 1500;
-    public static final int INACTIVITY_LIMIT = 5000;
+    public static final int INACTIVITY_LIMIT = 7000;
     public static final float TIME_DELAY_SCREEN_FINISHED = 1.0f;
 
 

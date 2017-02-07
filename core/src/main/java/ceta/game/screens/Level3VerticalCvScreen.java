@@ -6,6 +6,7 @@ import ceta.game.game.renderers.WorldRenderer;
 import ceta.game.game.renderers.WorldRendererCV;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -15,8 +16,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class Level3VerticalCvScreen extends Level1VerticalScreen {
     private static final String TAG = Level3VerticalCvScreen.class.getName();
 
-    public Level3VerticalCvScreen(DirectedGame game, int levelNr) {
-        super(game, levelNr);
+    public Level3VerticalCvScreen(DirectedGame game, int levelNr,TextureAtlas.AtlasRegion  regtex) {
+        super(game, levelNr,regtex);
     }
 
     @Override
@@ -27,7 +28,7 @@ public class Level3VerticalCvScreen extends Level1VerticalScreen {
         worldController = new Level3VerticalCvController(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRendererCV(worldController,stage,false);
+        worldRenderer = new WorldRendererCV(worldController,stage,false,regTex);
         // android back key
         Gdx.input.setCatchBackKey(true);
     }

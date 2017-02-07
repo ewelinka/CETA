@@ -164,7 +164,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     private Table buildBackgroundLayer () {
         Table layer = new Table();
-        imgBackground = new Image(Assets.instance.background.backStart);
+        imgBackground = new Image(Assets.instance.staticBackground.backStart);
         layer.add(imgBackground);
         return layer;
     }

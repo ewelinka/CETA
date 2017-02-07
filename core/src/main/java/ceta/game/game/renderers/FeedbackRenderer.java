@@ -72,7 +72,7 @@ public class FeedbackRenderer {
     }
 
     private void renderAndReadTooMuchClue(){
-        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.tooMuch);
+        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.tooMuch);
         renderTooMuchClue();
     }
 
@@ -89,7 +89,7 @@ public class FeedbackRenderer {
     }
 
     private void renderAndReadTooFewClue(){
-        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.tooFew);
+        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.tooFew);
         renderTooFewClue();
     }
 
