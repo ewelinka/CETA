@@ -63,7 +63,7 @@ public class VirtualBlock extends AbstractGameObject {
 
         home = new Vector2();
         wasDetected = false;
-        wasMoved = false;
+        setWasMoved(false);
         vertices = new float[]{
                 0,0,
                 bounds.width,0,
@@ -146,8 +146,12 @@ public class VirtualBlock extends AbstractGameObject {
     }
 
     public void resetWasMoved(){
-        wasMoved = false;
+        setWasMoved(false);
         //Gdx.app.debug(TAG, "was moved set to FALSEEE");
+    }
+
+    public void setWasMoved(boolean was){
+        wasMoved = was;
     }
 
     public void setWasDetected(boolean was){

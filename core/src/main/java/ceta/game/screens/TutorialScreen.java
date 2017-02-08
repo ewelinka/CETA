@@ -2,6 +2,8 @@ package ceta.game.screens;
 
 import ceta.game.game.Assets;
 import ceta.game.game.controllers.Level1HorizontalController;
+import ceta.game.game.controllers.Level1VerticalController;
+import ceta.game.game.controllers.Level1VerticalControllerTutorial;
 import ceta.game.game.renderers.WorldRenderer;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
@@ -19,7 +21,7 @@ public class TutorialScreen extends AbstractGameScreen{
     private boolean paused;
 
     public TutorialScreen(DirectedGame game) {
-        super(game, 1);
+        super(game, 0);
     } // 0 json for intro
 
 
@@ -49,10 +51,10 @@ public class TutorialScreen extends AbstractGameScreen{
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
         // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
-        worldController = new Level1HorizontalController(game,stage,levelJson);
+        worldController = new Level1VerticalControllerTutorial(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
         // Todo here we should make camera stuff and fitviewport
-        worldRenderer = new WorldRenderer(worldController,stage,regTex); // default set number line to horizontal
+        worldRenderer = new WorldRenderer(worldController,stage,false,regTex); // default set number line to horizontal
         // android back key
         Gdx.input.setCatchBackKey(true);
     }

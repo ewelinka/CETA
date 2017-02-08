@@ -243,6 +243,7 @@ public class TreeScreen extends AbstractGameScreen {
         AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.levelPassed);
         switch(newActivated){
             case 0:
+                level1gear.setIsMoving(true,0.2f);
                 break;
             case 1:
                 arrow.setPosition(arrowPositions[0][0],arrowPositions[0][1]);

@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class Level1VerticalController extends NoCvController {
     private static final String TAG = Level1VerticalController.class.getName();
 //    protected VirtualBlocksManager virtualBlocksManager;
-    private BrunosManager brunosManager;
+    protected BrunosManager brunosManager;
 
 
     public Level1VerticalController(DirectedGame game, Stage stage, int levelNr) {

@@ -50,7 +50,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         nowDetectedBlocks = new ArrayList<VirtualBlock>();
     }
 
-    private void initBlocks(){
+    protected void initBlocks(){
         // we initialise first 5 blocks (numbers 1-5)
         for(int i=1;i<=5;i++){
             addVirtualBlockInEmptySpace(i);
@@ -229,6 +229,17 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 vb.addAction(Actions.moveTo(limit+2, vb.getY(),0.3f));
             }
         }
+
+    }
+
+    protected VirtualBlock getBlockByValue(int valueToFind){
+        for(int i = 0; i< virtualBlocksOnStage.size();i++){
+            VirtualBlock vb = virtualBlocksOnStage.get(i);
+            if(vb.getBlockValue() == valueToFind){
+                return vb;
+            }
+        }
+        return new VirtualBlock(1);
 
     }
 

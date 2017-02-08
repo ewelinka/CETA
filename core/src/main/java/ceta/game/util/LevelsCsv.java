@@ -22,7 +22,7 @@ public class LevelsCsv {
 
     public LevelParams getParams(int levelNr){
         LevelParams levelParams = new LevelParams();
-        String line = csvLines[levelNr-1];
+        String line = csvLines[levelNr];//0 for level 0 = tutorial
         Gdx.app.log(TAG,"line "+line);
         String [] splittedLine = line.split(",");
         levelParams.numberMin = Integer.parseInt(splittedLine[0]);

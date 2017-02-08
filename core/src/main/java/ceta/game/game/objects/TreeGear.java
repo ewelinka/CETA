@@ -40,7 +40,7 @@ public class TreeGear extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-       // Gdx.app.log(TAG, "gear act "+delta+" is active?? "+isActive);
+       // Gdx.app.log(TAG, "gear act "+delta+" is active?? "+isMoving);
         if(isMoving){
             gearRotation-=(delta*100);
             gearRotation = gearRotation%360;
@@ -77,6 +77,7 @@ public class TreeGear extends Actor {
     }
 
     public void setIsMoving(final boolean moving, float delay){
+        Gdx.app.log(TAG,"IS MOVINGGGGG........");
         addAction(sequence(
                 Actions.delay(delay),
                 run(new Runnable() {

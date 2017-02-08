@@ -55,7 +55,8 @@ public class LevelsManager {
     public void goToFirstUncompletedLevel(){
         Gdx.app.log(TAG,"lastLevelCompleted "+lastLevelCompleted);
         //first we check if we deal with an important change
-        if( lastLevelCompleted == Constants.L1_COMPLETED_NR
+        if( lastLevelCompleted == 0
+                || lastLevelCompleted == Constants.L1_COMPLETED_NR
                 || lastLevelCompleted == Constants.L2_COMPLETED_NR
                 || lastLevelCompleted == Constants.L3_COMPLETED_NR
                 || lastLevelCompleted == Constants.L4_COMPLETED_NR
