@@ -37,7 +37,7 @@ public class Level1Vertical extends AbstractLevel {
     }
     @Override
     public void render(SpriteBatch batch) {
-        price.toFront();
+        price.toBack();
         tube.toFront();
         stage.draw();
     }

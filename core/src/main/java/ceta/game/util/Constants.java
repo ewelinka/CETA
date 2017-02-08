@@ -21,7 +21,7 @@ public class Constants {
     public static final String SKIN_UI = "visui/uiskin.json";
 
     public static final String LEVELS_FOLDER = "levels";
-    public static final float AUTOMATIC_LEVEL_PASS = 4.6f;
+    public static final float AUTOMATIC_LEVEL_PASS = 5.0f;
 
     public static final int BASE = 40;
     public static final int ERRORS_FOR_HINT = 2;

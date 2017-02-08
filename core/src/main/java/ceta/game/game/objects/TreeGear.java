@@ -5,11 +5,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
  * Created by ewe on 1/9/17.
@@ -18,7 +22,7 @@ public class TreeGear extends Actor {
     public static final String TAG = TreeGear.class.getName();
 
     private TextureRegion regTex, regTexActive, regTexInactive;
-    private boolean isActive;
+    private boolean isActive, isMoving;
     private float gearRotation;
 
     public TreeGear (TextureAtlas.AtlasRegion regionActive, TextureAtlas.AtlasRegion regionInactive) {
@@ -28,6 +32,7 @@ public class TreeGear extends Actor {
         setOrigin(regTex.getRegionWidth()/2,regTex.getRegionHeight()/2);
         setColor(Color.WHITE);
         setActive(true);
+        isMoving = false;
         gearRotation = 0;
         setSize(regTex.getRegionWidth(),regTex.getRegionHeight());
     }
@@ -36,7 +41,7 @@ public class TreeGear extends Actor {
     public void act(float delta) {
         super.act(delta);
        // Gdx.app.log(TAG, "gear act "+delta+" is active?? "+isActive);
-        if(isActive){
+        if(isMoving){
             gearRotation-=(delta*100);
             gearRotation = gearRotation%360;
            // Gdx.app.log(TAG, "gear rot "+gearRotation);
@@ -71,6 +76,20 @@ public class TreeGear extends Actor {
         //addAction(Actions.color(Color.WHITE,0.5f));
     }
 
+    public void setIsMoving(final boolean moving, float delay){
+        addAction(sequence(
+                Actions.delay(delay),
+                run(new Runnable() {
+                    @Override
+                    public void run() {
+                        isMoving = moving;
+                    }
+                })
+        ));
+
+    }
+
+
     public void setActive(boolean setIsActive){
         isActive = setIsActive;
         if(!isActive) {
@@ -79,6 +98,7 @@ public class TreeGear extends Actor {
            // setColor(Color.BLUE);
         }else{
             regTex  =regTexActive;
+            isMoving = true;
         }
     }
 }

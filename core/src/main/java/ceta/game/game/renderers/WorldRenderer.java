@@ -84,10 +84,13 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderBelowTheGround(spriteBatch);
         renderDetectionZoneImg(spriteBatch);
         renderBackgroundImg(spriteBatch);
+        renderNumberLineImg(spriteBatch);
 
         if(worldController.isNumberLineVisible())
             renderHelperNumberLines(shapeRenderer);
         renderWorldAndOver();
+
+
 
 
     }
@@ -219,6 +222,12 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 break;
             case 4:
                 batch.draw(Assets.instance.toCollect.price4,x,y,40,40);
+                break;
+            case 5:
+                batch.draw(Assets.instance.toCollect.price5,x,y,40,40);
+                break;
+            case 6:
+                batch.draw(Assets.instance.toCollect.price6,x,y,40,40);
                 break;
         }
 

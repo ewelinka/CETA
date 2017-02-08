@@ -167,7 +167,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
                     imgBackground.getRegionX(), imgBackground.getRegionY(),
                     imgBackground.getRegionWidth(), imgBackground.getRegionHeight(), false,false);
         else
-            batch.draw(imgBackground.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END,
+            batch.draw(imgBackground.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.GROUND_LEVEL,
                     imgBackground.getRegionWidth()/2,imgBackground.getRegionHeight()/2,
                     600, 700,
                     1, 1,
@@ -221,7 +221,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
 
 
-    protected void renderHelperNumbersVertical(SpriteBatch batch){
+    protected void renderHelperNumbersHorizontal(SpriteBatch batch){
         int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -232,7 +232,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
                 fontNumberLine.setColor(0,153,0,1);
             else
                 fontNumberLine.setColor(0,0,0,0.7f);
-            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL,0, Align.center,false);
+            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL-25,0, Align.center,false);
             //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false);
 
 
@@ -244,7 +244,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
 
-    protected void renderHelperNumbersHorizontal(SpriteBatch batch){
+    protected void renderHelperNumbersVertical(SpriteBatch batch){
         int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -268,9 +268,9 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     protected void renderHelperNumbers(SpriteBatch batch){
         if(numberLineIsHorizontal)
-            renderHelperNumbersVertical(batch);
-        else
             renderHelperNumbersHorizontal(batch);
+        else
+            renderHelperNumbersVertical(batch);
     }
 
     protected void renderHelperNumberLines(ShapeRenderer shRenderer) {
@@ -282,6 +282,65 @@ public abstract class AbstractWorldRenderer implements Disposable {
             renderHelperDottedLinesHorizontal(shRenderer);
             //renderHelperNumberLinesHorizontal(shRenderer);
         }
+
+    }
+
+    protected void renderNumberLineImg(SpriteBatch batch) {
+        if(numberLineIsHorizontal) {
+//            renderHelperNumberLinesVertical(shRenderer);
+            renderNumberLineImgH(batch);
+        }
+        else {
+            renderNumberLineImgV(batch);
+            //renderHelperNumberLinesHorizontal(shRenderer);
+        }
+
+    }
+
+    protected void renderNumberLineImgV(SpriteBatch batch){
+        TextureAtlas.AtlasRegion nLineV = Assets.instance.background.numberLineV;
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+//
+//        batch.draw(nLineV.getTexture(),
+//                250, Constants.DETECTION_LIMIT,
+//                0,0,
+//                nLineV.getRegionX(), nLineV.getRegionY(),
+//                1, 1,
+//                0,
+//                nLineV.getRegionX(), nLineV.getRegionY(),
+//                nLineV.getRegionWidth(), nLineV.getRegionHeight(), false,false);
+
+        batch.draw(nLineV.getTexture(),
+                235, Constants.DETECTION_ZONE_END,
+                nLineV.getRegionX(), nLineV.getRegionY(),
+                nLineV.getRegionWidth(), nLineV.getRegionHeight());
+
+
+        batch.end();
+
+    }
+
+    protected void renderNumberLineImgH(SpriteBatch batch){
+        TextureAtlas.AtlasRegion nLineH = Assets.instance.background.numberLineH;
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+        batch.draw(nLineH.getTexture(),
+                Constants.HORIZONTAL_ZERO_X-20, Constants.DETECTION_ZONE_END-35,
+                nLineH.getRegionX(), nLineH.getRegionY(),
+                nLineH.getRegionWidth(), nLineH.getRegionHeight());
+
+//        batch.draw(nLineH.getTexture(),
+//                Constants.HORIZONTAL_ZERO_X-19, Constants.DETECTION_LIMIT,
+//                0,0,
+//                nLineH.getRegionX(), nLineH.getRegionY(),
+//                1, 1,
+//                0,
+//                nLineH.getRegionX(), nLineH.getRegionY(),
+//                nLineH.getRegionWidth(), nLineH.getRegionHeight(), false,false);
+
+        batch.end();
 
     }
 

@@ -71,44 +71,47 @@ public class BrunoVertical extends Bruno {
         bodyOffsetX = 0;
         switch (bValue){
             case 1:
-                setColor(Color.YELLOW);
+               // setColor(Color.YELLOW);
                 regTex = Assets.instance.bruno.body01;
                 brunoHeadReg = Assets.instance.bruno.body01head;
                 brunoBodyReg = Assets.instance.bruno.body01body;
-                headYoffset = -3;
+                headYoffset = -6;
+                headXoffset =  2;
+                bodyOffsetX = -4;
                 break;
             case 2:
-                setColor(Color.GREEN);
+                //setColor(Color.GREEN);
                 regTex = Assets.instance.bruno.body02;
                 brunoHeadReg = Assets.instance.bruno.body02head;
                 brunoBodyReg = Assets.instance.bruno.body02body;
-                headXoffset =  -3;
+                headXoffset =  2;
                 headYoffset = -5;
+                bodyOffsetX = -4;
                 break;
             case 3:
-                setColor(Color.ORANGE);
+               // setColor(Color.ORANGE);
                 regTex = Assets.instance.bruno.body03;
                 brunoHeadReg = Assets.instance.bruno.body03head;
                 brunoBodyReg = Assets.instance.bruno.body03body;
                 headXoffset = 5;
                 headYoffset = -5;
-                bodyOffsetX = -10;
+                bodyOffsetX = -5;
                 break;
             case 4:
-                setColor(Color.CYAN);
+               // setColor(Color.CYAN);
                 regTex = Assets.instance.bruno.body04;
                 brunoHeadReg = Assets.instance.bruno.body04head;
                 brunoBodyReg = Assets.instance.bruno.body04body;
-                headYoffset = -4;
+                headYoffset = -5;
                 bodyOffsetX = -5;
                 break;
             case 5:
-                setColor(Color.PINK);
+               // setColor(Color.PINK);
                 regTex = Assets.instance.bruno.body05;
                 brunoHeadReg = Assets.instance.bruno.body05head;
                 brunoBodyReg = Assets.instance.bruno.body05body;
-                headXoffset = -14;
-                headYoffset = -2;
+                headXoffset = -12;
+                headYoffset = -7;
                 break;
         }
 

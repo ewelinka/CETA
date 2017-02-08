@@ -61,7 +61,7 @@ public class Price extends AbstractGameObject {
     public Price(boolean isMovingVertical, int priceType, LevelParams levelParams, AbstractWorldController worldController) {
         this.worldController = worldController;
         this.isMovingVertical = isMovingVertical;
-        this.priceTypeNr = priceType;
+        this.priceTypeNr = MathUtils.random(1,6);
         init();
         velocity = levelParams.priceVelocity;
         startNumber = levelParams.numberMin;
@@ -121,6 +121,12 @@ public class Price extends AbstractGameObject {
                 break;
             case 4:
                 regTex = Assets.instance.toCollect.price4;
+                break;
+            case 5:
+                regTex = Assets.instance.toCollect.price5;
+                break;
+            case 6:
+                regTex = Assets.instance.toCollect.price6;
                 break;
         }
 

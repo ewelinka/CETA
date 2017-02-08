@@ -28,7 +28,7 @@ public class BrunoJetPack extends BrunoVertical {
     public BrunoJetPack(int value, BrunosManager brunosManager) {
         super(value, brunosManager);
         regTex = Assets.instance.bruno.jetPack;
-        jetPackXadjust = regTex.getRegionWidth()-10;
+        jetPackXadjust = regTex.getRegionWidth()-15;
         fire = Assets.instance.bruno.fire;
         fireXadjust = 5;
         fireYScale = fireXScale = 0.5f;

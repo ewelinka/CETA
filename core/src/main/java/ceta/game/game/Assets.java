@@ -253,6 +253,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public final TextureAtlas.AtlasRegion bigScrew;
         public final TextureAtlas.AtlasRegion guiGearL,guiGearR;
+        public final TextureAtlas.AtlasRegion numberLineV,numberLineH;
 
 
 
@@ -285,6 +286,8 @@ public class Assets implements Disposable, AssetErrorListener {
             bigScrew = atlas.findRegion("tornillo-intro");
             guiGearL = atlas.findRegion("guiGearL");
             guiGearR = atlas.findRegion("guiGearR");
+            numberLineV = atlas.findRegion("rectaV");
+            numberLineH = atlas.findRegion("rectaH");
 
 
         }
@@ -375,10 +378,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
     public class AssetObjectsToCollect {
-        public final TextureAtlas.AtlasRegion price1;
-        public final TextureAtlas.AtlasRegion price2;
-        public final TextureAtlas.AtlasRegion price3;
-        public final TextureAtlas.AtlasRegion price4;
+        public final TextureAtlas.AtlasRegion price1,price2,price3,price4,price5,price6;
+
 
 
         public AssetObjectsToCollect (TextureAtlas atlas) {
@@ -386,6 +387,8 @@ public class Assets implements Disposable, AssetErrorListener {
             price2 = atlas.findRegion("premio2");
             price3 = atlas.findRegion("premio3");
             price4 = atlas.findRegion("premio4");
+            price5 = atlas.findRegion("premio5");
+            price6 = atlas.findRegion("premio6");
 
 
         }

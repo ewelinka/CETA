@@ -209,11 +209,34 @@ public class TreeScreen extends AbstractGameScreen {
         if(nowLevel < Constants.L1_COMPLETED_NR){
             level1gear.setActive(false);
             arrow.setPosition(arrowPositions[0][0],arrowPositions[0][1]); // pos 1
+            newActivated = 0;
            // Gdx.app.log(TAG, "1 gray");
         }
 
         if(!gameInit)
             enableGearsWithAnimation(newActivated);
+        else{
+            switch(newActivated){
+                case 0:
+                    level1gear.setIsMoving(true,0.2f);
+                    break;
+                case 1:
+                    level2gear.setIsMoving(true,0.2f);
+                    break;
+                case 2:
+                    level3gear.setIsMoving(true,0.2f);
+                    break;
+                case 3:
+                    level4gear.setIsMoving(true,0.2f);
+                    break;
+                case 4:
+                    level5gear.setIsMoving(true,0.2f);
+                    break;
+                case 5:
+                    level6gear.setIsMoving(true,0.2f);
+                    break;
+            }
+        }
     }
 
     private void enableGearsWithAnimation(int newActivated){
@@ -226,30 +249,35 @@ public class TreeScreen extends AbstractGameScreen {
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[1][0],arrowPositions[1][1],2f)));
                 level1gear.setActive(false);
                 level1gear.activateGear();
+                level2gear.setIsMoving(true,3.5f);
                 break;
             case 2:
                 arrow.setPosition(arrowPositions[1][0],arrowPositions[1][1]);
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[2][0],arrowPositions[2][1],2f)));
                 level2gear.setActive(false);
                 level2gear.activateGear();
+                level3gear.setIsMoving(true,3.5f);
                 break;
             case 3:
                 arrow.setPosition(arrowPositions[2][0],arrowPositions[2][1]);
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[3][0],arrowPositions[3][1],2f)));
                 level3gear.setActive(false);
                 level3gear.activateGear();
+                level4gear.setIsMoving(true,3.5f);
                 break;
             case 4:
                 arrow.setPosition(arrowPositions[3][0],arrowPositions[3][1]);
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[4][0],arrowPositions[4][1],2f)));
                 level4gear.setActive(false);
                 level4gear.activateGear();
+                level5gear.setIsMoving(true,3.5f);
                 break;
             case 5:
                 arrow.setPosition(arrowPositions[4][0],arrowPositions[4][1]);
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[5][0],arrowPositions[5][1],2f)));
                 level5gear.setActive(false);
                 level5gear.activateGear();
+                level6gear.setIsMoving(true,3.5f);
                 break;
             case 6:
                 arrow.setPosition(arrowPositions[5][0],arrowPositions[5][1]);
