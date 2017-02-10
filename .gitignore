@@ -70,3 +70,5 @@ build/
 Thumbs.db
 
 android/target
+
+*.csv
