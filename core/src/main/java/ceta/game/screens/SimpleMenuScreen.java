@@ -164,16 +164,16 @@ public class SimpleMenuScreen extends AbstractGameScreen {
                 delay(2.0f),
                 Actions.rotateBy(50,1.0f),
                 Actions.rotateBy(-50,0.8f),
-                delay(2.0f)
-//                run(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if(Constants.WITH_CV)
-//                            game.setScreen(new TutorialCvScreen(game),ScreenTransitionFade.init(0.75f));
-//                        else
-//                            game.setScreen(new TutorialScreen(game),ScreenTransitionFade.init(0.75f));
-//                    }
-//                })
+                delay(2.0f),
+                run(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(Constants.WITH_CV)
+                            game.setScreen(new TutorialCvScreen(game),ScreenTransitionFade.init(0.75f));
+                        else
+                            game.setScreen(new TutorialScreen(game),ScreenTransitionFade.init(0.75f));
+                    }
+                })
         ));
 
 
