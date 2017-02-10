@@ -33,11 +33,9 @@ public class Level3HorizontalController extends NoCvController  {
 
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        level = new Level3Horizontal(stage,levelParams);
+        level = new Level3Horizontal(stage,levelParams, this);
         xZero = Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2;
-       // level.bruno.setSize(Constants.BASE*1,Constants.BASE*5);
-//        level.bruno.setPosition(Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2,0);
-//        level.bruno.setTerminalX(Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2);
+
         cameraHelper.setTarget(null);
         score = 0;
         virtualBlocksManager.init();
@@ -52,16 +50,17 @@ public class Level3HorizontalController extends NoCvController  {
 
 
     private void testCollisionsStatic () {
-        Gdx.app.log(TAG," testCollisionsStatic ======");
+        //Gdx.app.log(TAG," testCollisionsStatic ======");
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
+            ((Level3Horizontal)level).gear.setRotationSpeed(0);
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
                 r1.set(level.bruno.getX()+level.bruno.getWidth()/2 - 2,
                         level.bruno.getY() ,
                         4, level.bruno.getHeight());
                 r2.set(level.price.getX()+level.price.getWidth()/2 - 2,
-                        Constants.DETECTION_ZONE_END,
-                        4, Math.abs(Constants.DETECTION_ZONE_END) + level.price.getY() +   level.price.bounds.height);
+                        Constants.GROUND_LEVEL,
+                        4, Math.abs(Constants.GROUND_LEVEL) + level.price.getY() +   level.price.bounds.height);
 
                 if (r1.overlaps(r2)) {
                     //onCollisionBrunoWithPrice(level.price);
@@ -69,14 +68,14 @@ public class Level3HorizontalController extends NoCvController  {
                     moveMade = false;
                 } else {
                     if (moveMade) {
-                        AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                         moveMade = false;
                     }
 
                 }
             }else{ // no blocks on the table
                 if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
             }
@@ -87,6 +86,7 @@ public class Level3HorizontalController extends NoCvController  {
     private void testCollisionsDynamic () {
         //Gdx.app.log(TAG," testCollisionsDynamic ======");
         if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
+            ((Level3Horizontal)level).gear.setRotationSpeed(0);
             // we set 4px x 4px box at the middle end (X), in the top (Y)
             if(level.bruno.getTerminalX() != xZero ) {
                 r1.set(level.bruno.getX()+level.bruno.getWidth()/2 -2,
@@ -135,14 +135,17 @@ public class Level3HorizontalController extends NoCvController  {
     }
 
     private void moveBruno(int howMany){
-        if(howMany>0)
+        if(howMany>0) {
             level.bruno.setLookingLeft(false);
-        else
+
+        }
+        else {
             level.bruno.setLookingLeft(true);
+        }
         Gdx.app.log(TAG, " move bruno "+howMany);
+        ((Level3Horizontal)level).gear.setRotationSpeed(20*howMany);
         float currentTerminalX = level.bruno.getTerminalX();
-       // level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.DETECTION_ZONE_END);
-        level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.DETECTION_ZONE_END);
+        level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.GROUND_LEVEL);
 
     }
 

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
@@ -25,16 +26,20 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected OrthographicCamera camera;
     protected SpriteBatch spriteBatch;
     protected ShapeRenderer shapeRenderer;
-    protected BitmapFont font;
-    protected BitmapFont bigFont;
-    protected BitmapFont counterFont;
+    protected BitmapFont fontNumberLine;
+    protected BitmapFont normalGuiFont,smallGuiFont,bigGuiFont;
     protected AbstractWorldController worldController;
+    protected FeedbackRenderer feedbackRenderer;
+    protected boolean shouldRenderClue;
     protected Stage stage;
-    protected Image imgBackground;
+    protected TextureAtlas.AtlasRegion imgBackground;
+    protected  String levelTxt = "Nivel ";
 
 
     protected int levelMinimumNumber;
     protected boolean numberLineIsHorizontal;
+    protected int maxShift;
+    private  int dotsDist = 5;
 
 
     public abstract void init();
@@ -85,22 +90,32 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.end();
     }
 
+    protected void renderBelowTheGround(SpriteBatch batch){
+        TextureAtlas.AtlasRegion belowZone = Assets.instance.staticBackground.belowTheGround;
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+//        batch.draw(belowZone.getTexture(),
+//                -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
+//                0,0,
+//                Constants.VIEWPORT_WIDTH, Constants.DETECTION_ZONE_END-Constants.DETECTION_LIMIT,
+//                1, 1,
+//                0,
+//                belowZone.getRegionX(), belowZone.getRegionY(),
+//                belowZone.getRegionWidth(), belowZone.getRegionHeight(), false,false);
+        batch.draw(belowZone.getTexture(),
+                -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
+                Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT/2+Constants.GROUND_LEVEL,
+                belowZone.getRegionX(), belowZone.getRegionY(),
+                belowZone.getRegionWidth(), belowZone.getRegionHeight(), false,false);
+
+        batch.end();
+
+    }
+
     protected void renderDetectionZoneImg(SpriteBatch batch){
-        // render for pieces
-        //TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksTablet;
-        // render for deposite
         TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-
-//        batch.draw(blocksZone.getTexture(),
-//                -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
-//                0, 0,
-//                Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT/2 + Constants.DETECTION_LIMIT,
-//                1, 1,
-//                0,
-//                blocksZone.getRegionX(), blocksZone.getRegionY(),
-//                blocksZone.getRegionWidth(), blocksZone.getRegionHeight(), false,false);
 
         batch.draw(feedbackZone.getTexture(),
                 -Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_LIMIT,
@@ -116,21 +131,40 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
         batch.end();
 
+    }
 
+    private void drawDottedLine(ShapeRenderer shapeRenderer, int dotDist, float x1, float y1, float x2, float y2) {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Point);
 
+        Vector2 vec2 = new Vector2(x2, y2).sub(new Vector2(x1, y1));
+        float length = vec2.len();
+        for(int i = 0; i < length; i += dotDist) {
+            vec2.clamp(length - i, length - i);
+            shapeRenderer.point(x1 + vec2.x, y1 + vec2.y, 0);
+        }
+
+        shapeRenderer.end();
     }
 
     protected void renderBackgroundImg(SpriteBatch batch){
-        TextureAtlas.AtlasRegion b = Assets.instance.background.back3;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(b.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END,
-                b.getRegionWidth()/2, b.getRegionHeight()/2,
-                b.getRegionWidth(), b.getRegionHeight(),
-                1, 1,
-                0,
-                b.getRegionX(), b.getRegionY(),
-                b.getRegionWidth(), b.getRegionHeight(), false,false);
+        if(numberLineIsHorizontal)
+            batch.draw(imgBackground.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.GROUND_LEVEL,
+                    imgBackground.getRegionWidth()/2,imgBackground.getRegionHeight()/2,
+                    600, 700,
+                    1, 1,
+                    0,
+                    imgBackground.getRegionX(), imgBackground.getRegionY(),
+                    imgBackground.getRegionWidth(), imgBackground.getRegionHeight(), false,false);
+        else
+            batch.draw(imgBackground.getTexture(),-Constants.VIEWPORT_WIDTH/2, Constants.GROUND_LEVEL,
+                    imgBackground.getRegionWidth()/2,imgBackground.getRegionHeight()/2,
+                    600, 700,
+                    1, 1,
+                    0,
+                    imgBackground.getRegionX(), imgBackground.getRegionY(),
+                    imgBackground.getRegionWidth(), imgBackground.getRegionHeight(), false,false);
         batch.end();
     }
 
@@ -141,7 +175,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
         shRenderer.setColor(1, 1, 1, 1);
 
-        for(int i = Constants.DETECTION_ZONE_END; i<=(Constants.DETECTION_ZONE_END +400); i+=Constants.BASE){
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=Constants.BASE){
             shRenderer.line(-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
         }
 
@@ -149,19 +183,49 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.end();
     }
 
+    protected void renderHelperDottedLinesHorizontal(ShapeRenderer shRenderer) {
+        Gdx.gl.glLineWidth(1);
+        shRenderer.setProjectionMatrix(camera.combined);
+        shRenderer.setColor(1, 1, 1, 1);
 
-    protected void renderHelperNumbersVertical(SpriteBatch batch){
+
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=Constants.BASE){
+            //shRenderer.line(-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
+            drawDottedLine(shRenderer,dotsDist,-Constants.VIEWPORT_WIDTH/2+20 , i, 240,i);
+        }
+
+
+        shRenderer.end();
+    }
+
+    protected void renderLevelNumber(SpriteBatch batch){
+        GlyphLayout layout = new GlyphLayout(bigGuiFont, levelTxt+worldController.getLevelNr());
+//        batch.setProjectionMatrix(camera.combined);
+//        batch.begin();
+        bigGuiFont.setColor(0,0,0,0.7f);
+        bigGuiFont.draw(batch, levelTxt+worldController.getLevelNr(), 0, 500,0, Align.center,false);
+//        batch.end();
+
+
+    }
+
+
+
+
+    protected void renderHelperNumbersHorizontal(SpriteBatch batch){
         int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         int counter  = 0;
 
-        for(int i = Constants.HORIZONTAL_ZERO_X; i<=Constants.HORIZONTAL_ZERO_X+10*Constants.BASE;i+=Constants.BASE){
+        for(int i = Constants.HORIZONTAL_ZERO_X; i<=Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
             if(levelMinimumNumber+counter == chosenNr)
-                font.setColor(0,153,0,1);
+                fontNumberLine.setColor(0,153,0,1);
             else
-                font.setColor(0,0,0,0.7f);
-            font.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.DETECTION_ZONE_END,0, Align.center,false);
+                fontNumberLine.setColor(0,0,0,0.7f);
+            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL,0, Align.center,false);
+            //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false);
+
 
             counter+=1;
         }
@@ -171,20 +235,20 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
 
-    protected void renderHelperNumbersHorizontal(SpriteBatch batch){
+    protected void renderHelperNumbersVertical(SpriteBatch batch){
         int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         int counter  = 0;
 
-        for(int i = Constants.DETECTION_ZONE_END; i<=(Constants.DETECTION_ZONE_END +400); i+=Constants.BASE){
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=Constants.BASE){
             String text = counter+"";
-            GlyphLayout layout = new GlyphLayout(font, text);
+            GlyphLayout layout = new GlyphLayout(fontNumberLine, text);
             if(levelMinimumNumber+counter == chosenNr)
-                font.setColor(0,153,0,1);
+                fontNumberLine.setColor(0,153,0,1);
             else
-                font.setColor(0,0,0,0.7f);
-            font.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
+                fontNumberLine.setColor(0,0,0,0.7f);
+            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
 
             counter+=1;
         }
@@ -195,16 +259,79 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     protected void renderHelperNumbers(SpriteBatch batch){
         if(numberLineIsHorizontal)
-            renderHelperNumbersVertical(batch);
-        else
             renderHelperNumbersHorizontal(batch);
+        else
+            renderHelperNumbersVertical(batch);
     }
 
     protected void renderHelperNumberLines(ShapeRenderer shRenderer) {
-        if(numberLineIsHorizontal)
-            renderHelperNumberLinesVertical(shRenderer);
-        else
-            renderHelperNumberLinesHorizontal(shRenderer);
+        if(numberLineIsHorizontal) {
+//            renderHelperNumberLinesVertical(shRenderer);
+            renderHelperDottedLinesVertical(shRenderer);
+        }
+        else {
+            renderHelperDottedLinesHorizontal(shRenderer);
+            //renderHelperNumberLinesHorizontal(shRenderer);
+        }
+
+    }
+
+    protected void renderNumberLineImg(SpriteBatch batch) {
+        if(numberLineIsHorizontal) {
+//            renderHelperNumberLinesVertical(shRenderer);
+            renderNumberLineImgH(batch);
+        }
+        else {
+            renderNumberLineImgV(batch);
+            //renderHelperNumberLinesHorizontal(shRenderer);
+        }
+
+    }
+
+    protected void renderNumberLineImgV(SpriteBatch batch){
+        TextureAtlas.AtlasRegion nLineV = Assets.instance.background.numberLineV;
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+//
+//        batch.draw(nLineV.getTexture(),
+//                250, Constants.DETECTION_LIMIT,
+//                0,0,
+//                nLineV.getRegionX(), nLineV.getRegionY(),
+//                1, 1,
+//                0,
+//                nLineV.getRegionX(), nLineV.getRegionY(),
+//                nLineV.getRegionWidth(), nLineV.getRegionHeight(), false,false);
+
+        batch.draw(nLineV.getTexture(),
+                235, Constants.DETECTION_ZONE_END,
+                nLineV.getRegionX(), nLineV.getRegionY(),
+                nLineV.getRegionWidth(), nLineV.getRegionHeight());
+
+
+        batch.end();
+
+    }
+
+    protected void renderNumberLineImgH(SpriteBatch batch){
+        TextureAtlas.AtlasRegion nLineH = Assets.instance.background.numberLineH;
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+        batch.draw(nLineH.getTexture(),
+                Constants.HORIZONTAL_ZERO_X-20, Constants.DETECTION_ZONE_END-35,
+                nLineH.getRegionX(), nLineH.getRegionY(),
+                nLineH.getRegionWidth(), nLineH.getRegionHeight());
+
+//        batch.draw(nLineH.getTexture(),
+//                Constants.HORIZONTAL_ZERO_X-19, Constants.DETECTION_LIMIT,
+//                0,0,
+//                nLineH.getRegionX(), nLineH.getRegionY(),
+//                1, 1,
+//                0,
+//                nLineH.getRegionX(), nLineH.getRegionY(),
+//                nLineH.getRegionWidth(), nLineH.getRegionHeight(), false,false);
+
+        batch.end();
 
     }
 
@@ -216,16 +343,29 @@ public abstract class AbstractWorldRenderer implements Disposable {
         shRenderer.begin(ShapeRenderer.ShapeType.Line);
         shRenderer.setColor(1, 1, 1, 1);
 
-        for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+10*Constants.BASE;i+=Constants.BASE){
-            shRenderer.line(i , Constants.DETECTION_ZONE_END, i,Constants.VIEWPORT_HEIGHT/2 - 100);
+        for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
+            shRenderer.line(i , Constants.GROUND_LEVEL, i,Constants.VIEWPORT_HEIGHT/2 - 100);
         }
-//        shRenderer.setColor(0, 0, 1, 1);
-//        shRenderer.line(-Constants.VIEWPORT_WIDTH/2, Constants.DETECTION_ZONE_END, Constants.VIEWPORT_WIDTH/2,Constants.DETECTION_ZONE_END);
+        shRenderer.end();
+    }
 
+    protected void renderHelperDottedLinesVertical(ShapeRenderer shRenderer){
+        Gdx.gl.glLineWidth(1);
+        shRenderer.setProjectionMatrix(camera.combined);
+        shRenderer.setColor(1, 1, 1, 1);
+
+        for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
+            //shRenderer.line(i , Constants.GROUND_LEVEL, i,Constants.VIEWPORT_HEIGHT/2 - 100);
+            drawDottedLine(shRenderer,dotsDist,i , Constants.GROUND_LEVEL, i,Constants.VIEWPORT_HEIGHT/2 - 100);
+        }
         shRenderer.end();
     }
 
 
+
+    protected int getCurrentPriceImgNr(){
+        return worldController.getCurrentPriceType();
+    }
 
 
 
@@ -233,7 +373,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     public void dispose() {
         spriteBatch.dispose();
         shapeRenderer.dispose();
-//        font.dispose();
+//        fontNumberLine.dispose();
 //        counterFont.dispose();
     }
 }

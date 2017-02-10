@@ -3,13 +3,8 @@ package ceta.game.game.controllers;
 import ceta.game.game.Assets;
 import ceta.game.game.levels.AbstractLevel;
 import ceta.game.game.levels.LevelParams;
-import ceta.game.game.objects.AbstractGameObject;
-import ceta.game.game.objects.Bruno;
-import ceta.game.game.objects.BrunoVertical;
-import ceta.game.game.objects.Price;
-import ceta.game.screens.DirectedGame;
-import ceta.game.screens.CongratulationsScreen;
-import ceta.game.screens.MenuScreen;
+import ceta.game.game.objects.*;
+import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.*;
@@ -18,6 +13,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
@@ -37,6 +33,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public CameraHelper cameraHelper;
     public AbstractLevel level;
     public int score;
+    public int levelNr;
+
     public DirectedGame game;
     protected boolean countdownOn;
     protected float countdownCurrentTime;
@@ -48,58 +46,63 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected boolean moveMade;
     private int localCountdownMax;
     protected int currentErrors;
+    protected boolean isTooMuch;
     protected int timeToWait;
     protected float timeToWaitForReading;
+    protected boolean tableCleaned;
+    private boolean happyEnd;
+
+    protected int operationsNumberToPassToNext;
 
 
-
-
-    public AbstractWorldController(DirectedGame game, Stage stage, int levelJson) {
+    public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
         this.game = game;
         this.stage = stage;
+        this.levelNr = levelNr;
+        oneSegFadeIn = ScreenTransitionFade.init(1);
 
-        levelParams = getLevelParams(levelJson);
+        //levelParams = getLevelParams(levelNr);
+        loadLevelParamsFromCsv(levelNr);
+        checkLevelParamsAnsSetOperationsToPassToNext();
         AudioManager.instance.setStage(stage);
 
-        if(GamePreferences.instance.actionSubmit) {
-            timeToWait = Constants.ACTION_SUBMIT_WAIT;
-            Gdx.app.log(TAG, " time to wait!!! "+timeToWait);
-        }
-        else {
-            timeToWait = 0;
-            Gdx.app.log(TAG, "no time to wait!!!");
-        }
-        timeToWaitForReading = 0;
+
+        timeToWait = Constants.ACTION_SUBMIT_WAIT;
 
         init();
         localInit();
-        newPriceRegister();
     }
 
 
     public abstract void update(float delta);
     protected abstract void testCollisionsInController(boolean isDynamic);
-
+    protected abstract void readDetectedSaveIntentAndLastSolution();
 
 
     protected abstract void localInit();
     protected abstract void updateDigitalRepresentations();
     protected abstract void countdownMove();
-    protected abstract boolean isPlayerInactive();
+    public abstract boolean isPlayerInactive();
+
+    public abstract int getNowDetectedSum();
 
 
     public void init () {
+        timeToWaitForReading = 0;
 
+        happyEnd = false;
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(null);
         score = 0;
-        oneSegFadeIn = ScreenTransitionFade.init(1);
+
         playerInactive = false;
         timeLeftScreenFinishedDelay = 0;
         moveMade = false;
         //localCountdownMax = GamePreferences.instance.countdownMax;
         localCountdownMax = Constants.COUNTDOWN_MAX;
         currentErrors = 0;
+        isTooMuch = false;
+        tableCleaned = true;
 
         actionSubmitInit();
         adjustCamera();
@@ -138,13 +141,16 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
         else if(keycode == Input.Keys.N){
            // GamePreferences.instance.addOneToLastLevelAndSave();
-            game.getLevelsManager().goToNextLevel();
+            game.getLevelsManager().goToNextLevelWorkaround();
         }
 
         else if(keycode == Input.Keys.B){
 //            GamePreferences.instance.subtractOneToLastLevelAndSave();
 //            game.getLevelsManager().goToNextLevel();
-            game.getLevelsManager().goToPreviousLevel();
+            game.getLevelsManager().goToPreviousLevelWorkaround();
+        }
+        else if(keycode == Input.Keys.C){
+            goToCongratulationsScreen();
         }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {
@@ -162,16 +168,19 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void backToMenu () {
         // switch to menu screen
        // ScreenTransition transition = ScreenTransitionFade.init(1);
-        game.setScreen(new MenuScreen(game), oneSegFadeIn);
+        game.setScreen(new TreeScreen(game,true), oneSegFadeIn);
+       // game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
     }
 
     public void goToCongratulationsScreen () {
-        // switch to final screen
-       // ScreenTransition transition = ScreenTransitionFade.init(1);
-        GamePreferences.instance.setLastLevel(GamePreferences.instance.lastLevel+1);
 
-        game.setScreen(new CongratulationsScreen(game), oneSegFadeIn);
+        game.setScreen(new CongratulationsScreen(game,score), oneSegFadeIn);
 
+    }
+
+    public void goToRepeatLevelScreen(){
+        AudioManager.instance.play(Assets.instance.sounds.repeatLevel);
+        game.setScreen(new RepeatLevelScreen(game),oneSegFadeIn);
     }
 
     public void handleDebugInput (float deltaTime) {
@@ -263,14 +272,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                 moveMade = false;
             }
         }
@@ -288,11 +297,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             if (r1.overlaps(r2)) {
                 onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
                 moveMade = false;
-            } else{
-
-                //TODO check if the price number and number line position ==
-                // if == -> its a good answer
-                // if not -> error
             }
         }
     }
@@ -304,71 +308,66 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         cameraHelper.setPosition(x, y);
     }
 
-    protected void onCollisionBrunoWithPrice(Price goldcoin) {
+    private void genericOnCollision(){
+        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
+        currentErrors = 0;
+        game.resultsManager.setLastToFinal();
+        game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(),score);
+        score += 1;
+    }
+
+    protected void onCollisionBrunoWithPrice(Price price) {
         //Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (goldcoin.getActions().size == 0) { // we act just one time!
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-            score += 1;
-            //TODO some nice yupi animation
-            if (score < levelParams.operationsNumberToPass) {
-                goldcoin.wasCollected();
-                newPriceRegister();
+        if (price.getActions().size == 0) { // we act just one time!
+            genericOnCollision();
+            if (notYetPassTheLevel()) {
+                price.wasCollected();
 
             } else {
-                screenFinished = true;
-                goldcoin.lastCollected();
-                timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
-
-
+                price.lastCollected();
+                onLevelFinished();
             }
+
         }
     }
 
-    protected void  onCollisionBrunoWithPriceVertical(Price goldcoin, Bruno bruno){
+    protected void  onCollisionBrunoWithPriceVertical(Price price, Bruno bruno){
        // Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (goldcoin.getActions().size == 0) { // we act just one time!
+        if (price.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-            score += 1;
-            //TODO some nice yupi animation
-            if (score < levelParams.operationsNumberToPass) {
-                Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+goldcoin.getX()+" y "+goldcoin.getY());
-                goldcoin.wasEaten(bruno.getX(), bruno.getEatPointY());
-                newPriceRegister();
+            genericOnCollision();
+            if (notYetPassTheLevel()) {
+                Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+price.getX()+" y "+price.getY());
+                price.wasEaten(bruno.getX(), bruno.getEatPointY());
 
             } else {
-                screenFinished = true;
-                goldcoin.lastEaten(bruno.getX(), bruno.getEatPointY());
-                timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
-
-
+                price.lastEaten(bruno.getX(), bruno.getEatPointY());
+                onLevelFinished();
             }
+
         }
     }
 
-    protected void onCollisionBrunoWithPriceHorizontal3(Price goldcoin, Bruno bruno){
+    protected void onCollisionBrunoWithPriceHorizontal3(Price price, Bruno bruno){
         // Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (goldcoin.getActions().size == 0) { // we act just one time!
+        if (price.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
-            AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-            score += 1;
-            //TODO some nice yupi animation
-            if (score < levelParams.operationsNumberToPass) {
+            genericOnCollision();
+            if (notYetPassTheLevel()) {
                 Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
-                goldcoin.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
-                newPriceRegister();
-
+                price.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
             } else {
-                screenFinished = true;
-                goldcoin.lastEaten(bruno.getX(), bruno.getEatPointY());
-                timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
-
-
+                price.lastEaten(bruno.getX(), bruno.getEatPointY());
+                onLevelFinished();
             }
+
         }
     }
 
-
+    public void finishTheScreen(){
+        screenFinished = true;
+        timeLeftScreenFinishedDelay = Constants.TIME_DELAY_SCREEN_FINISHED;
+    }
 
     public boolean getCountdownOn(){
         return countdownOn;
@@ -381,7 +380,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void setCountdownOn(boolean isOn){
         //Gdx.app.log(TAG, " setCountdownOn "+isOn);
         if(isOn) {
-
             AudioManager.instance.play(Assets.instance.sounds.buzz);
         }
         else {
@@ -403,12 +401,36 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         return json.fromJson(LevelParams.class, Gdx.files.internal(Constants.LEVELS_FOLDER+"/"+levelNr+".json"));
     }
 
-    public int getOperationsNumberToPass(){
-        return levelParams.operationsNumberToPass;
+    protected void loadLevelParamsFromCsv(int levelNr){
+        levelParams = LevelsCsv.instance.getParams(levelNr);
+    }
+
+    private void checkLevelParamsAnsSetOperationsToPassToNext(){
+        if(levelParams.operations.length > 0) { // NOT RANDOM CASE
+            if(levelParams.operations.length < levelParams.operationsToFinishLevel ) {
+                Gdx.app.log(TAG, "we adjust operations to finish!  was: " + levelParams.operationsToFinishLevel + " now " + levelParams.operations.length);
+                levelParams.operationsToFinishLevel = levelParams.operations.length;
+            }
+
+//            // in this no-random case if there are more operations to finish the level than all the operations, it is wrong!!
+//            if (levelParams.operationsNumberToPassToNext  levelParams.operationsToFinishLevel){
+//                Gdx.app.log(TAG,"strange! finish with no posibility to collect! "+levelParams.operationsNumberToPassToNext +" "+levelParams.operationsToFinishLevel);
+//                levelParams.operationsToFinishLevel = levelParams.operationsNumberToPassToNext;
+//            }
+        }
+        operationsNumberToPassToNext = MathUtils.round(levelParams.operationsToFinishLevel*0.8f);
+        Gdx.app.log(TAG,"to finish level "+levelParams.operationsToFinishLevel+" to pass: "+operationsNumberToPassToNext);
+
+    }
+
+    public int getOperationsNumberToFinishLevel(){
+        return levelParams.operationsToFinishLevel;
+
     }
 
 
     public int getMinimumNumber(){ return levelParams.numberMin;}
+    public int getMaximumNumber(){ return levelParams.numberMax;}
 
     public boolean isNumberLineVisible(){ return levelParams.visibleNumberLine;}
 
@@ -420,11 +442,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
 
-    @Override public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-        // ignore if its not left mouse button or first touch pointer
-        if(screenY < 150) {
-            //GamePreferences.instance.addOneToLastLevelAndSave();
-            game.getLevelsManager().goToNextLevel();
+    @Override
+    public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        Gdx.app.log(TAG," TOUCHED "+screenX+ " "+screenY);
+        if(screenX >570 && screenY < 40){
+            game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
+        }
+        else if(screenY < 150) {
+            game.getLevelsManager().goToNextLevelWorkaround();
         }
 
         return true;
@@ -435,9 +460,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             //Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
             timeLeftScreenFinishedDelay -= deltaTime;
             if (timeLeftScreenFinishedDelay < 0)
-                goToCongratulationsScreen();
+                if(happyEnd)
+                    goToCongratulationsScreen();
+                else
+                    goToRepeatLevelScreen();
+
         }
         else{
+            //testScreenOver();
             testCollisions(); // winning condition checked
         }
 
@@ -445,28 +475,45 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         level.update(deltaTime); //stage.act()
     }
 
-    public boolean timeForReadOver(float deltaTime){
-        timeToWaitForReading-=deltaTime;
-        if(timeToWaitForReading<0)
-            return true;
-        else
-            return false;
+    public boolean isTimeForReadOver(float deltaTime){
+//        timeToWaitForReading-=deltaTime;
+//        if(timeToWaitForReading<0)
+//            return true;
+//        else
+//            return false;
+        return true;
 
+    }
+
+    public boolean isReadOver(){
+
+       // return timeToWaitForReading<0;
+        return true;
     }
 
 
 
-    protected void addIntentToResults(int kidResponse, int priceValue){
-
+    protected void addIntentToResults(int kidResponse, int priceValue, int priceDisplayNumber, ArrayList<Integer> toReadVals){
         boolean wasSuccessful = (kidResponse == priceValue);
-        game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue);
+        isTooMuch = (kidResponse > priceValue);
+        game.resultsManager.addIntent(wasSuccessful, kidResponse,priceValue,priceDisplayNumber, toReadVals, score);
+        errorCheck(wasSuccessful);
     }
-    protected void newPriceRegister(){
-        game.resultsManager.newPriceAppeared(score+1,game.getLevelsManager().getCurrentLevel());
+
+    private void errorCheck(boolean wasSuccessful){
+        if(wasSuccessful)
+            currentErrors = 0;
+        else
+            currentErrors +=1;
+
+        Gdx.app.log(TAG, " new intent with result: "+wasSuccessful+ " we have now "+currentErrors+" errors acumulated, is too much:  "+isTooMuch);
     }
+
+
 
     protected void readDetectedAndSaveIntentGeneric(ArrayList<Integer> toReadVals){
-        AudioManager.instance.readTheSum(toReadVals);
+        //AudioManager.instance.readTheSum(toReadVals);
+
         timeToWaitForReading = toReadVals.size(); // seconds
 
         int sum = 0;
@@ -474,12 +521,124 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             sum += i;
         }
 
-        addIntentToResults(sum,level.price.getDisplayNumber());
+        AudioManager.instance.readNumber(sum);
+        addIntentToResults(sum,level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), toReadVals);
+
     }
 
-    protected void resetIntentStart(){
-        game.resultsManager.resetIntentStart();
+    protected void saveLastSolution(ArrayList<VirtualBlock> detectedBlocks){
+        game.resultsManager.saveLastSolution(detectedBlocks);
     }
+
+
+    private boolean notYetPassTheLevel(){
+        Gdx.app.log(TAG," we have to collect "+ getOperationsNumberToFinishLevel()+" now have: "+ getOperationsNumber() );
+        return getOperationsNumber() < getOperationsNumberToFinishLevel();
+    }
+
+//    private boolean operationsNumberCompleted(){
+//     //   Gdx.app.log(TAG," operations : "+getOperationsNumber() + " to finish "+getOperationsNumberToFinishLevel());
+//        return getOperationsNumber() > getOperationsNumberToFinishLevel();
+//    }
+
+    public int getCurrentPriceType(){
+        return level.price.getPriceTypeNr();
+    }
+
+    public boolean isTooMuch(){ return isTooMuch;}
+
+    protected void checkIfTableCleaned(){
+        ArrayList<VirtualBlock> nowSolution = game.resultsManager.getLastSolution();
+        ArrayList<Solution> lastFinalSolution = game.resultsManager.getLastFinalSolution();
+        int correctAnswer = level.price.getCorrectAnswerToPut();
+        int nowSolutionNr = game.resultsManager.getLastSolutionNr();
+        int lastFinalSolutionNr = game.resultsManager.getLastFinalSolutionNr();
+        Gdx.app.log(TAG,"lastFinalSolutionNr "+lastFinalSolutionNr);
+        if(lastFinalSolutionNr!=0) { // we start with lastFinalSolution = 0;
+
+            if ((correctAnswer + lastFinalSolutionNr) == nowSolutionNr) {
+                for (int i = 0; i < lastFinalSolution.size(); i++) {
+                    Solution lastSolutionBlock = lastFinalSolution.get(i);
+                   /// Gdx.app.log(TAG, " for i " + i + " id " + lastSolutionBlock.getId());
+                    boolean lastBlockPresent = false;
+                    for (int j = 0; j < nowSolution.size(); j++) {
+                        VirtualBlock nowSolutionBlock = nowSolution.get(j);
+                        //Gdx.app.log(TAG, " for j " + j + " id " + nowSolutionBlock.getBlockId());
+                        if (lastSolutionBlock.getId() == nowSolutionBlock.getBlockId()) {
+                         //   Gdx.app.log(TAG, "i id == j id");
+                            lastBlockPresent = true;
+                            if (nowSolutionBlock.getCenterVector().dst(lastSolutionBlock.getPosition()) > Constants.NO_MOVEMENT_DIST) {
+                                Gdx.app.log(TAG, " same id but big distance!!");
+                                lastBlockPresent = false;
+                            }
+                        }
+                    }
+                    if (!lastBlockPresent) {
+                        Gdx.app.log(TAG, "BREAK! TABLE CLEANED: TRUE!");
+                        setTableCleaned(true);
+                        return;
+                    }
+                }
+                setTableCleaned(false); // if we checked and everything in -> the table wasn't clean
+                return;
+            } else {
+                setTableCleaned(true);
+            }
+        }
+    }
+
+    public boolean wasTableCleaned(){
+        return tableCleaned;
+    }
+
+    private void setTableCleaned(boolean wasCleaned){
+        tableCleaned = wasCleaned;
+    }
+
+    public ArrayList<Solution> getLastFinalSolution(){
+        return game.resultsManager.getLastFinalSolution();
+    }
+
+    private int getOperationsNumber(){
+        return level.price.getCurrentOperationNr();
+    }
+
+    private int getOperationsToPassToNextLevel(){
+        return operationsNumberToPassToNext;
+    }
+
+//    private void testScreenOver(){
+//
+//        if(operationsNumberCompleted()){
+//
+//        }
+//
+//    }
+
+
+    public void onLevelFinished(){
+        Gdx.app.log(TAG," score "+score+", to pass "+getOperationsToPassToNextLevel());
+
+        if(score >= getOperationsToPassToNextLevel()){
+            happyEnd = true;
+
+        }else{
+            // we re-do the level (0 points)
+            Gdx.app.log(TAG, "to less! we should re-do!!!"); // wait here!!!
+            happyEnd = false;
+        }
+        finishTheScreen();
+
+    }
+
+    public int getLevelNr(){ return levelNr;}
+
+    public void onNewPricePosition(int currentOperationNr){
+        currentErrors  = 0;
+        game.resultsManager.newPriceAppeared(currentOperationNr,game.getLevelsManager().getCurrentLevel()); // we register now level not last level completed!
+
+    }
+
 
 
 

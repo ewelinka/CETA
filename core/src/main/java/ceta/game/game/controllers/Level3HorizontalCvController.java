@@ -18,8 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static ceta.game.util.Constants.DETECTION_ZONE_END;
-
 /**
  * Created by ewe on 12/2/16.
  */
@@ -35,7 +33,7 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
     @Override
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
-        level = new Level3Horizontal(stage, levelParams);
+        level = new Level3Horizontal(stage, levelParams, this);
         cvBlocksManager = new CVBlocksManager(game,stage);
 
         xZero = Constants.HORIZONTAL_ZERO_X-level.bruno.getWidth()/2;
@@ -69,8 +67,8 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
                         level.bruno.getY() ,
                         4, level.bruno.getHeight());
                 r2.set(level.price.getX()+level.price.getWidth()/2 - 2,
-                        Constants.DETECTION_ZONE_END,
-                        4, Math.abs(Constants.DETECTION_ZONE_END) + level.price.getY() +   level.price.bounds.height);
+                        Constants.GROUND_LEVEL,
+                        4, Math.abs(Constants.GROUND_LEVEL) + level.price.getY() +   level.price.bounds.height);
 
                 if (r1.overlaps(r2)) {
                     //onCollisionBrunoWithPrice(level.price);
@@ -78,14 +76,14 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
                     moveMade = false;
                 } else {
                     if (moveMade) {
-                        AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                         moveMade = false;
                     }
 
                 }
             }else{ // no blocks on the table
                 if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
             }
@@ -156,7 +154,7 @@ public class Level3HorizontalCvController extends CvController { // TODO should 
             level.bruno.setLookingLeft(true);
         Gdx.app.log(TAG, " move bruno "+howMany);
         float currentTerminalX = level.bruno.getTerminalX();
-        level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.DETECTION_ZONE_END);
+        level.bruno.moveMeToAndSetTerminalX(currentTerminalX + howMany*Constants.BASE, Constants.GROUND_LEVEL);
 
     }
 }

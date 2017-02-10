@@ -30,12 +30,12 @@ public class Level3VerticalCvController extends CvController {
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
         cvBlocksManager = new CVBlocksManager(game,stage);
-        level = new Level3Vertical(stage,levelParams);
+        level = new Level3Vertical(stage,levelParams,this);
 
         // Bruno will be flying
         //level.bruno.setSize(Constants.BASE*1,Constants.BASE*1);
 
-        yZero = Constants.DETECTION_ZONE_END-level.bruno.getHeight()/2;
+        yZero = Constants.GROUND_LEVEL-level.bruno.getHeight()/2;
 
 //        level.bruno.setTerminalX(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2);
 //        level.bruno.setTerminalY(-Constants.BASE/2);
@@ -79,14 +79,14 @@ public class Level3VerticalCvController extends CvController {
                     moveMade = false;
                 } else {
                     if (moveMade) {
-                        AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                         moveMade = false;
                     }
 
                 }
             }else{ // no blocks on the table
                 if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
             }
@@ -117,11 +117,6 @@ public class Level3VerticalCvController extends CvController {
         }
     }
 
-
-
-
-
-
     private void updateBrunoVertical(ArrayList<Pair> toAdd, ArrayList<Integer> toRemoveValues){
         int toAddNr = 0;
         int toRemoveNr = 0;
@@ -131,7 +126,6 @@ public class Level3VerticalCvController extends CvController {
         }
         for(int i=0; i< toAdd.size();i++) {
             toAddNr+=toAdd.get(i).getValue();
-
         }
 
         if((toAddNr - toRemoveNr) != 0)

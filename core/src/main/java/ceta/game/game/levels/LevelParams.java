@@ -10,10 +10,10 @@ import com.badlogic.gdx.utils.JsonValue;
  */
 public class LevelParams {
     public int level;
-    public int operationsNumberToPass;
+    public int operationsToFinishLevel; // operations that should APPEAR before level finish
+    public int[] operations;
     public int numberMin;
     public int numberMax;
-    public String numberOrOperation;
     public int priceReturn; // will define if dynamic or not
     public int priceVelocity;
     public boolean visibleNumberLine;

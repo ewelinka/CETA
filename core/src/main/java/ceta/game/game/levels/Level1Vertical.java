@@ -1,5 +1,6 @@
 package ceta.game.game.levels;
 
+import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.game.objects.Tube;
 import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;
@@ -10,22 +11,24 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 /**
  * Created by ewe on 11/11/16.
  */
-public class Level1Vertical extends LevelHorizontal {
+public class Level1Vertical extends AbstractLevel {
     public static final String TAG = Level1Vertical.class.getName();
     public Tube tube;
+    private int adjustX;
 
-    public Level1Vertical(Stage stage, LevelParams levelParams) {
-        super(stage, levelParams);
+    public Level1Vertical(Stage stage, LevelParams levelParams, AbstractWorldController worldController) {
+        super(stage, levelParams, worldController);
     }
 
     @Override
     public void init() {
+        adjustX = -40;
         Gdx.app.log(TAG,"init Level 1 Vertical");
-        price = new Price(false,levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
+        price = new Price(false, 1, levelParams, worldController);
 
-        tube = new Tube(12);
+        tube = new Tube();
         //tube.setWidth(Constants.BASE*1.5f);
-        tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2,Constants.DETECTION_ZONE_END -tube.getHeight()); //TODO change for no-cv!!!
+        tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2 + adjustX,Constants.GROUND_LEVEL -tube.getHeight()); //TODO change for no-cv!!!
 
         // add actors
         stage.addActor(price);
@@ -34,7 +37,7 @@ public class Level1Vertical extends LevelHorizontal {
     }
     @Override
     public void render(SpriteBatch batch) {
-        price.toFront();
+        price.toBack();
         tube.toFront();
         stage.draw();
     }

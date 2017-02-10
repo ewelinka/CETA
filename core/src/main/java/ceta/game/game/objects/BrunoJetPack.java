@@ -21,18 +21,20 @@ public class BrunoJetPack extends BrunoVertical {
     private float fireYScale, fireXScale, oscillationY;
     private int fireYDirection, fireXDirection, oscillationYDirection;
     private float maxYFlame;
+    private int inclination;
 
 
 
     public BrunoJetPack(int value, BrunosManager brunosManager) {
         super(value, brunosManager);
         regTex = Assets.instance.bruno.jetPack;
-        jetPackXadjust = regTex.getRegionWidth()-10;
+        jetPackXadjust = regTex.getRegionWidth()-15;
         fire = Assets.instance.bruno.fire;
         fireXadjust = 5;
         fireYScale = fireXScale = 0.5f;
         fireYDirection = fireXDirection = oscillationYDirection =1;
         oscillationY =0;
+        inclination = -8;
 
     }
 
@@ -40,7 +42,7 @@ public class BrunoJetPack extends BrunoVertical {
     public void act(float delta) {
         super.act(delta);
 
-        float maxMagnitude = (getY() - Constants.DETECTION_ZONE_END + 20)/200;
+        float maxMagnitude = (getY() - Constants.GROUND_LEVEL + 20)/200;
         maxYFlame = 0.5f + maxMagnitude;
        // Gdx.app.log(TAG," max flame "+maxYFlame+" maxMagnitude " +maxMagnitude +" fireScale "+fireYScale + " fireDirection "+fireYDirection);
         //Gdx.app.log(TAG," ad "+((maxMagnitude*10+1)/1000));
@@ -79,7 +81,7 @@ public class BrunoJetPack extends BrunoVertical {
                 this.getOriginX(), this.getOriginY(),
                 brunoBodyReg.getRegionWidth() + 4, brunoBodyReg.getRegionHeight(),
                 this.getScaleX(), this.getScaleY(),
-                0,
+                inclination,
                 brunoBodyReg.getRegionX(), brunoBodyReg.getRegionY(),
                 brunoBodyReg.getRegionWidth(), brunoBodyReg.getRegionHeight(), lookingLeft, false);
 
@@ -88,7 +90,7 @@ public class BrunoJetPack extends BrunoVertical {
                 0, 0,
                 brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(),
                 this.getScaleX(), this.getScaleY(),
-                this.getRotation(),
+                this.getRotation()+inclination,
                 brunoHeadReg.getRegionX(), brunoHeadReg.getRegionY(),
                 brunoHeadReg.getRegionWidth(), brunoHeadReg.getRegionHeight(), lookingLeft, false);
 

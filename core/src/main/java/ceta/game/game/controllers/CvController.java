@@ -3,9 +3,7 @@ package ceta.game.game.controllers;
 import ceta.game.CetaGame;
 import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.DirectedGame;
-import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -39,18 +37,15 @@ public class CvController extends AbstractWorldController {
         }
         /// detection-related end
 
-
         /// inactivity?
         if(isPlayerInactive()){
-            Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
+            //Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
             setPlayerInactive(true);
-            //cvBlocksManager.resetNoChangesSince();
         }else{
             setPlayerInactive(false);
         }
 
-        if(timeForReadOver(deltaTime)) {
-
+        if(isTimeForReadOver(deltaTime)) {
             // we start to act after kids move
             if (!cvBlocksManager.isWaitForFirstMove()) {
                 if (cvBlocksManager.getTimeWithoutChange() > timeToWait) {
@@ -67,12 +62,11 @@ public class CvController extends AbstractWorldController {
                     }
                 }
             }
-
             if (countdownOn) {
                 countdownMove();
                 //setPlayerInactive(false);
                 if (countdownCurrentTime < 0) {
-                    readDetectedAndSaveIntent();
+                    readDetectedSaveIntentAndLastSolution();
                     updateDigitalRepresentations(); // ACTION SUBMIT !
                     moveMade = true;
                     cvBlocksManager.resetDetectedAndRemoved();
@@ -89,14 +83,27 @@ public class CvController extends AbstractWorldController {
             //resetIntentStart(); //
             cvBlocksManager.resetNoChangesSince();
         }
-
         cameraHelper.update(deltaTime);
 
     }
 
-    private void readDetectedAndSaveIntent(){
+    @Override
+    protected void readDetectedSaveIntentAndLastSolution(){
         ArrayList<Integer> toReadVals = cvBlocksManager.getNowDetectedVals();
         readDetectedAndSaveIntentGeneric(toReadVals);
+        saveLastSolution(cvBlocksManager.getNowDetectedBlocks());
+        checkIfTableCleaned();
+    }
+
+    @Override
+    public int getNowDetectedSum(){
+        ArrayList<Integer> toReadVals = cvBlocksManager.getNowDetectedVals();
+        int sum = 0;
+        for( Integer i : toReadVals ) {
+            sum += i;
+        }
+        return sum;
+
     }
 
 
@@ -128,14 +135,9 @@ public class CvController extends AbstractWorldController {
     }
 
     @Override
-    protected boolean isPlayerInactive() {
+    public boolean isPlayerInactive() {
         //TODO control current errors in action submit
-        if((cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT) && (currentErrors > Constants.errorsForHint)) {
-            setPlayerInactive(true);
-        }
-        return playerInactive;
-
-
+        return ((cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT) && (currentErrors >= Constants.ERRORS_FOR_HINT));
     }
 
     @Override

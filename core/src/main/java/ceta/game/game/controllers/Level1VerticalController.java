@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class Level1VerticalController extends NoCvController {
     private static final String TAG = Level1VerticalController.class.getName();
 //    protected VirtualBlocksManager virtualBlocksManager;
-    private BrunosManager brunosManager;
+    protected BrunosManager brunosManager;
 
 
     public Level1VerticalController(DirectedGame game, Stage stage, int levelNr) {
@@ -26,7 +26,7 @@ public class Level1VerticalController extends NoCvController {
     @Override
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
-        level = new Level1Vertical(stage, levelParams);
+        level = new Level1Vertical(stage, levelParams, this);
         virtualBlocksManager = new VirtualBlocksManager(stage);
         brunosManager = new BrunosManager(stage);
 
@@ -34,6 +34,12 @@ public class Level1VerticalController extends NoCvController {
         virtualBlocksManager.init();
         brunosManager.init();
 
+    }
+
+    @Override
+    public void update(float delta){
+        super.update(delta);
+        virtualBlocksManager.adaptXposition(-180);
     }
 
     @Override

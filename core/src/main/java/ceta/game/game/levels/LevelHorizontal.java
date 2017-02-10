@@ -1,5 +1,6 @@
 package ceta.game.game.levels;
 
+import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.game.objects.Bruno;
 import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;
@@ -14,8 +15,8 @@ import com.badlogic.gdx.utils.Json;
 public class LevelHorizontal extends AbstractLevel {
     public static final String TAG = LevelHorizontal.class.getName();
 
-    public LevelHorizontal(Stage stage, LevelParams levelParams){
-       super(stage, levelParams);
+    public LevelHorizontal(Stage stage, LevelParams levelParams, AbstractWorldController worldController){
+       super(stage, levelParams, worldController);
     };
 
     @Override
@@ -25,8 +26,8 @@ public class LevelHorizontal extends AbstractLevel {
         //bruno.setPosition(Constants.HORIZONTAL_ZERO_X - bruno.getWidth(),Constants.DETECTION_ZONE_END);
         bruno.setPosition(-480,Constants.DETECTION_ZONE_END);
 
-        // default horizontal
-        price = new Price(levelParams.priceVelocity,levelParams.numberMin, levelParams.priceReturn);
+        // default horizontal, default 1 representation
+        price = new Price(levelParams, worldController);
 
         // add actors
         stage.addActor(bruno);
@@ -36,14 +37,6 @@ public class LevelHorizontal extends AbstractLevel {
 
 
 
-
-    @Override
-    public void render(SpriteBatch batch) {
-        price.toFront();
-        bruno.toFront();
-
-        stage.draw();
-    }
 
 
 

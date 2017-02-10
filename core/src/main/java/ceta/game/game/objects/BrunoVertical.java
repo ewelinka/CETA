@@ -54,9 +54,9 @@ public class BrunoVertical extends Bruno {
         Gdx.app.log(TAG," in vertical bruno init ----");
         headState = HEAD_STATE.FIXED;
         this.setSize(Constants.BASE,Constants.BASE*brunoValue); // now we can set the values that depend on size
-        this.setPosition(Constants.VERTICAL_MIDDLE_X - getWidth()/2 ,Constants.DETECTION_ZONE_END-Constants.BASE/2);
+        this.setPosition(Constants.VERTICAL_MIDDLE_X - getWidth()/2 ,Constants.GROUND_LEVEL-Constants.BASE/2);
         this.setTerminalX(Constants.VERTICAL_MIDDLE_X - getWidth()/2);
-        this.setTerminalY(Constants.DETECTION_ZONE_END-Constants.BASE/2);
+        this.setTerminalY(Constants.GROUND_LEVEL-Constants.BASE/2);
         actionVelocity = 0.3f;
 
         super.abstractObjectInit();
@@ -71,44 +71,47 @@ public class BrunoVertical extends Bruno {
         bodyOffsetX = 0;
         switch (bValue){
             case 1:
-                setColor(Color.YELLOW);
+               // setColor(Color.YELLOW);
                 regTex = Assets.instance.bruno.body01;
                 brunoHeadReg = Assets.instance.bruno.body01head;
                 brunoBodyReg = Assets.instance.bruno.body01body;
-                headYoffset = -3;
+                headYoffset = -6;
+                headXoffset =  2;
+                bodyOffsetX = -4;
                 break;
             case 2:
-                setColor(Color.GREEN);
+                //setColor(Color.GREEN);
                 regTex = Assets.instance.bruno.body02;
                 brunoHeadReg = Assets.instance.bruno.body02head;
                 brunoBodyReg = Assets.instance.bruno.body02body;
-                headXoffset =  -3;
+                headXoffset =  2;
                 headYoffset = -5;
+                bodyOffsetX = -4;
                 break;
             case 3:
-                setColor(Color.ORANGE);
+               // setColor(Color.ORANGE);
                 regTex = Assets.instance.bruno.body03;
                 brunoHeadReg = Assets.instance.bruno.body03head;
                 brunoBodyReg = Assets.instance.bruno.body03body;
                 headXoffset = 5;
                 headYoffset = -5;
-                bodyOffsetX = -3;
+                bodyOffsetX = -5;
                 break;
             case 4:
-                setColor(Color.CYAN);
+               // setColor(Color.CYAN);
                 regTex = Assets.instance.bruno.body04;
                 brunoHeadReg = Assets.instance.bruno.body04head;
                 brunoBodyReg = Assets.instance.bruno.body04body;
-                headYoffset = -4;
+                headYoffset = -5;
                 bodyOffsetX = -5;
                 break;
             case 5:
-                setColor(Color.PINK);
+               // setColor(Color.PINK);
                 regTex = Assets.instance.bruno.body05;
                 brunoHeadReg = Assets.instance.bruno.body05head;
                 brunoBodyReg = Assets.instance.bruno.body05body;
-                headXoffset = -14;
-                headYoffset = -2;
+                headXoffset = -12;
+                headYoffset = -7;
                 break;
         }
 
@@ -130,7 +133,7 @@ public class BrunoVertical extends Bruno {
     public void moveMeToAndSetTerminalY(float x, float y){
         setTerminalY(y);
         brunosManager.addToInMovementIds(id);
-        addAction(sequence(Actions.moveTo(x,y,actionVelocity),
+        addAction(sequence(Actions.moveTo(x,y,actionVelocity*3),
                 run(new Runnable() {
                     public void run() {
                         brunosManager.notificationBrunoMoved(id);
@@ -215,7 +218,7 @@ public class BrunoVertical extends Bruno {
 
         //batch.setProjectionMatrix(camera.combined);
         // batch.draw(regTex,this.getX(),this.getY());
-        if(getY()>Constants.DETECTION_ZONE_END-getHeight()) {
+        if(getY()>Constants.GROUND_LEVEL-getHeight()) {
            // Gdx.app.log(TAG, "draw vertical bruno "+brunoValue);
             batch.setColor(this.getColor());
             batch.draw(brunoBodyReg.getTexture(),

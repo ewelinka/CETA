@@ -21,7 +21,7 @@ public class BrunoMovingHorizontal extends Bruno {
         abstractObjectInit();
         lookingLeft = false;
         float xZero = Constants.HORIZONTAL_ZERO_X-getWidth()/2;
-        setPosition(xZero,Constants.DETECTION_ZONE_END);
+        setPosition(xZero,Constants.GROUND_LEVEL);
         setTerminalX(xZero);
         setAnimation(animation);
 

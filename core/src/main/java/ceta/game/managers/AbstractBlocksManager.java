@@ -22,6 +22,7 @@ public abstract class AbstractBlocksManager {
     protected long noChangesSince;
     protected ArrayList<VirtualBlock> virtualBlocksOnStage;
     ArrayList<Integer> nowDetectedVals;
+    ArrayList<VirtualBlock> nowDetectedBlocks;
 
 
     public abstract void init();
@@ -92,15 +93,21 @@ public abstract class AbstractBlocksManager {
     }
 
     public long getTimeWithoutChange(){
+      //  Gdx.app.log(TAG," no changes since "+noChangesSince+" in millis "+TimeUtils.timeSinceMillis(noChangesSince));
         return TimeUtils.timeSinceMillis(noChangesSince);
     }
 
     public void resetNoChangesSince(){
         noChangesSince = TimeUtils.millis(); //new change!
+       // Gdx.app.log(TAG, "no changes since now! "+noChangesSince);
     }
 
     public synchronized ArrayList<Integer> getNowDetectedVals(){
         return nowDetectedVals;
+    }
+
+    public synchronized ArrayList<VirtualBlock> getNowDetectedBlocks(){
+        return nowDetectedBlocks;
     }
 
 

@@ -70,5 +70,4 @@ build/
 Thumbs.db
 
 android/target
-
-*.csv
+android/assets/*.csv

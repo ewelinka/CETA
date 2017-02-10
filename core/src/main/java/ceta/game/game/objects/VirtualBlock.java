@@ -63,7 +63,7 @@ public class VirtualBlock extends AbstractGameObject {
 
         home = new Vector2();
         wasDetected = false;
-        wasMoved = false;
+        setWasMoved(false);
         vertices = new float[]{
                 0,0,
                 bounds.width,0,
@@ -106,23 +106,23 @@ public class VirtualBlock extends AbstractGameObject {
 
         switch (blockValue){
             case 1:
-                setColor(Color.YELLOW);
+                //setColor(Color.YELLOW);
                 this.regTex = Assets.instance.box.box;
                 break;
             case 2:
-                setColor(Color.GREEN);
+                //setColor(Color.GREEN);
                 this.regTex = Assets.instance.box.box2;
                 break;
             case 3:
-                setColor(Color.ORANGE);
+                //setColor(Color.ORANGE);
                 this.regTex = Assets.instance.box.box3;
                 break;
             case 4:
-                setColor(Color.CYAN);
+                //setColor(Color.CYAN);
                 this.regTex = Assets.instance.box.box4;
                 break;
             case 5:
-                setColor(Color.PINK);
+                //setColor(Color.PINK);
                 this.regTex = Assets.instance.box.box5;
                 break;
         }
@@ -146,8 +146,12 @@ public class VirtualBlock extends AbstractGameObject {
     }
 
     public void resetWasMoved(){
-        wasMoved = false;
+        setWasMoved(false);
         //Gdx.app.debug(TAG, "was moved set to FALSEEE");
+    }
+
+    public void setWasMoved(boolean was){
+        wasMoved = was;
     }
 
     public void setWasDetected(boolean was){

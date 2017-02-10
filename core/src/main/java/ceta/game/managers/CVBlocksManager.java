@@ -1,12 +1,15 @@
 package ceta.game.managers;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.badlogic.gdx.math.MathUtils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -82,11 +85,12 @@ public class CVBlocksManager extends AbstractBlocksManager {
         newIds = new ArrayList<Integer>();
         oldIds = new ArrayList<Integer>();
         nowDetectedVals = new ArrayList<Integer>();
+        nowDetectedBlocks = new ArrayList<VirtualBlock>();
 
         virtualBlocksOnStage = new ArrayList<VirtualBlock>();
         detectionReady = false;
 
-        noMovementDist = 10;
+        noMovementDist = Constants.NO_MOVEMENT_DIST;
         noMovementRot = 20;
         setWaitForFirstMove(true);
 
@@ -139,6 +143,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
             newIds.clear();
             newDetectedCVBlocks.clear();
             nowDetectedVals.clear();
+            nowDetectedBlocks.clear();
 
 
             for (Block i : currentBlocks) {
@@ -146,6 +151,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
                 newIds.add(i.getId());
                 newDetectedCVBlocks.add(i);
                 nowDetectedVals.add(i.getValue());
+                nowDetectedBlocks.add(getBlockById(i.getId()));
             }
             Gdx.app.log(TAG, "blocks detected " + currentBlocks.size() + " new ids " + Arrays.toString(newIds.toArray()) + " old: " + Arrays.toString(oldIds.toArray()));
 
@@ -166,17 +172,31 @@ public class CVBlocksManager extends AbstractBlocksManager {
                     Gdx.app.log(TAG,"distance > "+noMovementDist);
                     shouldBeUpdated = true;
                 }
-                if(Math.abs(radianToStage(newDetectedCVBlocks.get(i).getOrientation()) - getBlockById(newId).getRotation()) > noMovementRot){
-                    Gdx.app.log(TAG,"rotation > "+noMovementRot+" now:  "+radianToStage(newDetectedCVBlocks.get(i).getOrientation())+" before: "+getBlockById(newId).getRotation());
+
+                //Vector2(shouldRotateTo,actualDiff)
+                Vector2 rotateInfo = calculateRotation(newDetectedCVBlocks.get(i).getOrientation(),getBlockById(newId).getRotation());
+                if(rotateInfo.y > noMovementRot){
+                  //  Gdx.app.log(TAG,"rotation > "+noMovementRot+" now:  "+radianToStage(newDetectedCVBlocks.get(i).getOrientation())+" before: "+getBlockById(newId).getRotation());
                     shouldBeUpdated =true;
                 }
 
                 if(shouldBeUpdated) {
-                    updateBlockCV(nBlock.getId(),
+//                    updateBlockCV(nBlock.getId(),
+//                            xToStage(nBlock.getCenter().y),
+//                            yToStage(nBlock.getCenter().x),
+//                            radianToStage(nBlock.getOrientation())
+//                    );
+                    updateBlockAndLieCV(nBlock.getId(),
                             xToStage(nBlock.getCenter().y),
                             yToStage(nBlock.getCenter().x),
-                            radianToStage(nBlock.getOrientation())
+                            radianToStage(nBlock.getOrientation()),
+                            rotateInfo.x
                     );
+//                    updateBlockRotationCV(nBlock.getId(),
+//                            xToStage(nBlock.getCenter().y),
+//                            yToStage(nBlock.getCenter().x),
+//                            rotatedBy);
+
                 }
             }else {
                 addBlockCV(nBlock.getValue(),
@@ -193,6 +213,27 @@ public class CVBlocksManager extends AbstractBlocksManager {
         for(int i=0;i<oldBlocksIds.size();i++){
             checkStrikesAndDecideIfRemove(oldBlocksIds.get(i));
         }
+    }
+
+    private Vector2 calculateRotation(float nowRadianRotation, float previousRotation){
+        float nowRotation = radianToStage(nowRadianRotation);
+        float diff = nowRotation - previousRotation;
+        float shouldRotateTo = nowRotation;
+        float actualDiff = Math.abs(diff);
+
+        if(Math.abs(diff)>180){
+            if(diff < 0){
+                shouldRotateTo = 360 + nowRotation;
+            }
+            else{
+                shouldRotateTo = -360 + nowRotation;
+            }
+            actualDiff = 360 - Math.abs(diff);
+        }
+
+       // Gdx.app.log(TAG,"calculateRotation: nowRot "+nowRotation+" before "+previousRotation+ " shouldRotateTo "+shouldRotateTo+" actualDiff "+actualDiff);
+        return new Vector2(shouldRotateTo,actualDiff);
+
     }
 
     private void checkStrikesAndDecideIfRemove(int id){
@@ -229,8 +270,11 @@ public class CVBlocksManager extends AbstractBlocksManager {
     }
 
     private float radianToStage(double r){
-        Gdx.app.log(TAG," radians to stage "+r);
-        return  (float) Math.toDegrees(r*rotAdjust - Math.PI/2);
+       // Gdx.app.log(TAG," radians to stage "+r);
+        float d = (float) Math.toDegrees(r*rotAdjust - Math.PI/2);
+        if(d < 0)
+            d = 360 + d;
+        return d;
     }
 
 
@@ -244,7 +288,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
 
     private void updateBlockCV(int id, float px, float py, float rot){
-        Gdx.app.log(TAG,"we should update id: "+id+" px "+px+" py "+py+" rot "+rot);
+        Gdx.app.log(TAG,"we should update id: "+id+" rot "+rot);
         VirtualBlock vBlock = getBlockById(id);
         vBlock.clearActions();
         vBlock.addAction(parallel(
@@ -255,6 +299,29 @@ public class CVBlocksManager extends AbstractBlocksManager {
         noChangesSince = TimeUtils.millis();
         //waitForFirstMove = false;
     }
+
+    private void updateBlockAndLieCV(int id, float px, float py, final float rotDegreesNow, float shouldRotateTo){
+        final VirtualBlock vBlock = getBlockById(id);
+        Gdx.app.log(TAG,"updateBlockAndLieCV: rotDegreesNow "+rotDegreesNow+" shouldRotateTo "+shouldRotateTo);
+
+        if(!vBlock.hasActions()) {
+            vBlock.addAction(sequence(
+                    parallel(
+                            Actions.moveTo(px - vBlock.getWidth() / 2,//px. is a center!! adjust!!
+                                    py - vBlock.getHeight() / 2, actionsSpeed), // p.y is a center!! adjust!!
+                            Actions.rotateTo(shouldRotateTo, actionsSpeed)
+                    ),
+                    run(new Runnable() {
+                        @Override
+                        public void run() {
+                            vBlock.setRotation(rotDegreesNow);
+                        }
+                    })
+            ));
+        }
+        noChangesSince = TimeUtils.millis();
+    }
+
 
     private void removeBlockCV(int id, int val){
         blockRemovedWithIdAndValue(id,val);

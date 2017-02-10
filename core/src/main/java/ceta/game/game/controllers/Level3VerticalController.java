@@ -29,11 +29,11 @@ public class Level3VerticalController extends NoCvController {
     protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
         virtualBlocksManager = new VirtualBlocksManager(stage);
-        level = new Level3Vertical(stage,levelParams);
+        level = new Level3Vertical(stage,levelParams, this);
 
         // Bruno will be flying
         //level.bruno.setSize(Constants.BASE*1,Constants.BASE*1);
-        yZero = Constants.DETECTION_ZONE_END - level.bruno.getHeight()/2;
+        yZero = Constants.GROUND_LEVEL - level.bruno.getHeight()/2;
 //        level.bruno.setPosition(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2 ,-Constants.BASE/2);
 //        level.bruno.setTerminalX(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2);
 //        level.bruno.setTerminalY(-Constants.BASE/2);
@@ -75,14 +75,14 @@ public class Level3VerticalController extends NoCvController {
                     moveMade = false;
                 } else {
                     if (moveMade) {
-                        AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                         moveMade = false;
                     }
 
                 }
             }else{ // no blocks on the table
                 if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
             }
@@ -133,7 +133,8 @@ public class Level3VerticalController extends NoCvController {
 
         Gdx.app.log(TAG, " move bruno "+howMany);
         float currentTerminalY = level.bruno.getTerminalY();
-        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalYWithBounce(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2, currentTerminalY + howMany* Constants.BASE);
+//        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalYWithBounce(Constants.VERTICAL_MIDDLE_X - level.bruno.getWidth()/2, currentTerminalY + howMany* Constants.BASE);
+        ((BrunoVertical)(level.bruno)).moveMeToAndSetTerminalYWithBounce(level.bruno.getX(), currentTerminalY + howMany* Constants.BASE);
 
     }
 

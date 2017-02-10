@@ -30,7 +30,7 @@ public class Level1HorizontalController extends NoCvController{
         roboticArmManager = new RoboticArmManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);
 
-        level = new Level1Horizontal(stage, levelParams);
+        level = new Level1Horizontal(stage, levelParams, this);
 
         virtualBlocksManager.init();
         roboticArmManager.init();
@@ -53,25 +53,6 @@ public class Level1HorizontalController extends NoCvController{
 
         }
     }
-
-//    @Override
-//    protected void testCollisions () {
-//        ArmPiece lastArm = getLastArmPiece();
-//        if (lastArm != null && !roboticArmManager.isUpdatingArmPiecesPositions()) {
-//            // we set 4px x 4px box at the right end (X), in the middle (Y)
-//            r1.set(lastArm.getX() + lastArm.getWidth(),
-//                    lastArm.getY()+lastArm.getHeight()/2 - 2, // two pixels below the middle
-//                    4, 4);
-//            r2.set(level.price.getX(),
-//                    level.price.getY() + level.price.getHeight() / 2 - 2,
-//                    level.price.bounds.width, 4);
-//
-//            if (r1.overlaps(r2)) {
-//                onCollisionBrunoWithPrice(level.price);
-//            }
-//        }
-//    }
-
 
 
     public ArmPiece getLastArmPiece(){

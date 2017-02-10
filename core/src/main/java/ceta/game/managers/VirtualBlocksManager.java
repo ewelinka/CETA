@@ -6,6 +6,7 @@ import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.TimeUtils;
 import javafx.scene.layout.VBox;
 
@@ -41,14 +42,15 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         // polygon will be set for checks
         polygon = new Polygon();
         xSpace = 60;
-        ySpace = 25;
+        ySpace = 45;
         initBlocks();
         setWaitForFirstMove(true);
         noChangesSince = TimeUtils.millis();
         nowDetectedVals = new ArrayList<Integer>();
+        nowDetectedBlocks = new ArrayList<VirtualBlock>();
     }
 
-    private void initBlocks(){
+    protected void initBlocks(){
         // we initialise first 5 blocks (numbers 1-5)
         for(int i=1;i<=5;i++){
             addVirtualBlockInEmptySpace(i);
@@ -58,6 +60,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     @Override
     public void updateDetected() {
         nowDetectedVals.clear();
+        nowDetectedBlocks.clear();
         // we check what changed
         for (int i = 0; i < virtualBlocksOnStage.size(); i++) {
             VirtualBlock vBlock = virtualBlocksOnStage.get(i);
@@ -112,6 +115,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
             if (vBlock.getWasDetected()) {
                // Gdx.app.log(TAG, "DETE CTED "+ vBlock.getBlockValue());
                 nowDetectedVals.add(vBlock.getBlockValue());
+                nowDetectedBlocks.add(vBlock);
             }
         }
 
@@ -140,15 +144,15 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         switch(virtualBlock.getBlockValue()){
             case 1:
                 virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 60 +xSpace,
-                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*2 + Constants.BASE);
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*1.5f + Constants.BASE);
                 break;
             case 2:
                 virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 60 + xSpace*2 + Constants.BASE , // 1
-                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*2 + Constants.BASE);
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*1.5f + Constants.BASE);
                 break;
             case 3:
                 virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 60 + xSpace*3 + Constants.BASE*3 , // 1,2
-                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*2 + Constants.BASE);
+                        -Constants.VIEWPORT_HEIGHT / 2 + ySpace*1.5f + Constants.BASE);
                 break;
             case 4:
                 virtualBlock.setPosition(-Constants.VIEWPORT_WIDTH/2 + 40+ xSpace,
@@ -216,6 +220,27 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         Gdx.app.log(TAG,"we should remove index: "+index);
 
         virtualBlocksOnStage.get(index).goHomeAndRemove();
+    }
+
+    public void adaptXposition(int limit){
+        for(int i = 0; i< virtualBlocksOnStage.size();i++){
+            VirtualBlock vb = virtualBlocksOnStage.get(i);
+            if(vb.getWasDetected() && (vb.getX() < limit)){
+                vb.addAction(Actions.moveTo(limit+2, vb.getY(),0.3f));
+            }
+        }
+
+    }
+
+    protected VirtualBlock getBlockByValue(int valueToFind){
+        for(int i = 0; i< virtualBlocksOnStage.size();i++){
+            VirtualBlock vb = virtualBlocksOnStage.get(i);
+            if(vb.getBlockValue() == valueToFind){
+                return vb;
+            }
+        }
+        return new VirtualBlock(1);
+
     }
 
 

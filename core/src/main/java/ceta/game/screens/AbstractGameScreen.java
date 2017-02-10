@@ -9,6 +9,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import ceta.game.game.Assets;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Json;
@@ -24,16 +25,21 @@ public abstract class AbstractGameScreen  implements Screen {
     protected AbstractWorldRenderer worldRenderer;
     protected AbstractWorldController worldController;
     protected int levelJson;
+    protected TextureAtlas.AtlasRegion regTex;
 
-
-    public AbstractGameScreen (DirectedGame game, int levelJson) {
-
-        this.game = game;
-        this.levelJson = levelJson;
+    public AbstractGameScreen (DirectedGame game){
+        this(game,0);
     }
 
-    // Subclasses must load actors in this method
-    //public abstract void buildStage();
+    public AbstractGameScreen (DirectedGame game, int levelJson){
+        this(game,levelJson, Assets.instance.staticBackground.tubes5); // defaultBackground!
+    }
+
+    public AbstractGameScreen (DirectedGame game, int levelJson, TextureAtlas.AtlasRegion backTex) {
+        this.game = game;
+        this.levelJson = levelJson;
+        this.regTex = backTex;
+    }
 
     public abstract void render (float deltaTime);
     public abstract void resize (int width, int height);

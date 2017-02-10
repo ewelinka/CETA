@@ -20,7 +20,7 @@ public class AudioManager {
     public static final AudioManager instance = new AudioManager();
     private Music playingMusic;
     private Sound currentSound;
-    private float defaultVolSound = 0.2f;
+    private float defaultVolSound = 0.6f;
     private SequenceAction readMe;
     private Actor reader;
     private Stage stage;
@@ -49,8 +49,12 @@ public class AudioManager {
         currentSound.play(defaultVolSound * volume, pitch, pan);
     }
 
-    public void playNumber (Sound sound) {
-        sound.play(defaultVolSound * 1, 1, 1);
+    public void playWithoutInterruption(Sound sound) {
+        sound.play(defaultVolSound , 1, 1);
+    }
+
+    public void playWithoutInterruptionLoud(Sound sound) {
+        sound.play(1 , 1, 1);
     }
 
     public void addToPlay (int nr) {
@@ -59,7 +63,7 @@ public class AudioManager {
             case 1:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.one);
+                        playWithoutInterruption(Assets.instance.sounds.one);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -67,7 +71,7 @@ public class AudioManager {
             case 2:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.two);
+                        playWithoutInterruption(Assets.instance.sounds.two);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -75,7 +79,7 @@ public class AudioManager {
             case 3:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.three);
+                        playWithoutInterruption(Assets.instance.sounds.three);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -83,7 +87,7 @@ public class AudioManager {
             case 4:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.four);
+                        playWithoutInterruption(Assets.instance.sounds.four);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -91,7 +95,7 @@ public class AudioManager {
             case 5:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.five);
+                        playWithoutInterruption(Assets.instance.sounds.five);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -99,7 +103,7 @@ public class AudioManager {
             case 6:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.three);
+                        playWithoutInterruption(Assets.instance.sounds.three);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -107,7 +111,7 @@ public class AudioManager {
             case 7:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.three);
+                        playWithoutInterruption(Assets.instance.sounds.three);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -115,7 +119,7 @@ public class AudioManager {
             case 8:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.three);
+                        playWithoutInterruption(Assets.instance.sounds.three);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -123,7 +127,7 @@ public class AudioManager {
             case 9:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.three);
+                        playWithoutInterruption(Assets.instance.sounds.three);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -131,7 +135,7 @@ public class AudioManager {
             case 10:
                 readMe.addAction(run(new Runnable() {
                     public void run() {
-                        playNumber(Assets.instance.sounds.three);
+                        playWithoutInterruption(Assets.instance.sounds.three);
                     }
                 }));
                 readMe.addAction(delay(1.0f));
@@ -151,6 +155,51 @@ public class AudioManager {
 
     }
 
+    public void readNumber(int nr){
+        switch (nr){
+            case 1:
+                playWithoutInterruptionLoud(Assets.instance.sounds.one);
+                break;
+            case 2:
+                playWithoutInterruptionLoud(Assets.instance.sounds.two);
+                break;
+            case 3:
+                playWithoutInterruptionLoud(Assets.instance.sounds.three);
+                break;
+            case 4:
+                playWithoutInterruptionLoud(Assets.instance.sounds.four);
+                break;
+            case 5:
+                playWithoutInterruptionLoud(Assets.instance.sounds.five);
+                break;
+            case 6:
+                playWithoutInterruptionLoud(Assets.instance.sounds.six);
+                break;
+            case 7:
+                playWithoutInterruptionLoud(Assets.instance.sounds.seven);
+                break;
+            case 8:
+                playWithoutInterruptionLoud(Assets.instance.sounds.eight);
+                break;
+            case 9:
+                playWithoutInterruptionLoud(Assets.instance.sounds.nine);
+                break;
+            case 10:
+                playWithoutInterruptionLoud(Assets.instance.sounds.ten);
+                break;
+            case 11:
+                playWithoutInterruptionLoud(Assets.instance.sounds.eleven);
+                break;
+            case 12:
+                playWithoutInterruptionLoud(Assets.instance.sounds.twelve);
+                break;
+            case 13:
+                playWithoutInterruptionLoud(Assets.instance.sounds.thirteen);
+                break;
+        }
+
+    }
+
     public void stopSound(){
         if(currentSound!= null) currentSound.stop();
     }
@@ -160,7 +209,7 @@ public class AudioManager {
         playingMusic = music;
 
         music.setLooping(true);
-        music.setVolume(defaultVolSound);
+        music.setVolume(0.15f);
         music.play();
 
     }

@@ -19,17 +19,24 @@ import com.badlogic.gdx.utils.Align;
 public class WorldRendererCV extends WorldRenderer {
     public static final String TAG = WorldRendererCV.class.getName();
    // private FeedbackRenderer feedbackRenderer;
-    private boolean shouldRenderClue;
 
-    public WorldRendererCV(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal) {
-        super(worldController, stage, numberLineIsHorizontal);
 
-        shouldRenderClue = false;
-
+    public WorldRendererCV(AbstractWorldController worldController, Stage stage, boolean numberLineIsHorizontal ,TextureAtlas.AtlasRegion imgBackground) {
+        super(worldController, stage, numberLineIsHorizontal, imgBackground);
     }
 
-    public WorldRendererCV(AbstractWorldController worldController, Stage stage) {
-        this(worldController,stage,true); //default horizontal number line
+//    public WorldRendererCV(AbstractWorldController worldController, Stage stage) {
+//        this(worldController,stage,true, Assets.instance.staticBackground.tubes5); //default horizontal number line
+//
+//    }
+//
+//    public WorldRendererCV(AbstractWorldController worldController, Stage stage,boolean numberLineIsHorizontal ) {
+//        this(worldController,stage,numberLineIsHorizontal, Assets.instance.staticBackground.tubes5); //default horizontal number line
+//
+//    }
+
+    public WorldRendererCV(AbstractWorldController worldController, Stage stage,TextureAtlas.AtlasRegion imgBackground) {
+        this(worldController,stage,true,imgBackground); //default horizontal number line
 
     }
 
@@ -51,9 +58,7 @@ public class WorldRendererCV extends WorldRenderer {
 
     }
 
-    public void stopRenderClue(){
-        feedbackRenderer.stopRenderClue();
-    }
+
 
 //
 //    @Override
@@ -77,21 +82,20 @@ public class WorldRendererCV extends WorldRenderer {
 //        shRenderer.end();
 //        Gdx.gl.glDisable(GL20.GL_BLEND);
 //    }
-
-    @Override
-    protected void renderBackgroundImg(SpriteBatch batch) {
-        TextureAtlas.AtlasRegion b = Assets.instance.background.back3;
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        batch.draw(b.getTexture(), -Constants.VIEWPORT_WIDTH / 2, Constants.DETECTION_ZONE_END,
-                b.getRegionWidth() / 2, b.getRegionHeight() / 2,
-                b.getRegionWidth(), b.getRegionHeight(),
-                1, 1,
-                0,
-                b.getRegionX(), b.getRegionY(),
-                b.getRegionWidth(), b.getRegionHeight(), false, false);
-        batch.end();
-    }
+//
+//    @Override
+//    protected void renderBackgroundImg(SpriteBatch batch) {
+//        batch.setProjectionMatrix(camera.combined);
+//        batch.begin();
+//        batch.draw(imgBackground.getTexture(), -Constants.VIEWPORT_WIDTH / 2, Constants.GROUND_LEVEL,
+//                b.getRegionWidth() / 2, b.getRegionHeight() / 2,
+//                b.getRegionWidth(), b.getRegionHeight(),
+//                1, 1,
+//                0,
+//                b.getRegionX(), b.getRegionY(),
+//                b.getRegionWidth(), b.getRegionHeight(), false, false);
+//        batch.end();
+//    }
 
     @Override
     protected void renderDetectionZoneImg(SpriteBatch batch){

@@ -30,7 +30,7 @@ public class Level2HorizontalCvController extends Level1HorizontalCvController {
         roboticArmManager = new AnimatedRoboticTubeManager(stage);
         cvBlocksManager = new CVBlocksManager(game,stage);
 
-        level = new LevelHorizontal(stage, levelParams);
+        level = new LevelHorizontal(stage, levelParams, this);
         cameraHelper.setTarget(null);
         score = 0;
         cvBlocksManager.init();
