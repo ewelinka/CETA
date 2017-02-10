@@ -178,6 +178,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     }
 
+    public void goToRepeatLevelScreen(){
+        AudioManager.instance.play(Assets.instance.sounds.repeatLevel);
+        game.setScreen(new RepeatLevelScreen(game),oneSegFadeIn);
+    }
+
     public void handleDebugInput (float deltaTime) {
         if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
         if (!cameraHelper.hasTarget(level.bruno)) {
@@ -458,7 +463,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 if(happyEnd)
                     goToCongratulationsScreen();
                 else
-                    game.getLevelsManager().goToUncompletedLevel();
+                    goToRepeatLevelScreen();
 
         }
         else{

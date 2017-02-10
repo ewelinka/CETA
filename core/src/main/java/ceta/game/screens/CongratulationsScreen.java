@@ -62,21 +62,21 @@ public class CongratulationsScreen extends AbstractGameScreen {
         stage.act(deltaTime);
         stage.draw();
 
-    };
+    }
     public void resize (int width, int height){
         stage.getViewport().update(width, height, true);
         buildStage();
-    };
+    }
     public void show (){
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(true); // from congrats you con go to menu
         buildStage();
-    };
+    }
     public void hide (){
 
         stage.dispose();
 
-    };
+    }
     public void pause (){};
 
     private void onPlayClicked () {

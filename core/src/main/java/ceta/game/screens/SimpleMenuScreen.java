@@ -7,9 +7,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -20,7 +23,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  */
 public class SimpleMenuScreen extends AbstractGameScreen {
     private ImageButton btnMenuPlay, btnMenuExit, btnLevels;
-    private Image imgBackground, brunoHead,brunoBody,screw;
+    private Image imgBackground, brunoHead,brunoBody,screw,shadow;
 
     public SimpleMenuScreen(DirectedGame game) {
         super(game);
@@ -145,8 +148,12 @@ public class SimpleMenuScreen extends AbstractGameScreen {
 
         brunoBody = new Image(Assets.instance.bruno.initBody);
         brunoHead = new Image(Assets.instance.bruno.initHead);
+        shadow = new Image(Assets.instance.background.shadow);
         Gdx.app.log(TAG," body "+brunoBody.getImageWidth());
        // brunoBody.setOrigin(brunoBody.getWidth() / 2, brunoBody.getHeight() / 2);
+        shadow.setSize(105,12);
+        shadow.setPosition(32,37);
+
         brunoBody.setSize(76,64);
         brunoHead.setSize(76,56);
         //
@@ -157,17 +164,19 @@ public class SimpleMenuScreen extends AbstractGameScreen {
                 delay(2.0f),
                 Actions.rotateBy(50,1.0f),
                 Actions.rotateBy(-50,0.8f),
-                delay(2.0f),
-                run(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(Constants.WITH_CV)
-                            game.setScreen(new TutorialCvScreen(game),ScreenTransitionFade.init(0.75f));
-                        else
-                            game.setScreen(new TutorialScreen(game),ScreenTransitionFade.init(0.75f));
-                    }
-                })
+                delay(2.0f)
+//                run(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if(Constants.WITH_CV)
+//                            game.setScreen(new TutorialCvScreen(game),ScreenTransitionFade.init(0.75f));
+//                        else
+//                            game.setScreen(new TutorialScreen(game),ScreenTransitionFade.init(0.75f));
+//                    }
+//                })
         ));
+
+
 
 
         screw = new Image(Assets.instance.background.bigScrew);
@@ -186,7 +195,7 @@ public class SimpleMenuScreen extends AbstractGameScreen {
                         )
                 )
         );
-
+        layer.addActor(shadow);
         layer.addActor(brunoBody);
         layer.addActor(screw);
         layer.addActor(brunoHead);
