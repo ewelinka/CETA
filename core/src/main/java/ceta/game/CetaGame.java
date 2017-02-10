@@ -42,10 +42,10 @@ public class CetaGame extends DirectedGame {
 		//setScreen(new MenuScreen(this),transition);
 		//setScreen(new Level3VerticalScreen(this,1),transition);
 
-		//setScreen(new SimpleMenuScreen(this),transition);
+		setScreen(new SimpleMenuScreen(this),transition);
 		//setScreen(new Level1VerticalMovingScreen(this, 2), transition);
 		//setScreen(new TutorialScreen(this));
-		setScreen(new TreeScreen(this,true));
+		//setScreen(new TreeScreen(this,true));
 		//setScreen(new Level1VerticalCvScreen(this, 2, Assets.instance.staticBackground.city1), transition);
 
 
