@@ -84,7 +84,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderBelowTheGround(spriteBatch);
         renderDetectionZoneImg(spriteBatch);
         renderBackgroundImg(spriteBatch);
-        renderNumberLineImg(spriteBatch);
+        //renderNumberLineImg(spriteBatch);
 
         if(worldController.isNumberLineVisible())
             renderHelperNumberLines(shapeRenderer);

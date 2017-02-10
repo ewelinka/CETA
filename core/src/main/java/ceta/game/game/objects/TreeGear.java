@@ -32,7 +32,7 @@ public class TreeGear extends Actor {
         setOrigin(regTex.getRegionWidth()/2,regTex.getRegionHeight()/2);
         setColor(Color.WHITE);
         setActive(true);
-        isMoving = false;
+        //isMoving = false;
         gearRotation = 0;
         setSize(regTex.getRegionWidth(),regTex.getRegionHeight());
     }
@@ -72,6 +72,7 @@ public class TreeGear extends Actor {
         //addAction(Actions.color(Color.WHITE,0.5f));
         setActive(true);
         setColor(1,1,1,0);
+        isMoving = true;
         addAction(Actions.alpha(1,1.5f));
         //addAction(Actions.color(Color.WHITE,0.5f));
     }
@@ -96,6 +97,7 @@ public class TreeGear extends Actor {
         if(!isActive) {
            // Gdx.app.log(TAG, " set me gray ");
             regTex = regTexInactive;
+            isMoving = false;
            // setColor(Color.BLUE);
         }else{
             regTex  =regTexActive;

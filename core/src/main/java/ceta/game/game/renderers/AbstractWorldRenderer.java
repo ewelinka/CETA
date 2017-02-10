@@ -223,7 +223,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
                 fontNumberLine.setColor(0,153,0,1);
             else
                 fontNumberLine.setColor(0,0,0,0.7f);
-            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL-25,0, Align.center,false);
+            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL,0, Align.center,false);
             //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false);
 
 

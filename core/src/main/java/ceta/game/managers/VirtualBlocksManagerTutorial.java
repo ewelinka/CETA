@@ -59,7 +59,7 @@ public class VirtualBlocksManagerTutorial extends VirtualBlocksManager {
 
         hand.addAction(sequence(
                 delay(2.0f),
-                Actions.moveTo(firstToMove.getX()-hand.getWidth()+50,firstToMove.getY()-hand.getHeight()+50,2.0f),
+                Actions.moveTo(firstToMove.getX()-hand.getWidth()+55,firstToMove.getY()-hand.getHeight()+55,2.0f),
                 delay(1.0f),
                 Actions.moveBy(200,140,1.0f),
                 delay(0.3f),

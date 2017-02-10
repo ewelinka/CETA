@@ -20,7 +20,7 @@ public class AudioManager {
     public static final AudioManager instance = new AudioManager();
     private Music playingMusic;
     private Sound currentSound;
-    private float defaultVolSound = 0.3f;
+    private float defaultVolSound = 0.6f;
     private SequenceAction readMe;
     private Actor reader;
     private Stage stage;
@@ -209,7 +209,7 @@ public class AudioManager {
         playingMusic = music;
 
         music.setLooping(true);
-        music.setVolume(0.1f);
+        music.setVolume(0.15f);
         music.play();
 
     }

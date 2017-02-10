@@ -54,7 +54,7 @@ public class TreeScreen extends AbstractGameScreen {
                 {162,354},
                 {238,329},
                 {304,328},
-                {324,357},
+                {310,360},
                 {329,482}
         };
 
@@ -240,7 +240,8 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     private void enableGearsWithAnimation(int newActivated){
-        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.levelPassed);
+        if(newActivated!=0)
+            AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.levelPassed);
         switch(newActivated){
             case 0:
                 level1gear.setIsMoving(true,0.2f);
