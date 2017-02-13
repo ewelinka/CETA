@@ -110,7 +110,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
        // Gdx.app.log(TAG," wasTableCleaned "+ worldController.wasTableCleaned()+" isPlayingCleanTable "+isPlayingCleanTable);
 
-        if(!worldController.wasTableCleaned() && !isPlayingCleanTable && worldController.isReadOver()){
+        if(!worldController.wasTableCleaned() && !isPlayingCleanTable ){
             //renderOldBlocks();
             AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.cleanTable);
             feedbackRenderer.renderTooMuchClue();

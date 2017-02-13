@@ -45,7 +45,7 @@ public class CvController extends AbstractWorldController {
             setPlayerInactive(false);
         }
 
-        if(isTimeForReadOver(deltaTime)) {
+        //if(isTimeForReadOver(deltaTime)) {
             // we start to act after kids move
             if (!cvBlocksManager.isWaitForFirstMove()) {
                 if (cvBlocksManager.getTimeWithoutChange() > timeToWait) {
@@ -79,11 +79,11 @@ public class CvController extends AbstractWorldController {
                     countdownCurrentTime -= deltaTime;
                 }
             }
-        }
-        else{
-            //resetIntentStart(); //
-            cvBlocksManager.resetNoChangesSince();
-        }
+//        }
+//        else{
+//            //resetIntentStart(); //
+//            cvBlocksManager.resetNoChangesSince();
+//        }
         cameraHelper.update(deltaTime);
 
     }

@@ -478,21 +478,21 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         level.update(deltaTime); //stage.act()
     }
 
-    public boolean isTimeForReadOver(float deltaTime){
-//        timeToWaitForReading-=deltaTime;
-//        if(timeToWaitForReading<0)
-//            return true;
-//        else
-//            return false;
-        return true;
-
-    }
-
-    public boolean isReadOver(){
-
-       // return timeToWaitForReading<0;
-        return true;
-    }
+//    public boolean isTimeForReadOver(float deltaTime){
+////        timeToWaitForReading-=deltaTime;
+////        if(timeToWaitForReading<0)
+////            return true;
+////        else
+////            return false;
+//        return true;
+//
+//    }
+//
+//    public boolean isReadOver(){
+//
+//       // return timeToWaitForReading<0;
+//        return true;
+//    }
 
 
 
