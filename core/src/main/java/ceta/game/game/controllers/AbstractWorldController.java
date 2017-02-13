@@ -241,8 +241,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         //TODO how we know about error or win??? the price is moving!!!
         //Gdx.app.log(TAG, " testCollisionsHorizontalDynamic ");
         if(objectToCheck != null ) {
-            r1.set(objectToCheck.getX() + objectToCheck.getWidth() - 2,
-                    objectToCheck.getY(), // two pixels below the middle
+            r1.set(objectToCheck.getX() + objectToCheck.getWidth() - 2, objectToCheck.getY(), // two pixels below the middle
                     4, 4);
             r2.set(level.price.getX(),
                     level.price.getY(),
@@ -251,11 +250,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             if (r1.overlaps(r2)) {
                 onCollisionBrunoWithPrice(level.price);
                 moveMade = false;
-            }
-            else{
-                //TODO check if the price number and number line position ==
-                // if == -> its a good answer
-                // if not -> error
             }
         }
 
@@ -325,7 +319,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             genericOnCollision();
             if (notYetPassTheLevel()) {
                 price.wasCollected();
-
             } else {
                 price.lastCollected();
                 onLevelFinished();
