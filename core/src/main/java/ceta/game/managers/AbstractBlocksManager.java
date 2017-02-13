@@ -111,7 +111,42 @@ public abstract class AbstractBlocksManager {
     }
 
 
-
+    public static int getValueById(int id){
+        switch(id){
+            case 31:
+            case 61:
+            case 103:
+            case 179:
+            case 227:
+            case 271:
+            case 283:
+            case 355:
+            case 391:
+            case 453:
+                return 1;
+            case 93:
+            case 117:
+            case 185:
+            case 203:
+            case 793:
+                return 2;
+            case 563:
+            case 651:
+            case 361:
+            case 309:
+                return 3;
+            case 171:
+            case 555:
+            case 421:
+                return 4;
+            case 1173:
+            case 1189:
+            case 677:
+                return 5;
+            default:
+                return 0;
+        }
+    }
 
 
 

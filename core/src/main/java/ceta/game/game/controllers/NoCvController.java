@@ -1,7 +1,9 @@
 package ceta.game.game.controllers;
 
+import ceta.game.managers.AbstractBlocksManager;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -44,7 +46,7 @@ public class NoCvController extends AbstractWorldController {
             setPlayerInactive(false);
         }
 
-        if(isTimeForReadOver(deltaTime)) {
+       // if(isTimeForReadOver(deltaTime)) {
             if (!virtualBlocksManager.isWaitForFirstMove()) { // just for action submit!
                 if (virtualBlocksManager.getTimeWithoutChange() > timeToWait) {
                     if (!countdownOn) {
@@ -64,8 +66,8 @@ public class NoCvController extends AbstractWorldController {
                 countdownMove();
                 // if we reached the time
                 if (countdownCurrentTime < 0) {
-                    readDetectedSaveIntentAndLastSolution();
                     updateDigitalRepresentations(); // ACTION SUBMIT !
+                    readDetectedSaveIntentAndLastSolution();
                     moveMade = true;
                     setCountdownOn(false);
                     virtualBlocksManager.setWaitForFirstMove(true);
@@ -73,10 +75,10 @@ public class NoCvController extends AbstractWorldController {
                 } else // we still count
                     countdownCurrentTime -= deltaTime;
             }
-        }
-        else{
-            virtualBlocksManager.resetNoChangesSince(); // after reading we start to count "timeToWait" and interactivity
-        }
+//        }
+//        else{
+//            virtualBlocksManager.resetNoChangesSince(); // after reading we start to count "timeToWait" and interactivity
+//        }
 
         cameraHelper.update(deltaTime);
 
@@ -101,6 +103,18 @@ public class NoCvController extends AbstractWorldController {
         readDetectedAndSaveIntentGeneric(toReadVals);
         saveLastSolution(virtualBlocksManager.getNowDetectedBlocks());
         checkIfTableCleaned();
+    }
+
+    @Override
+
+    protected void readDetectedAndSaveIntentGeneric(ArrayList<Integer> toReadValues){
+        int sum = 0;
+        for( Integer v : toReadValues ) {
+            sum += v;
+        }
+        AudioManager.instance.readNumber(sum);
+        addIntentToResults(sum,level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), toReadValues);
+
     }
 
 

@@ -90,8 +90,9 @@ public class LevelsManager {
     private void goToLevelCV(int lastLevelFinished){
         int lev = lastLevelFinished+1;
         switch(lastLevelFinished){
+            case -1:
             case 0:
-                game.setScreen(new Level1HorizontalCvScreen(game, lev, Assets.instance.staticBackground.city1), transition);
+                game.setScreen(new Level1HorizontalCvScreen(game, 1, Assets.instance.staticBackground.city1), transition);
                 break;
             case 1:
                 game.setScreen(new Level1HorizontalCvScreen(game, lev, Assets.instance.staticBackground.city1), transition);

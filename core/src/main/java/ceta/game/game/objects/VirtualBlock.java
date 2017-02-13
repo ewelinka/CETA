@@ -236,14 +236,14 @@ public class VirtualBlock extends AbstractGameObject {
             // y
             if (diff < Constants.MARGIN_FADE) {
                 a = map(diff, 0, Constants.MARGIN_FADE, 0.4f, 1);
-                Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get x " + getX() + getWidth() / 2);
+              //  Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get x " + getX() + getWidth() / 2);
                 getColor().a = a;
             }
 
             if ((Constants.CV_DETECTION_EDGE_TABLET - diff) < Constants.MARGIN_FADE) {
                 diff = Constants.CV_DETECTION_EDGE_TABLET - diff;
                 a = map(diff, 0, Constants.MARGIN_FADE, 0.4f, 1);
-                Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get x " + getX() + getWidth() / 2);
+            //    Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get x " + getX() + getWidth() / 2);
                 //Actions.alpha(a*parentAlpha);
                 getColor().a = a;
 
@@ -254,7 +254,7 @@ public class VirtualBlock extends AbstractGameObject {
 
             if (diff < Constants.MARGIN_FADE) {
                 a = map(diff, 0, Constants.MARGIN_FADE, 0.4f, 1);
-                Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get y " + (getY() + getHeight() / 2 + 332));
+             //   Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get y " + (getY() + getHeight() / 2 + 332));
                 if (a < getColor().a)
                     getColor().a = a;
             }
@@ -262,7 +262,7 @@ public class VirtualBlock extends AbstractGameObject {
             if ((Constants.CV_DETECTION_EDGE_TABLET - diff) < Constants.MARGIN_FADE) {
                 diff = Constants.CV_DETECTION_EDGE_TABLET - diff;
                 a = map(diff, 0, Constants.MARGIN_FADE, 0.4f, 1);
-                Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get y " + (getY() + getHeight() / 2 + 332));
+            //    Gdx.app.log(TAG, " alpha " + a + " diff " + diff + " get y " + (getY() + getHeight() / 2 + 332));
                 //Actions.alpha(a*parentAlpha);
                 if (a < getColor().a)
                     getColor().a = a;

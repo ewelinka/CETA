@@ -47,7 +47,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private ArrayList<Integer> toRemoveCVValues;
     private ArrayList<Pair> newDetectedCVPairs;
     private ArrayList<Integer> oldIds;
-    private ArrayList<Integer> newIds;
+    private ArrayList<Integer> newIds,stableIds;
     public ArrayList<Set> results = new ArrayList<Set>();
     private boolean detectionReady;
     //private long noChangesSince;
@@ -83,7 +83,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
         toRemoveCVIds = new ArrayList<Integer>();
         toRemoveCVValues = new ArrayList<Integer>();
         newIds = new ArrayList<Integer>();
-        oldIds = new ArrayList<Integer>();
+        oldIds = stableIds = new ArrayList<Integer>();
         nowDetectedVals = new ArrayList<Integer>();
         nowDetectedBlocks = new ArrayList<VirtualBlock>();
 
@@ -111,7 +111,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
                 Core.flip(frame, frame, 0);
                 final Set<Block> finalSet = topCodeDetector.detectBlocks(frame);
                 //final Set<Block> finalSet = topCodeDetector.detectBlocks(((CetaGame) game).getAndBlockLastFrame());
-                Gdx.app.log(TAG, "ready with the detection!! framerateee"+Gdx.graphics.getFramesPerSecond());
+               // Gdx.app.log(TAG, "ready with the detection!! framerateee"+Gdx.graphics.getFramesPerSecond());
 
                 detectionReady = true;
                 ((CetaGame) game).releaseFrame();
@@ -140,6 +140,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
             }
 
             oldIds = new ArrayList(newIds);
+            stableIds = new ArrayList(newIds);
             newIds.clear();
             newDetectedCVBlocks.clear();
             nowDetectedVals.clear();
@@ -147,7 +148,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
 
             for (Block i : currentBlocks) {
-                Gdx.app.log(TAG, " orientation (radians) " + i.getOrientation() + " center " + i.getCenter() + " type " + i.getType() + " id " + i.getId());
+               // Gdx.app.log(TAG, " orientation (radians) " + i.getOrientation() + " center " + i.getCenter() + " type " + i.getType() + " id " + i.getId());
                 newIds.add(i.getId());
                 newDetectedCVBlocks.add(i);
                 nowDetectedVals.add(i.getValue());
@@ -169,7 +170,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
                 resetStrikes(newId);
                 boolean shouldBeUpdated = false;
                 if(getDistance(newId,newDetectedCVBlocks.get(i)) > noMovementDist){
-                    Gdx.app.log(TAG,"distance > "+noMovementDist);
+                    //Gdx.app.log(TAG,"distance > "+noMovementDist);
                     shouldBeUpdated = true;
                 }
 
@@ -446,7 +447,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
             Vector2 v2 =  new Vector2(
                     xToStage(block.getCenter().y),
                     yToStage(block.getCenter().x));
-            Gdx.app.log(TAG," distance "+v1.dst(v2));
+            //Gdx.app.log(TAG," distance "+v1.dst(v2));
             return v1.dst(v2);
         }catch(java.lang.NullPointerException e){
             for (int i = 0 ; i<virtualBlocksOnStage.size();i++)
@@ -474,6 +475,10 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     }
 
+    public ArrayList<Integer> getStableIds(){
+        return stableIds;
+    }
+
     private void resetStrikes(int id){
         strikes.put(id,0); // reset strikes!
     }
@@ -482,8 +487,5 @@ public class CVBlocksManager extends AbstractBlocksManager {
         strikes.put(id,strikes.get(id)+1); // add one!
     }
 
-    public ArrayList<Integer> getNewIds(){
-        return newIds;
-    }
 }
 

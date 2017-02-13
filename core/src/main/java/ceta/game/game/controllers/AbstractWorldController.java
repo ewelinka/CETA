@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.game.levels.AbstractLevel;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.*;
+import ceta.game.managers.AbstractBlocksManager;
 import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
@@ -51,6 +52,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected float timeToWaitForReading;
     protected boolean tableCleaned;
     private boolean happyEnd;
+    private ArrayList<Integer> toReadVals;
 
     protected int operationsNumberToPassToNext;
 
@@ -103,6 +105,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         currentErrors = 0;
         isTooMuch = false;
         tableCleaned = true;
+        toReadVals = new ArrayList<Integer>();
 
         actionSubmitInit();
         adjustCamera();
@@ -475,21 +478,21 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         level.update(deltaTime); //stage.act()
     }
 
-    public boolean isTimeForReadOver(float deltaTime){
-//        timeToWaitForReading-=deltaTime;
-//        if(timeToWaitForReading<0)
-//            return true;
-//        else
-//            return false;
-        return true;
-
-    }
-
-    public boolean isReadOver(){
-
-       // return timeToWaitForReading<0;
-        return true;
-    }
+//    public boolean isTimeForReadOver(float deltaTime){
+////        timeToWaitForReading-=deltaTime;
+////        if(timeToWaitForReading<0)
+////            return true;
+////        else
+////            return false;
+//        return true;
+//
+//    }
+//
+//    public boolean isReadOver(){
+//
+//       // return timeToWaitForReading<0;
+//        return true;
+//    }
 
 
 
@@ -511,14 +514,15 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
 
-    protected void readDetectedAndSaveIntentGeneric(ArrayList<Integer> toReadVals){
+    protected void readDetectedAndSaveIntentGeneric(ArrayList<Integer> toReadIds){
         //AudioManager.instance.readTheSum(toReadVals);
-
-        timeToWaitForReading = toReadVals.size(); // seconds
+        toReadVals.clear();
+        timeToWaitForReading = toReadIds.size(); // seconds
 
         int sum = 0;
-        for( Integer i : toReadVals ) {
-            sum += i;
+        for( Integer id : toReadIds ) {
+            sum += AbstractBlocksManager.getValueById(id);
+            toReadVals.add(AbstractBlocksManager.getValueById(id));
         }
 
         AudioManager.instance.readNumber(sum);
