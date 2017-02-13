@@ -222,9 +222,9 @@ public abstract class AbstractWorldRenderer implements Disposable {
             if(levelMinimumNumber+counter == chosenNr)
                 fontNumberLine.setColor(0,153,0,1);
             else
-                fontNumberLine.setColor(0,0,0,0.7f);
-            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL,0, Align.center,false);
-            //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false);
+                fontNumberLine.setColor(1,1,1,1);
+            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL -25,0, Align.center,false);
+            //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false); //top
 
 
             counter+=1;
@@ -247,8 +247,8 @@ public abstract class AbstractWorldRenderer implements Disposable {
             if(levelMinimumNumber+counter == chosenNr)
                 fontNumberLine.setColor(0,153,0,1);
             else
-                fontNumberLine.setColor(0,0,0,0.7f);
-            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", 250, i + layout.height/2,0,Align.center,false);
+                fontNumberLine.setColor(1,1,1,1);
+            fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", 258, i + layout.height/2,0,Align.left,false);
 
             counter+=1;
         }
@@ -303,10 +303,10 @@ public abstract class AbstractWorldRenderer implements Disposable {
 //                nLineV.getRegionWidth(), nLineV.getRegionHeight(), false,false);
 
         batch.draw(nLineV.getTexture(),
-                235, Constants.DETECTION_ZONE_END,
+                235, Constants.GROUND_LEVEL-24,
+                nLineV.getRegionWidth()+16, nLineV.getRegionHeight(),
                 nLineV.getRegionX(), nLineV.getRegionY(),
-                nLineV.getRegionWidth(), nLineV.getRegionHeight());
-
+                nLineV.getRegionWidth(), nLineV.getRegionHeight(),false,false);
 
         batch.end();
 
@@ -317,13 +317,18 @@ public abstract class AbstractWorldRenderer implements Disposable {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        batch.draw(nLineH.getTexture(),
-                Constants.HORIZONTAL_ZERO_X-20, Constants.DETECTION_ZONE_END-35,
-                nLineH.getRegionX(), nLineH.getRegionY(),
-                nLineH.getRegionWidth(), nLineH.getRegionHeight());
-
 //        batch.draw(nLineH.getTexture(),
-//                Constants.HORIZONTAL_ZERO_X-19, Constants.DETECTION_LIMIT,
+//                Constants.HORIZONTAL_ZERO_X-20, Constants.DETECTION_ZONE_END-35,
+//                nLineH.getRegionX(), nLineH.getRegionY(),
+//                nLineH.getRegionWidth(), nLineH.getRegionHeight());
+
+        batch.draw(nLineH.getTexture(),
+                Constants.HORIZONTAL_ZERO_X-19, Constants.DETECTION_ZONE_END-35,
+                nLineH.getRegionWidth(), nLineH.getRegionHeight()+10,
+                nLineH.getRegionX(), nLineH.getRegionY(),
+                nLineH.getRegionWidth(), nLineH.getRegionHeight(), false,false);
+
+
 //                0,0,
 //                nLineH.getRegionX(), nLineH.getRegionY(),
 //                1, 1,

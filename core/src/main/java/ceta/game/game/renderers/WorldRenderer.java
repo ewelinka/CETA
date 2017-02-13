@@ -84,22 +84,25 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderBelowTheGround(spriteBatch);
         renderDetectionZoneImg(spriteBatch);
         renderBackgroundImg(spriteBatch);
-        //renderNumberLineImg(spriteBatch);
+
 
         if(worldController.isNumberLineVisible())
             renderHelperNumberLines(shapeRenderer);
-        renderWorldAndOver();
+        renderWorld(spriteBatch);
+        renderNumberLineImg(spriteBatch);
+        renderHelperNumbers(spriteBatch);
+        renderFeedback();
 
 
 
 
     }
 
-    protected void renderWorldAndOver(){
-        renderWorld(spriteBatch);
+    protected void renderFeedback(){
+       // renderWorld(spriteBatch);
 
 
-        renderHelperNumbers(spriteBatch);
+
 
         if (worldController.getCountdownOn()) {
             if(GamePreferences.instance.actionSubmit)

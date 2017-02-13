@@ -32,7 +32,10 @@ public class WorldRenderer1VerticalMoving extends WorldRenderer {
         renderDetectionZoneImg(spriteBatch);
         renderMoving();
         renderHelperNumberLines(shapeRenderer);
-        renderWorldAndOver();
+        renderWorld(spriteBatch);
+        renderNumberLineImg(spriteBatch);
+        renderHelperNumbers(spriteBatch);
+        renderFeedback();
     }
 
     private void renderMoving(){

@@ -28,7 +28,7 @@ public class ResultsManager {
     private int response;
     private ArrayList<Integer> responseBlocks;
     private int levelNumber;
-    private FileHandle intentsFile,collisionsFile;
+    private FileHandle intentsFile;
     private  SimpleDateFormat sdf;
     private  SimpleDateFormat justTime;
     private long collectionTimeMillis;
@@ -47,8 +47,7 @@ public class ResultsManager {
         justTime = new SimpleDateFormat("HH:mm:ss.SSS");
         randomId = GamePreferences.instance.randomId;
 
-        intentsFile = Gdx.files.local("intents.csv");
-        collisionsFile  = Gdx.files.local("collisions.csv");
+        intentsFile = Gdx.files.local(randomId+"-results.csv");
        // intentsFile = Gdx.files.external("./ceta-results/results.csv");
         //intentsFile = Gdx.files.external("./Download/results_"+randomId+".csv");
         Gdx.app.log(TAG, " AAAAAAA "+ Gdx.files.getLocalStoragePath()+ " available: "+Gdx.files.isLocalStorageAvailable());
@@ -156,32 +155,36 @@ public class ResultsManager {
     }
 
     public synchronized void onCollisionRecord(int correctAnswer, int displayNr, int score){
-        Gdx.app.log(TAG," onCollisionRecord ");
+        Gdx.app.log(TAG," onCollisionRecord, intent: "+ intentsNr);
 
-        intentsNr+=1;
-        intentEndDate = new Date();
-        collectionTimeMillis = intentEndDate.getTime() - intentStartDate.getTime() ;
-        successfulIntent = 1;
+        //intentsNr+=1;
+        if(intentsNr == 0) {
+            intentEndDate = new Date();
+            collectionTimeMillis = intentEndDate.getTime() - intentStartDate.getTime();
+            successfulIntent = 1;
 
-        response = correctAnswer;
-        priceValue = correctAnswer;
-        priceDisplayNumber = displayNr;
-        // level, price Nr, price val, priceDiplayNr, response, responseBlocks, response blocks number, intents nr, intnet result (1 or 0),
-        // time appeared, time collected, difference in millis
-        // current score, total score
-        // id
-        toSave = levelNumber+","+priceNumber+","+priceValue+","+priceDisplayNumber+","
-                +response+","+formatResponseBlocks(responseBlocks)+","+responseBlocks.size()+","
-                +intentsNr+","+successfulIntent+","
-                +sdf.format(intentStartDate)+","+justTime.format(intentEndDate)+","+collectionTimeMillis+","
-                +score+","+GamePreferences.instance.totalScore+","
-                +randomId+"\n";
-        Gdx.app.log(TAG,"save data "+toSave);
-        collisionsFile.writeString(toSave,true);
+            response = correctAnswer;
+            priceValue = correctAnswer;
+            priceDisplayNumber = displayNr;
+            // level, price Nr, price val, priceDiplayNr, response, responseBlocks, response blocks number, intents nr, intent result (1 or 0),
+            // time appeared, time collected, difference in millis
+            // current score, total score
+            // id
+            toSave = levelNumber + "," + priceNumber + "," + priceValue + "," + priceDisplayNumber + ","
+                    + response + "," + formatResponseBlocks(responseBlocks) + "," + responseBlocks.size() + ","
+                    + intentsNr + "," + successfulIntent + ","
+                    + sdf.format(intentStartDate) + "," + justTime.format(intentEndDate) + "," + collectionTimeMillis + ","
+                    + score + "," + GamePreferences.instance.totalScore + ","
+                    + randomId + "\n";
+            Gdx.app.log(TAG, "save data " + toSave);
+            intentsFile.writeString(toSave, true);
 
-        // now we reset the start
-        intentStartDate = intentEndDate;
-        lastSolutionNr = correctAnswer;
+            // now we reset the start
+            intentStartDate = intentEndDate;
+            lastSolutionNr = correctAnswer;
+        }
+        else
+            Gdx.app.log(TAG," ignore on collision");
 
     }
 
