@@ -64,8 +64,8 @@ public class NoCvController extends AbstractWorldController {
                 countdownMove();
                 // if we reached the time
                 if (countdownCurrentTime < 0) {
-                    readDetectedSaveIntentAndLastSolution();
                     updateDigitalRepresentations(); // ACTION SUBMIT !
+                    readDetectedSaveIntentAndLastSolution();
                     moveMade = true;
                     setCountdownOn(false);
                     virtualBlocksManager.setWaitForFirstMove(true);

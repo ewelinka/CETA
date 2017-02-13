@@ -66,8 +66,9 @@ public class CvController extends AbstractWorldController {
                 countdownMove();
                 //setPlayerInactive(false);
                 if (countdownCurrentTime < 0) {
-                    readDetectedSaveIntentAndLastSolution();
+
                     updateDigitalRepresentations(); // ACTION SUBMIT !
+                    readDetectedSaveIntentAndLastSolution();
                     moveMade = true;
                     cvBlocksManager.resetDetectedAndRemoved();
                     Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
@@ -89,18 +90,20 @@ public class CvController extends AbstractWorldController {
 
     @Override
     protected void readDetectedSaveIntentAndLastSolution(){
-        ArrayList<Integer> toReadVals = cvBlocksManager.getNowDetectedVals();
-        readDetectedAndSaveIntentGeneric(toReadVals);
+        ArrayList<Integer> toReadIds = cvBlocksManager.getStableIds();
+        readDetectedAndSaveIntentGeneric(toReadIds);
         saveLastSolution(cvBlocksManager.getNowDetectedBlocks());
         checkIfTableCleaned();
     }
 
     @Override
     public int getNowDetectedSum(){
-        ArrayList<Integer> toReadVals = cvBlocksManager.getNowDetectedVals();
+        ArrayList<Integer> stableIds = cvBlocksManager.getStableIds();
+       // ArrayList<Integer> oldIds = cvBlocksManager.getOldIds();
+       // Gdx.app.log(TAG,"to read "+stableIds);
         int sum = 0;
-        for( Integer i : toReadVals ) {
-            sum += i;
+        for( Integer id : stableIds ) {
+            sum += cvBlocksManager.getValueById(id);
         }
         return sum;
 
