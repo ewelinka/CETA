@@ -270,48 +270,6 @@ public class Price extends AbstractGameObject {
     }
 
 
-//    public void moveToNewPositionHorizontalNL(boolean wasEaten, float toX, float toY){
-//        findNewPosition();
-//
-//        if(wasEaten){
-//            Gdx.app.log(TAG, "was eaten!! moveToNewPositionHorizontalNL");
-//            addAction(sequence(
-//                    parallel(Actions.moveTo(toX,toY,0.5f),
-//                            Actions.scaleTo(0,0,0.5f)),
-//                    delay(0.2f),
-//                    //Actions.color(Color.WHITE),
-//                    Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, myStartY),
-//                    Actions.scaleTo(1, 1)
-//            ));
-//        }else {
-//            actionNotEaten(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.PRICE_Y_HORIZONTAL);
-//        }
-//
-//    }
-
-
-//    public void moveToNewPositionVerticalNL(boolean wasEaten, float toX, float toY){
-//        findNewPosition();
-//
-//        if(wasEaten){
-//            Gdx.app.log(TAG, "was eaten!! moveToNewPositionVerticalNL");
-//            addAction(sequence(
-//                    parallel(Actions.moveTo(toX,toY,0.5f),
-//                            Actions.scaleTo(0,0,0.5f)),
-//                    delay(0.2f),
-//                    //Actions.color(Color.WHITE),
-//                    Actions.moveTo(verticalMiddleXPrice-getWidth()/2 ,myStartY + currentNumber*Constants.BASE - getHeight()/2),
-//                    Actions.scaleTo(1,1)
-//
-//
-//            ));
-//
-//        }else{
-//            actionNotEaten(myStartX ,myStartY + currentNumber*Constants.BASE - getHeight()/2);
-//        }
-//
-//    }
-
     private void actionNotEaten(float newX, float newY){
         addAction(sequence(
                 parallel(
@@ -334,72 +292,6 @@ public class Price extends AbstractGameObject {
         multiplicationFactorForScale = 1;
    }
 
-//    public void wasCollected(){
-//        if (isMovingVertical)
-//            wasCollectedHorizontalNumberLine();
-//        else
-//            wasCollectedVerticalNumberLine();
-//    }
-//
-//    public void lastCollected(){
-//        isLast = true;
-//        addAction(sequence(
-//                Actions.scaleTo(1.5f,1.5f,0.1f),
-//                Actions.scaleTo(0.0f,0.0f,0.05f)
-//        ));
-//    }
-//
-//    public void wasEaten(float whereX, float whereY){
-//        if (isMovingVertical)
-//            wasEatenHorizontalNumberLine(whereX,whereY);
-//        else
-//            wasEatenVerticalNumberLine(whereX,whereY);
-//    }
-//
-//    public void wasEatenHorizontal(float whereX, float whereY) {
-//        if (isDynamic)
-//            setPositionStartAbove(true,whereX,whereY);
-//        else
-//            moveToNewPositionEatenHorizontal(whereX,whereY);
-//    }
-//
-//    public void moveToNewPositionEatenHorizontal(float toX, float toY) {
-//        findNewPosition();
-//
-//        Gdx.app.log(TAG, "was eaten!! moveToNewPositionHorizontalNL");
-//        addAction(sequence(
-//                parallel(Actions.moveTo(toX, toY, 0.5f),
-//                        Actions.scaleTo(0, 0, 0.5f)),
-//                delay(0.2f),
-//               // Actions.color(Color.WHITE),
-//                Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.PRICE_Y_HORIZONTAL),
-//                Actions.scaleTo(1, 1)
-//        ));
-//    }
-
-
-//    public void lastEaten(float whereX, float whereY){
-//        isLast = true;
-//        addAction(parallel(Actions.moveTo(whereX,whereY,0.5f),
-//                Actions.scaleTo(0,0,0.5f)));
-//
-//    }
-//
-//    private void wasEatenHorizontalNumberLine(float whereX, float whereY){
-//        if (isDynamic)
-//            setPositionStartAbove(true,whereX,whereY);
-//        else
-//            moveToNewPositionHorizontalNL(true,Constants.VERTICAL_MIDDLE_X-20,getY()-10);
-//
-//    }
-//
-//    private void wasEatenVerticalNumberLine(float whereX, float whereY){
-//        if (isDynamic)
-//            setPositionStartRight(true, whereX, whereY);
-//        else
-//            moveToNewPositionVerticalNL(true, whereX, whereY);
-//
-//    }
 
     private void findNewPosition(){
         currentOperationNr+=1;
@@ -474,9 +366,9 @@ public class Price extends AbstractGameObject {
     private float calculateTime(float whereX, float whereY) {
         if (isDynamic()) { //DYNAMIC
             if (isMovingVertical) { // HORIZONTAL DYNAMIC
-                return Math.max(Math.abs(whereY - getY()) / 100, 0.2f);
+                return Math.min(Math.max(Math.abs(whereY - getY()) / 250, 0.2f),0.75f);
             } else { // VERTICAL DYNAMIC
-                return Math.max(Math.abs(whereX - getX()) / 100, 0.2f);
+                return Math.min(Math.max(Math.abs(whereX - getX()) / 250, 0.2f),0.75f);
             }
         } else { // STATIC
             if (isMovingVertical) { // HORIZONTAL NL DYNAMIC
@@ -488,24 +380,6 @@ public class Price extends AbstractGameObject {
         }
     }
 
-
-//
-//    public void wasCollectedHorizontalNumberLine(){
-//        if (isDynamic)
-//            setPositionStartAbove();
-//        else
-//            moveToNewPositionHorizontalNL(false,0,0);// 0s are placeholder, won't be used
-//
-//    }
-//
-//    public void wasCollectedVerticalNumberLine(){
-//        if (isDynamic)
-//            setPositionStartRight(false,0,0);
-//        else
-//            moveToNewPositionVerticalNL(false,0,0);
-//
-//    }
-//
     private void setPositionStartAbove(){
         resetReturnCounter(); // new position, new counter!
         findNewPosition();

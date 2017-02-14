@@ -187,9 +187,9 @@ public class BrunoVertical extends Bruno {
         switch(headState) {
             case UP:
                // Gdx.app.log(TAG, "UP now rotation "+getRotation()+ " next rotation "+getRotation() + delta * 100);
-                setRotation(getRotation() + delta * 100);
+                setRotation(getRotation() + delta * 200);
                // Gdx.app.log(TAG, "UP now rotation "+getRotation());
-                if(getRotation() > 35) {
+                if(getRotation() > 90) {
                    // Gdx.app.log(TAG, "state change to GOING_BACK");
                     headState = HEAD_STATE.GOING_BACK;
                     //Gdx.app.log(TAG, "headState GB "+headState);
@@ -200,7 +200,7 @@ public class BrunoVertical extends Bruno {
                 break;
             case GOING_BACK:
                // Gdx.app.log(TAG, "GOING_BACK now rotation "+getRotation()+ " next rotation "+getRotation() + delta * 100);
-                setRotation(getRotation() - delta * 100);
+                setRotation(getRotation() - delta * 200);
               //  Gdx.app.log(TAG, "GOING_BACK now rotation "+getRotation());
                 if(getRotation() < 0) {
                  //   Gdx.app.log(TAG, "state change to FIXED");

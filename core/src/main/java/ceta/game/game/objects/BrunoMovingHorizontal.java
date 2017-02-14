@@ -103,7 +103,6 @@ public class BrunoMovingHorizontal extends Bruno {
 
     @Override
     public float getEatPointY(){
-        Gdx.app.log(TAG," will eat in y "+(getY() +offsetY));
         return getY() +offsetY ;
     }
 
