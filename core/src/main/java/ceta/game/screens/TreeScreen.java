@@ -145,8 +145,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     private void addGears(){
-        arrow = new TreeArrow(Assets.instance.tree.arrow);
-        stage.addActor(arrow); // now add to place the arrow most to front
+
 
         level1gear = new TreeGear(Assets.instance.tree.gear3,Assets.instance.tree.gear3inactive);
         level2gear = new TreeGear(Assets.instance.tree.gear2,Assets.instance.tree.gear2inactive);
@@ -172,6 +171,9 @@ public class TreeScreen extends AbstractGameScreen {
 
         level6gear.setPosition(gearsPositions[5][0], gearsPositions[5][1]);
         stage.addActor(level6gear);
+
+        arrow = new TreeArrow(Assets.instance.tree.arrow);
+        stage.addActor(arrow); // now add to place the arrow most to front
     }
 
     private void addParts(){

@@ -43,7 +43,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected LevelParams levelParams;
     protected boolean playerInactive;
     protected float timeLeftScreenFinishedDelay;
-    protected boolean screenFinished;
+    protected boolean screenFinished, inChangeProcess;
     protected boolean moveMade;
     private int localCountdownMax;
     protected int currentErrors;
@@ -93,6 +93,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         timeToWaitForReading = 0;
 
         happyEnd = false;
+        inChangeProcess = screenFinished = false;
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(null);
         score = 0;
@@ -154,6 +155,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
         else if(keycode == Input.Keys.C){
             goToCongratulationsScreen();
+        }
+        else if (keycode == Input.Keys.S){
+            forceSuccess();
         }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {
@@ -220,7 +224,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     level.price.getWidth()/2, level.price.getHeight()/2);
 
             if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPrice(level.price);
+                onCollisionBrunoWithPrice(level.price, objectToCheck);
                 moveMade = false;
             } else {
                 if (moveMade) {
@@ -248,7 +252,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     level.price.getWidth() / 2, level.price.getHeight() / 2);
 
             if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPrice(level.price);
+                onCollisionBrunoWithPrice(level.price, objectToCheck);
                 moveMade = false;
             }
         }
@@ -313,14 +317,15 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         score += 1;
     }
 
-    protected void onCollisionBrunoWithPrice(Price price) {
+    protected void onCollisionBrunoWithPrice(Price price, AbstractGameObject collisionObject) {
         //Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (price.getActions().size == 0) { // we act just one time!
             genericOnCollision();
             if (notYetPassTheLevel()) {
-                price.wasCollected();
+                price.onCollision(collisionObject.getX()+collisionObject.getWidth(),collisionObject.getY());
+               // price.wasCollected();
             } else {
-                price.lastCollected();
+                price.onCollisionLast(collisionObject.getX()+collisionObject.getWidth(),collisionObject.getY());
                 onLevelFinished();
             }
 
@@ -334,10 +339,12 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             genericOnCollision();
             if (notYetPassTheLevel()) {
                 Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+price.getX()+" y "+price.getY());
-                price.wasEaten(bruno.getX(), bruno.getEatPointY());
+                //price.wasEaten(bruno.getX(), bruno.getEatPointY());
+                price.onCollision(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
 
             } else {
-                price.lastEaten(bruno.getX(), bruno.getEatPointY());
+//                price.lastEaten(bruno.getX(), bruno.getEatPointY());
+                price.onCollisionLast(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
                 onLevelFinished();
             }
 
@@ -351,9 +358,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             genericOnCollision();
             if (notYetPassTheLevel()) {
                 Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
-                price.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
+                price.onCollision(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
             } else {
-                price.lastEaten(bruno.getX(), bruno.getEatPointY());
+                price.onCollisionLast(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
                 onLevelFinished();
             }
 
@@ -453,13 +460,18 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public void globalUpdate(float deltaTime){
         if(screenFinished) {
-            //Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
-            timeLeftScreenFinishedDelay -= deltaTime;
-            if (timeLeftScreenFinishedDelay < 0)
-                if(happyEnd)
-                    goToCongratulationsScreen();
-                else
-                    goToRepeatLevelScreen();
+            if(!inChangeProcess) {
+                timeLeftScreenFinishedDelay -= deltaTime;
+                if (timeLeftScreenFinishedDelay < 0) {
+                    inChangeProcess = true;
+                    if (happyEnd) {
+                        goToCongratulationsScreen();
+                    }
+                    else {
+                        goToRepeatLevelScreen();
+                    }
+                }
+            }
 
         }
         else{
@@ -617,6 +629,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         Gdx.app.log(TAG," score "+score+", to pass "+getOperationsToPassToNextLevel());
 
         if(score >= getOperationsToPassToNextLevel()){
+            Gdx.app.log(TAG," yesss happEND!!!");
             happyEnd = true;
 
         }else{
@@ -626,6 +639,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
         finishTheScreen();
 
+
     }
 
     public int getLevelNr(){ return levelNr;}
@@ -634,6 +648,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         currentErrors  = 0;
         game.resultsManager.newPriceAppeared(currentOperationNr,game.getLevelsManager().getCurrentLevel()); // we register now level not last level completed!
 
+    }
+
+    public void forceSuccess(){
+        happyEnd = true;
+        finishTheScreen();
     }
 
 

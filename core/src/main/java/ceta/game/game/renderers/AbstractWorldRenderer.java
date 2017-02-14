@@ -209,6 +209,20 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
+    protected void renderDebugNumbersHorizontal(SpriteBatch batch){
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+
+        for(int i = -300; i<300;i+=80){
+
+            fontNumberLine.setColor(0,0,0,1);
+            fontNumberLine.draw(batch, i+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false);
+        }
+
+        batch.end();
+    }
+
 
 
 
@@ -235,6 +249,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
 
+
     protected void renderHelperNumbersVertical(SpriteBatch batch){
         int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
@@ -257,11 +272,34 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
+    protected void renderDebugNumbersVertical(SpriteBatch batch){
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=80){
+            GlyphLayout layout = new GlyphLayout(fontNumberLine, i+"");
+
+            fontNumberLine.setColor(0,0,0,1);
+            fontNumberLine.draw(batch, i+"", -258, i + layout.height/2,0,Align.left,false);
+
+        }
+
+        batch.end();
+
+    }
+
     protected void renderHelperNumbers(SpriteBatch batch){
         if(numberLineIsHorizontal)
             renderHelperNumbersHorizontal(batch);
         else
             renderHelperNumbersVertical(batch);
+    }
+
+    protected void renderDebugNumbers(SpriteBatch batch){
+        if(numberLineIsHorizontal)
+            renderDebugNumbersHorizontal(batch);
+        else
+            renderDebugNumbersVertical(batch);
     }
 
     protected void renderHelperNumberLines(ShapeRenderer shRenderer) {

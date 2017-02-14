@@ -92,6 +92,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderNumberLineImg(spriteBatch);
         renderHelperNumbers(spriteBatch);
         renderFeedback();
+//        renderDebugNumbersVertical(spriteBatch);
+//        renderDebugNumbersHorizontal(spriteBatch);
 
 
 
