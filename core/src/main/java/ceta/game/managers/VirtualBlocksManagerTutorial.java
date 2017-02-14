@@ -5,6 +5,7 @@ import ceta.game.game.objects.VirtualBlock;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -46,6 +47,7 @@ public class VirtualBlocksManagerTutorial extends VirtualBlocksManager {
 
         //move hand and block
         addHand();
+        disableBlocks();
 
     }
 
@@ -78,6 +80,13 @@ public class VirtualBlocksManagerTutorial extends VirtualBlocksManager {
 
         ));
 
+
+    }
+
+    private void disableBlocks(){
+        for(int i = 0;i<virtualBlocksOnStage.size();i++){
+            virtualBlocksOnStage.get(i).setTouchable(Touchable.disabled);
+        }
 
     }
 
