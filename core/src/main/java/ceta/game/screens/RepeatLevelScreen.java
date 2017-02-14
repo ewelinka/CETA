@@ -50,7 +50,7 @@ public class RepeatLevelScreen extends AbstractGameScreen {
     @Override
     public void render(float deltaTime) {
         if(moveToNextLevel){
-            game.getLevelsManager().goToFirstUncompletedLevel();
+            game.getLevelsManager().goToUncompletedLevel();
             moveToNextLevel = false;
         }
         //blue!

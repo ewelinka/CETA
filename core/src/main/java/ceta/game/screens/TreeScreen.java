@@ -20,9 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
  * Created by ewe on 1/9/17.
@@ -32,9 +30,9 @@ public class TreeScreen extends AbstractGameScreen {
     private Button btnMenuPlay;
     private Image imgBackground;
     private TreeGear level1gear, level2gear,level3gear,level4gear, level5gear, level6gear;
+    private Image part1,part2,part3,part4,part5,part6;
     private TreeArrow arrow;
-    private int[][] gearsPositions;
-    private int[][] arrowPositions;
+    private int[][] arrowPositions,partsPositions,gearsPositions;
     private float automaticPassTime;
     private boolean shouldPass;
 
@@ -47,7 +45,7 @@ public class TreeScreen extends AbstractGameScreen {
     public TreeScreen(DirectedGame game, boolean gameInit) {
         super(game);
         automaticPassTime = Constants.AUTOMATIC_LEVEL_PASS;
-        shouldPass = true;
+        shouldPass = true; //TODO change to pass automatic
         this.gameInit = gameInit;
         gearsPositions = new int[][]{
                 {228, 437},
@@ -66,6 +64,17 @@ public class TreeScreen extends AbstractGameScreen {
                 {437,328},
                 {444,425}
         };
+
+        partsPositions = new int[][]{
+                {111,559},
+                {78,670},
+                {139,900},
+                {310,762},
+                {502,833},
+                {481,573}
+        };
+
+
     }
 
     @Override
@@ -122,6 +131,22 @@ public class TreeScreen extends AbstractGameScreen {
         imgBackground.setPosition(0, 0);
         stage.addActor(imgBackground);
 
+        addGears();
+        addParts();
+
+
+
+
+        enableGears();
+
+
+        //addPlayButton();
+
+    }
+
+    private void addGears(){
+
+
         level1gear = new TreeGear(Assets.instance.tree.gear3,Assets.instance.tree.gear3inactive);
         level2gear = new TreeGear(Assets.instance.tree.gear2,Assets.instance.tree.gear2inactive);
         level3gear = new TreeGear(Assets.instance.tree.gear4,Assets.instance.tree.gear4inactive);
@@ -149,11 +174,31 @@ public class TreeScreen extends AbstractGameScreen {
 
         arrow = new TreeArrow(Assets.instance.tree.arrow);
         stage.addActor(arrow); // now add to place the arrow most to front
+    }
 
-        enableGears();
+    private void addParts(){
+        part1 = new Image(Assets.instance.tree.part1);
+        part2 = new Image(Assets.instance.tree.part2);
+        part3 = new Image(Assets.instance.tree.part3);
+        part4 = new Image(Assets.instance.tree.part4);
+        part5 = new Image(Assets.instance.tree.part5);
+        part6 = new Image(Assets.instance.tree.part6);
+
+        part1.setPosition(partsPositions[0][0], partsPositions[0][1]);
+        part2.setPosition(partsPositions[1][0], partsPositions[1][1]);
+        part3.setPosition(partsPositions[2][0], partsPositions[2][1]);
+        part4.setPosition(partsPositions[3][0], partsPositions[3][1]);
+        part5.setPosition(partsPositions[4][0], partsPositions[4][1]);
+        part6.setPosition(partsPositions[5][0], partsPositions[5][1]);
 
 
-        //addPlayButton();
+
+        stage.addActor(part1);
+        stage.addActor(part2);
+        stage.addActor(part3);
+        stage.addActor(part4);
+        stage.addActor(part5);
+        stage.addActor(part6);
 
     }
 
@@ -178,36 +223,42 @@ public class TreeScreen extends AbstractGameScreen {
         Gdx.app.log(TAG, " current level "+nowLevel);
         if(nowLevel < Constants.L6_COMPLETED_NR){
             level6gear.setActive(false);
+            part6.setColor(1,1,1,0);
             arrow.setPosition(arrowPositions[5][0],arrowPositions[5][1]); // pos 6
             // Gdx.app.log(TAG, "5 gray");
             newActivated = 5;
         }
         if(nowLevel < Constants.L5_COMPLETED_NR){
             level5gear.setActive(false);
+            part5.setColor(1,1,1,0);
             arrow.setPosition(arrowPositions[4][0],arrowPositions[4][1]); // pos 5
            // Gdx.app.log(TAG, "5 gray");
             newActivated = 4;
         }
         if(nowLevel < Constants.L4_COMPLETED_NR){
             level4gear.setActive(false);
+            part4.setColor(1,1,1,0);
             arrow.setPosition(arrowPositions[3][0],arrowPositions[3][1]); // pos 4
            // Gdx.app.log(TAG, " 4 gray");
             newActivated = 3;
         }
         if(nowLevel < Constants.L3_COMPLETED_NR){
             level3gear.setActive(false);
+            part3.setColor(1,1,1,0);
             arrow.setPosition(arrowPositions[2][0],arrowPositions[2][1]); // pos 3
            // Gdx.app.log(TAG, "3 gray");
             newActivated = 2;
         }
         if(nowLevel < Constants.L2_COMPLETED_NR){
             level2gear.setActive(false);
+            part2.setColor(1,1,1,0);
             arrow.setPosition(arrowPositions[1][0],arrowPositions[1][1]); // pos 2
            // Gdx.app.log(TAG, "2 gray");
             newActivated = 1;
         }
         if(nowLevel < Constants.L1_COMPLETED_NR){
             level1gear.setActive(false);
+            part1.setColor(1,1,1,0);
             arrow.setPosition(arrowPositions[0][0],arrowPositions[0][1]); // pos 1
             newActivated = 0;
            // Gdx.app.log(TAG, "1 gray");
@@ -251,6 +302,8 @@ public class TreeScreen extends AbstractGameScreen {
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[1][0],arrowPositions[1][1],2f)));
                 level1gear.setActive(false);
                 level1gear.activateGear();
+                part1.setColor(1,1,1,0);
+                part1.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level2gear.setIsMoving(true,3.5f);
                 break;
             case 2:
@@ -258,12 +311,16 @@ public class TreeScreen extends AbstractGameScreen {
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[2][0],arrowPositions[2][1],2f)));
                 level2gear.setActive(false);
                 level2gear.activateGear();
+                part2.setColor(1,1,1,0);
+                part2.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level3gear.setIsMoving(true,3.5f);
                 break;
             case 3:
                 arrow.setPosition(arrowPositions[2][0],arrowPositions[2][1]);
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[3][0],arrowPositions[3][1],2f)));
                 level3gear.setActive(false);
+                part3.setColor(1,1,1,0);
+                part3.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level3gear.activateGear();
                 level4gear.setIsMoving(true,3.5f);
                 break;
@@ -271,6 +328,8 @@ public class TreeScreen extends AbstractGameScreen {
                 arrow.setPosition(arrowPositions[3][0],arrowPositions[3][1]);
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[4][0],arrowPositions[4][1],2f)));
                 level4gear.setActive(false);
+                part4.setColor(1,1,1,0);
+                part4.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level4gear.activateGear();
                 level5gear.setIsMoving(true,3.5f);
                 break;
@@ -278,6 +337,8 @@ public class TreeScreen extends AbstractGameScreen {
                 arrow.setPosition(arrowPositions[4][0],arrowPositions[4][1]);
                 arrow.addAction(sequence(delay(1.5f),moveTo(arrowPositions[5][0],arrowPositions[5][1],2f)));
                 level5gear.setActive(false);
+                part5.setColor(1,1,1,0);
+                part5.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level5gear.activateGear();
                 level6gear.setIsMoving(true,3.5f);
                 break;
@@ -285,6 +346,8 @@ public class TreeScreen extends AbstractGameScreen {
                 arrow.setPosition(arrowPositions[5][0],arrowPositions[5][1]);
                 arrow.addAction(sequence(delay(1.5f),Actions.alpha(0,1f)));
                 level6gear.setActive(false);
+                part6.setColor(1,1,1,0);
+                part6.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level6gear.activateGear();
                 // TODO thats all falks!
                 break;

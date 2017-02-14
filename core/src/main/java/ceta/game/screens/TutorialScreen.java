@@ -5,6 +5,7 @@ import ceta.game.game.controllers.Level1HorizontalController;
 import ceta.game.game.controllers.Level1VerticalController;
 import ceta.game.game.controllers.Level1VerticalControllerTutorial;
 import ceta.game.game.renderers.WorldRenderer;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -49,11 +50,10 @@ public class TutorialScreen extends AbstractGameScreen{
     @Override
     public void show() {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
-        // TODO load preferences
+        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.inTheZone);
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1VerticalControllerTutorial(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
-        // Todo here we should make camera stuff and fitviewport
         worldRenderer = new WorldRenderer(worldController,stage,false,regTex); // default set number line to horizontal
         // android back key
         Gdx.input.setCatchBackKey(true);

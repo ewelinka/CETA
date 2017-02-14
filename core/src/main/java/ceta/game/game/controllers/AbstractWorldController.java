@@ -2,6 +2,7 @@ package ceta.game.game.controllers;
 
 import ceta.game.game.Assets;
 import ceta.game.game.levels.AbstractLevel;
+import ceta.game.game.levels.Level3Horizontal;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.*;
 import ceta.game.managers.AbstractBlocksManager;
@@ -43,7 +44,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     protected LevelParams levelParams;
     protected boolean playerInactive;
     protected float timeLeftScreenFinishedDelay;
-    protected boolean screenFinished;
+    protected boolean screenFinished, inChangeProcess;
     protected boolean moveMade;
     private int localCountdownMax;
     protected int currentErrors;
@@ -93,6 +94,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         timeToWaitForReading = 0;
 
         happyEnd = false;
+        inChangeProcess = screenFinished = false;
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(null);
         score = 0;
@@ -154,6 +156,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
         else if(keycode == Input.Keys.C){
             goToCongratulationsScreen();
+        }
+        else if (keycode == Input.Keys.S){
+            forceSuccess();
         }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {
@@ -220,7 +225,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     level.price.getWidth()/2, level.price.getHeight()/2);
 
             if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPrice(level.price);
+                onCollisionBrunoWithPrice(level.price, objectToCheck);
                 moveMade = false;
             } else {
                 if (moveMade) {
@@ -238,24 +243,22 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     protected void testCollisionsHorizontalDynamic(AbstractGameObject objectToCheck){
-        //TODO how we know about error or win??? the price is moving!!!
-        //Gdx.app.log(TAG, " testCollisionsHorizontalDynamic ");
+       // Gdx.app.log(TAG, " testCollisionsHorizontalDynamic W "+ Constants.VIEWPORT_HEIGHT/2);
         if(objectToCheck != null ) {
-            r1.set(objectToCheck.getX() + objectToCheck.getWidth() - 2,
-                    objectToCheck.getY(), // two pixels below the middle
-                    4, 4);
-            r2.set(level.price.getX(),
-                    level.price.getY(),
-                    level.price.getWidth() / 2, level.price.getHeight() / 2);
 
-            if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPrice(level.price);
-                moveMade = false;
-            }
-            else{
-                //TODO check if the price number and number line position ==
-                // if == -> its a good answer
-                // if not -> error
+            if (level.price.getY() < Constants.GROUND_LEVEL + Constants.VIEWPORT_HEIGHT / 2) { // price in detection zone
+                r1.set(objectToCheck.getX() + objectToCheck.getWidth() - 2, objectToCheck.getY(), // two pixels below the middle
+                        4, 4);
+
+                r2.set(level.price.getX(),
+                        Constants.GROUND_LEVEL,
+                        level.price.getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2);
+
+
+                if (r1.overlaps(r2)) {
+                    onCollisionBrunoWithPrice(level.price, objectToCheck);
+                    moveMade = false;
+                }
             }
         }
 
@@ -288,18 +291,67 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
     }
 
+    protected void testCollisionsDynamicL3H(float xZero){
+        if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
+            ((Level3Horizontal)level).gear.setRotationSpeed(0);
+            // we set 4px x 4px box at the middle end (X), in the top (Y)
+            if(level.bruno.getTerminalX() != xZero ) {
+                if ((level.price.getY() < Constants.GROUND_LEVEL + Constants.VIEWPORT_HEIGHT / 2) //above
+                        && level.price.getY() > level.bruno.getEatPointY()) { //not below mouth
+                    r1.set(level.bruno.getX() + level.bruno.getWidth() / 2 - 2,
+                            level.bruno.getY() + level.bruno.getHeight(),
+                            4, Constants.BASE);
+                    r2.set(level.price.getX(),
+                            Constants.GROUND_LEVEL,
+                            level.price.getWidth(), Constants.VIEWPORT_HEIGHT/2);
+
+                    if (r1.overlaps(r2)) {
+                        //onCollisionBrunoWithPrice(level.price);
+                        onCollisionBrunoWithPriceVertical(level.price, level.bruno);
+                        moveMade = false;
+                    }
+                }
+            }
+        }
+    }
+
     protected void testCollisionsVerticalDynamic(BrunoVertical objectToCheck){
         if(objectToCheck != null ) {
-            r1.set(objectToCheck.getX() ,
-                    objectToCheck.getY()+ objectToCheck.getHeight()/2 - 4, // two pixels below the middle
-                    objectToCheck.getWidth(), 4);
-            r2.set(level.price.getX(),
-                    level.price.getY(),
-                    level.price.getWidth()/2, level.price.getHeight()/2);
+            if ((level.price.getX() < 190) //not very right
+                    && level.price.getX() > objectToCheck.getX()) { //not behind bruno
+                r1.set(objectToCheck.getX(),
+                        objectToCheck.getY() + objectToCheck.getHeight() / 2 - 4, // two pixels below the middle
+                        objectToCheck.getWidth(), 4);
+                r2.set(-Constants.VIEWPORT_WIDTH/2,
+                        level.price.getY(),
+                        Constants.VIEWPORT_WIDTH, level.price.getHeight() / 2);
 
-            if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
-                moveMade = false;
+                if (r1.overlaps(r2)) {
+                    onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                    moveMade = false;
+                }
+            }
+        }
+    }
+
+    protected void testCollisionsDynamicL3V (float yZero) {
+        BrunoVertical brunoV = (BrunoVertical) level.bruno;
+        if (!(brunoV.getActions().size > 0)) { // if bruno is not moving
+            if(brunoV.getTerminalY() != yZero ) {
+                if ((level.price.getX() < 190) //not very right
+                        && level.price.getX() > brunoV.getX()) { //not behind bruno
+                    r1.set(brunoV.getX(),
+                            brunoV.getY(),
+                            brunoV.getWidth(), brunoV.getHeight() / 2);
+                    r2.set(-Constants.VIEWPORT_WIDTH/2,
+                            level.price.getY(),
+                            Constants.VIEWPORT_WIDTH, level.price.getHeight() / 2);
+
+                    if (r1.overlaps(r2)) {
+                        onCollisionBrunoWithPriceVertical(level.price, brunoV);
+                        moveMade = false;
+                    }
+                }
             }
         }
     }
@@ -319,15 +371,15 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         score += 1;
     }
 
-    protected void onCollisionBrunoWithPrice(Price price) {
+    protected void onCollisionBrunoWithPrice(Price price, AbstractGameObject collisionObject) {
         //Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (price.getActions().size == 0) { // we act just one time!
             genericOnCollision();
             if (notYetPassTheLevel()) {
-                price.wasCollected();
-
+                price.onCollision(collisionObject.getX()+collisionObject.getWidth(),collisionObject.getY());
+               // price.wasCollected();
             } else {
-                price.lastCollected();
+                price.onCollisionLast(collisionObject.getX()+collisionObject.getWidth(),collisionObject.getY());
                 onLevelFinished();
             }
 
@@ -341,10 +393,12 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             genericOnCollision();
             if (notYetPassTheLevel()) {
                 Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+price.getX()+" y "+price.getY());
-                price.wasEaten(bruno.getX(), bruno.getEatPointY());
+                //price.wasEaten(bruno.getX(), bruno.getEatPointY());
+                price.onCollision(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
 
             } else {
-                price.lastEaten(bruno.getX(), bruno.getEatPointY());
+//                price.lastEaten(bruno.getX(), bruno.getEatPointY());
+                price.onCollisionLast(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
                 onLevelFinished();
             }
 
@@ -358,9 +412,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             genericOnCollision();
             if (notYetPassTheLevel()) {
                 Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
-                price.wasEatenHorizontal(bruno.getX(), bruno.getEatPointY());
+                price.onCollision(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
             } else {
-                price.lastEaten(bruno.getX(), bruno.getEatPointY());
+                price.onCollisionLast(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
                 onLevelFinished();
             }
 
@@ -460,13 +514,18 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public void globalUpdate(float deltaTime){
         if(screenFinished) {
-            //Gdx.app.log(TAG, "SCREEN FINISHED! "+timeLeftScreenFinishedDelay);
-            timeLeftScreenFinishedDelay -= deltaTime;
-            if (timeLeftScreenFinishedDelay < 0)
-                if(happyEnd)
-                    goToCongratulationsScreen();
-                else
-                    goToRepeatLevelScreen();
+            if(!inChangeProcess) {
+                timeLeftScreenFinishedDelay -= deltaTime;
+                if (timeLeftScreenFinishedDelay < 0) {
+                    inChangeProcess = true;
+                    if (happyEnd) {
+                        goToCongratulationsScreen();
+                    }
+                    else {
+                        goToRepeatLevelScreen();
+                    }
+                }
+            }
 
         }
         else{
@@ -624,6 +683,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         Gdx.app.log(TAG," score "+score+", to pass "+getOperationsToPassToNextLevel());
 
         if(score >= getOperationsToPassToNextLevel()){
+            Gdx.app.log(TAG," yesss happEND!!!");
             happyEnd = true;
 
         }else{
@@ -633,6 +693,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
         finishTheScreen();
 
+
     }
 
     public int getLevelNr(){ return levelNr;}
@@ -641,6 +702,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         currentErrors  = 0;
         game.resultsManager.newPriceAppeared(currentOperationNr,game.getLevelsManager().getCurrentLevel()); // we register now level not last level completed!
 
+    }
+
+    public void forceSuccess(){
+        happyEnd = true;
+        finishTheScreen();
     }
 
 

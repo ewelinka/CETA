@@ -85,28 +85,8 @@ public class Level3HorizontalController extends NoCvController  {
 
     private void testCollisionsDynamic () {
         //Gdx.app.log(TAG," testCollisionsDynamic ======");
-        if (!(level.bruno.getActions().size > 0)) { // we have to be sure that the move finished
-            ((Level3Horizontal)level).gear.setRotationSpeed(0);
-            // we set 4px x 4px box at the middle end (X), in the top (Y)
-            if(level.bruno.getTerminalX() != xZero ) {
-                r1.set(level.bruno.getX()+level.bruno.getWidth()/2 -2,
-                        level.bruno.getY()+level.bruno.getHeight(),
-                        4, Constants.BASE);
-                r2.set(level.price.getX(),
-                        level.price.getY(),
-                        level.price.getWidth(), level.price.getHeight());
+        testCollisionsDynamicL3H(xZero);
 
-                if (r1.overlaps(r2)) {
-                    //onCollisionBrunoWithPrice(level.price);
-                    onCollisionBrunoWithPriceVertical(level.price, level.bruno);
-                    moveMade = false;
-                } else{
-                    //TODO check if the price number and number line position ==
-                    // if == -> its a good answer
-                    // if not -> error
-                }
-            }
-        }
     }
 
     @Override

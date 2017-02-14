@@ -2,6 +2,7 @@ package ceta.game.screens;
 
 import ceta.game.game.Assets;
 import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -88,6 +89,7 @@ public class TutorialCvScreen extends AbstractGameScreen {
     public void show() {
         tutorialTimeMillis = 0;
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
+        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.inTheZone);
         buildStage();
     }
 

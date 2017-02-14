@@ -47,8 +47,8 @@ public class ResultsManager {
         justTime = new SimpleDateFormat("HH:mm:ss.SSS");
         randomId = GamePreferences.instance.randomId;
 
-        intentsFile = Gdx.files.local(randomId+"-results.csv");
-       // intentsFile = Gdx.files.external("./ceta-results/results.csv");
+       // intentsFile = Gdx.files.local(randomId+"-results.csv");
+        intentsFile = Gdx.files.external("./ceta-results/"+randomId+"-results.csv");
         //intentsFile = Gdx.files.external("./Download/results_"+randomId+".csv");
         Gdx.app.log(TAG, " AAAAAAA "+ Gdx.files.getLocalStoragePath()+ " available: "+Gdx.files.isLocalStorageAvailable());
         lastSolution = new ArrayList<VirtualBlock>();

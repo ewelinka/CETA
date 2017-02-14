@@ -4,9 +4,11 @@ import ceta.game.game.Assets;
 import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.util.Constants;
+import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import org.opencv.core.Mat;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
@@ -177,7 +179,7 @@ public class Price extends AbstractGameObject {
         if (this.getX() < -Constants.VIEWPORT_WIDTH / 2 - getWidth()) {
             returnCounter -= 1;
             if (returnCounter < 0) {
-                setPositionStartRight(false,0,0); // new position! not eaten!
+                setPositionStartRight(); // new position! not eaten!
             } else
                 this.setPosition(Constants.VIEWPORT_WIDTH / 2, getY()); // come back in the same place
         } else
@@ -268,48 +270,6 @@ public class Price extends AbstractGameObject {
     }
 
 
-    public void moveToNewPositionHorizontalNL(boolean wasEaten, float toX, float toY){
-        findNewPosition();
-
-        if(wasEaten){
-            Gdx.app.log(TAG, "was eaten!! moveToNewPositionHorizontalNL");
-            addAction(sequence(
-                    parallel(Actions.moveTo(toX,toY,0.5f),
-                            Actions.scaleTo(0,0,0.5f)),
-                    delay(0.2f),
-                    //Actions.color(Color.WHITE),
-                    Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, myStartY),
-                    Actions.scaleTo(1, 1)
-            ));
-        }else {
-            actionNotEaten(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.PRICE_Y_HORIZONTAL);
-        }
-
-    }
-
-
-    public void moveToNewPositionVerticalNL(boolean wasEaten, float toX, float toY){
-        findNewPosition();
-
-        if(wasEaten){
-            Gdx.app.log(TAG, "was eaten!! moveToNewPositionVerticalNL");
-            addAction(sequence(
-                    parallel(Actions.moveTo(toX,toY,0.5f),
-                            Actions.scaleTo(0,0,0.5f)),
-                    delay(0.2f),
-                    //Actions.color(Color.WHITE),
-                    Actions.moveTo(verticalMiddleXPrice-getWidth()/2 ,myStartY + currentNumber*Constants.BASE - getHeight()/2),
-                    Actions.scaleTo(1,1)
-
-
-            ));
-
-        }else{
-            actionNotEaten(myStartX ,myStartY + currentNumber*Constants.BASE - getHeight()/2);
-        }
-
-    }
-
     private void actionNotEaten(float newX, float newY){
         addAction(sequence(
                 parallel(
@@ -330,75 +290,8 @@ public class Price extends AbstractGameObject {
         ));
         priceScale = 1;
         multiplicationFactorForScale = 1;
+   }
 
-    }
-
-    public void wasCollected(){
-        if (isMovingVertical)
-            wasCollectedHorizontalNumberLine();
-        else
-            wasCollectedVerticalNumberLine();
-    }
-
-    public void lastCollected(){
-        isLast = true;
-        addAction(sequence(
-                Actions.scaleTo(1.5f,1.5f,0.1f),
-                Actions.scaleTo(0.0f,0.0f,0.05f)
-        ));
-    }
-
-    public void wasEaten(float whereX, float whereY){
-        if (isMovingVertical)
-            wasEatenHorizontalNumberLine(whereX,whereY);
-        else
-            wasEatenVerticalNumberLine(whereX,whereY);
-    }
-
-    public void wasEatenHorizontal(float whereX, float whereY) {
-        if (isDynamic)
-            setPositionStartAbove(true,whereX,whereY);
-        else
-            moveToNewPositionEatenHorizontal(whereX,whereY);
-    }
-
-    public void moveToNewPositionEatenHorizontal(float toX, float toY) {
-        findNewPosition();
-
-        Gdx.app.log(TAG, "was eaten!! moveToNewPositionHorizontalNL");
-        addAction(sequence(
-                parallel(Actions.moveTo(toX, toY, 0.5f),
-                        Actions.scaleTo(0, 0, 0.5f)),
-                delay(0.2f),
-               // Actions.color(Color.WHITE),
-                Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.PRICE_Y_HORIZONTAL),
-                Actions.scaleTo(1, 1)
-        ));
-    }
-
-
-    public void lastEaten(float whereX, float whereY){
-        isLast = true;
-        addAction(parallel(Actions.moveTo(whereX,whereY,0.5f),
-                Actions.scaleTo(0,0,0.5f)));
-
-    }
-
-    private void wasEatenHorizontalNumberLine(float whereX, float whereY){
-        if (isDynamic)
-            setPositionStartAbove(true,whereX,whereY);
-        else
-            moveToNewPositionHorizontalNL(true,Constants.VERTICAL_MIDDLE_X-20,getY()-10);
-
-    }
-
-    private void wasEatenVerticalNumberLine(float whereX, float whereY){
-        if (isDynamic)
-            setPositionStartRight(true, whereX, whereY);
-        else
-            moveToNewPositionVerticalNL(true, whereX, whereY);
-
-    }
 
     private void findNewPosition(){
         currentOperationNr+=1;
@@ -423,71 +316,80 @@ public class Price extends AbstractGameObject {
         }
     }
 
-
-    public void wasCollectedHorizontalNumberLine(){
-        if (isDynamic)
-            setPositionStartAbove();
-        else
-            moveToNewPositionHorizontalNL(false,0,0);// 0s are placeholder, won't be used
-
-    }
-
-    public void wasCollectedVerticalNumberLine(){
-        if (isDynamic)
-            setPositionStartRight(false,0,0);
-        else
-            moveToNewPositionVerticalNL(false,0,0);
-
-    }
-
-    private void setPositionStartAbove(boolean wasEaten,float toX, float toY){
+    public void onCollision(float whereX, float whereY){
         resetReturnCounter(); // new position, new counter!
-        findNewPosition();
+        findNewPosition(); // find new current number
 
-        if(wasEaten){
-            Gdx.app.log(TAG, "was eaten!! setPositionStartAbove");
-            addAction(sequence(
-                    parallel(Actions.moveTo(toX,toY,0.5f),
-                            Actions.scaleTo(0,0,0.5f)),
-                    delay(0.2f),
-                    //Actions.color(Color.WHITE),
-                    Actions.moveTo(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight()),
-                    Actions.scaleTo(1, 1)
-            ));
+        Pair next = whereToGoNext();
+
+        float time = calculateTime(whereX,whereY);
+
+        Gdx.app.log(TAG," ====== time "+time);
+
+
+        addAction(sequence(
+                parallel(Actions.moveTo(whereX-getWidth()/2,whereY,time),
+                        Actions.scaleTo(0,0,time)),
+                delay(0.2f),
+                //Actions.color(Color.WHITE),
+                Actions.moveTo(next.getKey(),next.getValue()),
+                Actions.scaleTo(1, 1)
+        ));
+    }
+
+    public void onCollisionLast(float whereX, float whereY){
+        isLast = true;
+        float time = calculateTime(whereX,whereY);
+        addAction(parallel(
+                Actions.moveTo(whereX-getWidth()/2,whereY,time),
+                Actions.scaleTo(0,0,time)
+        ));
+    }
+
+
+    private Pair whereToGoNext(){
+        if(isDynamic()){ //DYNAMIC
+            if(isMovingVertical){ // HORIZONTAL DYNAMIC
+                return new Pair((int)(myStartX + currentNumber * Constants.BASE - getWidth() / 2), (int)(Constants.VIEWPORT_HEIGHT / 2 - getHeight()));
+            }else{ // VERTICAL DYNAMIC
+                return new Pair((int)(Constants.VIEWPORT_WIDTH / 2), (int)(Constants.GROUND_LEVEL + currentNumber * Constants.BASE - getHeight() / 2));
+            }
+        }else{ // STATIC
+            if(isMovingVertical){ // HORIZONTAL NL STATIC
+                return new Pair((int)(myStartX + currentNumber * Constants.BASE - getWidth() / 2), Constants.PRICE_Y_HORIZONTAL);
+            }else{  // VERTICAL NL STATIC
+                return new Pair((int)(myStartX) ,(int)(myStartY + currentNumber*Constants.BASE - getHeight()/2));
+            }
         }
-        else {
-            actionNotEaten(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight());
+    }
+
+    private float calculateTime(float whereX, float whereY) {
+        if (isDynamic()) { //DYNAMIC
+            if (isMovingVertical) { // HORIZONTAL DYNAMIC
+                return Math.min(Math.max(Math.abs(whereY - getY()) / 250, 0.2f),0.75f);
+            } else { // VERTICAL DYNAMIC
+                return Math.min(Math.max(Math.abs(whereX - getX()) / 250, 0.2f),0.75f);
+            }
+        } else { // STATIC
+            if (isMovingVertical) { // HORIZONTAL NL DYNAMIC
+                return 0.15f;
+            } else { // VERTICAL DYNAMIC
+                return 0.45f;
+            }
+
         }
-
-
     }
 
     private void setPositionStartAbove(){
-        setPositionStartAbove(false,0,0);
-    }
-
-    private void setPositionStartRight(boolean wasEaten, float whereX, float whereY){
         resetReturnCounter(); // new position, new counter!
         findNewPosition();
+        actionNotEaten(myStartX + currentNumber * Constants.BASE - getWidth() / 2, Constants.VIEWPORT_HEIGHT / 2 - getHeight());
+    }
 
-        Gdx.app.log(TAG, " new position for the price x: "+ getX() + " y: "+getY()+" current position "+currentNumber+" new y "+(currentNumber * Constants.BASE - getHeight() / 2));
-
-        if(wasEaten){
-            Gdx.app.log(TAG, "was eaten!! setPositionStartRight");
-            addAction(sequence(
-                    parallel(Actions.moveTo(whereX,whereY,0.5f),
-                            Actions.scaleTo(0,0,0.5f)),
-                    delay(0.2f),
-                   // Actions.color(Color.WHITE),
-                    Actions.moveTo(Constants.VIEWPORT_WIDTH / 2, Constants.GROUND_LEVEL + currentNumber * Constants.BASE - getHeight() / 2),
-                    Actions.scaleTo(1, 1)
-            ));
-        }
-        else {
-            actionNotEaten(Constants.VIEWPORT_WIDTH / 2, Constants.GROUND_LEVEL + currentNumber * Constants.BASE - getHeight() / 2);
-        }
-
-
+    private void setPositionStartRight(){
+        resetReturnCounter(); // new position, new counter!
+        findNewPosition();
+        actionNotEaten(Constants.VIEWPORT_WIDTH / 2, Constants.GROUND_LEVEL + currentNumber * Constants.BASE - getHeight() / 2);
     }
 
     private int[] adjustOperations(int[] toAdjust){
