@@ -77,6 +77,7 @@ public class Assets implements Disposable, AssetErrorListener {
        // assetManager.load("sounds/yupii.wav", Sound.class);
         assetManager.load("sounds/levelPassed.wav", Sound.class);
         assetManager.load("sounds/repetirNivel.wav", Sound.class);
+        assetManager.load("sounds/marcada.wav", Sound.class);
         // load music
         assetManager.load("music/song1.mp3", Music.class);
 
@@ -456,6 +457,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion gear5inactive;
         public final TextureAtlas.AtlasRegion gear6inactive;
         public final TextureAtlas.AtlasRegion arrow;
+        public final TextureAtlas.AtlasRegion part1,part2,part3,part4,part5,part6;
 
         public  AssetTree(TextureAtlas atlas) {
             tree = atlas.findRegion("arbol-guia"); // is smaller but we will scale up
@@ -472,7 +474,12 @@ public class Assets implements Disposable, AssetErrorListener {
             gear4inactive = atlas.findRegion("faltante3");
             gear5inactive = atlas.findRegion("faltante4");
             gear6inactive = atlas.findRegion("faltante5");
-
+            part1= atlas.findRegion("hojitas");
+            part2= atlas.findRegion("bombillaA");
+            part3= atlas.findRegion("casitarbol");
+            part4= atlas.findRegion("flor");
+            part5= atlas.findRegion("bombillaB");
+            part6= atlas.findRegion("fruto");
 
         }
 
@@ -528,7 +535,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound tooMuch;
         public final Sound tooFew;
         public final Sound cleanTable;
-        public final Sound levelPassed,repeatLevel;
+        public final Sound levelPassed,repeatLevel,inTheZone;
 
 
         public AssetSounds (AssetManager am) {
@@ -557,6 +564,7 @@ public class Assets implements Disposable, AssetErrorListener {
             thirteen= am.get("sounds/13.wav", Sound.class);
             levelPassed = am.get("sounds/levelPassed.wav", Sound.class);
             repeatLevel = am.get("sounds/repetirNivel.wav", Sound.class);
+            inTheZone= am.get("sounds/marcada.wav", Sound.class);
 
 
             plus = am.get("sounds/buzz.wav", Sound.class);
