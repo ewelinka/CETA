@@ -186,7 +186,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected void renderHelperDottedLinesHorizontal(ShapeRenderer shRenderer) {
         Gdx.gl.glLineWidth(1);
         shRenderer.setProjectionMatrix(camera.combined);
-        shRenderer.setColor(1, 1, 1, 1);
+        shRenderer.setColor(0, 0, 102/255, 1);
 
 
         for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=Constants.BASE){
@@ -234,12 +234,11 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
         for(int i = Constants.HORIZONTAL_ZERO_X; i<=Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
             if(levelMinimumNumber+counter == chosenNr)
-                fontNumberLine.setColor(0,153,0,1);
+                fontNumberLine.setColor(255/255,255/255,213/255,1);
             else
                 fontNumberLine.setColor(1,1,1,1);
             fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL -25,0, Align.center,false);
             //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false); //top
-
 
             counter+=1;
         }
@@ -260,7 +259,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
             String text = counter+"";
             GlyphLayout layout = new GlyphLayout(fontNumberLine, text);
             if(levelMinimumNumber+counter == chosenNr)
-                fontNumberLine.setColor(0,153,0,1);
+                fontNumberLine.setColor(255/255,255/255,213/255,1);
             else
                 fontNumberLine.setColor(1,1,1,1);
             fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", 258, i + layout.height/2,0,Align.left,false);
@@ -395,7 +394,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected void renderHelperDottedLinesVertical(ShapeRenderer shRenderer){
         Gdx.gl.glLineWidth(1);
         shRenderer.setProjectionMatrix(camera.combined);
-        shRenderer.setColor(1, 1, 1, 1);
+        shRenderer.setColor(0, 0, 102/255, 1);
 
         for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
             //shRenderer.line(i , Constants.GROUND_LEVEL, i,Constants.VIEWPORT_HEIGHT/2 - 100);

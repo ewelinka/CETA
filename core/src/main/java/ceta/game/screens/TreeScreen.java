@@ -32,7 +32,7 @@ public class TreeScreen extends AbstractGameScreen {
     private TreeGear level1gear, level2gear,level3gear,level4gear, level5gear, level6gear;
     private Image part1,part2,part3,part4,part5,part6;
     private TreeArrow arrow;
-    private int[][] arrowPositions,partsPositions,gearsPositions;
+    static int[][] arrowPositions,partsPositions,gearsPositions;
     private float automaticPassTime;
     private boolean shouldPass;
 

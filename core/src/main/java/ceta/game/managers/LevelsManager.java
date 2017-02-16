@@ -1,11 +1,13 @@
 package ceta.game.managers;
 
 import ceta.game.game.Assets;
+import ceta.game.game.levels.LevelCaracteristics;
 import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
+import ceta.game.util.LevelsCsv;
 import com.badlogic.gdx.Gdx;
 //import com.sun.tools.internal.jxc.apt.Const;
 
@@ -90,7 +92,6 @@ public class LevelsManager {
     private void goToLevelCV(int lastLevelFinished){
         int lev = lastLevelFinished+1;
         switch(lastLevelFinished){
-            case -1:
             case 0:
                 game.setScreen(new Level1HorizontalCvScreen(game, 1, Assets.instance.staticBackground.city1), transition);
                 break;
@@ -164,6 +165,10 @@ public class LevelsManager {
                 break;
         }
 
+    }
+
+    private void goToLevelTabletCsv(int lastLevelFinished){
+        LevelCaracteristics levelCaracteristics =  LevelsCsv.instance.getLevelCaracteristics();
     }
 
     private void goToLevelTablet(int lastLevelFinished){

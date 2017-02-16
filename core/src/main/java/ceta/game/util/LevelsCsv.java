@@ -1,5 +1,6 @@
 package ceta.game.util;
 
+import ceta.game.game.levels.LevelCaracteristics;
 import ceta.game.game.levels.LevelParams;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -22,7 +23,7 @@ public class LevelsCsv {
 
     public LevelParams getParams(int levelNr){
         LevelParams levelParams = new LevelParams();
-        String line = csvLines[levelNr];//0 for level 0 = tutorial
+        String line = csvLines[levelNr];//0 for titles
         Gdx.app.log(TAG,"line "+line);
         String [] splittedLine = line.split(",");
         levelParams.numberMin = Integer.parseInt(splittedLine[0]);
@@ -53,6 +54,11 @@ public class LevelsCsv {
             levelParams.visibleNumberLine=false;
 
         return levelParams;
+
+    }
+
+    public LevelCaracteristics getLevelCaracteristics(){
+        return new LevelCaracteristics();
 
     }
 }
