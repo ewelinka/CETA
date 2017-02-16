@@ -80,7 +80,7 @@ public class TreeScreen extends AbstractGameScreen {
     @Override
     public void render(float deltaTime) {
         if(automaticPassTime < 0 && shouldPass){
-            game.getLevelsManager().goToFirstUncompletedLevelFromTree();
+            game.getLevelsManager().goToUncompletedLevel();
             shouldPass = false;
         }
         else
@@ -357,7 +357,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     private void onPlayClicked () {
-        game.getLevelsManager().goToFirstUncompletedLevelFromTree();
+        game.getLevelsManager().goToUncompletedLevel();
 
     }
 

@@ -25,13 +25,16 @@ public class Level1VerticalControllerTutorial extends Level1VerticalController {
     @Override
     protected void localInit () {
         level = new Level1Vertical(stage, levelParams, this);
-        level.price.setOperations(new int[]{1});
+        level.price.forcePrice(new int[]{1});
         virtualBlocksManager = new VirtualBlocksManagerTutorial(stage);
         brunosManager = new BrunosManager(stage);
 
         score = 0;
         virtualBlocksManager.init();
         brunosManager.init();
+        operationsNumberToPassToNext = 1;
+
+        levelParams.operationsToFinishLevel= 1;
 
     }
 

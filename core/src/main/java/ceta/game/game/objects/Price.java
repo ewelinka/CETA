@@ -424,8 +424,14 @@ public class Price extends AbstractGameObject {
 
     public int getMaxOperations(){ return maxOperations;}
 
-    public void setOperations(int[] ops){
+    private void setOperations(int[] ops){
         this.operations = ops;
+    }
+
+    public void forcePrice(int[] ops){
+        setOperations(ops);
+        maxOperations =1;
+
     }
 
     public int getCurrentNumber(){

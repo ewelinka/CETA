@@ -1,9 +1,8 @@
 package ceta.game.util;
 
-import ceta.game.game.levels.LevelCaracteristics;
+import ceta.game.game.levels.LevelCharacteristics;
 import ceta.game.game.levels.LevelParams;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 
 /**
@@ -26,14 +25,14 @@ public class LevelsCsv {
         String line = csvLines[levelNr];//0 for titles
         Gdx.app.log(TAG,"line "+line);
         String [] splittedLine = line.split(",");
-        levelParams.numberMin = Integer.parseInt(splittedLine[0]);
-        levelParams.numberMax = Integer.parseInt(splittedLine[1]);
-        levelParams.operationsToFinishLevel = Integer.parseInt(splittedLine[2]);
+        levelParams.numberMin = Integer.parseInt(splittedLine[3]); //fourth column (nr3 if we start in 0)
+        levelParams.numberMax = Integer.parseInt(splittedLine[4]);
+        levelParams.operationsToFinishLevel = Integer.parseInt(splittedLine[5]);
 
         int [] operations;
-        if(splittedLine[3].length() > 0){
-            Gdx.app.log(TAG," splitted 3 "+splittedLine[3]);
-            String operationsStr = splittedLine[3];
+        if(splittedLine[6].length() > 0){
+            Gdx.app.log(TAG," splitted 3 "+splittedLine[6]);
+            String operationsStr = splittedLine[6];
             Gdx.app.log(TAG," operationsStr "+operationsStr);
             String[] operationsStrSplit = operationsStr.split(" ");
             operations = new int[operationsStrSplit.length];
@@ -46,9 +45,9 @@ public class LevelsCsv {
         }
 
         levelParams.operations = operations;
-        levelParams.priceReturn = Integer.parseInt(splittedLine[4]);
-        levelParams.priceVelocity = Integer.parseInt(splittedLine[5]);
-        if(splittedLine[6].equals("1"))
+        levelParams.priceReturn = Integer.parseInt(splittedLine[7]);
+        levelParams.priceVelocity = Integer.parseInt(splittedLine[8]);
+        if(splittedLine[9].equals("1"))
             levelParams.visibleNumberLine = true;
         else
             levelParams.visibleNumberLine=false;
@@ -57,8 +56,15 @@ public class LevelsCsv {
 
     }
 
-    public LevelCaracteristics getLevelCaracteristics(){
-        return new LevelCaracteristics();
+    public LevelCharacteristics getLevelCharacteristics(int levelNr){
+        LevelCharacteristics levelCharacteristics = new LevelCharacteristics();
+        String line = csvLines[levelNr];//0 for titles
+        Gdx.app.log(TAG,"line "+line);
+        String [] splittedLine = line.split(",");
+        levelCharacteristics.island = Integer.parseInt(splittedLine[0]); //first column
+        levelCharacteristics.representation = Integer.parseInt(splittedLine[1]); //second column
+        levelCharacteristics.isHorizontal = (splittedLine[2].trim().equals("H") || splittedLine[2].trim().equals("h")); //third column
+        return levelCharacteristics;
 
     }
 }
