@@ -186,7 +186,7 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class AssetStaticBackground{
-        public final TextureAtlas.AtlasRegion backStart;
+        public final TextureAtlas.AtlasRegion backStart,intro;
 
         public final TextureAtlas.AtlasRegion city1,city2,city3,city4;
         public final TextureAtlas.AtlasRegion clouds1,clouds2,clouds3,clouds4;
@@ -196,8 +196,10 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
 
+
         public AssetStaticBackground (TextureAtlas atlas) {
             backStart = atlas.findRegion("inicio");
+            intro = atlas.findRegion("intro");
 
             city1 = atlas.findRegion("ciudad01");
             city2 = atlas.findRegion("ciudad02");

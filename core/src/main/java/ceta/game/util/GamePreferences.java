@@ -30,14 +30,14 @@ public class GamePreferences {
         actionSubmit = prefs.getBoolean("actionSubmit", true);
         virtualBlocksAlpha = MathUtils.clamp(prefs.getFloat("virtualBlocksAlpha", 1.0f), 0.0f, 1.0f);
         countdownMax = MathUtils.clamp(prefs.getFloat("countdownMax", 5), 0, 10);
-        lastLevel = prefs.getInteger("lastLevel",-1);
+        lastLevel = prefs.getInteger("lastLevel",0);
         totalScore = prefs.getInteger("totalScore",0);
         randomId = prefs.getString("randomId", randomUUID ().toString());
 
         prefs.putString("randomId", randomId);
         prefs.flush();
         // TODO now start in 0 always, just for testing than remove!!
-        lastLevel = -1;
+        lastLevel = 0;
 
     }
 

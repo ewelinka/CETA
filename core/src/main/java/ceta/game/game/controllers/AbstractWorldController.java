@@ -19,7 +19,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Json;
 
 import java.util.ArrayList;
 
@@ -66,7 +65,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
         //levelParams = getLevelParams(levelNr);
         loadLevelParamsFromCsv(levelNr);
-        checkLevelParamsAnsSetOperationsToPassToNext();
+        checkLevelParamsAndSetOperationsToPassToNext();
         AudioManager.instance.setStage(stage);
 
 
@@ -453,16 +452,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
 
-    protected LevelParams getLevelParams(int levelNr){
-        Json json = new Json();
-        return json.fromJson(LevelParams.class, Gdx.files.internal(Constants.LEVELS_FOLDER+"/"+levelNr+".json"));
-    }
-
     protected void loadLevelParamsFromCsv(int levelNr){
         levelParams = LevelsCsv.instance.getParams(levelNr);
     }
 
-    private void checkLevelParamsAnsSetOperationsToPassToNext(){
+    private void checkLevelParamsAndSetOperationsToPassToNext(){
         if(levelParams.operations.length > 0) { // NOT RANDOM CASE
             if(levelParams.operations.length < levelParams.operationsToFinishLevel ) {
                 Gdx.app.log(TAG, "we adjust operations to finish!  was: " + levelParams.operationsToFinishLevel + " now " + levelParams.operations.length);
