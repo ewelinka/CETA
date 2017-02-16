@@ -45,7 +45,7 @@ public class LevelsManager {
 
     private void updateGamePreferencesAndGoWorkaround(int forcedLastCompletedLevel) {
         GamePreferences.instance.setLastLevel(forcedLastCompletedLevel); // we notify game preferences that we are in this level
-        goToUncompletedLevel(forcedLastCompletedLevel);
+        goToNextLevel(forcedLastCompletedLevel);
     }
 
     public void goToFirstUncompletedLevel(){
@@ -60,11 +60,13 @@ public class LevelsManager {
                 || lastLevelCompleted == Constants.L6_COMPLETED_NR){
             game.setScreen(new TreeScreen(game),ScreenTransitionFade.init(0.75f));
         }else { // if no important change -> we just go to next level
-            goToUncompletedLevel(lastLevelCompleted);
+            goToNextLevel(lastLevelCompleted);
         }
     }
 
-    public void goToUncompletedLevel(int completedLevel){
+    public void goToNextLevel(int completedLevel){
+        if(completedLevel >= Constants.LAST_LEVEL_NR)
+            completedLevel = 0;
         if (Constants.WITH_CV) {
             goToLevelCvCsv(completedLevel);
         } else {
@@ -76,7 +78,7 @@ public class LevelsManager {
 
 
     public void goToUncompletedLevel(){
-        goToUncompletedLevel(lastLevelCompleted);
+        goToNextLevel(lastLevelCompleted);
 
     }
 
