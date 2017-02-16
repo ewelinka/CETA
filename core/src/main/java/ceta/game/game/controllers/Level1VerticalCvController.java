@@ -1,17 +1,10 @@
 package ceta.game.game.controllers;
 
-import ceta.game.CetaGame;
-import ceta.game.game.Assets;
 import ceta.game.game.levels.Level1Vertical;
-import ceta.game.game.objects.ArmPiece;
 import ceta.game.game.objects.BrunoVertical;
-import ceta.game.game.objects.Price;
 import ceta.game.managers.BrunosManager;
 import ceta.game.managers.CVBlocksManager;
-import ceta.game.screens.AbstractGameScreen;
 import ceta.game.screens.DirectedGame;
-import ceta.game.util.AudioManager;
-import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -81,7 +74,7 @@ public class Level1VerticalCvController extends CvController {
                     level.price.getWidth()/2, level.price.getHeight()/2);
 
             if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                 moveMade = false;
             } else{
                 //TODO check if the price number and number line position ==

@@ -4,7 +4,6 @@ import ceta.game.game.levels.Level1Vertical;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.managers.BrunosManager;
 import ceta.game.screens.DirectedGame;
-import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import ceta.game.managers.VirtualBlocksManager;
 import com.badlogic.gdx.Gdx;
@@ -78,7 +77,7 @@ public class Level1VerticalController extends NoCvController {
                     level.price.getWidth()/2, level.price.getHeight()/2);
 
             if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                 moveMade = false;
             } else{
                 //TODO check if the price number and number line position ==

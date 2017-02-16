@@ -324,7 +324,7 @@ public class Price extends AbstractGameObject {
 
         float time = calculateTime(whereX,whereY);
 
-        Gdx.app.log(TAG," ====== time "+time);
+        Gdx.app.log(TAG," ====== time "+time+ " where x "+whereX+ " y "+whereY);
 
 
         addAction(sequence(
@@ -372,7 +372,7 @@ public class Price extends AbstractGameObject {
             }
         } else { // STATIC
             if (isMovingVertical) { // HORIZONTAL NL DYNAMIC
-                return 0.15f;
+                return 0.15f + Math.abs(whereY - getY()) / 300;
             } else { // VERTICAL DYNAMIC
                 return 0.45f;
             }
