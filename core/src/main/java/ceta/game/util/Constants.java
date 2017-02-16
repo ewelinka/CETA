@@ -26,6 +26,7 @@ public class Constants {
     public static final int BASE = 40;
     public static final int ERRORS_FOR_HINT = 2;
 
+    //TODO change to real numbers!
     public static final int L1_COMPLETED_NR = 4; // 2 = laste level, 3 first level in L2
     public static final int L2_COMPLETED_NR = 9; // last level to complete then we pass to L3
     public static final int L3_COMPLETED_NR = 13;

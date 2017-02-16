@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class VirtualBlocksManager extends AbstractBlocksManager {
     public static final String TAG = VirtualBlocksManager.class.getName();
     Stage stage;
-    int linesRange;
     int nowId;
     int margin;
     int xSpace, ySpace;
@@ -32,8 +31,6 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     }
 
     public void init(){
-        //TODO ojo que este hardcoded no es lindo
-        linesRange = 6 * Constants.BASE;
         margin = 20;
         nowId = 0;
         polygon = new Polygon();
@@ -83,9 +80,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 // if it was detected before and is out of detection zone we make it disappear and reset
                 if(vBlock.getWasDetected()){
                     if( polygon.getTransformedVertices()[1] < Constants.DETECTION_LIMIT){
-                        // TODO here we should check for smallest Y, not first vertex
-                        // was detected but now gone
-                       // blockRemoved(vBlock.getBlockValue());
+                        // TODO here we should check for smallest Y, not first vertex, no rotation case works
                         setWaitForFirstMove(false);
                         vBlock.setWasDetected(false);
                         blockRemovedWithIdAndValue(vBlock.getBlockId(),vBlock.getBlockValue());
@@ -94,7 +89,6 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 }else{
                     if( polygon.getTransformedVertices()[1] > Constants.DETECTION_LIMIT){
                         // TODO here we should check for smallest Y, not first vertex
-                        // new detected!
                         setWaitForFirstMove(false);
                         vBlock.setWasDetected(true);
                        // addBlock(vBlock.getBlockValue());
@@ -125,9 +119,6 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         //Gdx.app.log(TAG, "we creat new vistual block of valua "+val);
         // TODO create or take from pool!!
         VirtualBlock virtualBlock = new VirtualBlock(val);
-        // this works for vertical blocks
-       // virtualBlock.setPosition(-260 + 2*Constants.BASE*val ,-Constants.BASE*12);
-
         setBlockWhereItBelongs(virtualBlock);
         stage.addActor(virtualBlock);
         // set home so that we can come back

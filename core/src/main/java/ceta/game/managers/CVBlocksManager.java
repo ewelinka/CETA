@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.badlogic.gdx.math.MathUtils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -182,22 +181,12 @@ public class CVBlocksManager extends AbstractBlocksManager {
                 }
 
                 if(shouldBeUpdated) {
-//                    updateBlockCV(nBlock.getId(),
-//                            xToStage(nBlock.getCenter().y),
-//                            yToStage(nBlock.getCenter().x),
-//                            radianToStage(nBlock.getOrientation())
-//                    );
                     updateBlockAndLieCV(nBlock.getId(),
                             xToStage(nBlock.getCenter().y),
                             yToStage(nBlock.getCenter().x),
                             radianToStage(nBlock.getOrientation()),
                             rotateInfo.x
                     );
-//                    updateBlockRotationCV(nBlock.getId(),
-//                            xToStage(nBlock.getCenter().y),
-//                            yToStage(nBlock.getCenter().x),
-//                            rotatedBy);
-
                 }
             }else {
                 addBlockCV(nBlock.getValue(),
@@ -240,7 +229,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private void checkStrikesAndDecideIfRemove(int id){
         if(strikes.get(id) > maxStrikes ) {
             Gdx.app.log(TAG, " remove block with id: " + id + "because its gone and has max strikes!");
-            removeBlockCV(id, idToValue.get(id)); //TODO change hardcoded value
+            removeBlockCV(id, idToValue.get(id));
         }
         else{
             Gdx.app.log(TAG," STRIKE for "+id);
@@ -265,8 +254,6 @@ public class CVBlocksManager extends AbstractBlocksManager {
     }
 
     private float yToStage(double y){
-        // Gdx.app.log(TAG,"y "+y+" converted to "+map((float)y,Constants.CV_MIN_Y,640,-Constants.VIEWPORT_HEIGHT/2,-Constants.VIEWPORT_HEIGHT/2+Constants.CV_DETECTION_EDGE_TABLET));
-        // return (float)(y-672); //TODO: REVISAR porque se descarta los pixeles de 0 a Constatnts.CV_MIN_Y !
         return  map((float)y,0,640-Constants.CV_MIN_Y,-Constants.VIEWPORT_HEIGHT/2,-Constants.VIEWPORT_HEIGHT/2+Constants.CV_DETECTION_EDGE_TABLET);
     }
 
@@ -349,12 +336,11 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     @Override
     public void addBlockWithId(int val, int id){
-        //TODO if is also to remove, what should i do?
+        //TODO if is also to remove, what should i do? ===> fixme!!!
         newDetectedCVPairs.add(new Pair(id,val));
     }
 
     public void addBlockCV(int blockToAddVal, int id, float px, float py, float rot) {
-
 
         // TODO check if its not waiting to be added, add+remove = 0!
         if(toRemoveCVIds.contains(id)){
@@ -393,10 +379,10 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     @Override
     public ArrayList<Pair> getNewDetected(){
-        newDetectedIds = new ArrayList(newDetectedCVPairs);
+        newDetectedPairs = new ArrayList(newDetectedCVPairs);
         newDetectedCVPairs.clear();
 
-        return new ArrayList(newDetectedIds);
+        return new ArrayList(newDetectedPairs);
     }
 
     @Override
@@ -417,9 +403,8 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     @Override
     public void blockRemovedWithIdAndValue(int id, int value){
-
         boolean inDetected = false;
-        // TODO check if its not waiting to be added, add+remove = 0!
+        // check if its not waiting to be added, add+remove = 0!
         for(int i =0; i<newDetectedCVPairs.size();i++){
             Gdx.app.log(TAG," id to remove "+id + " key in Pairs: "+newDetectedCVPairs.get(i).getKey());
             if(newDetectedCVPairs.get(i).getKey() == id){

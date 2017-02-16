@@ -149,12 +149,9 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
 
     protected void renderCounter(SpriteBatch batch){
-        // TODO
-
         float rotationNow = (worldController.getCountdownCurrentTime()*360)/Constants.COUNTDOWN_MAX;
        // Gdx.app.log(TAG, " === "+rotationNow);
 
-        // we render countdown!
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.setColor(feedbackRenderer.getCountdownWheel().getColor());
@@ -170,8 +167,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
         String text = worldController.getNowDetectedSum()+"";
         GlyphLayout layout = new GlyphLayout(bigGuiFont, text);
 //        counterFont.setColor(Color.RED);
-       bigGuiFont.draw(batch, text, 0 , feedbackRenderer.getFeedbackMiddlePoint()+layout.height/2,0,Align.center,false);
-       batch.end();
+        bigGuiFont.draw(batch, text, 0 , feedbackRenderer.getFeedbackMiddlePoint()+layout.height/2,0,Align.center,false);
+        batch.end();
 
 
     }
@@ -236,10 +233,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 break;
         }
 
-
-        // TODO hardcoded position!
         normalGuiFont.draw(batch, worldController.score+"",x+50,y+30);
-
         // total score
         batch.draw(Assets.instance.feedback.prices,x+475,y,40,40);
         smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+525,y+27);

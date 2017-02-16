@@ -29,12 +29,11 @@ public class NoCvController extends AbstractWorldController {
 
     @Override
     public boolean isPlayerInactive() {
-        //TODO add errors check and set if too much or too less
         return ((virtualBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT) && (currentErrors >= Constants.ERRORS_FOR_HINT));
     }
 
     @Override
-    public void update(float deltaTime) { // TODO move to no-cv-controller that will be the father of all no-cv controlers
+    public void update(float deltaTime) {
         globalUpdate(deltaTime);
 
         virtualBlocksManager.updateDetected();

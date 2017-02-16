@@ -44,11 +44,8 @@ public class Level1VerticalMovingScreen extends AbstractGameScreen {
     @Override
     public void show() {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
-        // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1VerticalController(game, stage,levelJson);
-        // Todo here we should make camera stuff and fitviewport
-        //worldRenderer = new WorldRenderer1Vertical(worldController,stage, false); //false to indicate isVertical
         worldRenderer = new WorldRenderer1VerticalMoving(worldController,stage,false,regTex);
         // android back key
         Gdx.input.setCatchBackKey(true);

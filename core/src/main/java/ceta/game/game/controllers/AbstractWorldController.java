@@ -273,7 +273,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     level.price.getWidth()/2, level.price.getHeight()/2);
 
             if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                 moveMade = false;
             } else {
                 if (moveMade) {
@@ -306,7 +306,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
                     if (r1.overlaps(r2)) {
                         //onCollisionBrunoWithPrice(level.price);
-                        onCollisionBrunoWithPriceVertical(level.price, level.bruno);
+                        onCollisionBrunoWithPriceOpenMouth(level.price, level.bruno);
                         moveMade = false;
                     }
                 }
@@ -326,7 +326,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                         Constants.VIEWPORT_WIDTH, level.price.getHeight() / 2);
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                    onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                     moveMade = false;
                 }
             }
@@ -347,7 +347,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                             Constants.VIEWPORT_WIDTH, level.price.getHeight() / 2);
 
                     if (r1.overlaps(r2)) {
-                        onCollisionBrunoWithPriceVertical(level.price, brunoV);
+                        onCollisionBrunoWithPriceOpenMouth(level.price, brunoV);
                         moveMade = false;
                     }
                 }
@@ -371,12 +371,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     protected void onCollisionBrunoWithPrice(Price price, AbstractGameObject collisionObject) {
-        //Gdx.app.log(TAG, "NO updates in progress and collision!");
+        Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (price.getActions().size == 0) { // we act just one time!
             genericOnCollision();
             if (notYetPassTheLevel()) {
                 price.onCollision(collisionObject.getX()+collisionObject.getWidth(),collisionObject.getY());
-               // price.wasCollected();
             } else {
                 price.onCollisionLast(collisionObject.getX()+collisionObject.getWidth(),collisionObject.getY());
                 onLevelFinished();
@@ -385,7 +384,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
     }
 
-    protected void  onCollisionBrunoWithPriceVertical(Price price, Bruno bruno){
+    protected void onCollisionBrunoWithPriceOpenMouth(Price price, Bruno bruno){
        // Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (price.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
@@ -404,21 +403,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
     }
 
-    protected void onCollisionBrunoWithPriceHorizontal3(Price price, Bruno bruno){
-        // Gdx.app.log(TAG, "NO updates in progress and collision!");
-        if (price.getActions().size == 0) { // we act just one time!
-            bruno.moveHead();
-            genericOnCollision();
-            if (notYetPassTheLevel()) {
-                Gdx.app.log(TAG,"=== to eat "+bruno.getX()+" eat y "+bruno.getEatPointY());
-                price.onCollision(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
-            } else {
-                price.onCollisionLast(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
-                onLevelFinished();
-            }
-
-        }
-    }
 
     public void finishTheScreen(){
         screenFinished = true;

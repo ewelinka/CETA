@@ -28,8 +28,6 @@ public class VirtualBlocksManagerTutorial extends VirtualBlocksManager {
 
     @Override
     public void init(){
-        //TODO ojo que este hardcoded no es lindo
-        linesRange = 6 * Constants.BASE;
         margin = 20;
         nowId = 0;
         polygon = new Polygon();

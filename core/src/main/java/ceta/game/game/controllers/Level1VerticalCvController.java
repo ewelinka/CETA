@@ -76,10 +76,6 @@ public class Level1VerticalCvController extends CvController {
             if (r1.overlaps(r2)) {
                 onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                 moveMade = false;
-            } else{
-                //TODO check if the price number and number line position ==
-                // if == -> its a good answer
-                // if not -> error
             }
         }
     }

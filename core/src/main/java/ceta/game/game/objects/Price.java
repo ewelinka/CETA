@@ -188,7 +188,6 @@ public class Price extends AbstractGameObject {
     }
 
     private void updateVerticalFalling(float deltaTime){
-        // TODO perhaps a constant that defines where the ground is
         if(this.getY() < Constants.GROUND_LEVEL-this.getHeight()) { // when below number line
             returnCounter-=1;
             if(returnCounter<0){
@@ -242,10 +241,10 @@ public class Price extends AbstractGameObject {
 
     private void setInitialPositionMovingVertical(){
         if(isDynamic) {
-            setNewPositionMV(Constants.VIEWPORT_HEIGHT / 2 ); // faling from the top
+            setNewPositionMV(Constants.VIEWPORT_HEIGHT / 2 ); // falling from the top
         }
         else{
-            setNewPositionMV(Constants.PRICE_Y_HORIZONTAL); // TODO define when we have big bruno, fixed val
+            setNewPositionMV(Constants.PRICE_Y_HORIZONTAL);
         }
     }
 

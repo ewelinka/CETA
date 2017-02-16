@@ -139,7 +139,6 @@ public class CvController extends AbstractWorldController {
 
     @Override
     public boolean isPlayerInactive() {
-        //TODO control current errors in action submit
         return ((cvBlocksManager.getTimeWithoutChange() > Constants.INACTIVITY_LIMIT) && (currentErrors >= Constants.ERRORS_FOR_HINT));
     }
 

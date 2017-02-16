@@ -45,7 +45,7 @@ public class TreeScreen extends AbstractGameScreen {
     public TreeScreen(DirectedGame game, boolean gameInit) {
         super(game);
         automaticPassTime = Constants.AUTOMATIC_LEVEL_PASS;
-        shouldPass = true; //TODO change to pass automatic
+        shouldPass = true;
         this.gameInit = gameInit;
         gearsPositions = new int[][]{
                 {228, 437},

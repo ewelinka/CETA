@@ -21,7 +21,6 @@ public class EnergyManager extends BrunosManager {
     public static final String TAG = EnergyManager.class.getName();
 
     private float terminalDelay;
-    private float currentDelayPassed; //TODO use if no action submit
     private final float animationSpeed = 0.2f;
     private float alphaColor;
     private boolean fadeIn;
@@ -41,7 +40,6 @@ public class EnergyManager extends BrunosManager {
         units = 0;
 
         terminalDelay = 0;
-        currentDelayPassed = 0;
         alphaColor = 0.5f;
         fadeIn = true;
 

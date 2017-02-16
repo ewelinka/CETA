@@ -46,7 +46,6 @@ public class IntroScreen extends AbstractGameScreen {
     @Override
     public void show() {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
-        // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(false);
         buildIntro();
@@ -179,7 +178,6 @@ public class IntroScreen extends AbstractGameScreen {
 
             @Override
             public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-                //TODO we should check if the piece is in stage limits or the controller should do this?
                 img.setPosition(img.getX()+deltaX,img.getY()+deltaY);
                 Gdx.app.log(TAG," === x "+img.getX()+" y "+img.getY());
             }

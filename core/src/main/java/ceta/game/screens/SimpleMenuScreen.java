@@ -101,7 +101,7 @@ public class SimpleMenuScreen extends AbstractGameScreen {
         layer.center().center();
 
 
-        btnMenuPlay = new ImageButton(Assets.instance.buttons.playButtonStyle); // TODO should be resolved in ui-skin...
+        btnMenuPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
         // table.add (btnB).size (150, 200);
         layer.add(btnMenuPlay).size(88,60).padBottom(10);
         btnMenuPlay.addListener(new ChangeListener() {

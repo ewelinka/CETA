@@ -17,7 +17,7 @@ import java.util.Arrays;
 /**
  * Created by ewe on 12/2/16.
  */
-public class Level3HorizontalCvController extends CvController { // TODO should inherit from 2 classes: Level3HC y L1VCvC
+public class Level3HorizontalCvController extends CvController {
     private static final String TAG = Level3HorizontalCvController.class.getName();
     private float xZero;
 
