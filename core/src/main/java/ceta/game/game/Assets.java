@@ -460,6 +460,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion gear6inactive;
         public final TextureAtlas.AtlasRegion arrow;
         public final TextureAtlas.AtlasRegion part1,part2,part3,part4,part5,part6;
+        public final TextureAtlas.AtlasRegion magnet;
 
         public  AssetTree(TextureAtlas atlas) {
             tree = atlas.findRegion("arbol-guia"); // is smaller but we will scale up
@@ -482,6 +483,7 @@ public class Assets implements Disposable, AssetErrorListener {
             part4= atlas.findRegion("flor");
             part5= atlas.findRegion("bombillaB");
             part6= atlas.findRegion("fruto");
+            magnet= atlas.findRegion("iman");
 
         }
 

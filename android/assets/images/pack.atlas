@@ -862,98 +862,98 @@ filter: Nearest,Nearest
 repeat: none
 03cuerpo
   rotate: false
-  xy: 494, 2
+  xy: 897, 62
   size: 46, 99
   orig: 46, 99
   offset: 0, 0
   index: -1
 abajo5
   rotate: false
-  xy: 2, 630
+  xy: 2, 619
   size: 600, 390
   orig: 600, 390
   offset: 0, 0
   index: -1
 ciudad01
   rotate: false
-  xy: 2, 103
-  size: 450, 525
-  orig: 450, 525
-  offset: 0, 0
-  index: -1
-ciudad02
-  rotate: false
-  xy: 454, 103
+  xy: 2, 92
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
 engranaje2
   rotate: false
-  xy: 421, 34
+  xy: 909, 643
   size: 71, 67
   orig: 71, 67
   offset: 0, 0
   index: -1
 entendido-2
   rotate: false
-  xy: 800, 902
+  xy: 454, 43
   size: 220, 118
   orig: 220, 118
   offset: 0, 0
   index: -1
+iman
+  rotate: false
+  xy: 604, 656
+  size: 303, 353
+  orig: 303, 353
+  offset: 0, 0
+  index: -1
+manoSola
+  rotate: false
+  xy: 454, 163
+  size: 496, 454
+  orig: 496, 454
+  offset: 0, 0
+  index: -1
 mega_brazo
   rotate: false
-  xy: 2, 13
+  xy: 2, 2
   size: 171, 88
   orig: 171, 88
   offset: 0, 0
   index: -1
 niveles-2
   rotate: false
-  xy: 800, 784
+  xy: 676, 45
   size: 219, 116
   orig: 219, 116
   offset: 0, 0
   index: -1
 tubo80
   rotate: false
-  xy: 604, 635
+  xy: 909, 712
   size: 80, 51
   orig: 80, 51
   offset: 0, 0
   index: -1
-tuboVertical2
-  rotate: false
-  xy: 604, 688
-  size: 194, 332
-  orig: 194, 332
-  offset: 0, 0
-  index: -1
 tubo_final
   rotate: false
-  xy: 800, 719
+  xy: 175, 27
   size: 132, 63
   orig: 132, 63
   offset: 0, 0
   index: -1
 violeta
   rotate: false
-  xy: 175, 21
+  xy: 909, 929
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaB
   rotate: false
-  xy: 257, 21
+  xy: 909, 847
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 violetaD
   rotate: false
-  xy: 339, 21
+  xy: 909, 765
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
@@ -964,32 +964,39 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-ciudad03
+ciudad02
   rotate: false
   xy: 2, 458
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
-ciudad04
+ciudad03
   rotate: false
   xy: 454, 458
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
+feedbackTablet
+  rotate: false
+  xy: 2, 256
+  size: 600, 200
+  orig: 600, 200
+  offset: 0, 0
+  index: -1
 fondoAutos
   rotate: false
-  xy: 500, 204
+  xy: 2, 2
   size: 475, 252
   orig: 475, 252
   offset: 0, 0
   index: -1
-manoSola
+tuboVertical2
   rotate: false
-  xy: 2, 2
-  size: 496, 454
-  orig: 496, 454
+  xy: 604, 124
+  size: 194, 332
+  orig: 194, 332
   offset: 0, 0
   index: -1
 
@@ -1005,23 +1012,16 @@ blocksZoneTablet
   orig: 578, 197
   offset: 0, 0
   index: -1
-feedbackTablet
+ciudad04
   rotate: false
   xy: 2, 201
-  size: 600, 200
-  orig: 600, 200
-  offset: 0, 0
-  index: -1
-nubes01
-  rotate: false
-  xy: 2, 403
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
-nubes02
+nubes01
   rotate: false
-  xy: 454, 403
+  xy: 454, 201
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
@@ -1032,14 +1032,14 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-nubes03
+nubes02
   rotate: false
   xy: 2, 2
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
-nubes04
+nubes03
   rotate: false
   xy: 454, 2
   size: 450, 525
@@ -1052,14 +1052,14 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-tubo01
+nubes04
   rotate: false
   xy: 2, 2
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
-tubo02
+tubo01
   rotate: false
   xy: 454, 2
   size: 450, 525
@@ -1072,14 +1072,14 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-tubo03
+tubo02
   rotate: false
   xy: 2, 2
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
-tubo04
+tubo03
   rotate: false
   xy: 454, 2
   size: 450, 525
@@ -1088,11 +1088,18 @@ tubo04
   index: -1
 
 pack12.png
-size: 512,1024
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 tubo02B
+  rotate: false
+  xy: 454, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+tubo04
   rotate: false
   xy: 2, 2
   size: 450, 525
