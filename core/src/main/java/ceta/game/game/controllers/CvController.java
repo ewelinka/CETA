@@ -45,45 +45,45 @@ public class CvController extends AbstractWorldController {
             setPlayerInactive(false);
         }
 
-        //if(isTimeForReadOver(deltaTime)) {
-            // we start to act after kids move
-            if (!cvBlocksManager.isWaitForFirstMove()) {
-                if (cvBlocksManager.getTimeWithoutChange() > timeToWait) {
-                    if (!countdownOn) {//if we are not counting, we start!
-                        Gdx.app.log(TAG, "NOT waiting OVER limit NOT counting -> set TRUE");
-                        setCountdownOn(true);
-                    }
-                } else {
-                    if (true) {
-                        //setPlayerInactive(false);
-                        Gdx.app.log(TAG, "NOT waiting NOT-OVER limit NOT counting -> set FALSE");
-                        setCountdownOn(false); // if somebody moved a block
+        // we start to act after kids move
+        if (!cvBlocksManager.isWaitForFirstMove()) {
+            if (cvBlocksManager.getTimeWithoutChange() > timeToWait) {
+                if (!countdownOn) {//if we are not counting, we start!
+                    Gdx.app.log(TAG, "NOT waiting OVER limit NOT counting -> set TRUE");
+                    setCountdownOn(true);
+                }
+            } else {
+                if (true) {
+                    //setPlayerInactive(false);
+                    Gdx.app.log(TAG, "NOT waiting NOT-OVER limit NOT counting -> set FALSE");
+                    setCountdownOn(false); // if somebody moved a block
 
-                    }
                 }
             }
-            if (countdownOn) {
-                countdownMove();
-                //setPlayerInactive(false);
-                if (countdownCurrentTime < 0) {
+        }
+        else{
+            setCountdownOn(false);
+        }
 
-                    updateDigitalRepresentations(); // ACTION SUBMIT !
-                    readDetectedSaveIntentAndLastSolution();
-                    moveMade = true;
-                    cvBlocksManager.resetDetectedAndRemoved();
-                    Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
-                    setCountdownOn(false);
-                    cvBlocksManager.setWaitForFirstMove(true);
-                    cvBlocksManager.resetNoChangesSince();
-                } else {
-                    countdownCurrentTime -= deltaTime;
-                }
+
+        if (countdownOn) {
+            countdownMove();
+            //setPlayerInactive(false);
+            if (countdownCurrentTime < 0) {
+
+                updateDigitalRepresentations(); // ACTION SUBMIT !
+                readDetectedSaveIntentAndLastSolution();
+                moveMade = true;
+                cvBlocksManager.resetDetectedAndRemoved();
+                Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
+                setCountdownOn(false);
+                cvBlocksManager.setWaitForFirstMove(true);
+                cvBlocksManager.resetNoChangesSince();
+            } else {
+                countdownCurrentTime -= deltaTime;
             }
-//        }
-//        else{
-//            //resetIntentStart(); //
-//            cvBlocksManager.resetNoChangesSince();
-//        }
+        }
+
         cameraHelper.update(deltaTime);
 
     }

@@ -45,39 +45,40 @@ public class NoCvController extends AbstractWorldController {
             setPlayerInactive(false);
         }
 
-       // if(isTimeForReadOver(deltaTime)) {
-            if (!virtualBlocksManager.isWaitForFirstMove()) { // just for action submit!
-                if (virtualBlocksManager.getTimeWithoutChange() > timeToWait) {
-                    if (!countdownOn) {
-                       // Gdx.app.log(TAG, "NOT waiting OVER limit NOT counting -> set TRUE");
-                        setCountdownOn(true); //if we are not counting, we start!
-                    }
-                } else {
-                    if (true) {
-                       // Gdx.app.log(TAG, "NOT waiting NOT-OVER limit NOT counting -> set FALSE");
-                        setCountdownOn(false); // if somebody moved a block
-                    }
+
+        if (!virtualBlocksManager.isWaitForFirstMove()) { // just for action submit!
+            if (virtualBlocksManager.getTimeWithoutChange() > timeToWait) {
+                if (!countdownOn) {
+                   // Gdx.app.log(TAG, "NOT waiting OVER limit NOT counting -> set TRUE");
+                    setCountdownOn(true); //if we are not counting, we start!
+                }
+            } else {
+                if (true) {
+                   // Gdx.app.log(TAG, "NOT waiting NOT-OVER limit NOT counting -> set FALSE");
+                    setCountdownOn(false); // if somebody moved a block
                 }
             }
-            // if we are counting
-            if (countdownOn) {
-                // we shake bruno
-                countdownMove();
-                // if we reached the time
-                if (countdownCurrentTime < 0) {
-                    updateDigitalRepresentations(); // ACTION SUBMIT !
-                    readDetectedSaveIntentAndLastSolution();
-                    moveMade = true;
-                    setCountdownOn(false);
-                    virtualBlocksManager.setWaitForFirstMove(true);
-                    virtualBlocksManager.resetDetectedAndRemoved();
-                } else // we still count
-                    countdownCurrentTime -= deltaTime;
-            }
-//        }
-//        else{
-//            virtualBlocksManager.resetNoChangesSince(); // after reading we start to count "timeToWait" and interactivity
-//        }
+        }
+        else{
+            setCountdownOn(false);
+        }
+
+        // if we are counting
+        if (countdownOn) {
+            // we shake bruno
+            countdownMove();
+            // if we reached the time
+            if (countdownCurrentTime < 0) {
+                updateDigitalRepresentations(); // ACTION SUBMIT !
+                readDetectedSaveIntentAndLastSolution();
+                moveMade = true;
+                setCountdownOn(false);
+                virtualBlocksManager.setWaitForFirstMove(true);
+                virtualBlocksManager.resetDetectedAndRemoved();
+            } else // we still count
+                countdownCurrentTime -= deltaTime;
+        }
+
 
         cameraHelper.update(deltaTime);
 

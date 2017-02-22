@@ -285,7 +285,6 @@ public class CVBlocksManager extends AbstractBlocksManager {
                 Actions.rotateTo(rot,actionsSpeed)
         ));
         noChangesSince = TimeUtils.millis();
-        //waitForFirstMove = false;
     }
 
     private void updateBlockAndLieCV(int id, float px, float py, final float rotDegreesNow, float shouldRotateTo){
@@ -312,10 +311,31 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
 
     private void removeBlockCV(int id, int val){
-        blockRemovedWithIdAndValue(id,val);
-        removeFromStageById(id); // we remove it from detection zone/stage
+        //TODO check if its in "to add" blocks
+        boolean inDetected = false;
+        // check if its not waiting to be added, add+remove = 0!
+        for(int i =0; i<newDetectedCVPairs.size();i++){
+            Gdx.app.log(TAG,"removeBlockCV id to remove "+id + " key in Pairs: "+newDetectedCVPairs.get(i).getKey());
+            if(newDetectedCVPairs.get(i).getKey() == id){
+                newDetectedCVPairs.remove(i); // remove from "new detected" and we do nota add to toRemove!!
+                inDetected = true;
+                break;
+            }
+        }
+        if(!inDetected) {
+            Gdx.app.log(TAG,"removeBlockCV id to not in new detected so we will remove!!");
+            blockRemovedWithIdAndValue(id, val);
+
+        }
+        // if nothing to add and nothing to remove -> no AS
+        if(needAS()) {
+            setWaitForFirstMove(false);
+
+        }else{
+            setWaitForFirstMove(true);
+        }
         noChangesSince = TimeUtils.millis();
-        setWaitForFirstMove(false);
+        removeFromStageById(id); // we remove it from detection zone/stage
     }
 
     protected void removeFromStageById(int whichId){
@@ -336,6 +356,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     @Override
     public void addBlockWithId(int val, int id){
+        Gdx.app.log(TAG, "!!! addBlockWithId id:" + id);
         //TODO if is also to remove, what should i do? ===> fixme!!!
         newDetectedCVPairs.add(new Pair(id,val));
     }
@@ -364,8 +385,14 @@ public class CVBlocksManager extends AbstractBlocksManager {
         vBlock.addAction(Actions.alpha(1, actionsSpeed));// we should appear!!
         virtualBlocksOnStage.add(vBlock);
 
+        if(needAS()) {
+            setWaitForFirstMove(false);
+
+        }else{
+            setWaitForFirstMove(true);
+        }
         noChangesSince = TimeUtils.millis(); //new change!
-        setWaitForFirstMove(false);
+        //setWaitForFirstMove(false);
     }
 
     protected void removeFromStageByIndex(int index){
@@ -403,21 +430,8 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     @Override
     public void blockRemovedWithIdAndValue(int id, int value){
-        boolean inDetected = false;
-        // check if its not waiting to be added, add+remove = 0!
-        for(int i =0; i<newDetectedCVPairs.size();i++){
-            Gdx.app.log(TAG," id to remove "+id + " key in Pairs: "+newDetectedCVPairs.get(i).getKey());
-            if(newDetectedCVPairs.get(i).getKey() == id){
-                newDetectedCVPairs.remove(i);
-                inDetected = true;
-                break;
-            }
-        }
-        if(!inDetected) {
             toRemoveCVIds.add(id);
             toRemoveCVValues.add(value);
-        }
-
     }
 
     public boolean isDetectionReady(){
@@ -470,6 +484,11 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     private void updateStrikes(int id){
         strikes.put(id,strikes.get(id)+1); // add one!
+    }
+
+    private boolean needAS(){
+        Gdx.app.log(TAG,"needAS??? "+toRemoveCVIds.size()+" "+newDetectedCVPairs.size());
+        return (toRemoveCVIds.size()>0 || newDetectedCVPairs.size()>0);
     }
 
 }
