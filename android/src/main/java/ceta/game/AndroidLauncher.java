@@ -82,14 +82,30 @@ public class AndroidLauncher extends AndroidApplication implements SurfaceTextur
 		initialize(cetaGame, config);
 	}
 
+	
+	static {
+	    if (!OpenCVLoader.initDebug()) {
+	        // Handle initialization error
+	    	Log.e(TAG,"Severe error, openCV could not be loaded!");
+	    }else{
+	    	
+			Log.i(TAG, "OpenCV loaded successfully");
+	    }
+	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
+		
+		
+		//smarichal: New code for static initialization
+		//OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
+		System.loadLibrary("ceta-vision-core-library-android");
+		initCameraListener();
 
 		// Ideally, the frames from the camera are at the same resolution as the input to
 		// the video encoder so we don't have to scale.
-		if(this.mCamera==null && openCvInit)
+		if(this.mCamera==null /*&& openCvInit*/)
 			openCamera(VIDEO_WIDTH, VIDEO_HEIGHT, DESIRED_PREVIEW_FPS);
 
 	}
