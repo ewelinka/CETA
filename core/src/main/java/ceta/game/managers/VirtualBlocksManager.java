@@ -3,6 +3,7 @@ package ceta.game.managers;
 import ceta.game.game.objects.VirtualBlock;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
+import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 public class VirtualBlocksManager extends AbstractBlocksManager {
     public static final String TAG = VirtualBlocksManager.class.getName();
     Stage stage;
-    int linesRange;
     int nowId;
     int margin;
     int xSpace, ySpace;
@@ -32,8 +32,6 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
     }
 
     public void init(){
-        //TODO ojo que este hardcoded no es lindo
-        linesRange = 6 * Constants.BASE;
         margin = 20;
         nowId = 0;
         polygon = new Polygon();
@@ -83,9 +81,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 // if it was detected before and is out of detection zone we make it disappear and reset
                 if(vBlock.getWasDetected()){
                     if( polygon.getTransformedVertices()[1] < Constants.DETECTION_LIMIT){
-                        // TODO here we should check for smallest Y, not first vertex
-                        // was detected but now gone
-                       // blockRemoved(vBlock.getBlockValue());
+                        // here we should check for smallest Y, not first vertex, but no rotation case works (our case!)
                         setWaitForFirstMove(false);
                         vBlock.setWasDetected(false);
                         blockRemovedWithIdAndValue(vBlock.getBlockId(),vBlock.getBlockValue());
@@ -93,12 +89,10 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                     }
                 }else{
                     if( polygon.getTransformedVertices()[1] > Constants.DETECTION_LIMIT){
-                        // TODO here we should check for smallest Y, not first vertex
-                        // new detected!
                         setWaitForFirstMove(false);
                         vBlock.setWasDetected(true);
                        // addBlock(vBlock.getBlockValue());
-                        addBlockWithId(vBlock.getBlockValue(),vBlock.getBlockId());
+                        addBlockTablet(vBlock.getBlockValue(),vBlock.getBlockId());
                         // new virtual block in empty space
                         addVirtualBlockInEmptySpace(vBlock.getBlockValue());
 
@@ -117,17 +111,68 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 nowDetectedVals.add(vBlock.getBlockValue());
                 nowDetectedBlocks.add(vBlock);
             }
+            if(needAS()) {
+                setWaitForFirstMove(false);
+
+            }else{
+                setWaitForFirstMove(true);
+            }
+
         }
 
+    }
+
+    private void addBlockTablet(int blockToAddVal, int id){
+        if(toRemoveFromDetectedValues.contains(blockToAddVal)){
+            Gdx.app.log(TAG, "addBlockTablet but we had it in to remove val:" + blockToAddVal);
+            removeFirstValue(blockToAddVal);
+            removeFromIdsIdWithValue(blockToAddVal, id); //watch out! different id!!
+
+
+        }else {
+            Gdx.app.log(TAG, "addBlockTablet, setting block id to " + id + " and value: "+blockToAddVal);
+            addBlockWithId(blockToAddVal, id); // add to manager! will be checked by brunos manager
+
+        }
+
+
+
+
+    }
+
+    private void removeFromIdsIdWithValue(int val, int detectedId){
+        for(int i =0;i<toRemoveFromDetectedIds.size();i++){
+            int currentId = toRemoveFromDetectedIds.get(i); //important! we have to keep it to than
+            if(getDetectedBlockValueById(currentId) == val){
+                Gdx.app.log(TAG," remove value from toRemove "+val+ " id "+toRemoveFromDetectedIds.get(i));
+                toRemoveFromDetectedIds.remove(i);
+                changeId(currentId,detectedId);
+
+
+                break; //!!! just one delete!!
+            }
+        }
+    }
+
+    private void changeId(int donorId, int receptorId){
+        getBlockById(receptorId).setBlockId(donorId);
+
+    }
+
+    private void removeFirstValue(int val){
+        for(int i =0;i<toRemoveFromDetectedValues.size();i++){
+            if(toRemoveFromDetectedValues.get(i) == val){
+                Gdx.app.log(TAG," remove value from toRemove VALS "+val);
+                toRemoveFromDetectedValues.remove(i);
+                break; //!!! just one delete!!
+            }
+        }
     }
 
     protected void addVirtualBlockInEmptySpace(int val){
         //Gdx.app.log(TAG, "we creat new vistual block of valua "+val);
         // TODO create or take from pool!!
         VirtualBlock virtualBlock = new VirtualBlock(val);
-        // this works for vertical blocks
-       // virtualBlock.setPosition(-260 + 2*Constants.BASE*val ,-Constants.BASE*12);
-
         setBlockWhereItBelongs(virtualBlock);
         stage.addActor(virtualBlock);
         // set home so that we can come back
@@ -139,6 +184,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         virtualBlocksOnStage.add(virtualBlock);
 
     }
+
 
     private void setBlockWhereItBelongs( VirtualBlock virtualBlock) {
         switch(virtualBlock.getBlockValue()){
@@ -206,7 +252,7 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
            // Gdx.app.log(TAG,"we are checking block "+i+" id: "+virtualBlocksOnStage.get(i).getBlockId());
             if(virtualBlocksOnStage.get(i).getBlockId() == whichId && !virtualBlocksOnStage.get(i).isAtHome()){
                 //remove actor
-                virtualBlocksOnStage.get(i).goHomeAndRemove();
+               // virtualBlocksOnStage.get(i).goHomeAndRemove();
                 // remove from array
                 virtualBlocksOnStage.remove(i);
                 return;
@@ -229,7 +275,6 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
                 vb.addAction(Actions.moveTo(limit+2, vb.getY(),0.3f));
             }
         }
-
     }
 
     protected VirtualBlock getBlockByValue(int valueToFind){
@@ -242,6 +287,37 @@ public class VirtualBlocksManager extends AbstractBlocksManager {
         return new VirtualBlock(1);
 
     }
+
+    protected VirtualBlock getBlockById(int idToFind){
+        for(int i = 0; i< virtualBlocksOnStage.size();i++){
+            VirtualBlock vb = virtualBlocksOnStage.get(i);
+            if(vb.getBlockId() == idToFind){
+                return vb;
+            }
+        }
+        return new VirtualBlock(1);
+
+    }
+
+    protected int getDetectedBlockValueById(int idToFind){
+
+        for(int i = 0; i< virtualBlocksOnStage.size();i++){
+            VirtualBlock vb = virtualBlocksOnStage.get(i);
+            Gdx.app.log(TAG,"to find: "+idToFind+" id "+vb.getBlockId()+" val "+vb.getBlockValue()+" detected "+vb.getWasDetected()+" at home "+vb.isAtHome());
+            if(vb.getBlockId() == idToFind){
+                return vb.getBlockValue();
+            }
+        }
+        return 1;
+
+    }
+
+    private boolean needAS(){
+       // Gdx.app.log(TAG," toRemoveFromDetectedIds size "+toRemoveFromDetectedIds.size()+" newDetectedPairs "+newDetectedPairs.size());
+        return (toRemoveFromDetectedIds.size()>0 || newDetectedPairs.size()>0);
+    }
+
+
 
 
 

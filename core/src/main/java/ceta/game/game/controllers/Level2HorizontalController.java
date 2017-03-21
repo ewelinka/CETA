@@ -24,7 +24,7 @@ public class Level2HorizontalController extends Level1HorizontalController {
     }
 
     @Override
-    protected void localInit () { // TODO extract digital-representation thing and make generic part
+    protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+GamePreferences.instance.lastLevel);
         roboticArmManager = new AnimatedRoboticTubeManager(stage);
         virtualBlocksManager = new VirtualBlocksManager(stage);

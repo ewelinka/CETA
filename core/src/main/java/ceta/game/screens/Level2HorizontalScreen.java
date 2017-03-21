@@ -23,11 +23,9 @@ public class Level2HorizontalScreen extends Level1HorizontalScreen {
     @Override
     public void show() {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
-        // TODO load preferences
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level2HorizontalController(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
-        // Todo here we should make camera stuff and fitviewport
         worldRenderer = new WorldRenderer(worldController,stage,regTex);
         // android back key
         Gdx.input.setCatchBackKey(true);

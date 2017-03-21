@@ -59,7 +59,7 @@ public class AnimatedRoboticTubeManager extends RoboticArmManager {
 
 
     protected void addArms(ArrayList<Pair> toAdd, int howMany){
-        terminalDelay = 0; // TODO we check if we should start in 0 or there is somenthing in movement; change if NO action submit
+        terminalDelay = 0; // ok for AS conditions
         int currentKey; // we need it if we have to check for ids to generate new false ids
 
         for(int i=0; i< howMany;i++) {
@@ -106,8 +106,7 @@ public class AnimatedRoboticTubeManager extends RoboticArmManager {
 
     protected void removeAnimatedArms(int toRemoveSum){
         int removeMaxIndex = armPiecesAnim.size()-1;
-
-        terminalDelay = 0; //TODO change if NO action submit
+        terminalDelay = 0; // change if NO action submit
         Gdx.app.log(TAG, " toRemoveSum "+toRemoveSum);
         for(int i = removeMaxIndex;i>=0;i--) {
             // start to look!

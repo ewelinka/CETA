@@ -2,8 +2,6 @@ package ceta.game.game.controllers;
 
 import ceta.game.game.Assets;
 import ceta.game.game.levels.Level3Horizontal;
-import ceta.game.game.levels.LevelHorizontal;
-import ceta.game.game.objects.BrunoVertical;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.AudioManager;
@@ -64,7 +62,7 @@ public class Level3HorizontalController extends NoCvController  {
 
                 if (r1.overlaps(r2)) {
                     //onCollisionBrunoWithPrice(level.price);
-                    onCollisionBrunoWithPriceHorizontal3(level.price, level.bruno);
+                    onCollisionBrunoWithPriceOpenMouth(level.price, level.bruno);
                     moveMade = false;
                 } else {
                     if (moveMade) {

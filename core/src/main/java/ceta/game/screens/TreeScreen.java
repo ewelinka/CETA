@@ -32,7 +32,7 @@ public class TreeScreen extends AbstractGameScreen {
     private TreeGear level1gear, level2gear,level3gear,level4gear, level5gear, level6gear;
     private Image part1,part2,part3,part4,part5,part6;
     private TreeArrow arrow;
-    static int[][] arrowPositions,partsPositions,gearsPositions;
+    private int[][] arrowPositions,partsPositions,gearsPositions;
     private float automaticPassTime;
     private boolean shouldPass;
 
@@ -45,14 +45,14 @@ public class TreeScreen extends AbstractGameScreen {
     public TreeScreen(DirectedGame game, boolean gameInit) {
         super(game);
         automaticPassTime = Constants.AUTOMATIC_LEVEL_PASS;
-        shouldPass = true; //TODO change to pass automatic
+        shouldPass = true;
         this.gameInit = gameInit;
         gearsPositions = new int[][]{
                 {228, 437},
                 {162,354},
                 {238,329},
                 {304,328},
-                {310,360},
+                {310,365},
                 {329,482}
         };
 
@@ -80,7 +80,7 @@ public class TreeScreen extends AbstractGameScreen {
     @Override
     public void render(float deltaTime) {
         if(automaticPassTime < 0 && shouldPass){
-            game.getLevelsManager().goToFirstUncompletedLevelFromTree();
+            game.getLevelsManager().goToUncompletedLevel();
             shouldPass = false;
         }
         else
@@ -357,7 +357,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     private void onPlayClicked () {
-        game.getLevelsManager().goToFirstUncompletedLevelFromTree();
+        game.getLevelsManager().goToUncompletedLevel();
 
     }
 

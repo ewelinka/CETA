@@ -71,7 +71,7 @@ public class Level3VerticalController extends NoCvController {
                         level.price.getWidth()/2, level.price.getHeight()/2);
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPriceVertical(level.price, brunoV);
+                    onCollisionBrunoWithPriceOpenMouth(level.price, brunoV);
                     moveMade = false;
                 } else {
                     if (moveMade) {

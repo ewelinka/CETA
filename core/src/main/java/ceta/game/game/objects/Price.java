@@ -188,7 +188,6 @@ public class Price extends AbstractGameObject {
     }
 
     private void updateVerticalFalling(float deltaTime){
-        // TODO perhaps a constant that defines where the ground is
         if(this.getY() < Constants.GROUND_LEVEL-this.getHeight()) { // when below number line
             returnCounter-=1;
             if(returnCounter<0){
@@ -242,10 +241,10 @@ public class Price extends AbstractGameObject {
 
     private void setInitialPositionMovingVertical(){
         if(isDynamic) {
-            setNewPositionMV(Constants.VIEWPORT_HEIGHT / 2 ); // faling from the top
+            setNewPositionMV(Constants.VIEWPORT_HEIGHT / 2 ); // falling from the top
         }
         else{
-            setNewPositionMV(Constants.PRICE_Y_HORIZONTAL); // TODO define when we have big bruno, fixed val
+            setNewPositionMV(Constants.PRICE_Y_HORIZONTAL);
         }
     }
 
@@ -324,7 +323,7 @@ public class Price extends AbstractGameObject {
 
         float time = calculateTime(whereX,whereY);
 
-        Gdx.app.log(TAG," ====== time "+time);
+        Gdx.app.log(TAG," ====== time "+time+ " where x "+whereX+ " y "+whereY);
 
 
         addAction(sequence(
@@ -372,7 +371,7 @@ public class Price extends AbstractGameObject {
             }
         } else { // STATIC
             if (isMovingVertical) { // HORIZONTAL NL DYNAMIC
-                return 0.15f;
+                return 0.15f + Math.abs(whereY - getY()) / 300;
             } else { // VERTICAL DYNAMIC
                 return 0.45f;
             }
@@ -424,8 +423,14 @@ public class Price extends AbstractGameObject {
 
     public int getMaxOperations(){ return maxOperations;}
 
-    public void setOperations(int[] ops){
+    private void setOperations(int[] ops){
         this.operations = ops;
+    }
+
+    public void forcePrice(int[] ops){
+        setOperations(ops);
+        maxOperations =1;
+
     }
 
     public int getCurrentNumber(){

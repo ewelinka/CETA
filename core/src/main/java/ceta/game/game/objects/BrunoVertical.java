@@ -64,7 +64,7 @@ public class BrunoVertical extends Bruno {
 
     }
 
-    protected void setColorAndTexture(int bValue){ //TODO all bodies and all heads
+    protected void setColorAndTexture(int bValue){
         Gdx.app.log(TAG," in vertical bruno setColorAndTexture ----");
         headXoffset = 0;
         headYoffset = 0;

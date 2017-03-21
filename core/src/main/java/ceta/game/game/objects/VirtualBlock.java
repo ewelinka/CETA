@@ -85,7 +85,6 @@ public class VirtualBlock extends AbstractGameObject {
 
             @Override
             public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-                //TODO we should check if the piece is in stage limits or the controller should do this?
                 setPosition(getX()+deltaX,getY()+deltaY);
             }
 
@@ -249,7 +248,6 @@ public class VirtualBlock extends AbstractGameObject {
 
             }
 
-            //float yAdjusted = getY()+getHeight()/2 + 332;
             diff = Constants.CV_DETECTION_EDGE_TABLET / 2 - (getY() + getHeight() / 2 + 332); // TODO hardcoded!!
 
             if (diff < Constants.MARGIN_FADE) {

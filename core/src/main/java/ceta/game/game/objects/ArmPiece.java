@@ -38,23 +38,23 @@ public class ArmPiece extends AbstractGameObject {
     protected void setColorAndTexture(int armVal){
         switch (armVal){
             case 1:
-                setColor(Color.YELLOW);
+                //setColor(Color.YELLOW);
                 regTex = Assets.instance.roboticParts.copperFitting1;
                 break;
             case 2:
-                setColor(Color.GREEN);
+                //setColor(Color.GREEN);
                 regTex = Assets.instance.roboticParts.copperFitting2;
                 break;
             case 3:
-                setColor(Color.ORANGE);
+                //setColor(Color.ORANGE);
                 regTex = Assets.instance.roboticParts.copperFitting3;
                 break;
             case 4:
-                setColor(Color.CYAN);
+                //setColor(Color.CYAN);
                 regTex = Assets.instance.roboticParts.copperFitting4;
                 break;
             case 5:
-                setColor(Color.PINK);
+                //setColor(Color.PINK);
                 regTex = Assets.instance.roboticParts.copperFitting5;
                 break;
         }

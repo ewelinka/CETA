@@ -73,7 +73,7 @@ public class Level2VerticalCvController extends CvController {
                     level.price.getWidth()/2, level.price.getHeight()/2);
             Gdx.app.log(TAG,"price x "+level.price.getX()+" y "+level.price.getY()+" w "+level.price.getWidth()/2+" h "+level.price.getHeight()/2);
             if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPriceVertical(level.price, objectToCheck);
+                onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                 moveMade = false;
             } else {
                 if (moveMade) {
