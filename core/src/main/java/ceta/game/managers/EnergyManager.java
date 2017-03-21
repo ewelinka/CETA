@@ -21,7 +21,6 @@ public class EnergyManager extends BrunosManager {
     public static final String TAG = EnergyManager.class.getName();
 
     private float terminalDelay;
-    private float currentDelayPassed; //TODO use if no action submit
     private final float animationSpeed = 0.2f;
     private float alphaColor;
     private boolean fadeIn;
@@ -41,7 +40,6 @@ public class EnergyManager extends BrunosManager {
         units = 0;
 
         terminalDelay = 0;
-        currentDelayPassed = 0;
         alphaColor = 0.5f;
         fadeIn = true;
 
@@ -55,14 +53,6 @@ public class EnergyManager extends BrunosManager {
         energyUnit.setPosition(Constants.VERTICAL_MIDDLE_X - energyUnit.getWidth()/2+2, brunoVertical.getY()+10);
         energyUnit.setColor(Color.YELLOW);
 
-//        head = new Image(Assets.instance.bruno.headEnergy);
-//        head.setSize(Constants.BASE,30);
-//        head.setPosition(Constants.VERTICAL_MIDDLE_X - head.getWidth()/2, Constants.DETECTION_ZONE_END); // in 10 ends the base
-//
-//        thorax = new Image(Assets.instance.bruno.thoraxEnergy);
-//        thorax.setSize(Constants.BASE,10);
-//        thorax.setPosition(Constants.VERTICAL_MIDDLE_X - thorax.getWidth()/2,
-//                Constants.DETECTION_ZONE_END-thorax.getHeight()+2);
 
         base = new Image(Assets.instance.bruno.baseEnergy);
         base.setSize(Constants.BASE-4,10);

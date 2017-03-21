@@ -71,7 +71,7 @@ public class Level3VerticalController extends NoCvController {
                         level.price.getWidth()/2, level.price.getHeight()/2);
 
                 if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPriceVertical(level.price, brunoV);
+                    onCollisionBrunoWithPriceOpenMouth(level.price, brunoV);
                     moveMade = false;
                 } else {
                     if (moveMade) {
@@ -90,27 +90,7 @@ public class Level3VerticalController extends NoCvController {
     }
 
     protected void testCollisionsDynamic () {
-        BrunoVertical brunoV = (BrunoVertical) level.bruno;
-        if (!(brunoV.getActions().size > 0)) { // if bruno is not moving
-            if(brunoV.getTerminalY() != yZero ) {
-                r1.set(brunoV.getX() ,
-                        brunoV.getY() ,
-                        brunoV.getWidth(), level.bruno.getHeight()/2);
-                r2.set(level.price.getX(),
-                        level.price.getY(),
-                        level.price.getWidth()/2, level.price.getHeight()/2);
-
-                if (r1.overlaps(r2)) {
-                    onCollisionBrunoWithPriceVertical(level.price, brunoV);
-                    moveMade = false;
-                } else {
-                    //TODO
-
-                }
-            }else{ // no blocks on the table
-                // TODO
-            }
-        }
+        testCollisionsDynamicL3V(yZero);
     }
 
     private void updateBrunoVertical(ArrayList<Pair> toAdd, ArrayList<Integer> toRemoveValues){

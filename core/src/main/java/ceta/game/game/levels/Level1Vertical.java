@@ -27,8 +27,7 @@ public class Level1Vertical extends AbstractLevel {
         price = new Price(false, 1, levelParams, worldController);
 
         tube = new Tube();
-        //tube.setWidth(Constants.BASE*1.5f);
-        tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2 + adjustX,Constants.GROUND_LEVEL -tube.getHeight()); //TODO change for no-cv!!!
+        tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2 + adjustX,Constants.GROUND_LEVEL -tube.getHeight());
 
         // add actors
         stage.addActor(price);

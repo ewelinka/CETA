@@ -25,7 +25,7 @@ public class Level2HorizontalCvController extends Level1HorizontalCvController {
 
 
     @Override
-    protected void localInit () { // TODO extract digital-representation thing and make generic part
+    protected void localInit () {
         Gdx.app.log(TAG," local init with last level: "+ GamePreferences.instance.lastLevel);
         roboticArmManager = new AnimatedRoboticTubeManager(stage);
         cvBlocksManager = new CVBlocksManager(game,stage);

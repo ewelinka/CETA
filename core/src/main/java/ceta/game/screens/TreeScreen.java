@@ -45,14 +45,14 @@ public class TreeScreen extends AbstractGameScreen {
     public TreeScreen(DirectedGame game, boolean gameInit) {
         super(game);
         automaticPassTime = Constants.AUTOMATIC_LEVEL_PASS;
-        shouldPass = true; //TODO change to pass automatic
+        shouldPass = true;
         this.gameInit = gameInit;
         gearsPositions = new int[][]{
                 {228, 437},
                 {162,354},
                 {238,329},
                 {304,328},
-                {310,360},
+                {310,365},
                 {329,482}
         };
 
@@ -80,7 +80,7 @@ public class TreeScreen extends AbstractGameScreen {
     @Override
     public void render(float deltaTime) {
         if(automaticPassTime < 0 && shouldPass){
-            game.getLevelsManager().goToFirstUncompletedLevelFromTree();
+            game.getLevelsManager().goToUncompletedLevel();
             shouldPass = false;
         }
         else
@@ -145,8 +145,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     private void addGears(){
-        arrow = new TreeArrow(Assets.instance.tree.arrow);
-        stage.addActor(arrow); // now add to place the arrow most to front
+
 
         level1gear = new TreeGear(Assets.instance.tree.gear3,Assets.instance.tree.gear3inactive);
         level2gear = new TreeGear(Assets.instance.tree.gear2,Assets.instance.tree.gear2inactive);
@@ -172,6 +171,9 @@ public class TreeScreen extends AbstractGameScreen {
 
         level6gear.setPosition(gearsPositions[5][0], gearsPositions[5][1]);
         stage.addActor(level6gear);
+
+        arrow = new TreeArrow(Assets.instance.tree.arrow);
+        stage.addActor(arrow); // now add to place the arrow most to front
     }
 
     private void addParts(){
@@ -355,7 +357,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     private void onPlayClicked () {
-        game.getLevelsManager().goToFirstUncompletedLevelFromTree();
+        game.getLevelsManager().goToUncompletedLevel();
 
     }
 

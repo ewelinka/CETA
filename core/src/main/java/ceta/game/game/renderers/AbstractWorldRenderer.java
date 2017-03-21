@@ -186,7 +186,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected void renderHelperDottedLinesHorizontal(ShapeRenderer shRenderer) {
         Gdx.gl.glLineWidth(1);
         shRenderer.setProjectionMatrix(camera.combined);
-        shRenderer.setColor(1, 1, 1, 1);
+        shRenderer.setColor(0, 0, 102/255, 1);
 
 
         for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=Constants.BASE){
@@ -209,6 +209,20 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
+    protected void renderDebugNumbersHorizontal(SpriteBatch batch){
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+
+        for(int i = -300; i<300;i+=80){
+
+            fontNumberLine.setColor(0,0,0,1);
+            fontNumberLine.draw(batch, i+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false);
+        }
+
+        batch.end();
+    }
+
 
 
 
@@ -220,12 +234,11 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
         for(int i = Constants.HORIZONTAL_ZERO_X; i<=Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
             if(levelMinimumNumber+counter == chosenNr)
-                fontNumberLine.setColor(0,153,0,1);
+                fontNumberLine.setColor(255/255,255/255,213/255,1);
             else
                 fontNumberLine.setColor(1,1,1,1);
             fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL -25,0, Align.center,false);
             //fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false); //top
-
 
             counter+=1;
         }
@@ -233,6 +246,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         batch.end();
 
     }
+
 
 
     protected void renderHelperNumbersVertical(SpriteBatch batch){
@@ -245,7 +259,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
             String text = counter+"";
             GlyphLayout layout = new GlyphLayout(fontNumberLine, text);
             if(levelMinimumNumber+counter == chosenNr)
-                fontNumberLine.setColor(0,153,0,1);
+                fontNumberLine.setColor(255/255,255/255,213/255,1);
             else
                 fontNumberLine.setColor(1,1,1,1);
             fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", 258, i + layout.height/2,0,Align.left,false);
@@ -257,11 +271,34 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
+    protected void renderDebugNumbersVertical(SpriteBatch batch){
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=80){
+            GlyphLayout layout = new GlyphLayout(fontNumberLine, i+"");
+
+            fontNumberLine.setColor(0,0,0,1);
+            fontNumberLine.draw(batch, i+"", -258, i + layout.height/2,0,Align.left,false);
+
+        }
+
+        batch.end();
+
+    }
+
     protected void renderHelperNumbers(SpriteBatch batch){
         if(numberLineIsHorizontal)
             renderHelperNumbersHorizontal(batch);
         else
             renderHelperNumbersVertical(batch);
+    }
+
+    protected void renderDebugNumbers(SpriteBatch batch){
+        if(numberLineIsHorizontal)
+            renderDebugNumbersHorizontal(batch);
+        else
+            renderDebugNumbersVertical(batch);
     }
 
     protected void renderHelperNumberLines(ShapeRenderer shRenderer) {
@@ -357,7 +394,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected void renderHelperDottedLinesVertical(ShapeRenderer shRenderer){
         Gdx.gl.glLineWidth(1);
         shRenderer.setProjectionMatrix(camera.combined);
-        shRenderer.setColor(1, 1, 1, 1);
+        shRenderer.setColor(0, 0, 102/255, 1);
 
         for(int i = Constants.HORIZONTAL_ZERO_X; i<= Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
             //shRenderer.line(i , Constants.GROUND_LEVEL, i,Constants.VIEWPORT_HEIGHT/2 - 100);
@@ -381,4 +418,5 @@ public abstract class AbstractWorldRenderer implements Disposable {
 //        fontNumberLine.dispose();
 //        counterFont.dispose();
     }
+
 }

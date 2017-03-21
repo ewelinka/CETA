@@ -101,7 +101,7 @@ public class SimpleMenuScreen extends AbstractGameScreen {
         layer.center().center();
 
 
-        btnMenuPlay = new ImageButton(Assets.instance.buttons.playButtonStyle); // TODO should be resolved in ui-skin...
+        btnMenuPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
         // table.add (btnB).size (150, 200);
         layer.add(btnMenuPlay).size(88,60).padBottom(10);
         btnMenuPlay.addListener(new ChangeListener() {
@@ -165,13 +165,20 @@ public class SimpleMenuScreen extends AbstractGameScreen {
                 Actions.rotateBy(50,1.0f),
                 Actions.rotateBy(-50,0.8f),
                 delay(2.0f),
+//                run(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if(Constants.WITH_CV)
+//                            game.setScreen(new TutorialCvScreen(game),ScreenTransitionFade.init(0.75f));
+//                        else
+//                            game.setScreen(new TutorialScreen(game),ScreenTransitionFade.init(0.75f));
+//                    }
+//                })
                 run(new Runnable() {
                     @Override
                     public void run() {
-                        if(Constants.WITH_CV)
-                            game.setScreen(new TutorialCvScreen(game),ScreenTransitionFade.init(0.75f));
-                        else
-                            game.setScreen(new TutorialScreen(game),ScreenTransitionFade.init(0.75f));
+
+                        game.setScreen(new IntroScreen(game),ScreenTransitionFade.init(0.75f));
                     }
                 })
         ));

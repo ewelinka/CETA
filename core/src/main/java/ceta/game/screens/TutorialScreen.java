@@ -5,6 +5,7 @@ import ceta.game.game.controllers.Level1HorizontalController;
 import ceta.game.game.controllers.Level1VerticalController;
 import ceta.game.game.controllers.Level1VerticalControllerTutorial;
 import ceta.game.game.renderers.WorldRenderer;
+import ceta.game.game.renderers.WorldRendererTutorial;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
@@ -22,8 +23,8 @@ public class TutorialScreen extends AbstractGameScreen{
     private boolean paused;
 
     public TutorialScreen(DirectedGame game) {
-        super(game, 0);
-    } // 0 json for intro
+        super(game,1);
+    } // 1 json for intro
 
 
     @Override
@@ -54,7 +55,7 @@ public class TutorialScreen extends AbstractGameScreen{
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1VerticalControllerTutorial(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
-        worldRenderer = new WorldRenderer(worldController,stage,false,regTex); // default set number line to horizontal
+        worldRenderer = new WorldRendererTutorial(worldController,stage,false,regTex); // default set number line to horizontal
         // android back key
         Gdx.input.setCatchBackKey(true);
     }

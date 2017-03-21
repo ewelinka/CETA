@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 
 import java.util.ArrayList;
 
@@ -92,6 +93,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderNumberLineImg(spriteBatch);
         renderHelperNumbers(spriteBatch);
         renderFeedback();
+//        renderDebugNumbersVertical(spriteBatch);
+//        renderDebugNumbersHorizontal(spriteBatch);
 
 
 
@@ -117,8 +120,13 @@ public class WorldRenderer extends AbstractWorldRenderer {
             //renderOldBlocks();
             AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.cleanTable);
             feedbackRenderer.renderTooMuchClue();
-
             isPlayingCleanTable = true;
+            Timer.schedule(new Timer.Task(){
+                @Override
+                public void run() {
+                    isPlayingCleanTable = false;
+                }
+            }, 10);
         }else { // if its not cleaning table problem, we give hint
             if (worldController.isPlayerInactive()) {
                 if (!feedbackRenderer.getManoImg().hasActions()) {
@@ -147,12 +155,9 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
 
     protected void renderCounter(SpriteBatch batch){
-        // TODO
-
         float rotationNow = (worldController.getCountdownCurrentTime()*360)/Constants.COUNTDOWN_MAX;
        // Gdx.app.log(TAG, " === "+rotationNow);
 
-        // we render countdown!
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.setColor(feedbackRenderer.getCountdownWheel().getColor());
@@ -168,8 +173,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
         String text = worldController.getNowDetectedSum()+"";
         GlyphLayout layout = new GlyphLayout(bigGuiFont, text);
 //        counterFont.setColor(Color.RED);
-       bigGuiFont.draw(batch, text, 0 , feedbackRenderer.getFeedbackMiddlePoint()+layout.height/2,0,Align.center,false);
-       batch.end();
+        bigGuiFont.draw(batch, text, 0 , feedbackRenderer.getFeedbackMiddlePoint()+layout.height/2,0,Align.center,false);
+        batch.end();
 
 
     }
@@ -234,10 +239,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 break;
         }
 
-
-        // TODO hardcoded position!
         normalGuiFont.draw(batch, worldController.score+"",x+50,y+30);
-
         // total score
         batch.draw(Assets.instance.feedback.prices,x+475,y,40,40);
         smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+525,y+27);

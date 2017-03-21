@@ -15,7 +15,7 @@ public abstract class AbstractBlocksManager {
    // private int [] detected_blocks = {0,0,0,0,0};
     // a pair of ints (id and value)
     // Pair < Key , Value >
-    protected ArrayList<Pair> newDetectedIds = new ArrayList<Pair>(); // ids and values!!!! TODO change the name!
+    protected ArrayList<Pair> newDetectedPairs = new ArrayList<Pair>(); //id and value
     protected ArrayList<Integer> toRemoveFromDetectedIds = new ArrayList<Integer>();
     protected ArrayList<Integer> toRemoveFromDetectedValues = new ArrayList<Integer>();
     protected boolean waitForFirstMove;
@@ -31,7 +31,7 @@ public abstract class AbstractBlocksManager {
 
     public void addBlockWithId(int val, int id){
         Gdx.app.log(TAG, "adding block with id "+id+" and val "+val);
-        newDetectedIds.add(new Pair(id,val));
+        newDetectedPairs.add(new Pair(id,val));
     }
 
     public void blockRemovedWithIdAndValue(int id, int value){
@@ -39,10 +39,10 @@ public abstract class AbstractBlocksManager {
 
         boolean inDetected = false;
         // TODO check if its not waiting to be added, add+remove = 0!
-        for(int i =0; i<newDetectedIds.size();i++){
-            Gdx.app.log(TAG," id "+id + " key: "+newDetectedIds.get(i).getKey());
-            if(newDetectedIds.get(i).getKey() == id){
-                newDetectedIds.remove(i);
+        for(int i = 0; i< newDetectedPairs.size(); i++){
+            Gdx.app.log(TAG," id "+id + " key: "+ newDetectedPairs.get(i).getKey());
+            if(newDetectedPairs.get(i).getKey() == id){
+                newDetectedPairs.remove(i);
                 inDetected = true;
                 break;
             }
@@ -65,7 +65,7 @@ public abstract class AbstractBlocksManager {
     }
 
     public ArrayList getNewDetected(){
-        return newDetectedIds;
+        return newDetectedPairs;
     }
 
     public void resetDetectedAndRemoved(){
@@ -76,7 +76,7 @@ public abstract class AbstractBlocksManager {
 
 
     private void resetDetectedIds(){
-        newDetectedIds.clear();
+        newDetectedPairs.clear();
     }
     private void resetRemoveIds(){
         toRemoveFromDetectedIds.clear();

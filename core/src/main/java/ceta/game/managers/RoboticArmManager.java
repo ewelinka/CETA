@@ -143,22 +143,23 @@ public class RoboticArmManager {
 
 
     public ArmPiece getLastArmPiece(){
-        if(armPieces.size()>0)
-            return armPieces.get(armPieces.size()-1);
+        if(armPieces.size()>0) {
+            return armPieces.get(armPieces.size() - 1);
+        }
         return null;
     }
 
     private void removeFromInMovementIds(int id){
-        Gdx.app.log(TAG, "BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
+       // Gdx.app.log(TAG, "BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
         inMovementIds.remove((Object)id);
-        Gdx.app.log(TAG, "AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
+       // Gdx.app.log(TAG, "AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
 
     }
 
     private void removeAllIdsFromInMovementIds(int id){
-        Gdx.app.log(TAG, "ALL BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
+       // Gdx.app.log(TAG, "ALL BEFORE "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
         inMovementIds.removeAll(Collections.singleton((Object)id));
-        Gdx.app.log(TAG, "ALL AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
+       // Gdx.app.log(TAG, "ALL AFTER "+Arrays.toString(inMovementIds.toArray())+" with id "+id);
 
     }
 

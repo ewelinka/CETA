@@ -35,6 +35,10 @@ public class CongratulationsScreen extends AbstractGameScreen {
 
     public CongratulationsScreen(DirectedGame game, int score) {
         super(game);
+        saveLevelAndScore(score);
+    }
+
+    protected void saveLevelAndScore(int score){
         game.getLevelsManager().onLevelCompleted(score);
     }
 
