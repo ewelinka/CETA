@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 
 import java.util.ArrayList;
 
@@ -119,8 +120,13 @@ public class WorldRenderer extends AbstractWorldRenderer {
             //renderOldBlocks();
             AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.cleanTable);
             feedbackRenderer.renderTooMuchClue();
-
             isPlayingCleanTable = true;
+            Timer.schedule(new Timer.Task(){
+                @Override
+                public void run() {
+                    isPlayingCleanTable = false;
+                }
+            }, 10);
         }else { // if its not cleaning table problem, we give hint
             if (worldController.isPlayerInactive()) {
                 if (!feedbackRenderer.getManoImg().hasActions()) {

@@ -31,14 +31,15 @@ public class LevelsCsv {
 
         int [] operations;
         if(splittedLine[6].length() > 0){
-            Gdx.app.log(TAG," splitted 3 "+splittedLine[6]);
+            Gdx.app.log(TAG," splitted 6 "+ splittedLine[6]+ " splited len " +splittedLine[6].length());
             String operationsStr = splittedLine[6];
             Gdx.app.log(TAG," operationsStr "+operationsStr);
             String[] operationsStrSplit = operationsStr.split(" ");
             operations = new int[operationsStrSplit.length];
             Gdx.app.log(TAG," operationsStrSplit "+operationsStrSplit);
             for(int i=0;i<operationsStrSplit.length;i++){
-                operations[i]= Integer.parseInt(operationsStrSplit[i]);
+                if(operationsStrSplit[i]!="")
+                    operations[i]= Integer.parseInt(operationsStrSplit[i]);
             }
         }else{
             operations = new int[]{};

@@ -458,7 +458,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion gear4inactive;
         public final TextureAtlas.AtlasRegion gear5inactive;
         public final TextureAtlas.AtlasRegion gear6inactive;
-        public final TextureAtlas.AtlasRegion arrow;
+        public final TextureAtlas.AtlasRegion arrow,arrowWhite;
         public final TextureAtlas.AtlasRegion part1,part2,part3,part4,part5,part6;
         public final TextureAtlas.AtlasRegion magnet;
 
@@ -471,6 +471,7 @@ public class Assets implements Disposable, AssetErrorListener {
             gear5 = atlas.findRegion("engranajes4");
             gear6 = atlas.findRegion("engranajes5");
             arrow = atlas.findRegion("flecha");
+            arrowWhite = atlas.findRegion("flechaBlanca");
             gear1inactive = atlas.findRegion("faltante");
             gear2inactive = atlas.findRegion("faltante1");
             gear3inactive = atlas.findRegion("faltante2");
