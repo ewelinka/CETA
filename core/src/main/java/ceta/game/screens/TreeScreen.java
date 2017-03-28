@@ -1,8 +1,11 @@
 package ceta.game.screens;
 
 import ceta.game.game.Assets;
+import ceta.game.game.objects.BrunoVertical;
 import ceta.game.game.objects.TreeArrow;
 import ceta.game.game.objects.TreeGear;
+import ceta.game.managers.BrunosManager;
+import ceta.game.managers.LevelsManager;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.Pair;
@@ -31,6 +34,7 @@ public class TreeScreen extends AbstractGameScreen {
     private Image imgBackground;
     private TreeGear level1gear, level2gear,level3gear,level4gear, level5gear, level6gear;
     private Image part1,part2,part3,part4,part5,part6;
+    private Image b1,b2,b3,b4,b5;
     private TreeArrow arrow;
     private int[][] arrowPositions,partsPositions,gearsPositions;
     private float automaticPassTime;
@@ -125,7 +129,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     private void buildStage() {
-        Gdx.app.log(TAG," build stageeeee ...... !!");
+        Gdx.app.log(TAG," build stageeeee ...... !! last level "+ game.levelsManager.getLastLevelCompleted()+" last -> "+Constants.LAST_LEVEL_NR );
         imgBackground = new Image(Assets.instance.tree.tree);
         imgBackground.setSize(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
         imgBackground.setPosition(0, 0);
@@ -133,12 +137,7 @@ public class TreeScreen extends AbstractGameScreen {
 
         addGears();
         addParts();
-
-
-
-
         enableGears();
-
 
         //addPlayButton();
 
@@ -219,8 +218,10 @@ public class TreeScreen extends AbstractGameScreen {
 
     private void enableGears(){
         int nowLevel = game.getLevelsManager().getLastLevelCompleted();
-        int newActivated = 0;
+        int newActivated = 6;
         Gdx.app.log(TAG, " current level "+nowLevel);
+
+
         if(nowLevel < Constants.L6_COMPLETED_NR){
             level6gear.setActive(false);
             part6.setColor(1,1,1,0);
@@ -291,6 +292,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
     private void enableGearsWithAnimation(int newActivated){
+        Gdx.app.log(TAG," === enableGearsWithAnimation "+newActivated);
         if(newActivated!=0)
             AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.levelPassed);
         switch(newActivated){
@@ -350,6 +352,10 @@ public class TreeScreen extends AbstractGameScreen {
                 part6.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level6gear.activateGear();
                 // TODO thats all falks!
+                Gdx.app.log(TAG,"something special for the end");
+                automaticPassTime += 3.0f;
+                addBrunos();
+
                 break;
 
         }
@@ -358,6 +364,88 @@ public class TreeScreen extends AbstractGameScreen {
 
     private void onPlayClicked () {
         game.getLevelsManager().goToUncompletedLevel();
+
+    }
+
+    private void addBrunos(){
+        float s = 0.2f;
+        b1 = new Image(Assets.instance.bruno.body01);
+        b1.setPosition(-50,155);
+        b1.addAction(sequence(
+                delay(1.6f),
+                moveTo(157,157,1.0f),
+                delay(0.3f),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s)
+        ));
+        stage.addActor(b1);
+
+
+        b2 = new Image(Assets.instance.bruno.body02);
+        b2.setPosition(-150,132);
+        b2.addAction(sequence(
+                delay(1.6f),
+                moveTo(120,150,1.5f),
+                delay(0.3f),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s)
+        ));
+        stage.addActor(b2);
+
+        b5 = new Image(Assets.instance.bruno.body05);
+        b5.setPosition(670,155);
+        b5.setScale(-1,1);
+        b5.addAction(sequence(
+                delay(1.6f),
+                moveTo(470,147,1.2f),
+                delay(0.3f),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s)
+        ));
+        stage.addActor(b5);
+
+        b3 = new Image(Assets.instance.bruno.body03);
+        b3.setPosition(670,155);
+        b3.addAction(sequence(
+                delay(1.6f),
+                moveTo(430,137,1.0f),
+                delay(0.3f),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s)
+        ));
+        b3.setScale(-1,1);
+        stage.addActor(b3);
+
+        b4 = new Image(Assets.instance.bruno.body04);
+        b4.setPosition(-50,155);
+        b4.addAction(sequence(
+                delay(1.6f),
+                moveTo(90,137,0.9f),
+                delay(0.3f),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s)
+        ));
+        stage.addActor(b4);
 
     }
 

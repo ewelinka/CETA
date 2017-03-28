@@ -38,6 +38,8 @@ public class TreeArrow extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.setColor(getColor());
         batch.draw(regTex,this.getX(),this.getY()+arrowYoffset);
+        batch.setColor(1,1,1,1);
     }
 }

@@ -371,10 +371,12 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetMenu {
         public final TextureAtlas.AtlasRegion play;
+        public final TextureAtlas.AtlasRegion logoBruno;
 
 
         public AssetMenu (TextureAtlas atlas) {
             play = atlas.findRegion("jugar");
+            logoBruno = atlas.findRegion("logoBruno");
 
 
         }
