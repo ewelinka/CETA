@@ -6,6 +6,7 @@ import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,7 +24,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  */
 public class SimpleMenuScreen extends AbstractGameScreen {
     private ImageButton btnMenuPlay, btnMenuExit, btnLevels;
-    private Image imgBackground, brunoHead,brunoBody,screw,shadow;
+    private Image imgBackground, brunoHead,brunoBody,screw,shadow, logo;
 
     public SimpleMenuScreen(DirectedGame game) {
         super(game);
@@ -161,7 +162,7 @@ public class SimpleMenuScreen extends AbstractGameScreen {
         brunoHead.setPosition(50,40+brunoBody.getHeight()-10);
 
         brunoHead.addAction(sequence(
-                delay(2.0f),
+                delay(5.0f),
                 Actions.rotateBy(50,1.0f),
                 Actions.rotateBy(-50,0.8f),
                 delay(2.0f),
@@ -191,21 +192,37 @@ public class SimpleMenuScreen extends AbstractGameScreen {
         screw.setOrigin(screw.getWidth()/2,screw.getHeight()/2);
         screw.setPosition(Constants.VIEWPORT_WIDTH/2,50+brunoBody.getHeight()-10);
         screw.addAction(
-                parallel(
-                        Actions.rotateBy(640, 3.0f),
-                        sequence(
-                                Actions.moveTo(brunoHead.getX() +40,screw.getY(),3.0f),
-                                parallel(
-                                        Actions.moveTo(brunoHead.getX()-25,screw.getY()-20,0.3f),
-                                        Actions.scaleTo(0,0,0.3f)
+                sequence(
+                        delay(3.0f),
+                        parallel(
+                                Actions.rotateBy(640, 3.0f),
+                                sequence(
+                                        Actions.moveTo(brunoHead.getX() +40,screw.getY(),3.0f),
+                                        parallel(
+                                                Actions.moveTo(brunoHead.getX()-25,screw.getY()-20,0.3f),
+                                                Actions.scaleTo(0,0,0.3f)
+                                        )
                                 )
                         )
                 )
         );
+
+
+        logo  = new Image(Assets.instance.menu.logoBruno);
+        logo.setSize(566/2,562/2);
+        logo.setPosition(10,Constants.VIEWPORT_HEIGHT/2);
+        logo.addAction(
+                    sequence(
+                            delay(1.5f),
+                            Actions.moveTo(logo.getX(),Constants.VIEWPORT_HEIGHT/2-281,3.0f, Interpolation.bounceOut)
+                    )
+        );
+
         layer.addActor(shadow);
         layer.addActor(brunoBody);
         layer.addActor(screw);
         layer.addActor(brunoHead);
+        layer.addActor(logo);
         return layer;
 
 
