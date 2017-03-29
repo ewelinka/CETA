@@ -94,20 +94,11 @@ public abstract class AbstractWorldRenderer implements Disposable {
         TextureAtlas.AtlasRegion belowZone = Assets.instance.staticBackground.belowTheGround;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-//        batch.draw(belowZone.getTexture(),
-//                -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
-//                0,0,
-//                Constants.VIEWPORT_WIDTH, Constants.DETECTION_ZONE_END-Constants.DETECTION_LIMIT,
-//                1, 1,
-//                0,
-//                belowZone.getRegionX(), belowZone.getRegionY(),
-//                belowZone.getRegionWidth(), belowZone.getRegionHeight(), false,false);
         batch.draw(belowZone.getTexture(),
                 -Constants.VIEWPORT_WIDTH/2, -Constants.VIEWPORT_HEIGHT/2,
                 Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT/2+Constants.GROUND_LEVEL,
                 belowZone.getRegionX(), belowZone.getRegionY(),
                 belowZone.getRegionWidth(), belowZone.getRegionHeight(), false,false);
-
         batch.end();
 
     }
