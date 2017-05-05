@@ -27,7 +27,7 @@ public class CetaGame extends DirectedGame {
 		Constants c = new Constants(); // to set the constants (tablet or cv)
 		this.frameBlocked = false;
 		// Set Libgdx log level
-		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		Gdx.app.setLogLevel(Application.LOG_NONE);
 		// Load assets
 		Assets.instance.init(new AssetManager());
 		// load preferences
@@ -41,9 +41,15 @@ public class CetaGame extends DirectedGame {
 		ScreenTransition transition = ScreenTransitionFade.init(1);
 		//setScreen(new MenuScreen(this),transition);
 		//setScreen(new Level3VerticalScreen(this,1),transition);
-
-		setScreen(new SimpleMenuScreen(this),transition);
+		//setScreen(new TutorialScreen(this),transition);
+		setScreen(new IntroBrunoScreen(this),transition);
+		//setScreen(new IntroScreen(this),transition);
 		//setScreen(new Level1VerticalMovingScreen(this, 2), transition);
+		//setScreen(new Level3HorizontalCvScreen(this, 1, Assets.instance.staticBackground.city1), transition);
+		//setScreen(new Level2VerticalScreen(this, 13, Assets.instance.staticBackground.clouds3), transition);
+		//setScreen(new IntroScreen(this));
+
+		//setScreen(new Level1VerticalScreen(this, 17, Assets.instance.staticBackground.city1), transition);
 		//setScreen(new TutorialScreen(this));
 		//setScreen(new TreeScreen(this,true));
 		//setScreen(new Level1VerticalCvScreen(this, 2, Assets.instance.staticBackground.city1), transition);

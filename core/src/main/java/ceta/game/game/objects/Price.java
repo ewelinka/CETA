@@ -6,6 +6,7 @@ import ceta.game.game.levels.LevelParams;
 import ceta.game.util.Constants;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import org.opencv.core.Mat;
@@ -45,6 +46,8 @@ public class Price extends AbstractGameObject {
     // price type associated to the number 1 to 4
     private int priceTypeNr;
     private boolean isLast;
+    private float alphaColor;
+    private boolean fadeIn;
 
     private AbstractWorldController worldController;
 
@@ -144,12 +147,15 @@ public class Price extends AbstractGameObject {
 
         setInitialPosition();
         isLast = false;
+
+        alphaColor = 0.5f;
+        fadeIn = true;
     }
 
     public void update(float deltaTime){
         //Gdx.app.log(TAG, " update price!! has actions: "+ !hasActions()+ " is last "+isLast+ " now scale "+priceScale + " get scale x" +getScaleX());
         if(!hasActions() && !isLast) {
-            adjustScale(deltaTime);
+            updateAlpha(deltaTime);
             if (isDynamic) {
                 rotation += (deltaTime * rotationVelocity);
                 setRotation(rotation);
@@ -165,13 +171,29 @@ public class Price extends AbstractGameObject {
 
     private void adjustScale(float deltaTime){
         priceScale += (deltaTime/2*multiplicationFactorForScale);
-        if(priceScale > 1.5 )
+        if(priceScale >= 1.5 )
             multiplicationFactorForScale=-1;
 
-        if( priceScale < 0.85)
+        if( priceScale <= 0.85)
             multiplicationFactorForScale=1;
 
         setScale(priceScale);
+    }
+
+    public void updateAlpha(float delta){
+        if(fadeIn){
+            alphaColor+=(delta/1.5);
+        }
+        else
+            alphaColor-=(delta/1.5);
+
+        if(alphaColor >= 0.7){
+            fadeIn=false;
+        }
+        if(alphaColor <= 0.1)
+            fadeIn=true;
+
+        this.setColor(Color.WHITE.cpy().lerp(Color.CORAL, alphaColor));
     }
 
     private void updateHorizontalFalling(float deltaTime){

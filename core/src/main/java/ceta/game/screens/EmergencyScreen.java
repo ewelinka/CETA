@@ -146,7 +146,7 @@ public class EmergencyScreen extends AbstractGameScreen  {
         }
         game.levelsManager.forceLevel(goToLevel);
         GamePreferences.instance.forceGlobalScore(lastScore);
-        game.setScreen(new TreeScreen(game,true));
+        game.levelsManager.goToFirstUncompletedLevel(true);
 
     }
 

@@ -24,7 +24,7 @@ public class WorldRenderer1VerticalMoving extends WorldRenderer {
     }
 
     @Override
-    public void render () {
+    public void render (float delta) {
 
         clearGray();
 
@@ -34,7 +34,7 @@ public class WorldRenderer1VerticalMoving extends WorldRenderer {
         renderHelperNumberLines(shapeRenderer);
         renderWorld(spriteBatch);
         renderNumberLineImg(spriteBatch);
-        renderHelperNumbers(spriteBatch);
+        renderHelperNumbers(spriteBatch, delta);
         renderFeedback();
     }
 

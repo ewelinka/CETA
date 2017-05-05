@@ -48,10 +48,14 @@ public class LevelsCsv {
         levelParams.operations = operations;
         levelParams.priceReturn = Integer.parseInt(splittedLine[7]);
         levelParams.priceVelocity = Integer.parseInt(splittedLine[8]);
-        if(splittedLine[9].equals("1"))
+        if(splittedLine[9].trim().equals("1")) {
+            Gdx.app.log(TAG, "---- VISIBLE "+splittedLine[9].trim());
             levelParams.visibleNumberLine = true;
-        else
-            levelParams.visibleNumberLine=false;
+        }
+        else {
+            Gdx.app.log(TAG, " --- NOT ---- VISIBLE "+splittedLine[9].trim());
+            levelParams.visibleNumberLine = false;
+        }
 
         return levelParams;
 

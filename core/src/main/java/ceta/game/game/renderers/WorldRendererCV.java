@@ -41,8 +41,8 @@ public class WorldRendererCV extends WorldRenderer {
     }
 
     @Override
-    public void render () {
-        super.render();
+    public void render (float delta) {
+        super.render(delta);
 //        if(worldController.isPlayerInactive() ){
 //            if (!feedbackRenderer.getManoImg().hasActions()) {
 //                feedbackRenderer.renderClue();

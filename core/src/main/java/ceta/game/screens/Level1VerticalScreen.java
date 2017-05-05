@@ -34,7 +34,7 @@ public class Level1VerticalScreen extends AbstractGameScreen {
             worldController.update(deltaTime);
         }
         // Render game world to screen
-        worldRenderer.render();
+        worldRenderer.render(deltaTime);
     }
 
     @Override

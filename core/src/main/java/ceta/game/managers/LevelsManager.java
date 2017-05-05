@@ -29,6 +29,7 @@ public class LevelsManager {
 
     public void onLevelCompleted(int score){
         lastLevelCompleted +=1;
+        Gdx.app.log(TAG,"save last completed level "+lastLevelCompleted);
         GamePreferences.instance.setLastLevel(lastLevelCompleted);
         GamePreferences.instance.addToTotalScore(score);
     }
@@ -53,20 +54,66 @@ public class LevelsManager {
         GamePreferences.instance.setLastLevel(lastLevelCompleted);
     }
 
-    public void goToFirstUncompletedLevel(){
+    public void goToFirstUncompletedLevel(boolean isInit){
         Gdx.app.log(TAG,"lastLevelCompleted ----> "+lastLevelCompleted);
         //first we check if we deal with an important change
-        if( lastLevelCompleted == 0
-                || lastLevelCompleted == Constants.L1_COMPLETED_NR
-                || lastLevelCompleted == Constants.L2_COMPLETED_NR
-                || lastLevelCompleted == Constants.L3_COMPLETED_NR
-                || lastLevelCompleted == Constants.L4_COMPLETED_NR
-                || lastLevelCompleted == Constants.L5_COMPLETED_NR
-                || lastLevelCompleted == Constants.L6_COMPLETED_NR){
-            game.setScreen(new TreeScreen(game),ScreenTransitionFade.init(0.75f));
-        }
-        else { // if no important change -> we just go to next level
-            goToNextLevel(lastLevelCompleted);
+        if(isInit) {
+            if(lastLevelCompleted >=0 && lastLevelCompleted<Constants.L1_HALF_COMPLETED_NR){
+                game.setScreen(new TreeScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            } else if(lastLevelCompleted >= Constants.L1_HALF_COMPLETED_NR && lastLevelCompleted<Constants.L1_COMPLETED_NR){
+                game.setScreen(new TreeHalfScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }else if(lastLevelCompleted >= Constants.L1_COMPLETED_NR && lastLevelCompleted<Constants.L2_HALF_COMPLETED_NR){
+                game.setScreen(new TreeScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }else if(lastLevelCompleted >= Constants.L2_HALF_COMPLETED_NR && lastLevelCompleted<Constants.L2_COMPLETED_NR){
+                game.setScreen(new TreeHalfScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }
+            else if(lastLevelCompleted >= Constants.L2_COMPLETED_NR && lastLevelCompleted<Constants.L3_HALF_COMPLETED_NR){
+                game.setScreen(new TreeScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }
+            else if(lastLevelCompleted >= Constants.L3_HALF_COMPLETED_NR && lastLevelCompleted<Constants.L3_COMPLETED_NR){
+                game.setScreen(new TreeHalfScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }else if(lastLevelCompleted >= Constants.L3_COMPLETED_NR && lastLevelCompleted<Constants.L4_HALF_COMPLETED_NR){
+                game.setScreen(new TreeScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }
+            else if(lastLevelCompleted >= Constants.L4_HALF_COMPLETED_NR && lastLevelCompleted<Constants.L4_COMPLETED_NR){
+                game.setScreen(new TreeHalfScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }
+            else if(lastLevelCompleted >= Constants.L4_COMPLETED_NR && lastLevelCompleted<Constants.L5_HALF_COMPLETED_NR){
+                game.setScreen(new TreeScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }
+            else if(lastLevelCompleted >= Constants.L5_HALF_COMPLETED_NR && lastLevelCompleted<Constants.L5_COMPLETED_NR){
+                game.setScreen(new TreeHalfScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }
+            else if(lastLevelCompleted >= Constants.L5_COMPLETED_NR && lastLevelCompleted<Constants.L6_HALF_COMPLETED_NR){
+                game.setScreen(new TreeScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }
+            else if(lastLevelCompleted >= Constants.L6_HALF_COMPLETED_NR && lastLevelCompleted<Constants.L6_COMPLETED_NR){
+                game.setScreen(new TreeHalfScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }else{
+                game.setScreen(new TreeScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            }
+
+        }else {
+
+
+            if (lastLevelCompleted == 0
+                    || lastLevelCompleted == Constants.L1_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L2_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L3_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L4_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L5_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L6_COMPLETED_NR) {
+                game.setScreen(new TreeScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            } else if (lastLevelCompleted == Constants.L1_HALF_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L2_HALF_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L3_HALF_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L4_HALF_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L5_HALF_COMPLETED_NR
+                    || lastLevelCompleted == Constants.L6_HALF_COMPLETED_NR) {
+                game.setScreen(new TreeHalfScreen(game, isInit), ScreenTransitionFade.init(0.75f));
+            } else { // if no important change -> we just go to next level
+                goToNextLevel(lastLevelCompleted);
+            }
         }
     }
 
@@ -205,11 +252,11 @@ public class LevelsManager {
                 case 3:
                     return Assets.instance.staticBackground.tubes1;
                 case 4:
-                    return Assets.instance.staticBackground.tubes3;
+                    return Assets.instance.staticBackground.tubes2;
                 case 5:
-                    return Assets.instance.staticBackground.clouds1;
+                    return Assets.instance.staticBackground.tubes3;
                 case 6:
-                    return Assets.instance.staticBackground.clouds3;
+                    return Assets.instance.staticBackground.tubes4;
                 default:
                     return Assets.instance.staticBackground.tubes5;
             }
@@ -218,19 +265,19 @@ public class LevelsManager {
         else{ // VERTICAL
             switch (islandNr){
                 case 1:
-                    return Assets.instance.staticBackground.city2;
-                case 2:
                     return Assets.instance.staticBackground.city4;
+                case 2:
+                    return Assets.instance.staticBackground.city2;
                 case 3:
-                    return Assets.instance.staticBackground.tubes2;
+                    return Assets.instance.staticBackground.clouds1;
                 case 4:
-                    return Assets.instance.staticBackground.tubes4;
+                    return Assets.instance.staticBackground.clouds3;
                 case 5:
                     return Assets.instance.staticBackground.clouds2;
                 case 6:
                     return Assets.instance.staticBackground.clouds4;
                 default:
-                    return Assets.instance.staticBackground.tubes5;
+                    return Assets.instance.staticBackground.clouds2;
             }
 
         }

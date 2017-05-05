@@ -37,7 +37,7 @@ public class GamePreferences {
         prefs.putString("randomId", randomId);
         prefs.flush();
         // TODO now start in 0 always, just for testing than remove!!
-        lastLevel = 0;
+        //lastLevel = 20;
 
     }
 

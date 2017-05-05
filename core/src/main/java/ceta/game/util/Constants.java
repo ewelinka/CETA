@@ -1,13 +1,11 @@
 package ceta.game.util;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
 
 /**
  * Created by ewe on 7/25/16.
  */
 public class Constants {
-    public static final boolean WITH_CV = true;
+    public static final boolean WITH_CV = false;
 
     public static final int MARGIN_FADE  = 100;
     public static final int COUNTDOWN_MAX = 1; // in seconds
@@ -27,13 +25,20 @@ public class Constants {
     public static final int ERRORS_FOR_HINT = 2;
 
     //TODO change to real numbers!
-    public static final int L1_COMPLETED_NR = 6; // 2 = laste level, 3 first level in L2
-    public static final int L2_COMPLETED_NR = 12; // last level to complete then we pass to L3
-    public static final int L3_COMPLETED_NR = 17;
-    public static final int L4_COMPLETED_NR = 19;
-    public static final int L5_COMPLETED_NR = 20;
-    public static final int L6_COMPLETED_NR = 21;
+    public static final int L1_COMPLETED_NR = 7; // 2 = laste level, 3 first level in L2
+    public static final int L2_COMPLETED_NR = 18; // last level to complete then we pass to L3
+    public static final int L3_COMPLETED_NR = 29;
+    public static final int L4_COMPLETED_NR = 40;
+    public static final int L5_COMPLETED_NR = 54;
+    public static final int L6_COMPLETED_NR = 70;
     public static final int LAST_LEVEL_NR = L6_COMPLETED_NR;
+
+    public static final int L1_HALF_COMPLETED_NR = 4; // 2 = laste level, 3 first level in L2
+    public static final int L2_HALF_COMPLETED_NR = 13; // last level to complete then we pass to L3
+    public static final int L3_HALF_COMPLETED_NR = 24;
+    public static final int L4_HALF_COMPLETED_NR = 35;
+    public static final int L5_HALF_COMPLETED_NR = 47;
+    public static final int L6_HALF_COMPLETED_NR = 62;
 
     public static final int NO_MOVEMENT_DIST = 25;
 

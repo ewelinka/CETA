@@ -36,7 +36,7 @@ public class TutorialScreen extends AbstractGameScreen{
 
         }
         // Render game world to screen
-        worldRenderer.render();
+        worldRenderer.render(deltaTime);
 
     }
 
@@ -51,13 +51,13 @@ public class TutorialScreen extends AbstractGameScreen{
     @Override
     public void show() {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
-        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.inTheZone);
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1VerticalControllerTutorial(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
         worldRenderer = new WorldRendererTutorial(worldController,stage,false,regTex); // default set number line to horizontal
         // android back key
         Gdx.input.setCatchBackKey(true);
+        playAudio();
     }
 
     @Override
@@ -98,6 +98,10 @@ public class TutorialScreen extends AbstractGameScreen{
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(worldController);
         return multiplexer;
+    }
+
+    private void playAudio(){
+        AudioManager.instance.readTutorial();
     }
 
 }

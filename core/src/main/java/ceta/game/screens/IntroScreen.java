@@ -5,6 +5,7 @@ import ceta.game.game.objects.BlackShadow;
 import ceta.game.game.objects.TreeArrow;
 import ceta.game.game.objects.TreeGear;
 import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -63,7 +65,6 @@ public class IntroScreen extends AbstractGameScreen {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(false);
-
         buildIntro();
 
     }
@@ -97,6 +98,10 @@ public class IntroScreen extends AbstractGameScreen {
         animateBlack();
         moveMagnet();
         moveGears();
+        AudioManager.instance.setStage(stage);
+        AudioManager.instance.readInitStory();
+
+
 
     }
 
@@ -142,9 +147,10 @@ public class IntroScreen extends AbstractGameScreen {
     }
 
     private void moveBrunos(){
+        float extraDelay = 1.7f;
         // right side
         b1.addAction(sequence(
-                delay(1.4f),
+                delay(1.4f+extraDelay),
                 moveTo(596,172,0.8f),
                 delay(1.0f),
                 moveTo(482,193,0.8f),
@@ -155,7 +161,7 @@ public class IntroScreen extends AbstractGameScreen {
         ));
 
         b3.addAction(sequence(
-                delay(2.8f),
+                delay(2.8f+extraDelay),
                 moveTo(597,172,1.2f),
                 delay(1.9f),
                 moveTo(482,193,1.4f)
@@ -163,7 +169,7 @@ public class IntroScreen extends AbstractGameScreen {
 
         //left side
         b2.addAction(sequence(
-                delay(0.4f),
+                delay(0.4f+extraDelay),
                 moveTo(-14,166,0.9f),
                 delay(1.0f),
                 moveTo(44,202,0.9f),
@@ -172,7 +178,7 @@ public class IntroScreen extends AbstractGameScreen {
         ));
 
         b4.addAction(sequence(
-                delay(1.0f),
+                delay(1.0f+extraDelay),
                 moveTo(-14,166,0.9f),
                 delay(1.0f),
                 moveTo(44,202,0.9f),
@@ -181,7 +187,7 @@ public class IntroScreen extends AbstractGameScreen {
         ));
 
         b5.addAction(sequence(
-                delay(1.8f),
+                delay(1.8f+extraDelay),
                 moveTo(-14,166,0.9f),
                 delay(1.0f),
                 moveTo(44,202,0.9f),
@@ -230,7 +236,15 @@ public class IntroScreen extends AbstractGameScreen {
 
     private void animateBlack(){
         blackShadow.addAction(sequence(
-                delay(4.0f),
+                delay(4.0f+7.0f),
+                run(new Runnable() {
+                    @Override
+                    public void run() {
+                        AudioManager.instance.setMusicVol(0.05f);
+                        AudioManager.instance.playCreepy();
+
+                    }
+                }),
                 alpha(0.7f,1.7f),
                 delay(0.4f),
                 alpha(0.2f,0.5f),
@@ -239,7 +253,9 @@ public class IntroScreen extends AbstractGameScreen {
                 alpha(0.1f,0.3f),
                 alpha(0.8f,0.1f),
                 alpha(0.2f,0.1f),
-                alpha(0.9f,0.1f)
+                alpha(0.9f,0.1f),
+                delay(3.0f),
+                alpha(0.0f,0.1f)
         ));
     }
 
@@ -252,15 +268,19 @@ public class IntroScreen extends AbstractGameScreen {
 
     private void moveMagnet(){
         magnet.addAction(sequence(
-                delay(7.9f),
+                delay(7.9f+7.0f),
                 moveTo(50,magnet.getY(), 1.9f, Interpolation.bounceOut),
                 delay(0.8f),
                 moveBy(-500,0,0.6f),
-                delay(0.6f),
+                delay(2.0f+12.0f),
                 run(new Runnable() {
                     @Override
                     public void run() {
-                        game.setScreen(new TreeScreen(game,true), ScreenTransitionFade.init(1));
+                        if(Constants.WITH_CV)
+                            game.setScreen(new TutorialCvScreen(game), ScreenTransitionFade.init(1));
+                        else
+                            game.setScreen(new TutorialScreen(game), ScreenTransitionFade.init(1));
+                        //game.setScreen(new TreeScreen(game,true), ScreenTransitionFade.init(1));
                     }
                 })
         ));
@@ -269,40 +289,41 @@ public class IntroScreen extends AbstractGameScreen {
     private void moveGears(){
         int byX = -80;
         int byY = 380;
+        float initDelay = 9.0f+7.0f;
         float delayAction = 0.3f;
 
         g1.addAction(sequence(
-                delay(9.0f),
+                delay(initDelay),
                 moveBy(byX,byY,1.3f,Interpolation.bounce),
                 delay(delayAction),
                 moveBy(-500,0,0.6f)
         ));
         g2.addAction(sequence(
-                delay(9.0f),
+                delay(initDelay),
                 moveBy(byX,byY,1.3f,Interpolation.bounce),
                 delay(delayAction),
                 moveBy(-500,0,0.6f)
         ));
         g3.addAction(sequence(
-                delay(9.0f),
+                delay(initDelay),
                 moveBy(byX,byY,1.3f,Interpolation.bounce),
                 delay(delayAction),
                 moveBy(-500,0,0.6f)
         ));
         g4.addAction(sequence(
-                delay(9.0f),
+                delay(initDelay),
                 moveBy(byX,byY,1.3f,Interpolation.bounce),
                 delay(delayAction),
                 moveBy(-500,0,0.6f)
         ));
         g5.addAction(sequence(
-                delay(9.0f),
+                delay(initDelay),
                 moveBy(byX,byY,1.3f,Interpolation.bounce),
                 delay(delayAction),
                 moveBy(-500,0,0.6f)
         ));
         g6.addAction(sequence(
-                delay(9.0f),
+                delay(initDelay),
                 moveBy(byX,byY,1.3f,Interpolation.bounce),
                 delay(delayAction),
                 moveBy(-500,0,0.6f)

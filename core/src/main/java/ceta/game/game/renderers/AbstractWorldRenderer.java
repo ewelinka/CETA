@@ -40,10 +40,13 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected boolean numberLineIsHorizontal;
     protected int maxShift;
     private  int dotsDist = 5;
+    protected float alphaColor=0.5f;
+    protected boolean fadeIn=true;
+    protected int brunoNowVal = 0;
 
 
     public abstract void init();
-    public abstract void render();
+    public abstract void render(float delta);
     protected abstract void renderGuiScore(SpriteBatch batch);
 
     public void resize (int width, int height) {
@@ -217,15 +220,16 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
 
 
-    protected void renderHelperNumbersHorizontal(SpriteBatch batch){
+    protected void renderHelperNumbersHorizontal(SpriteBatch batch, float aColor){
         int chosenNr = worldController.level.price.getDisplayNumber();
+
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         int counter  = 0;
 
         for(int i = Constants.HORIZONTAL_ZERO_X; i<=Constants.HORIZONTAL_ZERO_X+maxShift*Constants.BASE;i+=Constants.BASE){
             if(levelMinimumNumber+counter == chosenNr)
-                fontNumberLine.setColor(255/255,255/255,213/255,1);
+                fontNumberLine.setColor(Color.WHITE.cpy().lerp(Color.CORAL, aColor));
             else
                 fontNumberLine.setColor(1,1,1,1);
             fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", i, Constants.GROUND_LEVEL -25,0, Align.center,false);
@@ -240,7 +244,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
 
 
-    protected void renderHelperNumbersVertical(SpriteBatch batch){
+    protected void renderHelperNumbersVertical(SpriteBatch batch, float aColor){
         int chosenNr = worldController.level.price.getDisplayNumber();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -250,7 +254,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
             String text = counter+"";
             GlyphLayout layout = new GlyphLayout(fontNumberLine, text);
             if(levelMinimumNumber+counter == chosenNr)
-                fontNumberLine.setColor(255/255,255/255,213/255,1);
+                fontNumberLine.setColor(Color.WHITE.cpy().lerp(Color.CORAL, aColor));
             else
                 fontNumberLine.setColor(1,1,1,1);
             fontNumberLine.draw(batch, (levelMinimumNumber+counter)+"", 258, i + layout.height/2,0,Align.left,false);
@@ -278,11 +282,23 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
-    protected void renderHelperNumbers(SpriteBatch batch){
-        if(numberLineIsHorizontal)
-            renderHelperNumbersHorizontal(batch);
+    protected void renderHelperNumbers(SpriteBatch batch, float delta){
+        if(fadeIn){
+            alphaColor+=(delta);
+        }
         else
-            renderHelperNumbersVertical(batch);
+            alphaColor-=(delta);
+
+        if(alphaColor >= 1.3){
+            fadeIn=false;
+        }
+        if(alphaColor <= 0.1)
+            fadeIn=true;
+
+        if(numberLineIsHorizontal)
+            renderHelperNumbersHorizontal(batch, alphaColor);
+        else
+            renderHelperNumbersVertical(batch,alphaColor);
     }
 
     protected void renderDebugNumbers(SpriteBatch batch){
@@ -302,6 +318,30 @@ public abstract class AbstractWorldRenderer implements Disposable {
             //renderHelperNumberLinesHorizontal(shRenderer);
         }
 
+    }
+
+    protected void renderBrunoPositionLine(ShapeRenderer shRenderer){
+        Gdx.gl.glLineWidth(2);
+        shRenderer.setProjectionMatrix(camera.combined);
+        shRenderer.setColor(Color.CORAL);
+        shRenderer.begin(ShapeRenderer.ShapeType.Line);
+        int brunoNow;
+
+        if(worldController.isWaitForFirstMove())
+            brunoNowVal = worldController.getNowDetectedSum();
+
+        if(numberLineIsHorizontal) {
+            brunoNow = Constants.HORIZONTAL_ZERO_X + brunoNowVal*Constants.BASE;
+            shRenderer.line(brunoNow , Constants.GROUND_LEVEL, brunoNow,Constants.VIEWPORT_HEIGHT/2 - 100);
+            //drawDottedLine(shRenderer,dotsDist,brunoNow, Constants.GROUND_LEVEL, brunoNow,Constants.VIEWPORT_HEIGHT/2 - 100);
+        }
+        else {
+            brunoNow = Constants.GROUND_LEVEL + brunoNowVal*Constants.BASE;
+            shRenderer.line(-Constants.VIEWPORT_WIDTH/2+20 , brunoNow, 240,brunoNow);
+            //drawDottedLine(shRenderer,dotsDist,-Constants.VIEWPORT_WIDTH/2+20 , brunoNow, 240,brunoNow);
+        }
+        shRenderer.end();
+        shRenderer.setColor(Color.WHITE);
     }
 
     protected void renderNumberLineImg(SpriteBatch batch) {
@@ -393,6 +433,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         }
         shRenderer.end();
     }
+
 
 
 
