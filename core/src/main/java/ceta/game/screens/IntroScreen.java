@@ -111,28 +111,23 @@ public class IntroScreen extends AbstractGameScreen {
         b1.setPosition(635,174);
         b1.setScale(-factor, factor);
         b1.setColor(1,1,1,0.9f);
-        addTouch(b1);
         stage.addActor(b1);
 
         b2.setPosition(-80,166);
         b2.setScale(factor,factor);
-        addTouch(b2);
         stage.addActor(b2);
 
         b3.setPosition(665,172);
         b3.setScale(-factor, factor);
         b3.setColor(1,1,1,0.9f);
-        addTouch(b3);
         stage.addActor(b3);
 
         b4.setPosition(-80,166);
         b4.setScale(factor);
-        addTouch(b4);
         stage.addActor(b4);
 
         b5.setPosition(-80,166);
         b5.setScale(factor);
-        addTouch(b5);
         stage.addActor(b5);
 
     }
@@ -208,32 +203,26 @@ public class IntroScreen extends AbstractGameScreen {
 
         g1.setPosition(gearsPositions[0][0], gearsPositions[0][1]);
         g1.setScale(gearScale);
-        addTouch(g1);
         stage.addActor(g1);
 
         g2.setPosition(gearsPositions[1][0], gearsPositions[1][1]);
         g2.setScale(gearScale);
-        addTouch(g2);
         stage.addActor(g2);
 
         g3.setPosition(gearsPositions[2][0], gearsPositions[2][1]);
         g3.setScale(gearScale);
-        addTouch(g3);
         stage.addActor(g3);
 
         g4.setPosition(gearsPositions[3][0], gearsPositions[3][1]);
         g4.setScale(gearScale);
-        addTouch(g4);
         stage.addActor(g4);
 
         g5.setPosition(gearsPositions[4][0], gearsPositions[4][1]);
         g5.setScale(gearScale);
-        addTouch(g5);
         stage.addActor(g5);
 
         g6.setPosition(gearsPositions[5][0], gearsPositions[5][1]);
         g6.setScale(gearScale);
-        addTouch(g6);
         stage.addActor(g6);
 
 
@@ -319,35 +308,5 @@ public class IntroScreen extends AbstractGameScreen {
                 moveBy(-500,0,0.6f)
         ));
 
-    }
-
-    private void addTouch(final Image img){
-        img.setTouchable(Touchable.enabled);
-        // to move around
-        img.addListener(new ActorGestureListener() {
-
-            @Override
-            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-                img.setPosition(img.getX()+deltaX,img.getY()+deltaY);
-                Gdx.app.log(TAG," === x "+img.getX()+" y "+img.getY());
-            }
-
-
-        });
-    }
-
-    private void addTouch(final TreeGear img){
-        img.setTouchable(Touchable.enabled);
-        // to move around
-        img.addListener(new ActorGestureListener() {
-
-            @Override
-            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-                img.setPosition(img.getX()+deltaX,img.getY()+deltaY);
-                Gdx.app.log(TAG," === x "+img.getX()+" y "+img.getY());
-            }
-
-
-        });
     }
 }
