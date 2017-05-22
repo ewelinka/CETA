@@ -183,8 +183,9 @@ public class IntroBrunoScreen extends AbstractGameScreen {
                 run(new Runnable() {
                     @Override
                     public void run() {
+                        game.getLevelsManager().goToFirstUncompletedLevel(true);
 
-                        game.setScreen(new IntroScreen(game),ScreenTransitionFade.init(0.75f));
+                       // game.setScreen(new IntroScreen(game),ScreenTransitionFade.init(0.75f));
                     }
                 })
         ));

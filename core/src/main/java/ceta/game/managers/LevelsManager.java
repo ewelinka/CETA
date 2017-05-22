@@ -49,9 +49,11 @@ public class LevelsManager {
         goToNextLevel(forcedLastCompletedLevel);
     }
 
-    private void resetToZero(){
+    private void resetToZeroAndAddRepeat(){
         lastLevelCompleted = 0;
         GamePreferences.instance.setLastLevel(lastLevelCompleted);
+        GamePreferences.instance.addOneRepeat();
+
     }
 
     public void goToFirstUncompletedLevel(boolean isInit){
@@ -119,7 +121,7 @@ public class LevelsManager {
 
     public void goToNextLevel(int completedLevel){
         if(completedLevel >= Constants.LAST_LEVEL_NR){
-            resetToZero();
+            resetToZeroAndAddRepeat();
             completedLevel = 0;
         }
         if (Constants.WITH_CV) {

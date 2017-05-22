@@ -3,6 +3,7 @@ package ceta.game.game.renderers;
 import ceta.game.game.Assets;
 import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -193,11 +194,11 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
     protected void renderLevelNumber(SpriteBatch batch){
-        GlyphLayout layout = new GlyphLayout(bigGuiFont, levelTxt+worldController.getLevelNr());
+        GlyphLayout layout = new GlyphLayout(bigGuiFont, levelTxt+(worldController.getLevelNr()+Constants.LAST_LEVEL_NR* GamePreferences.instance.getRepeatNr()));
 //        batch.setProjectionMatrix(camera.combined);
 //        batch.begin();
         bigGuiFont.setColor(0,0,0,0.7f);
-        bigGuiFont.draw(batch, levelTxt+worldController.getLevelNr(), 0, 500,0, Align.center,false);
+        bigGuiFont.draw(batch, levelTxt+(worldController.getLevelNr()+Constants.LAST_LEVEL_NR*GamePreferences.instance.getRepeatNr()), 0, 500,0, Align.center,false);
 //        batch.end();
 
 
