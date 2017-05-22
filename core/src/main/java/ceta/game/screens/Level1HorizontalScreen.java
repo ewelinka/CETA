@@ -37,7 +37,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen{
 
         }
         // Render game world to screen
-        worldRenderer.render();
+        worldRenderer.render(deltaTime);
 
     }
 

@@ -22,7 +22,6 @@ public class WorldRenderer1Vertical extends WorldRenderer{
 
     @Override
     protected void renderDetectionZoneImg(SpriteBatch batch) {
-        TextureAtlas.AtlasRegion blocksZone = Assets.instance.background.blocksTablet;
         // render for deposite
         TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneV1Tablet;
 

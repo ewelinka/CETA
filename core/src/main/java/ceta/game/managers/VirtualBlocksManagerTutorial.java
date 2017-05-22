@@ -58,7 +58,7 @@ public class VirtualBlocksManagerTutorial extends VirtualBlocksManager {
         final VirtualBlock firstToMove = getBlockByValue(1);
 
         hand.addAction(sequence(
-                delay(2.0f),
+                delay(2.0f+2.0f),
                 Actions.moveTo(firstToMove.getX()-hand.getWidth()+55,firstToMove.getY()-hand.getHeight()+55,2.0f),
                 delay(1.0f),
                 Actions.moveBy(200,140,1.0f),
@@ -67,7 +67,7 @@ public class VirtualBlocksManagerTutorial extends VirtualBlocksManager {
 
         ));
         firstToMove.addAction(sequence(
-                delay(5.0f),
+                delay(5.0f+2.0f),
                 Actions.moveBy(200,140,1.0f),
                 run(new Runnable() {
                     @Override

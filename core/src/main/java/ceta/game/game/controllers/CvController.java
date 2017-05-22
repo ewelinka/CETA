@@ -109,6 +109,11 @@ public class CvController extends AbstractWorldController {
 
     }
 
+    @Override
+    public boolean isWaitForFirstMove(){
+        return cvBlocksManager.isWaitForFirstMove();
+    }
+
 
     @Override
     protected void testCollisionsInController(boolean isDynamic) {

@@ -1,6 +1,7 @@
 package ceta.game.util;
 
 import ceta.game.game.Assets;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,6 +18,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
  */
 
 public class AudioManager {
+    public static final String TAG = AudioManager.class.getName();
+
     public static final AudioManager instance = new AudioManager();
     private Music playingMusic;
     private Sound currentSound;
@@ -53,8 +56,39 @@ public class AudioManager {
         sound.play(defaultVolSound , 1, 1);
     }
 
+    public void playWithoutInterruption(Music m) {
+        m.play();
+    }
+
+
     public void playWithoutInterruptionLoud(Sound sound) {
         sound.play(1 , 1, 1);
+    }
+
+    public void playWithoutInterruptionLoud(Music m) {
+        m.play();
+    }
+    private void addMusicToPlay(final Music toPlay, float delayTime){
+        readMe.addAction(run(new Runnable() {
+            public void run() {
+                playWithoutInterruptionLoud(toPlay);
+            }
+        }));
+        Gdx.app.log(TAG,"delay "+delayTime);
+        readMe.addAction(delay(delayTime));
+
+    }
+
+
+    private void addSoundToPlay(final Sound toPlay, float delayTime){
+        readMe.addAction(run(new Runnable() {
+            public void run() {
+                playWithoutInterruption(toPlay);
+            }
+        }));
+        Gdx.app.log(TAG,"delay "+delayTime);
+        readMe.addAction(delay(delayTime));
+
     }
 
     public void addToPlay (int nr) {
@@ -143,6 +177,34 @@ public class AudioManager {
         }
     }
 
+    public void readInitStory(){
+        readMe.reset();
+        addMusicToPlay(Assets.instance.sounds.erase,12.0f);
+        addMusicToPlay(Assets.instance.sounds.malvado,7.0f);
+        addMusicToPlay(Assets.instance.sounds.agarrar,0.0f);
+        reader.addAction(readMe);
+
+    }
+
+    public void readTutorial(){
+        readMe.reset();
+        readMe.addAction(delay(1.5f));
+        addMusicToPlay(Assets.instance.sounds.fichas,8.0f);
+        addMusicToPlay(Assets.instance.sounds.inTheZone,0.0f);
+        reader.addAction(readMe);
+
+    }
+
+    public void readCV(){
+        readMe.reset();
+        readMe.addAction(delay(1.0f));
+        addMusicToPlay(Assets.instance.sounds.estirarse,4.0f);
+        addMusicToPlay(Assets.instance.sounds.poniendo,4.0f);
+        //addMusicToPlay(Assets.instance.sounds.inTheZone,0.0f);
+        reader.addAction(readMe);
+
+    }
+
 
     public void readTheSum(ArrayList<Integer> numbers){
 
@@ -196,6 +258,12 @@ public class AudioManager {
             case 13:
                 playWithoutInterruptionLoud(Assets.instance.sounds.thirteen);
                 break;
+            case 14:
+                playWithoutInterruptionLoud(Assets.instance.sounds.fourteen);
+                break;
+            case 15:
+                playWithoutInterruptionLoud(Assets.instance.sounds.fifteen);
+                break;
         }
 
     }
@@ -213,8 +281,19 @@ public class AudioManager {
         music.play();
 
     }
+
+    public void setMusicVol(float val){
+        playingMusic.setVolume(val);
+    }
     public void stopMusic () {
         if (playingMusic != null) playingMusic.stop();
+    }
+
+    public void playCreepy(){
+        Music creepy = Assets.instance.sounds.creepy;
+        creepy.setVolume(0.25f);
+        playWithoutInterruption(creepy);
+
     }
 
 }

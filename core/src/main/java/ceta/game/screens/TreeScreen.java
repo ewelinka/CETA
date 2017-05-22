@@ -32,15 +32,15 @@ public class TreeScreen extends AbstractGameScreen {
     private static final String TAG = TreeScreen.class.getName();
     private Button btnMenuPlay;
     private Image imgBackground;
-    private TreeGear level1gear, level2gear,level3gear,level4gear, level5gear, level6gear;
-    private Image part1,part2,part3,part4,part5,part6;
+    protected TreeGear level1gear, level2gear,level3gear,level4gear, level5gear, level6gear;
+    protected Image part1,part2,part3,part4,part5,part6;
     private Image b1,b2,b3,b4,b5;
-    private TreeArrow arrow;
-    private int[][] arrowPositions,partsPositions,gearsPositions;
+    protected TreeArrow arrow;
+    protected int[][] arrowPositions,partsPositions,gearsPositions;
     private float automaticPassTime;
     private boolean shouldPass;
 
-    private boolean gameInit;
+    protected boolean gameInit;
 
     public TreeScreen(DirectedGame game) {
         this(game, false);
@@ -143,7 +143,7 @@ public class TreeScreen extends AbstractGameScreen {
 
     }
 
-    private void addGears(){
+    protected void addGears(){
 
 
         level1gear = new TreeGear(Assets.instance.tree.gear3,Assets.instance.tree.gear3inactive);
@@ -216,7 +216,7 @@ public class TreeScreen extends AbstractGameScreen {
     }
 
 
-    private void enableGears(){
+    protected void enableGears(){
         int nowLevel = game.getLevelsManager().getLastLevelCompleted();
         int newActivated = 6;
         Gdx.app.log(TAG, " current level "+nowLevel);
@@ -291,10 +291,9 @@ public class TreeScreen extends AbstractGameScreen {
         }
     }
 
-    private void enableGearsWithAnimation(int newActivated){
+    protected void enableGearsWithAnimation(int newActivated){
         Gdx.app.log(TAG," === enableGearsWithAnimation "+newActivated);
-        if(newActivated!=0)
-            AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.levelPassed);
+
         switch(newActivated){
             case 0:
                 level1gear.setIsMoving(true,0.2f);
@@ -353,7 +352,8 @@ public class TreeScreen extends AbstractGameScreen {
                 level6gear.activateGear();
                 // TODO thats all falks!
                 Gdx.app.log(TAG,"something special for the end");
-                automaticPassTime += 3.0f;
+                automaticPassTime = Constants.AUTOMATIC_LEVEL_PASS + 3.0f;
+                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.gracias);
                 addBrunos();
 
                 break;
@@ -380,7 +380,21 @@ public class TreeScreen extends AbstractGameScreen {
                 moveBy(0,30,s),
                 moveBy(0,-30,s),
                 moveBy(0,30,s),
-                moveBy(0,-30,s)
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s)
         ));
         stage.addActor(b1);
 
@@ -396,7 +410,21 @@ public class TreeScreen extends AbstractGameScreen {
                 moveBy(0,30,s),
                 moveBy(0,-30,s),
                 moveBy(0,30,s),
-                moveBy(0,-30,s)
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s)
         ));
         stage.addActor(b2);
 
@@ -412,7 +440,21 @@ public class TreeScreen extends AbstractGameScreen {
                 moveBy(0,30,s),
                 moveBy(0,-30,s),
                 moveBy(0,30,s),
-                moveBy(0,-30,s)
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s)
         ));
         stage.addActor(b5);
 
@@ -427,7 +469,21 @@ public class TreeScreen extends AbstractGameScreen {
                 moveBy(0,30,s),
                 moveBy(0,-30,s),
                 moveBy(0,30,s),
-                moveBy(0,-30,s)
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s)
         ));
         b3.setScale(-1,1);
         stage.addActor(b3);
@@ -443,7 +499,21 @@ public class TreeScreen extends AbstractGameScreen {
                 moveBy(0,30,s),
                 moveBy(0,-30,s),
                 moveBy(0,30,s),
-                moveBy(0,-30,s)
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,30,s),
+                moveBy(0,-30,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s),
+                moveBy(0,40,s),
+                moveBy(0,-40,s)
         ));
         stage.addActor(b4);
 

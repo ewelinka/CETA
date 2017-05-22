@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.TimeUtils;
-import javafx.scene.layout.VBox;
+//import javafx.scene.layout.VBox;
 
 
 import java.util.ArrayList;

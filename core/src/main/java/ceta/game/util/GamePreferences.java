@@ -21,6 +21,7 @@ public class GamePreferences {
     public int lastLevel;
     public int totalScore;
     public String randomId;
+    public int repeatNr;
 
     private GamePreferences () {
         prefs = Gdx.app.getPreferences(Constants.PREFERENCES);
@@ -33,11 +34,14 @@ public class GamePreferences {
         lastLevel = prefs.getInteger("lastLevel",0);
         totalScore = prefs.getInteger("totalScore",0);
         randomId = prefs.getString("randomId", randomUUID ().toString());
+        repeatNr = prefs.getInteger("repeatNr",0);
+
+        Gdx.app.log(TAG, "============ holaaaa "+repeatNr);
 
         prefs.putString("randomId", randomId);
         prefs.flush();
         // TODO now start in 0 always, just for testing than remove!!
-        lastLevel = 0;
+        //lastLevel = 69;
 
     }
 
@@ -48,6 +52,7 @@ public class GamePreferences {
         prefs.putInteger("lastLevel",lastLevel);
         prefs.putInteger("totalScore",totalScore);
         prefs.putString("randomId", randomId);
+        prefs.putInteger("repeatNr", repeatNr);
         prefs.flush();
     }
 
@@ -70,6 +75,18 @@ public class GamePreferences {
         prefs.putInteger("totalScore", totalScore);
         prefs.flush();
 
+    }
+
+    public void addOneRepeat(){
+        Gdx.app.log(TAG,"===== addOneRepeat ===== "+repeatNr);
+        repeatNr=repeatNr+1;
+        prefs.putInteger("repeatNr", repeatNr);
+        prefs.flush();
+
+    }
+
+    public int getRepeatNr(){
+        return repeatNr;
     }
 
 }

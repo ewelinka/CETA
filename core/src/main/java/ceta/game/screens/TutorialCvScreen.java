@@ -37,7 +37,7 @@ public class TutorialCvScreen extends AbstractGameScreen {
         goingVisible = true;
         changeStay = 1.5f;
         tutorialTimeMillis = 0;
-        maxTutorialTimeSec = 7;
+        maxTutorialTimeSec = 14;
         isChanging = false;
     }
 
@@ -46,7 +46,8 @@ public class TutorialCvScreen extends AbstractGameScreen {
         tutorialTimeMillis+=deltaTime;
         //Gdx.app.log(TAG,"now passed "+tutorialTimeMillis);
         if((tutorialTimeMillis > maxTutorialTimeSec) && !isChanging) {
-            game.setScreen(new TreeScreen(game, true), ScreenTransitionFade.init(1));
+            //game.setScreen(new TreeScreen(game, true), ScreenTransitionFade.init(1));
+            game.setScreen(new TutorialScreen(game), ScreenTransitionFade.init(1));
             isChanging = true;
 
         }
@@ -89,7 +90,7 @@ public class TutorialCvScreen extends AbstractGameScreen {
     public void show() {
         tutorialTimeMillis = 0;
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
-        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.inTheZone);
+
         buildStage();
     }
 
@@ -115,6 +116,9 @@ public class TutorialCvScreen extends AbstractGameScreen {
         Table playMenu = buildPlayMenu();
 
         stage.addActor(layerBackground);
+        //AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.erase);
+        AudioManager.instance.setStage(stage);
+        AudioManager.instance.readCV();
         //stage.addActor(playMenu);
 
     }
@@ -159,7 +163,7 @@ public class TutorialCvScreen extends AbstractGameScreen {
     }
 
     private void onPlayClicked () {
-        //game.setScreen(new SimpleMenuScreen(game), ScreenTransitionFade.init(1));
+        //game.setScreen(new IntroBrunoScreen(game), ScreenTransitionFade.init(1));
         game.setScreen(new TreeScreen(game,true), ScreenTransitionFade.init(1));
     }
 }

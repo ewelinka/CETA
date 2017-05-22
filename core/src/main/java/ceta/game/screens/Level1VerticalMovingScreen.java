@@ -33,7 +33,7 @@ public class Level1VerticalMovingScreen extends AbstractGameScreen {
         }
         // Render game world to screen
         ((WorldRenderer1VerticalMoving)worldRenderer).updateMovingBackground(deltaTime);
-        worldRenderer.render();
+        worldRenderer.render(deltaTime);
     }
 
     @Override
