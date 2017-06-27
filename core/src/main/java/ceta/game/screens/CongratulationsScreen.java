@@ -2,6 +2,7 @@ package ceta.game.screens;
 
 import ceta.game.game.Assets;
 import ceta.game.game.objects.Gear;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -30,7 +31,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
     private Image thumb;
     //private Gear gear;
     private int gearsNr = 5;
-    private boolean moveToNextLevel;
+    protected boolean moveToNextLevel;
 
 
     public CongratulationsScreen(DirectedGame game, int score) {
@@ -55,7 +56,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
 
     public void render (float deltaTime){
         if(moveToNextLevel){
-            game.getLevelsManager().goToFirstUncompletedLevel();
+            game.getLevelsManager().goToFirstUncompletedLevel(false);
             moveToNextLevel = false;
         }
         //blue!
@@ -86,7 +87,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
     private void onPlayClicked () {
 //        ScreenTransition transition = ScreenTransitionFade.init(0.75f);
 //        game.setScreen(new Level1HorizontalScreen(game), transition);
-        game.getLevelsManager().goToFirstUncompletedLevel();
+        game.getLevelsManager().goToFirstUncompletedLevel(false);
     }
 
     private void buildBackgroundLayer () {
@@ -123,6 +124,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
         thumb.setOrigin(thumb.getWidth() / 2, thumb.getHeight() / 2);
         thumb.setPosition(0 - thumb.getWidth(),400);
         thumb.addAction(moveTo(-20, 100, 1.5f, Interpolation.bounceOut));
+        playLevelPassed();
 
 
         //return layer;
@@ -148,6 +150,10 @@ public class CongratulationsScreen extends AbstractGameScreen {
         return tbl;
     }
 
+    protected void playLevelPassed(){
+        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.levelPassed);
+    }
+
     @Override
     public InputProcessor getInputProcessor() {
         return stage;
@@ -155,3 +161,4 @@ public class CongratulationsScreen extends AbstractGameScreen {
 
 
     }
+

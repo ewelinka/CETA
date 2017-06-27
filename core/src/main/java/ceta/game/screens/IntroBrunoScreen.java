@@ -2,6 +2,7 @@ package ceta.game.screens;
 
 import ceta.game.game.Assets;
 import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -22,11 +23,12 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 /**
  * Created by ewe on 1/17/17.
  */
-public class SimpleMenuScreen extends AbstractGameScreen {
+public class IntroBrunoScreen extends AbstractGameScreen {
+    public static final String TAG = IntroBrunoScreen.class.getName();
     private ImageButton btnMenuPlay, btnMenuExit, btnLevels;
     private Image imgBackground, brunoHead,brunoBody,screw,shadow, logo;
 
-    public SimpleMenuScreen(DirectedGame game) {
+    public IntroBrunoScreen(DirectedGame game) {
         super(game);
     }
 
@@ -51,7 +53,10 @@ public class SimpleMenuScreen extends AbstractGameScreen {
     public void show() {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2));
         Gdx.input.setCatchBackKey(false);
+
+        //AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.thirteen);
         buildStage();
+
 
     }
 
@@ -178,8 +183,9 @@ public class SimpleMenuScreen extends AbstractGameScreen {
                 run(new Runnable() {
                     @Override
                     public void run() {
+                        game.getLevelsManager().goToFirstUncompletedLevel(true);
 
-                        game.setScreen(new IntroScreen(game),ScreenTransitionFade.init(0.75f));
+                       // game.setScreen(new IntroScreen(game),ScreenTransitionFade.init(0.75f));
                     }
                 })
         ));
@@ -207,6 +213,7 @@ public class SimpleMenuScreen extends AbstractGameScreen {
                 )
         );
 
+        Gdx.app.log(TAG,"====================================");
 
         logo  = new Image(Assets.instance.menu.logoBruno);
         logo.setSize(566/2,562/2);
@@ -214,6 +221,13 @@ public class SimpleMenuScreen extends AbstractGameScreen {
         logo.addAction(
                     sequence(
                             delay(1.5f),
+                            run(new Runnable() {
+                                @Override
+                                public void run() {
+                                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.welcome);
+
+                                }
+                            }),
                             Actions.moveTo(logo.getX(),Constants.VIEWPORT_HEIGHT/2-281,3.0f, Interpolation.bounceOut)
                     )
         );
@@ -234,7 +248,7 @@ public class SimpleMenuScreen extends AbstractGameScreen {
         // ScreenTransition transition = ScreenTransitionFade.init(0.75f);
         //game.setScreen(screen1, transition);
 
-        game.getLevelsManager().goToFirstUncompletedLevel();
+        game.getLevelsManager().goToFirstUncompletedLevel(true);
 //        game.getLevelsManager().goToNextLevel();
         //game.setScreen(new Level1VerticalScreen(game,1), transition);
     }

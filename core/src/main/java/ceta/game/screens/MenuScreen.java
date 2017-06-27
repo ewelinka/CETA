@@ -97,7 +97,7 @@ public class MenuScreen extends AbstractGameScreen {
        // ScreenTransition transition = ScreenTransitionFade.init(0.75f);
         //game.setScreen(screen1, transition);
 
-        game.getLevelsManager().goToFirstUncompletedLevel();
+        game.getLevelsManager().goToFirstUncompletedLevel(true);
 //        game.getLevelsManager().goToNextLevel();
         //game.setScreen(new Level1VerticalScreen(game,1), transition);
     }

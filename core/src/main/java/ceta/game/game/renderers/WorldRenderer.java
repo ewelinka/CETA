@@ -78,7 +78,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
     }
 
 
-    public void render () {
+    public void render (float delta) {
       //  clearWhite();
         //clearBlue();
         clearGray();
@@ -87,11 +87,14 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderBackgroundImg(spriteBatch);
 
 
+
         if(worldController.isNumberLineVisible())
             renderHelperNumberLines(shapeRenderer);
+
+        renderBrunoPositionLine(shapeRenderer);
         renderWorld(spriteBatch);
         renderNumberLineImg(spriteBatch);
-        renderHelperNumbers(spriteBatch);
+        renderHelperNumbers(spriteBatch,delta);
         renderFeedback();
 //        renderDebugNumbersVertical(spriteBatch);
 //        renderDebugNumbersHorizontal(spriteBatch);
@@ -103,10 +106,6 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
     protected void renderFeedback(){
        // renderWorld(spriteBatch);
-
-
-
-
         if (worldController.getCountdownOn()) {
             if(GamePreferences.instance.actionSubmit)
                 renderCounter(spriteBatch);
@@ -209,8 +208,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
 
         batch.draw(Assets.instance.background.guiGearL,
-                -Constants.VIEWPORT_WIDTH/2-54,Constants.VIEWPORT_HEIGHT/2-90,
-                184,188);
+                -Constants.VIEWPORT_WIDTH/2-34,Constants.VIEWPORT_HEIGHT/2-90*1.2f,
+                184*1.2f,188*1.2f);
 
         batch.draw(Assets.instance.background.guiGearR,
                 Constants.VIEWPORT_WIDTH/2-190,Constants.VIEWPORT_HEIGHT/2-85,
@@ -239,7 +238,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 break;
         }
 
-        normalGuiFont.draw(batch, worldController.score+"",x+50,y+30);
+        normalGuiFont.draw(batch, worldController.score+"/"+worldController.getOperationsNumberToFinishLevel(),x+50,y+30);
         // total score
         batch.draw(Assets.instance.feedback.prices,x+475,y,40,40);
         smallGuiFont.draw(batch, GamePreferences.instance.totalScore+"",x+525,y+27);

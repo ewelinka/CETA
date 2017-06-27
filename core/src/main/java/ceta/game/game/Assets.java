@@ -68,13 +68,26 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/11.wav", Sound.class);
         assetManager.load("sounds/12.wav", Sound.class);
         assetManager.load("sounds/13.wav", Sound.class);
+        assetManager.load("sounds/14.wav", Sound.class);
+        assetManager.load("sounds/15.wav", Sound.class);
         assetManager.load("sounds/muchas.wav", Sound.class);
         assetManager.load("sounds/pocas.wav", Sound.class);
         assetManager.load("sounds/quita.wav", Sound.class);
        // assetManager.load("sounds/yupii.wav", Sound.class);
         assetManager.load("sounds/levelPassed.wav", Sound.class);
         assetManager.load("sounds/repetirNivel.wav", Sound.class);
-        assetManager.load("sounds/marcada.wav", Sound.class);
+        assetManager.load("sounds/marcada.wav", Music.class);
+
+        assetManager.load("sounds/brunoUnaAventura2.mp3", Sound.class);
+        assetManager.load("sounds/erase.mp3", Music.class);
+        assetManager.load("sounds/malvado.mp3", Music.class);
+        assetManager.load("sounds/estirarse.mp3", Music.class);
+        assetManager.load("sounds/agarrar.mp3", Music.class);
+        assetManager.load("sounds/fichasRobo.mp3", Music.class);
+        assetManager.load("sounds/gracias.mp3", Music.class);
+        assetManager.load("sounds/poniendoFichas.mp3", Music.class);
+        assetManager.load("sounds/creepy-min.mp3", Music.class);
+
         // load music
         assetManager.load("music/song1.mp3", Music.class);
 
@@ -402,6 +415,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion arrow,arrowWhite;
         public final TextureAtlas.AtlasRegion part1,part2,part3,part4,part5,part6;
         public final TextureAtlas.AtlasRegion magnet;
+        public final TextureAtlas.AtlasRegion gear1half,gear2half,gear3half,gear4half,gear5half,gear6half;
 
         public  AssetTree(TextureAtlas atlas) {
             tree = atlas.findRegion("arbol-guia"); // is smaller but we will scale up
@@ -426,6 +440,12 @@ public class Assets implements Disposable, AssetErrorListener {
             part5= atlas.findRegion("bombillaB");
             part6= atlas.findRegion("fruto");
             magnet= atlas.findRegion("iman");
+            gear1half = atlas.findRegion("engranaje A");
+            gear2half = atlas.findRegion("engranaje1 A");
+            gear3half = atlas.findRegion("engranaje2 A");
+            gear4half = atlas.findRegion("engranajes3 A");
+            gear5half = atlas.findRegion("engranajes4 A");
+            gear6half = atlas.findRegion("engranajes5 A");
         }
 
     }
@@ -469,11 +489,14 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound two;
         public final Sound three;
         public final Sound four;
-        public final Sound five,six,seven,eight,nine,ten,eleven,twelve,thirteen;
+        public final Sound five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen;
         public final Sound tooMuch;
         public final Sound tooFew;
         public final Sound cleanTable;
-        public final Sound levelPassed,repeatLevel,inTheZone;
+        public final Sound levelPassed,repeatLevel;
+
+        public final Sound welcome;
+        public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,gracias,poniendo,creepy;
 
 
         public AssetSounds (AssetManager am) {
@@ -493,12 +516,24 @@ public class Assets implements Disposable, AssetErrorListener {
             eleven= am.get("sounds/11.wav", Sound.class);
             twelve= am.get("sounds/12.wav", Sound.class);
             thirteen= am.get("sounds/13.wav", Sound.class);
+            fourteen= am.get("sounds/14.wav", Sound.class);
+            fifteen= am.get("sounds/15.wav", Sound.class);
             levelPassed = am.get("sounds/levelPassed.wav", Sound.class);
             repeatLevel = am.get("sounds/repetirNivel.wav", Sound.class);
-            inTheZone= am.get("sounds/marcada.wav", Sound.class);
+            inTheZone= am.get("sounds/marcada.wav", Music.class);
             tooMuch = am.get("sounds/muchas.wav", Sound.class);
             tooFew = am.get("sounds/pocas.wav", Sound.class);
             cleanTable = am.get("sounds/quita.wav", Sound.class);
+            welcome = am.get("sounds/brunoUnaAventura2.mp3", Sound.class);
+            erase = am.get("sounds/erase.mp3", Music.class);
+            malvado = am.get("sounds/malvado.mp3", Music.class);
+            estirarse = am.get("sounds/estirarse.mp3", Music.class);
+            agarrar = am.get("sounds/agarrar.mp3", Music.class);
+            fichas = am.get("sounds/fichasRobo.mp3", Music.class);
+            gracias = am.get("sounds/gracias.mp3", Music.class);
+            poniendo = am.get("sounds/poniendoFichas.mp3", Music.class);
+            creepy = am.get("sounds/creepy-min.mp3", Music.class);
+
 
         }
     }

@@ -91,15 +91,20 @@ public class TreeGear extends Actor {
 
     }
 
+    public void setActiveTexture(TextureRegion aTex){
+        regTexActive = aTex;
+    }
+
 
     public void setActive(boolean setIsActive){
         isActive = setIsActive;
         if(!isActive) {
-           // Gdx.app.log(TAG, " set me gray ");
+            Gdx.app.log(TAG, " set me gray ");
             regTex = regTexInactive;
             isMoving = false;
            // setColor(Color.BLUE);
         }else{
+            Gdx.app.log(TAG, " set me color! ");
             regTex  =regTexActive;
             isMoving = true;
         }

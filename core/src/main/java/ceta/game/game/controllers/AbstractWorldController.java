@@ -87,6 +87,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public abstract boolean isPlayerInactive();
 
     public abstract int getNowDetectedSum();
+    public abstract boolean isWaitForFirstMove();
 
 
     public void init () {
@@ -175,7 +176,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void backToMenu () {
         // switch to menu screen
        // ScreenTransition transition = ScreenTransitionFade.init(1);
-        game.setScreen(new TreeScreen(game,true), oneSegFadeIn);
+       // game.setScreen(new TreeScreen(game,true), oneSegFadeIn);
+        game.getLevelsManager().goToFirstUncompletedLevel(true);
        // game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
     }
 
@@ -483,9 +485,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         if(screenX >570 && screenY < 40){
             game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
         }
-        else if(screenY < 150) {
-            game.getLevelsManager().goToNextLevelWorkaround();
-        }
+//        else if(screenY < 150) {
+//            game.getLevelsManager().goToNextLevelWorkaround();
+//        }
 
         return true;
     }
@@ -685,6 +687,11 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void forceSuccess(){
         happyEnd = true;
         finishTheScreen();
+    }
+
+
+    public boolean isMoveMade(){
+        return moveMade;
     }
 
 

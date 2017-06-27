@@ -117,6 +117,12 @@ public class NoCvController extends AbstractWorldController {
 
     }
 
+    @Override
+    public boolean isWaitForFirstMove(){
+        return virtualBlocksManager.isWaitForFirstMove();
+    }
+
+
 
     @Override
     protected void testCollisionsInController(boolean isDynamic) {
