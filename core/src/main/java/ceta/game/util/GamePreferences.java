@@ -20,6 +20,7 @@ public class GamePreferences {
     public float virtualBlocksAlpha;
     public int lastLevel;
     public int totalScore;
+    public double fvalue = 0.85; //default TopCode f value for adaptive thresholding algorithm
     public String randomId;
     public int repeatNr;
 
@@ -62,7 +63,6 @@ public class GamePreferences {
         prefs.flush();
     }
 
-
     public void setLastLevel(int newLastLevel){
         lastLevel=newLastLevel;
         prefs.putInteger("lastLevel", lastLevel);
@@ -75,6 +75,10 @@ public class GamePreferences {
         prefs.putInteger("totalScore", totalScore);
         prefs.flush();
 
+    }
+    
+    public void setFvalue(double newFvalue){
+        fvalue = newFvalue;
     }
 
     public void addOneRepeat(){

@@ -19,11 +19,12 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class EmergencyScreen extends AbstractGameScreen  {
     private static final String TAG = EmergencyScreen.class.getName();
-    private TextField txtLastLevel,txtLastScore;
+    private TextField txtLastLevel,txtLastScore, txtTopCodeFValue;
     private Skin skin;
     private ImageButton btnPlay;
     private int goToLevel = 1;
     private int lastScore = 0;
+    private double fvalue = 0.85; //default TopCode f value for adaptive thresholding algorithm
 
     public EmergencyScreen(DirectedGame game){
         super(game);
@@ -59,9 +60,14 @@ public class EmergencyScreen extends AbstractGameScreen  {
         txtLastScore.setMessageText("Last score");
         txtLastScore.setPosition(230, 730);
         stage.addActor(txtLastScore);
-
+        
+        txtTopCodeFValue= new TextField("",skin);
+        txtTopCodeFValue.setMessageText("FValue");
+        txtTopCodeFValue.setPosition(230, 630);
+        stage.addActor(txtTopCodeFValue);
+        
         btnPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
-        btnPlay.setPosition(230,530);
+        btnPlay.setPosition(230,330);
         btnPlay.addListener(new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
@@ -144,10 +150,20 @@ public class EmergencyScreen extends AbstractGameScreen  {
         } catch (Exception e) {
                 e.printStackTrace();
         }
-        game.levelsManager.forceLevel(goToLevel);
-        GamePreferences.instance.forceGlobalScore(lastScore);
-        game.levelsManager.goToFirstUncompletedLevel(true);
+        
+        try {
+            fvalue = Double.parseDouble(txtTopCodeFValue.getText());
 
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        
+        game.levelsManager.forceLevel(goToLevel);
+                
+        GamePreferences.instance.forceGlobalScore(lastScore);
+
+        game.levelsManager.goToFirstUncompletedLevel(true);
+        game.setFvalue(fvalue);
     }
 
 

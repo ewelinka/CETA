@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import edu.ceta.vision.android.topcode.ScannerAndroid;
 import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
 import edu.ceta.vision.core.blocks.Block;
 import edu.ceta.vision.core.utils.BlocksMarkersMap;
@@ -58,7 +59,6 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private ArrayMap<Integer,Integer> idToValue;
 
     private Set<Block> currentBlocks;
-
     //public boolean waitForFirstMove;
 
 
@@ -73,6 +73,7 @@ public class CVBlocksManager extends AbstractBlocksManager {
 		//FIXME Ewe --> aca va el rectangulo con la zona de deteccion
         Rect detectionZone = new Rect(Constants.CV_MIN_Y,0,480,480);
         topCodeDetector = new TopCodeDetectorAndroid(50,true,70,5,true,false, false, true, detectionZone);
+        //TODO smarichal--> Ewe acá no se deberia preguntar si es esta en android o en pc? Porque esta clase esta en el core, podria estar siendo ejecutada en pc
         // lastDetectedBlocks = new HashSet<Block>();
         actionsSpeed = 0.5f;
         noChangesSince = TimeUtils.millis();
@@ -102,16 +103,16 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     }
 
-    @Override
+    
+	@Override
     public void updateDetected() {
         new Thread(new Runnable() {
             public void run() {
                 Mat frame = ((CetaGame)game).getAndBlockLastFrame();
                 Core.flip(frame, frame, 0);
-                final Set<Block> finalSet = topCodeDetector.detectBlocks(frame);
+                final Set<Block> finalSet = topCodeDetector.detectBlocks(frame, game.getFvalue());
                 //final Set<Block> finalSet = topCodeDetector.detectBlocks(((CetaGame) game).getAndBlockLastFrame());
                // Gdx.app.log(TAG, "ready with the detection!! framerateee"+Gdx.graphics.getFramesPerSecond());
-
                 detectionReady = true;
                 ((CetaGame) game).releaseFrame();
 

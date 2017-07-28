@@ -29,6 +29,12 @@ public abstract class DirectedGame extends Game {
     public ResultsManager resultsManager;
 
 
+    
+    //smarichal FIXME Maybe this is not the best place to put this parameter
+    double fvalue = 0.85; //default TopCode f value for adaptive thresholding algorithm
+    
+    
+    
     @Override
     public void render () {
         // get delta time and ensure an upper limit of one 60th second
@@ -128,7 +134,19 @@ public abstract class DirectedGame extends Game {
         return levelsManager;
     }
 
+	
+    
+    
+    public double getFvalue() {
+		return fvalue;
+	}
 
+	public void setFvalue(double fvalue) {
+		this.fvalue = fvalue;
+	}
+
+
+    
 
 
 

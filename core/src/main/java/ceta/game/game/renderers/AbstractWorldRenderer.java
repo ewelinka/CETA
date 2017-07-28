@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,6 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+
+import edu.ceta.vision.android.topcode.ScannerAndroid;
 
 /**
  * Created by ewe on 10/19/16.
@@ -108,6 +111,8 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
     protected void renderDetectionZoneImg(SpriteBatch batch){
+    	//TODO smarichal --> Ewe, aca necesito que en caso de que este en modo debug se despligue la imagen 
+    	//que devuelve el metodo ((ScannerAndroid)topCodeDetector.getScanner()).getGdxPreview()
         TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
