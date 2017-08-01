@@ -28,10 +28,6 @@ public abstract class DirectedGame extends Game {
     protected LevelsManager levelsManager;
     public ResultsManager resultsManager;
 
-
-    
-    //smarichal FIXME Maybe this is not the best place to put this parameter
-    double fvalue = 0.85; //default TopCode f value for adaptive thresholding algorithm
     
     
     
@@ -133,23 +129,5 @@ public abstract class DirectedGame extends Game {
     public LevelsManager getLevelsManager(){
         return levelsManager;
     }
-
-	
-    
-    
-    public double getFvalue() {
-		return fvalue;
-	}
-
-	public void setFvalue(double fvalue) {
-		this.fvalue = fvalue;
-	}
-
-
-    
-
-
-
-
 
 }

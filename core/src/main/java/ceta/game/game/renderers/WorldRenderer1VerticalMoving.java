@@ -29,7 +29,7 @@ public class WorldRenderer1VerticalMoving extends WorldRenderer {
         clearGray();
 
         renderBelowTheGround(spriteBatch);
-        renderDetectionZoneImg(spriteBatch);
+        renderDetectionZoneImgOrDebug(spriteBatch);
         renderMoving();
         renderHelperNumberLines(shapeRenderer);
         renderWorld(spriteBatch);

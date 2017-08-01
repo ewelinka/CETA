@@ -8,6 +8,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -19,12 +20,14 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class EmergencyScreen extends AbstractGameScreen  {
     private static final String TAG = EmergencyScreen.class.getName();
-    private TextField txtLastLevel,txtLastScore, txtTopCodeFValue;
+    private TextField txtLastLevel,txtLastScore, txtTopCodeFValue, txtRepeat;
+    private CheckBox chkUseDebug;
     private Skin skin;
     private ImageButton btnPlay;
     private int goToLevel = 1;
     private int lastScore = 0;
-    private double fvalue = 0.85; //default TopCode f value for adaptive thresholding algorithm
+    private int repeat = 0;
+    private float fvalue = 0.85f; //default TopCode f value for adaptive thresholding algorithm
 
     public EmergencyScreen(DirectedGame game){
         super(game);
@@ -60,14 +63,27 @@ public class EmergencyScreen extends AbstractGameScreen  {
         txtLastScore.setMessageText("Last score");
         txtLastScore.setPosition(230, 730);
         stage.addActor(txtLastScore);
-        
+
+        txtRepeat= new TextField("",skin);
+        txtRepeat.setMessageText("Repeat round");
+        txtRepeat.setPosition(230, 630);
+        stage.addActor(txtRepeat);
+
         txtTopCodeFValue= new TextField("",skin);
         txtTopCodeFValue.setMessageText("FValue");
-        txtTopCodeFValue.setPosition(230, 630);
+        txtTopCodeFValue.setPosition(230, 530);
         stage.addActor(txtTopCodeFValue);
+
+        chkUseDebug = new CheckBox("Use debug", skin);
+        chkUseDebug.setPosition(230,430);
+        chkUseDebug.setChecked(GamePreferences.instance.getUseDebug());
+        stage.addActor(chkUseDebug);
+//        tbl.add(new Label("Use Monochrome Shader", skinLibgdx));
+//        tbl.add(chkUseMonoChromeShader);
+//        tbl.row();
         
         btnPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
-        btnPlay.setPosition(230,330);
+        btnPlay.setPosition(230,230);
         btnPlay.addListener(new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
@@ -76,48 +92,6 @@ public class EmergencyScreen extends AbstractGameScreen  {
         });
         stage.addActor(btnPlay);
 
-//        Gdx.input.getTextInput(new Input.TextInputListener() {
-//            @Override
-//            public void input (String inputTxt) {
-//                Gdx.app.log(TAG,"we have txt! "+inputTxt);
-//
-//                try {
-//                    goToLevel = Integer.parseInt(inputTxt);
-//
-//                } catch (Exception e) {
-//                    goToLevel = 0;
-//                    e.printStackTrace();
-//                }
-//                game.levelsManager.forceLevel(goToLevel);
-//
-//                game.setScreen(new TreeScreen(game,true));
-//            }
-//
-//            @Override
-//            public void canceled () {
-//                game.setScreen(new TreeScreen(game,true));
-//            }
-//        }, "Go to level", "", "Go to level");
-//
-//        Gdx.input.getTextInput(new Input.TextInputListener() {
-//            @Override
-//            public void input (String inputTxt) {
-//                Gdx.app.log(TAG,"we have txt! "+inputTxt);
-//
-//                try {
-//                    lastScore = Integer.parseInt(inputTxt);
-//
-//                } catch (Exception e) {
-//                    lastScore=0;
-//                    e.printStackTrace();
-//                }
-//                GamePreferences.instance.forceGlobalScore(lastScore);
-//            }
-//
-//            @Override
-//            public void canceled () {
-//            }
-//        }, "Global score", "", "Global score");
 
     }
 
@@ -150,20 +124,34 @@ public class EmergencyScreen extends AbstractGameScreen  {
         } catch (Exception e) {
                 e.printStackTrace();
         }
+
+        try {
+            repeat = Integer.parseInt(txtRepeat.getText());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         try {
-            fvalue = Double.parseDouble(txtTopCodeFValue.getText());
+            //fvalue = Double.parseDouble(txtTopCodeFValue.getText());
+            fvalue = Float.parseFloat(txtTopCodeFValue.getText());
 
         } catch (Exception e) {
                 e.printStackTrace();
         }
+
+
         
         game.levelsManager.forceLevel(goToLevel);
                 
         GamePreferences.instance.forceGlobalScore(lastScore);
-
+        GamePreferences.instance.forceRepeatNr(repeat );
+        GamePreferences.instance.setFvalue(fvalue);
+        GamePreferences.instance.setUseDebug(chkUseDebug.isChecked());
         game.levelsManager.goToFirstUncompletedLevel(true);
-        game.setFvalue(fvalue);
+
+
+
     }
 
 

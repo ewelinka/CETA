@@ -5,14 +5,11 @@ import ceta.game.game.controllers.AbstractWorldController;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -21,6 +18,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 
 import edu.ceta.vision.android.topcode.ScannerAndroid;
+import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
+
 
 /**
  * Created by ewe on 10/19/16.
@@ -47,6 +46,10 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected float alphaColor=0.5f;
     protected boolean fadeIn=true;
     protected int brunoNowVal = 0;
+    private Texture tex;
+    private Pixmap pixmap;
+    private Sprite sprite;
+    private int debugImgSize =360;
 
 
     public abstract void init();
@@ -110,9 +113,29 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
+    protected void renderDetectionZoneImgOrDebug(SpriteBatch batch){
+        if(GamePreferences.instance.getUseDebug() && (Gdx.app.getType() == Application.ApplicationType.Android)) // TODO when PC implemented, add PC debug case
+//        if(GamePreferences.instance.getUseDebug()) // TODO when PC implemented, add PC debug case
+            renderDetectionZoneDebugImgAndroid(batch);
+        else
+            renderDetectionZoneImg(batch);
+
+    }
+
+    protected void renderDetectionZoneDebugImgAndroid(SpriteBatch batch){
+        ScannerAndroid scannerAndroid = (ScannerAndroid)(((TopCodeDetectorAndroid)worldController.getCVBlocksManager().getTopCodeDetector()).getScanner());
+
+        pixmap = scannerAndroid.getGdxPreview();
+        tex = new Texture(new PixmapTextureData(pixmap, pixmap.getFormat(), false, false, true));
+
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(tex,-debugImgSize/2, Constants.DETECTION_LIMIT,debugImgSize,debugImgSize); // scale the image to fit to detection zone 360 x 360
+        batch.end();
+
+    }
+
     protected void renderDetectionZoneImg(SpriteBatch batch){
-    	//TODO smarichal --> Ewe, aca necesito que en caso de que este en modo debug se despligue la imagen 
-    	//que devuelve el metodo ((ScannerAndroid)topCodeDetector.getScanner()).getGdxPreview()
         TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
