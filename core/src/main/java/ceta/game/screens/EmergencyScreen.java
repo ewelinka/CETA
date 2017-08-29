@@ -111,32 +111,41 @@ public class EmergencyScreen extends AbstractGameScreen  {
     }
 
     private void onPlayClicked(){
+
         try {
-            lastScore = Integer.parseInt(txtLastScore.getText());
+            if(!txtLastScore.getText().equals("")) {
+                lastScore = Integer.parseInt(txtLastScore.getText());
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-            goToLevel = Integer.parseInt(txtLastLevel.getText());
+            if(!txtLastLevel.getText().equals("")) {
+                goToLevel = Integer.parseInt(txtLastLevel.getText());
+            }
 
         } catch (Exception e) {
                 e.printStackTrace();
         }
 
         try {
-            repeat = Integer.parseInt(txtRepeat.getText());
+            if(!txtRepeat.getText().equals("")) {
+                repeat = Integer.parseInt(txtRepeat.getText());
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         try {
-            //fvalue = Double.parseDouble(txtTopCodeFValue.getText());
-            fvalue = Float.parseFloat(txtTopCodeFValue.getText());
+            if(!txtTopCodeFValue.getText().equals("")) {
+                fvalue = Float.parseFloat(txtTopCodeFValue.getText());
+            }
 
         } catch (Exception e) {
+            Gdx.app.log(TAG,"fvalue "+fvalue);
                 e.printStackTrace();
         }
 
