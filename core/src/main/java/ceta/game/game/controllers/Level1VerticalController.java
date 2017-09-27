@@ -4,6 +4,7 @@ import ceta.game.game.levels.Level1Vertical;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.managers.BrunosManager;
 import ceta.game.screens.DirectedGame;
+import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import ceta.game.managers.VirtualBlocksManager;
 import com.badlogic.gdx.Gdx;
@@ -69,19 +70,23 @@ public class Level1VerticalController extends NoCvController {
     @Override
     protected void testCollisionsVerticalDynamic(BrunoVertical objectToCheck){
         if(objectToCheck != null ) {
-            r1.set(objectToCheck.getX() ,
-                    objectToCheck.getY()+ objectToCheck.getHeight() - 4, // two pixels below the middle
-                    objectToCheck.getWidth(), 4);
-            r2.set(level.price.getX(),
-                    level.price.getY(),
-                    level.price.getWidth()/2, level.price.getHeight()/2);
+            if ((level.price.getX() < 190) //not very right
+                    && level.price.getX() > objectToCheck.getX()) {
+                r1.set(objectToCheck.getX(),
+                        objectToCheck.getY() + objectToCheck.getHeight() - 4, // two pixels below the middle
+                        objectToCheck.getWidth(), 4);
+                r2.set(-Constants.VIEWPORT_WIDTH/2,
+                        level.price.getY(),
+                        Constants.VIEWPORT_WIDTH, level.price.getHeight() / 2);
 
-            if (r1.overlaps(r2)) {
-                onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
-                moveMade = false;
+                if (r1.overlaps(r2)) {
+                    onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
+                    moveMade = false;
+                }
             }
         }
     }
+
 
     public BrunoVertical getLastBruno(){
         return brunosManager.getLastBruno();

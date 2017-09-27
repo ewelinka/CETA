@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import ceta.game.util.GamePreferences;
+import com.badlogic.gdx.Application;
+import edu.ceta.vision.core.topcode.TopCodeDetector;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -26,6 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import edu.ceta.vision.android.topcode.ScannerAndroid;
 import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
 import edu.ceta.vision.core.blocks.Block;
 import edu.ceta.vision.core.utils.BlocksMarkersMap;
@@ -35,7 +39,7 @@ import edu.ceta.vision.core.utils.BlocksMarkersMap;
  */
 public class CVBlocksManager extends AbstractBlocksManager {
     public static final String TAG = CVBlocksManager.class.getName();
-    private TopCodeDetectorAndroid topCodeDetector;
+    private TopCodeDetector topCodeDetector;
     private DirectedGame game;
 
     // private Set<Block> lastDetectedBlocks;
@@ -58,7 +62,6 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private ArrayMap<Integer,Integer> idToValue;
 
     private Set<Block> currentBlocks;
-
     //public boolean waitForFirstMove;
 
 
@@ -72,7 +75,9 @@ public class CVBlocksManager extends AbstractBlocksManager {
         Gdx.app.log(TAG,"in init!!");
 		//FIXME Ewe --> aca va el rectangulo con la zona de deteccion
         Rect detectionZone = new Rect(Constants.CV_MIN_Y,0,480,480);
-        topCodeDetector = new TopCodeDetectorAndroid(50,true,70,5,true,false, false, true, detectionZone);
+        if((Gdx.app.getType() == Application.ApplicationType.Android)) {
+            topCodeDetector = new TopCodeDetectorAndroid(50, true, 70, 5, true, false, false, true, detectionZone);
+        }
         // lastDetectedBlocks = new HashSet<Block>();
         actionsSpeed = 0.5f;
         noChangesSince = TimeUtils.millis();
@@ -102,29 +107,35 @@ public class CVBlocksManager extends AbstractBlocksManager {
 
     }
 
-    @Override
+    
+	@Override
     public void updateDetected() {
-        new Thread(new Runnable() {
-            public void run() {
-                Mat frame = ((CetaGame)game).getAndBlockLastFrame();
-                Core.flip(frame, frame, 0);
-                final Set<Block> finalSet = topCodeDetector.detectBlocks(frame);
-                //final Set<Block> finalSet = topCodeDetector.detectBlocks(((CetaGame) game).getAndBlockLastFrame());
-               // Gdx.app.log(TAG, "ready with the detection!! framerateee"+Gdx.graphics.getFramesPerSecond());
+        if((Gdx.app.getType() == Application.ApplicationType.Android)) {
+            new Thread(new Runnable() {
+                public void run() {
+                    Mat frame = ((CetaGame) game).getAndBlockLastFrame();
+                    Core.flip(frame, frame, 0);
 
-                detectionReady = true;
-                ((CetaGame) game).releaseFrame();
+                    final Set<Block> finalSet = ((TopCodeDetectorAndroid) topCodeDetector).detectBlocks(frame, GamePreferences.instance.getFvalue());
+                    //final Set<Block> finalSet = topCodeDetector.detectBlocks(((CetaGame) game).getAndBlockLastFrame());
+                    // Gdx.app.log(TAG, "ready with the detection!! framerateee"+Gdx.graphics.getFramesPerSecond());
+                    detectionReady = true;
+                    ((CetaGame) game).releaseFrame();
 
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        // process the result, e.g. add it to an Array<Result> field of the ApplicationListener.
-                        results.clear();
-                        results.add(finalSet);
-                    }
-                });
-            }
-        }).start();
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            // process the result, e.g. add it to an Array<Result> field of the ApplicationListener.
+                            results.clear();
+                            results.add(finalSet);
+                        }
+                    });
+                }
+            }).start();
+        }
+        else{
+            //PC case
+        }
     }
 
     public void analyseDetected(){
@@ -489,6 +500,10 @@ public class CVBlocksManager extends AbstractBlocksManager {
     private boolean needAS(){
         Gdx.app.log(TAG,"needAS??? "+toRemoveCVIds.size()+" "+newDetectedCVPairs.size());
         return (toRemoveCVIds.size()>0 || newDetectedCVPairs.size()>0);
+    }
+
+    public TopCodeDetector getTopCodeDetector(){
+        return topCodeDetector;
     }
 
 }

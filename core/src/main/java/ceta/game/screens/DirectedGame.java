@@ -28,7 +28,9 @@ public abstract class DirectedGame extends Game {
     protected LevelsManager levelsManager;
     public ResultsManager resultsManager;
 
-
+    
+    
+    
     @Override
     public void render () {
         // get delta time and ensure an upper limit of one 60th second
@@ -127,11 +129,5 @@ public abstract class DirectedGame extends Game {
     public LevelsManager getLevelsManager(){
         return levelsManager;
     }
-
-
-
-
-
-
 
 }

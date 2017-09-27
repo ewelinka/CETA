@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class CvController extends AbstractWorldController {
     private static final String TAG = CvController.class.getName();
-    protected CVBlocksManager cvBlocksManager;
+
 
 
 

@@ -6,6 +6,7 @@ import ceta.game.game.levels.Level3Horizontal;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.*;
 import ceta.game.managers.AbstractBlocksManager;
+import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
@@ -55,6 +56,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     private ArrayList<Integer> toReadVals;
 
     protected int operationsNumberToPassToNext;
+    protected CVBlocksManager cvBlocksManager;
 
 
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
@@ -482,9 +484,18 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     @Override
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
         Gdx.app.log(TAG," TOUCHED "+screenX+ " "+screenY);
-        if(screenX >570 && screenY < 40){
-            game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
+        if (Gdx.app.getType() == Application.ApplicationType.Android) {
+            if (screenX > 570 && screenY < 40) {
+                game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
+            }
+        }else {
+
+            if (screenX > 440 && screenY < 10) {
+                game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
+            }
         }
+
+
 //        else if(screenY < 150) {
 //            game.getLevelsManager().goToNextLevelWorkaround();
 //        }
@@ -692,6 +703,10 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public boolean isMoveMade(){
         return moveMade;
+    }
+
+    public CVBlocksManager getCVBlocksManager(){
+        return cvBlocksManager;
     }
 
 

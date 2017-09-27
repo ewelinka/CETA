@@ -83,7 +83,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
         //clearBlue();
         clearGray();
         renderBelowTheGround(spriteBatch);
-        renderDetectionZoneImg(spriteBatch);
+        renderDetectionZoneImgOrDebug(spriteBatch);
         renderBackgroundImg(spriteBatch);
 
 

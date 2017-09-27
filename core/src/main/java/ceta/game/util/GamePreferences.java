@@ -20,8 +20,10 @@ public class GamePreferences {
     public float virtualBlocksAlpha;
     public int lastLevel;
     public int totalScore;
+    public float fvalue;
     public String randomId;
     public int repeatNr;
+    public boolean useDebug;
 
     private GamePreferences () {
         prefs = Gdx.app.getPreferences(Constants.PREFERENCES);
@@ -35,14 +37,12 @@ public class GamePreferences {
         totalScore = prefs.getInteger("totalScore",0);
         randomId = prefs.getString("randomId", randomUUID ().toString());
         repeatNr = prefs.getInteger("repeatNr",0);
-
-        Gdx.app.log(TAG, "============ holaaaa "+repeatNr);
-
+        fvalue = prefs.getFloat("fvalue",0.85f); //default TopCode f value for adaptive thresholding algorithm
+        useDebug = prefs.getBoolean("useDebug", false);
         prefs.putString("randomId", randomId);
         prefs.flush();
         // TODO now start in 0 always, just for testing than remove!!
         //lastLevel = 69;
-
     }
 
     public void save () {
@@ -53,6 +53,8 @@ public class GamePreferences {
         prefs.putInteger("totalScore",totalScore);
         prefs.putString("randomId", randomId);
         prefs.putInteger("repeatNr", repeatNr);
+        prefs.putFloat("fvalue", fvalue);
+        prefs.putBoolean("useDebug", useDebug);
         prefs.flush();
     }
 
@@ -62,19 +64,26 @@ public class GamePreferences {
         prefs.flush();
     }
 
-
     public void setLastLevel(int newLastLevel){
         lastLevel=newLastLevel;
         prefs.putInteger("lastLevel", lastLevel);
         prefs.flush();
-
     }
 
     public void forceGlobalScore(int newGlobalScore){
         totalScore = newGlobalScore;
         prefs.putInteger("totalScore", totalScore);
         prefs.flush();
+    }
+    
+    public void setFvalue(float newFvalue){
+        fvalue = newFvalue;
+        prefs.putFloat("fvalue", fvalue);
+        prefs.flush();
+    }
 
+    public float getFvalue(){
+        return fvalue;
     }
 
     public void addOneRepeat(){
@@ -82,11 +91,26 @@ public class GamePreferences {
         repeatNr=repeatNr+1;
         prefs.putInteger("repeatNr", repeatNr);
         prefs.flush();
-
     }
 
     public int getRepeatNr(){
         return repeatNr;
+    }
+
+    public void forceRepeatNr(int newRepeatNr){
+        repeatNr = newRepeatNr;
+        prefs.putInteger("repeatNr", repeatNr);
+        prefs.flush();
+    }
+
+    public boolean getUseDebug(){
+        return useDebug;
+    }
+
+    public void setUseDebug(boolean useIt){
+        useDebug = useIt;
+        prefs.putBoolean("useDebug",useDebug);
+        prefs.flush();
     }
 
 }
