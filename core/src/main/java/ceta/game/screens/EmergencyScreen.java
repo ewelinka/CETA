@@ -27,7 +27,7 @@ public class EmergencyScreen extends AbstractGameScreen  {
     private int goToLevel = 1;
     private int lastScore = 0;
     private int repeat = 0;
-    private float fvalue = 0.85f; //default TopCode f value for adaptive thresholding algorithm
+    private float fvalue = GamePreferences.instance.getFvalue();// 0.85f; //default TopCode f value for adaptive thresholding algorithm
 
     public EmergencyScreen(DirectedGame game){
         super(game);
@@ -71,6 +71,7 @@ public class EmergencyScreen extends AbstractGameScreen  {
 
         txtTopCodeFValue= new TextField("",skin);
         txtTopCodeFValue.setMessageText("FValue");
+        txtTopCodeFValue.setText(String.valueOf(fvalue));
         txtTopCodeFValue.setPosition(230, 530);
         stage.addActor(txtTopCodeFValue);
 
