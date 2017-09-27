@@ -27,7 +27,7 @@ public class EmergencyScreen extends AbstractGameScreen  {
     private int goToLevel = 1;
     private int lastScore = 0;
     private int repeat = 0;
-    private float fvalue = 0.85f; //default TopCode f value for adaptive thresholding algorithm
+    private float fvalue = GamePreferences.instance.getFvalue();// 0.85f; //default TopCode f value for adaptive thresholding algorithm
 
     public EmergencyScreen(DirectedGame game){
         super(game);
@@ -71,6 +71,7 @@ public class EmergencyScreen extends AbstractGameScreen  {
 
         txtTopCodeFValue= new TextField("",skin);
         txtTopCodeFValue.setMessageText("FValue");
+        txtTopCodeFValue.setText(String.valueOf(fvalue));
         txtTopCodeFValue.setPosition(230, 530);
         stage.addActor(txtTopCodeFValue);
 
@@ -111,32 +112,41 @@ public class EmergencyScreen extends AbstractGameScreen  {
     }
 
     private void onPlayClicked(){
+
         try {
-            lastScore = Integer.parseInt(txtLastScore.getText());
+            if(!txtLastScore.getText().equals("")) {
+                lastScore = Integer.parseInt(txtLastScore.getText());
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-            goToLevel = Integer.parseInt(txtLastLevel.getText());
+            if(!txtLastLevel.getText().equals("")) {
+                goToLevel = Integer.parseInt(txtLastLevel.getText());
+            }
 
         } catch (Exception e) {
                 e.printStackTrace();
         }
 
         try {
-            repeat = Integer.parseInt(txtRepeat.getText());
+            if(!txtRepeat.getText().equals("")) {
+                repeat = Integer.parseInt(txtRepeat.getText());
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         try {
-            //fvalue = Double.parseDouble(txtTopCodeFValue.getText());
-            fvalue = Float.parseFloat(txtTopCodeFValue.getText());
+            if(!txtTopCodeFValue.getText().equals("")) {
+                fvalue = Float.parseFloat(txtTopCodeFValue.getText());
+            }
 
         } catch (Exception e) {
+            Gdx.app.log(TAG,"fvalue "+fvalue);
                 e.printStackTrace();
         }
 
