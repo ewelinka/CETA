@@ -8,6 +8,7 @@ import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import ceta.game.util.LevelsCsv;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 //import com.sun.tools.internal.jxc.apt.Const;
@@ -151,7 +152,7 @@ public class LevelsManager {
         if (levelCharacteristics.isHorizontal){
             switch(levelCharacteristics.representation){
                 case 1:
-                    game.setScreen(new Level1HorizontalScreen(
+                    game.setScreen(new Level1HorizontalDesktopScreen(
                             game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
                             transition);
                     break;

@@ -6,6 +6,7 @@ import ceta.game.game.levels.Level3Horizontal;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.*;
 import ceta.game.managers.AbstractBlocksManager;
+import ceta.game.managers.CVBlocksDesktopManager;
 import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
@@ -56,7 +57,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     private ArrayList<Integer> toReadVals;
 
     protected int operationsNumberToPassToNext;
-    protected CVBlocksManager cvBlocksManager;
+    protected CVBlocksDesktopManager cvBlocksManager;
 
 
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
@@ -78,6 +79,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
 
+    public abstract void updateDesktop(float delta);
     public abstract void update(float delta);
     protected abstract void testCollisionsInController(boolean isDynamic);
     protected abstract void readDetectedSaveIntentAndLastSolution();
@@ -705,7 +707,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         return moveMade;
     }
 
-    public CVBlocksManager getCVBlocksManager(){
+    public CVBlocksDesktopManager getCVBlocksManager(){
         return cvBlocksManager;
     }
 

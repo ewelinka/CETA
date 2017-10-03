@@ -26,6 +26,8 @@ public class CetaGame extends DirectedGame {
 	public void create () {
 		Constants c = new Constants(); // to set the constants (tablet or cv)
 		this.frameBlocked = false;
+		//TODO:smarichal should hasNewFrame be initialized in false?
+		//this.hasNewFrame = false;
 		// Set Libgdx log level
 		Gdx.app.setLogLevel(Application.LOG_NONE);
 		// Load assets

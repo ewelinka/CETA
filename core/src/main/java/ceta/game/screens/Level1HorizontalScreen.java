@@ -33,7 +33,7 @@ public class Level1HorizontalScreen extends AbstractGameScreen{
 
         // Do not update game world when paused.
         if (!paused) {
-            worldController.update(deltaTime);
+            worldController.updateDesktop(deltaTime);
 
         }
         // Render game world to screen

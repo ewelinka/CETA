@@ -9,9 +9,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import ceta.game.util.GamePreferences;
-import com.badlogic.gdx.Application;
-import edu.ceta.vision.core.topcode.TopCodeDetector;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -20,8 +17,10 @@ import ceta.game.CetaGame;
 import ceta.game.game.objects.VirtualBlock;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 import ceta.game.util.Pair;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -29,9 +28,9 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import edu.ceta.vision.android.topcode.ScannerAndroid;
 import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
 import edu.ceta.vision.core.blocks.Block;
+import edu.ceta.vision.core.topcode.TopCodeDetector;
 import edu.ceta.vision.core.utils.BlocksMarkersMap;
 
 /**

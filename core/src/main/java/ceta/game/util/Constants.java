@@ -5,7 +5,7 @@ package ceta.game.util;
  * Created by ewe on 7/25/16.
  */
 public class Constants {
-    public static final boolean WITH_CV = true;
+    public static final boolean WITH_CV = true	;
 
     public static final int MARGIN_FADE  = 100;
     public static final int COUNTDOWN_MAX = 1; // in seconds

@@ -4,8 +4,11 @@ import ceta.game.CetaGame;
 import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.Constants;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
+import edu.ceta.vision.core.topcode.TopCodeDetectorDesktop;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,70 @@ public class CvController extends AbstractWorldController {
 
     }
 
+
+    @Override
+    public void updateDesktop(float deltaTime) {
+    	  globalUpdate(deltaTime);
+                
+          Gdx.app.log(TAG," framerateeee" +Gdx.graphics.getFramesPerSecond());
+          if(!((TopCodeDetectorDesktop)cvBlocksManager.getTopCodeDetector()).isBusy()){ //ask before in order to not accumulate new threads.
+	          cvBlocksManager.updateDetected();
+	      
+	          if(cvBlocksManager.isDetectionReady()){
+	              cvBlocksManager.analyseDetected();
+	          }
+	          /// detection-related end
+          }
+          /// inactivity?
+          if(isPlayerInactive()){
+              //Gdx.app.log(TAG, " INACTIVITY_LIMIT !");
+              setPlayerInactive(true);
+          }else{
+              setPlayerInactive(false);
+          }
+
+          // we start to act after kids move
+          if (!cvBlocksManager.isWaitForFirstMove()) {
+              if (cvBlocksManager.getTimeWithoutChange() > timeToWait) {
+                  if (!countdownOn) {//if we are not counting, we start!
+                      Gdx.app.log(TAG, "NOT waiting OVER limit NOT counting -> set TRUE");
+                      setCountdownOn(true);
+                  }
+              } else {
+                  if (true) {
+                      //setPlayerInactive(false);
+                      Gdx.app.log(TAG, "NOT waiting NOT-OVER limit NOT counting -> set FALSE");
+                      setCountdownOn(false); // if somebody moved a block
+
+                  }
+              }
+          }
+          else{
+              setCountdownOn(false);
+          }
+
+
+          if (countdownOn) {
+              countdownMove();
+              //setPlayerInactive(false);
+              if (countdownCurrentTime < 0) {
+
+                  updateDigitalRepresentations(); // ACTION SUBMIT !
+                  readDetectedSaveIntentAndLastSolution();
+                  moveMade = true;
+                  cvBlocksManager.resetDetectedAndRemoved();
+                  Gdx.app.log(TAG, "countdown ON , countdownCurrentTime < 0 -> set FALSE");
+                  setCountdownOn(false);
+                  cvBlocksManager.setWaitForFirstMove(true);
+                  cvBlocksManager.resetNoChangesSince();
+              } else {
+                  countdownCurrentTime -= deltaTime;
+              }
+          }
+
+          cameraHelper.update(deltaTime);
+    }
+    
     @Override
     public void update(float deltaTime) {
         globalUpdate(deltaTime);
