@@ -1,6 +1,7 @@
 package ceta.game.game.levels;
 
 import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.game.objects.Cloud;
 import ceta.game.game.objects.Tube;
 import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;
@@ -22,6 +23,7 @@ public class Level1Vertical extends AbstractLevel {
 
     @Override
     public void init() {
+        //addClouds(3);
         adjustX = -40;
         Gdx.app.log(TAG,"init Level 1 Vertical");
         price = new Price(false, 1, levelParams, worldController);
@@ -34,6 +36,14 @@ public class Level1Vertical extends AbstractLevel {
         stage.addActor(tube);
 
     }
+
+    @Override
+    public void update(float deltaTime) {
+        price.update(deltaTime);
+        stage.act(deltaTime);
+    }
+
+
     @Override
     public void render(SpriteBatch batch) {
         price.toBack();

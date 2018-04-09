@@ -24,17 +24,16 @@ public class Constants {
     public static final int BASE = 40;
     public static final int ERRORS_FOR_HINT = 2;
 
-    //TODO change to real numbers!
-    public static final int L1_COMPLETED_NR = 7; // 2 = laste level, 3 first level in L2
-    public static final int L2_COMPLETED_NR = 18; // last level to complete then we pass to L3
+    public static final int L1_COMPLETED_NR = 7; // 7 = last level, 8 first level in L2
+    public static final int L2_COMPLETED_NR = 18;
     public static final int L3_COMPLETED_NR = 29;
     public static final int L4_COMPLETED_NR = 40;
     public static final int L5_COMPLETED_NR = 54;
     public static final int L6_COMPLETED_NR = 70;
     public static final int LAST_LEVEL_NR = L6_COMPLETED_NR;
 
-    public static final int L1_HALF_COMPLETED_NR = 4; // 2 = laste level, 3 first level in L2
-    public static final int L2_HALF_COMPLETED_NR = 13; // last level to complete then we pass to L3
+    public static final int L1_HALF_COMPLETED_NR = 4; // 4 = last level, 5 first level in L1
+    public static final int L2_HALF_COMPLETED_NR = 13;
     public static final int L3_HALF_COMPLETED_NR = 24;
     public static final int L4_HALF_COMPLETED_NR = 35;
     public static final int L5_HALF_COMPLETED_NR = 47;

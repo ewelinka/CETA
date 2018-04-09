@@ -50,7 +50,7 @@ public class Assets implements Disposable, AssetErrorListener {
         // load texture atlas
         assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
         // load sounds
-        assetManager.load("sounds/yuju.mp3", Sound.class);
+        assetManager.load("sounds/yuju.wav", Sound.class);
         assetManager.load("sounds/pickup_coin.wav", Sound.class);
         assetManager.load("sounds/live_lost.wav", Sound.class);
         assetManager.load("sounds/buzz.wav", Sound.class);
@@ -78,14 +78,14 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/repetirNivel.wav", Sound.class);
         assetManager.load("sounds/marcada.wav", Music.class);
 
-        assetManager.load("sounds/brunoUnaAventura2.mp3", Sound.class);
-        assetManager.load("sounds/erase.mp3", Music.class);
-        assetManager.load("sounds/malvado.mp3", Music.class);
-        assetManager.load("sounds/estirarse.mp3", Music.class);
-        assetManager.load("sounds/agarrar.mp3", Music.class);
-        assetManager.load("sounds/fichasRobo.mp3", Music.class);
-        assetManager.load("sounds/gracias.mp3", Music.class);
-        assetManager.load("sounds/poniendoFichas.mp3", Music.class);
+        assetManager.load("sounds/brunoUnaAventura2.wav", Sound.class);
+        assetManager.load("sounds/erase.wav", Music.class);
+        assetManager.load("sounds/malvado.wav", Music.class);
+        assetManager.load("sounds/estirarse.wav", Music.class);
+        assetManager.load("sounds/agarrar.wav", Music.class);
+        assetManager.load("sounds/fichasRobo.wav", Music.class);
+        assetManager.load("sounds/gracias.wav", Music.class);
+        assetManager.load("sounds/poniendoFichas.wav", Music.class);
         assetManager.load("sounds/creepy-min.mp3", Music.class);
 
         // load music
@@ -500,7 +500,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public AssetSounds (AssetManager am) {
-            pickupPrice = am.get("sounds/yuju.mp3", Sound.class);
+            pickupPrice = am.get("sounds/yuju.wav", Sound.class);
             liveLost = am.get("sounds/live_lost.wav", Sound.class);
             buzz = am.get("sounds/meteroid.wav", Sound.class);
             one = am.get("sounds/1.wav", Sound.class);
@@ -524,14 +524,14 @@ public class Assets implements Disposable, AssetErrorListener {
             tooMuch = am.get("sounds/muchas.wav", Sound.class);
             tooFew = am.get("sounds/pocas.wav", Sound.class);
             cleanTable = am.get("sounds/quita.wav", Sound.class);
-            welcome = am.get("sounds/brunoUnaAventura2.mp3", Sound.class);
-            erase = am.get("sounds/erase.mp3", Music.class);
-            malvado = am.get("sounds/malvado.mp3", Music.class);
-            estirarse = am.get("sounds/estirarse.mp3", Music.class);
-            agarrar = am.get("sounds/agarrar.mp3", Music.class);
-            fichas = am.get("sounds/fichasRobo.mp3", Music.class);
-            gracias = am.get("sounds/gracias.mp3", Music.class);
-            poniendo = am.get("sounds/poniendoFichas.mp3", Music.class);
+            welcome = am.get("sounds/brunoUnaAventura2.wav", Sound.class);
+            erase = am.get("sounds/erase.wav", Music.class);
+            malvado = am.get("sounds/malvado.wav", Music.class);
+            estirarse = am.get("sounds/estirarse.wav", Music.class);
+            agarrar = am.get("sounds/agarrar.wav", Music.class);
+            fichas = am.get("sounds/fichasRobo.wav", Music.class);
+            gracias = am.get("sounds/gracias.wav", Music.class);
+            poniendo = am.get("sounds/poniendoFichas.wav", Music.class);
             creepy = am.get("sounds/creepy-min.mp3", Music.class);
 
 
