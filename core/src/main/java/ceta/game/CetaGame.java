@@ -14,20 +14,17 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 
-import org.opencv.core.Mat;
 
 
 public class CetaGame extends DirectedGame {
 
-	private boolean frameBlocked, hasNewFrame;
-	private Mat lastFrame;//, previousFrame;
 	private Object syncObject = new Object();
 	@Override
 	public void create () {
 		Constants c = new Constants(); // to set the constants (tablet or cv)
-		this.frameBlocked = false;
+
 		// Set Libgdx log level
-		Gdx.app.setLogLevel(Application.LOG_NONE);
+		//Gdx.app.setLogLevel(Application.LOG_NONE);
 		// Load assets
 		Assets.instance.init(new AssetManager());
 		// load preferences
@@ -42,8 +39,8 @@ public class CetaGame extends DirectedGame {
 		//setScreen(new MenuScreen(this),transition);
 		//setScreen(new Level3VerticalScreen(this,1),transition);
 		//setScreen(new TutorialScreen(this),transition);
-		//setScreen(new IntroBrunoScreen(this),transition);
-		setScreen(new IntroScreen(this),transition);
+		setScreen(new IntroBrunoScreen(this),transition);
+		//setScreen(new IntroScreen(this),transition);
 		//setScreen(new Level1VerticalMovingScreen(this, 2), transition);
 		//setScreen(new Level3HorizontalCvScreen(this, 1, Assets.instance.staticBackground.city1), transition);
 		//setScreen(new Level2VerticalScreen(this, 13, Assets.instance.staticBackground.clouds3), transition);
@@ -57,43 +54,7 @@ public class CetaGame extends DirectedGame {
 
 	}
 
-	public void setLastFrame(Mat frame){
-	//	Gdx.app.log(TAG,"Setting last frame setLastFrame!");
-		synchronized (syncObject) {
-			if(!this.frameBlocked) {
-			//	Gdx.app.log(TAG,"Setting new frame!");
-				this.lastFrame = frame.clone();
-				this.hasNewFrame = true;
-			}else{
-		//		Gdx.app.log(TAG,"blocked frame!");
-			}
-		}
-	}
 
-	public Mat getAndBlockLastFrame(){
-		synchronized (syncObject) {
-	//		Gdx.app.log(TAG,"blocking frame!");
-			this.frameBlocked = true;
-			this.hasNewFrame = false;
-			return this.lastFrame;
-		}
-
-	}
-
-	public void releaseFrame(){
-
-		synchronized (syncObject) {
-			Gdx.app.log(TAG,"Frame released!");
-			if(this.lastFrame!=null){
-				//this.lastFrame.release();
-				this.frameBlocked = false;
-			}
-		}
-	}
-
-	public boolean hasNewFrame(){
-		return hasNewFrame;
-	}
 
 	
 }

@@ -276,11 +276,7 @@ public class IntroScreen extends AbstractGameScreen {
                 run(new Runnable() {
                     @Override
                     public void run() {
-                        if(Constants.WITH_CV)
-                            game.setScreen(new TutorialCvScreen(game), ScreenTransitionFade.init(1));
-                        else
-                            game.setScreen(new TutorialScreen(game), ScreenTransitionFade.init(1));
-                        //game.setScreen(new TreeScreen(game,true), ScreenTransitionFade.init(1));
+                        game.setScreen(new TutorialScreen(game), ScreenTransitionFade.init(1));
                     }
                 })
         ));

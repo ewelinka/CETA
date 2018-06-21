@@ -106,7 +106,7 @@ public class TreeScreen extends AbstractGameScreen {
     @Override
     public void show() {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
-        Gdx.input.setCatchBackKey(false);
+        Gdx.input.setCatchBackKey(true);
 
         buildStage();
 

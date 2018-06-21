@@ -124,13 +124,7 @@ public class LevelsManager {
             resetToZeroAndAddRepeat();
             completedLevel = 0;
         }
-        if (Constants.WITH_CV) {
-            goToLevelCvCsv(completedLevel);
-        } else {
-            goToLevelTabletCsv(completedLevel);
-        }
-
-
+        goToLevelTabletCsv(completedLevel);
     }
 
 
@@ -188,50 +182,6 @@ public class LevelsManager {
         }
     }
 
-    private void goToLevelCvCsv(int lastLevelFinished){
-        Gdx.app.log(TAG,"goToLevelCvCsv: "+lastLevelFinished);
-        int lev = lastLevelFinished+1;
-        LevelCharacteristics levelCharacteristics =  LevelsCsv.instance.getLevelCharacteristics(lev);
-        levelCharacteristics.printLevelCharacteristics();
-        if (levelCharacteristics.isHorizontal){
-            switch(levelCharacteristics.representation){
-                case 1:
-                    game.setScreen(new Level1HorizontalCvScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
-                            transition);
-                    break;
-                case 2:
-                    game.setScreen(new Level2HorizontalCvScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
-                            transition);
-                    break;
-                case 3:
-                    game.setScreen(new Level3HorizontalCvScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
-                            transition);
-                    break;
-            }
-        }else{
-            switch(levelCharacteristics.representation){
-                case 1:
-                    game.setScreen(new Level1VerticalCvScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
-                            transition);
-                    break;
-                case 2:
-                    game.setScreen(new Level2VerticalCvScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
-                            transition);
-                    break;
-                case 3:
-                    game.setScreen(new Level3VerticalCvScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
-                            transition);
-                    break;
-            }
-
-        }
-    }
 
 
     public void forceLevel(int forcedLevel){

@@ -6,7 +6,6 @@ import ceta.game.game.levels.Level3Horizontal;
 import ceta.game.game.levels.LevelParams;
 import ceta.game.game.objects.*;
 import ceta.game.managers.AbstractBlocksManager;
-import ceta.game.managers.CVBlocksManager;
 import ceta.game.screens.*;
 import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
@@ -56,7 +55,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     private ArrayList<Integer> toReadVals;
 
     protected int operationsNumberToPassToNext;
-    protected CVBlocksManager cvBlocksManager;
+
 
 
     public AbstractWorldController(DirectedGame game, Stage stage, int levelNr) {
@@ -177,10 +176,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public void backToMenu () {
         // switch to menu screen
-       // ScreenTransition transition = ScreenTransitionFade.init(1);
-       // game.setScreen(new TreeScreen(game,true), oneSegFadeIn);
-        game.getLevelsManager().goToFirstUncompletedLevel(true);
-       // game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
+        ScreenTransition transition = ScreenTransitionFade.init(0.75f);
+        game.setScreen(new SimpleMenuScreen(game), transition);
+       // game.getLevelsManager().goToFirstUncompletedLevel(true);
     }
 
     public void goToCongratulationsScreen () {
@@ -705,9 +703,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         return moveMade;
     }
 
-    public CVBlocksManager getCVBlocksManager(){
-        return cvBlocksManager;
-    }
 
 
 

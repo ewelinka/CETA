@@ -17,8 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 
-import edu.ceta.vision.android.topcode.ScannerAndroid;
-import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
 
 
 /**
@@ -114,30 +112,9 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
     protected void renderDetectionZoneImgOrDebug(SpriteBatch batch){
-        if(GamePreferences.instance.getUseDebug() && (Gdx.app.getType() == Application.ApplicationType.Android)) // TODO when PC implemented, add PC debug case
-//        if(GamePreferences.instance.getUseDebug()) // TODO when PC implemented, add PC debug case
-            renderDetectionZoneDebugImgAndroid(batch);
-        else
             renderDetectionZoneImg(batch);
-
     }
 
-    int update = 0;
-    protected void renderDetectionZoneDebugImgAndroid(SpriteBatch batch){
-        if(update==0){
-	    	ScannerAndroid scannerAndroid = (ScannerAndroid)(((TopCodeDetectorAndroid)worldController.getCVBlocksManager().getTopCodeDetector()).getScanner());
-	
-	        pixmap = scannerAndroid.getGdxPreview();
-	        tex = new Texture(new PixmapTextureData(pixmap, pixmap.getFormat(), false, false, true));
-	
-	        batch.setProjectionMatrix(camera.combined);
-	        batch.begin();
-	        batch.draw(tex,-debugImgSize/2, Constants.DETECTION_LIMIT,debugImgSize,debugImgSize); // scale the image to fit to detection zone 360 x 360
-	        batch.end();
-        }
-        update++;
-        update = update%30;
-    }
 
     protected void renderDetectionZoneImg(SpriteBatch batch){
         TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
