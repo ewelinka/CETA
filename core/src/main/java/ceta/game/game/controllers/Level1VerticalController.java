@@ -1,9 +1,11 @@
 package ceta.game.game.controllers;
 
+import ceta.game.game.Assets;
 import ceta.game.game.levels.Level1Vertical;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.managers.BrunosManager;
 import ceta.game.screens.DirectedGame;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import ceta.game.managers.VirtualBlocksManager;
@@ -82,8 +84,21 @@ public class Level1VerticalController extends NoCvController {
                 if (r1.overlaps(r2)) {
                     onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                     moveMade = false;
+                }else {
+                    if (moveMade) {
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        moveMade = false;
+                    }
+
                 }
             }
+        }
+        else {
+            if (moveMade) {
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                moveMade = false;
+            }
+
         }
     }
 

@@ -230,14 +230,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                 moveMade = false;
             }
         }
@@ -259,7 +259,18 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 if (r1.overlaps(r2)) {
                     onCollisionBrunoWithPrice(level.price, objectToCheck);
                     moveMade = false;
+                }else {
+                    if (moveMade) {
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        moveMade = false;
+                    }
+
                 }
+            }
+        }else{
+            if (moveMade) {
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                moveMade = false;
             }
         }
 
@@ -311,6 +322,19 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                         onCollisionBrunoWithPriceOpenMouth(level.price, level.bruno);
                         moveMade = false;
                     }
+                    else {
+                        if (moveMade) {
+                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                            moveMade = false;
+                        }
+
+                    }
+                }
+            }
+            else{
+                if (moveMade) {
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    moveMade = false;
                 }
             }
         }
@@ -331,7 +355,21 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                     moveMade = false;
                 }
+                else {
+                    if (moveMade) {
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        moveMade = false;
+                    }
+
+                }
             }
+        }
+        else {
+            if (moveMade) {
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                moveMade = false;
+            }
+
         }
     }
 
@@ -352,7 +390,21 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                         onCollisionBrunoWithPriceOpenMouth(level.price, brunoV);
                         moveMade = false;
                     }
+                    else {
+                        if (moveMade) {
+                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                            moveMade = false;
+                        }
+
+                    }
                 }
+            }
+            else {
+                if (moveMade) {
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    moveMade = false;
+                }
+
             }
         }
     }
