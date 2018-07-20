@@ -116,7 +116,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     protected void testCollisions(){
-       // Gdx.app.log(TAG," testCollisions with price dynamic: "+level.price.isDynamic());
+        // Gdx.app.log(TAG," testCollisions with price dynamic: "+level.price.isDynamic());
         if(level.price.isDynamic()) {
             testCollisionsInController(true);
         }
@@ -147,7 +147,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             Gdx.app.debug(TAG, "Action submit");
         }
         else if(keycode == Input.Keys.N){
-           // GamePreferences.instance.addOneToLastLevelAndSave();
+            // GamePreferences.instance.addOneToLastLevelAndSave();
             game.getLevelsManager().goToNextLevelWorkaround();
         }
 
@@ -177,10 +177,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
     public void backToMenu () {
         // switch to menu screen
-       // ScreenTransition transition = ScreenTransitionFade.init(1);
-       // game.setScreen(new TreeScreen(game,true), oneSegFadeIn);
-        game.getLevelsManager().goToFirstUncompletedLevel(true);
-       // game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
+        ScreenTransition transition = ScreenTransitionFade.init(0.75f);
+        game.setScreen(new SimpleMenuScreen(game), transition);
+        // game.getLevelsManager().goToFirstUncompletedLevel(true);
     }
 
     public void goToCongratulationsScreen () {
@@ -232,21 +231,21 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.play(Assets.instance.sounds.liveLost);
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
                 moveMade = false;
             }
         }
     }
 
     protected void testCollisionsHorizontalDynamic(AbstractGameObject objectToCheck){
-       // Gdx.app.log(TAG, " testCollisionsHorizontalDynamic W "+ Constants.VIEWPORT_HEIGHT/2);
+        // Gdx.app.log(TAG, " testCollisionsHorizontalDynamic W "+ Constants.VIEWPORT_HEIGHT/2);
         if(objectToCheck != null ) {
 
             if (level.price.getY() < Constants.GROUND_LEVEL + Constants.VIEWPORT_HEIGHT / 2) { // price in detection zone
@@ -261,7 +260,18 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 if (r1.overlaps(r2)) {
                     onCollisionBrunoWithPrice(level.price, objectToCheck);
                     moveMade = false;
+                }else {
+                    if (moveMade) {
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        moveMade = false;
+                    }
+
                 }
+            }
+        }else{
+            if (moveMade) {
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                moveMade = false;
             }
         }
 
@@ -313,6 +323,19 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                         onCollisionBrunoWithPriceOpenMouth(level.price, level.bruno);
                         moveMade = false;
                     }
+                    else {
+                        if (moveMade) {
+                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                            moveMade = false;
+                        }
+
+                    }
+                }
+            }
+            else{
+                if (moveMade) {
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    moveMade = false;
                 }
             }
         }
@@ -333,7 +356,21 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                     moveMade = false;
                 }
+                else {
+                    if (moveMade) {
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        moveMade = false;
+                    }
+
+                }
             }
+        }
+        else {
+            if (moveMade) {
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                moveMade = false;
+            }
+
         }
     }
 
@@ -354,7 +391,21 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                         onCollisionBrunoWithPriceOpenMouth(level.price, brunoV);
                         moveMade = false;
                     }
+                    else {
+                        if (moveMade) {
+                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                            moveMade = false;
+                        }
+
+                    }
                 }
+            }
+            else {
+                if (moveMade) {
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    moveMade = false;
+                }
+
             }
         }
     }
@@ -389,7 +440,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     protected void onCollisionBrunoWithPriceOpenMouth(Price price, Bruno bruno){
-       // Gdx.app.log(TAG, "NO updates in progress and collision!");
+        // Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (price.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
             genericOnCollision();
@@ -613,13 +664,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             if ((correctAnswer + lastFinalSolutionNr) == nowSolutionNr) {
                 for (int i = 0; i < lastFinalSolution.size(); i++) {
                     Solution lastSolutionBlock = lastFinalSolution.get(i);
-                   /// Gdx.app.log(TAG, " for i " + i + " id " + lastSolutionBlock.getId());
+                    /// Gdx.app.log(TAG, " for i " + i + " id " + lastSolutionBlock.getId());
                     boolean lastBlockPresent = false;
                     for (int j = 0; j < nowSolution.size(); j++) {
                         VirtualBlock nowSolutionBlock = nowSolution.get(j);
                         //Gdx.app.log(TAG, " for j " + j + " id " + nowSolutionBlock.getBlockId());
                         if (lastSolutionBlock.getId() == nowSolutionBlock.getBlockId()) {
-                         //   Gdx.app.log(TAG, "i id == j id");
+                            //   Gdx.app.log(TAG, "i id == j id");
                             lastBlockPresent = true;
                             if (nowSolutionBlock.getCenterVector().dst(lastSolutionBlock.getPosition()) > Constants.NO_MOVEMENT_DIST) {
                                 Gdx.app.log(TAG, " same id but big distance!!");
@@ -708,6 +759,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public CVBlocksManager getCVBlocksManager(){
         return cvBlocksManager;
     }
+
 
 
 
