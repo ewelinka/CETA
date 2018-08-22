@@ -20,8 +20,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class EmergencyScreen extends AbstractGameScreen  {
     private static final String TAG = EmergencyScreen.class.getName();
-    private TextField txtLastLevel,txtLastScore, txtTopCodeFValue, txtRepeat;
-    private CheckBox chkUseDebug;
+    private TextField txtLastLevel,txtLastScore, txtRepeat;
+   // private CheckBox chkUseDebug; also out txtTopCodeFValue
     private Skin skin;
     private ImageButton btnPlay;
     private int goToLevel = 1;
@@ -69,22 +69,20 @@ public class EmergencyScreen extends AbstractGameScreen  {
         txtRepeat.setPosition(230, 630);
         stage.addActor(txtRepeat);
 
-        txtTopCodeFValue= new TextField("",skin);
-        txtTopCodeFValue.setMessageText("FValue");
-        txtTopCodeFValue.setText(String.valueOf(fvalue));
-        txtTopCodeFValue.setPosition(230, 530);
-        stage.addActor(txtTopCodeFValue);
+//        txtTopCodeFValue= new TextField("",skin);
+//        txtTopCodeFValue.setMessageText("FValue");
+//        txtTopCodeFValue.setText(String.valueOf(fvalue));
+//        txtTopCodeFValue.setPosition(230, 530);
+//        stage.addActor(txtTopCodeFValue);
+//
+//        chkUseDebug = new CheckBox("Use debug", skin);
+//        chkUseDebug.setPosition(230,430);
+//        chkUseDebug.setChecked(GamePreferences.instance.getUseDebug());
+//        stage.addActor(chkUseDebug);
 
-        chkUseDebug = new CheckBox("Use debug", skin);
-        chkUseDebug.setPosition(230,430);
-        chkUseDebug.setChecked(GamePreferences.instance.getUseDebug());
-        stage.addActor(chkUseDebug);
-//        tbl.add(new Label("Use Monochrome Shader", skinLibgdx));
-//        tbl.add(chkUseMonoChromeShader);
-//        tbl.row();
         
         btnPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
-        btnPlay.setPosition(230,230);
+        btnPlay.setPosition(230,430);
         btnPlay.addListener(new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
@@ -140,15 +138,15 @@ public class EmergencyScreen extends AbstractGameScreen  {
             e.printStackTrace();
         }
         
-        try {
-            if(!txtTopCodeFValue.getText().equals("")) {
-                fvalue = Float.parseFloat(txtTopCodeFValue.getText());
-            }
-
-        } catch (Exception e) {
-            Gdx.app.log(TAG,"fvalue "+fvalue);
-                e.printStackTrace();
-        }
+//        try {
+//            if(!txtTopCodeFValue.getText().equals("")) {
+//                fvalue = Float.parseFloat(txtTopCodeFValue.getText());
+//            }
+//
+//        } catch (Exception e) {
+//            Gdx.app.log(TAG,"fvalue "+fvalue);
+//                e.printStackTrace();
+//        }
 
 
         
@@ -156,8 +154,8 @@ public class EmergencyScreen extends AbstractGameScreen  {
                 
         GamePreferences.instance.forceGlobalScore(lastScore);
         GamePreferences.instance.forceRepeatNr(repeat );
-        GamePreferences.instance.setFvalue(fvalue);
-        GamePreferences.instance.setUseDebug(chkUseDebug.isChecked());
+ //       GamePreferences.instance.setFvalue(fvalue);
+//        GamePreferences.instance.setUseDebug(chkUseDebug.isChecked());
         game.levelsManager.goToFirstUncompletedLevel(true);
 
 

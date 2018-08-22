@@ -25,7 +25,6 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  */
 public class IntroBrunoScreen extends AbstractGameScreen {
     public static final String TAG = IntroBrunoScreen.class.getName();
-    private ImageButton btnMenuPlay, btnMenuExit, btnLevels;
     private Image imgBackground, brunoHead,brunoBody,screw,shadow, logo;
 
     public IntroBrunoScreen(DirectedGame game) {

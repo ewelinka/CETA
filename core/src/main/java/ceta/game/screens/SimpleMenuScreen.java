@@ -1,6 +1,7 @@
 package ceta.game.screens;
 
 import ceta.game.game.Assets;
+import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -20,7 +21,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class SimpleMenuScreen extends AbstractGameScreen {
     private static final String TAG = SimpleMenuScreen.class.getName();
     private Image imgBackground;
-    private ImageButton btnMenuPlay, btnMenuExit;
+    private ImageButton btnMenuPlay, btnMenuExit, btnMenuReset, btnMenuTutorial;
 
 
     public SimpleMenuScreen(DirectedGame game) {
@@ -109,16 +110,27 @@ public class SimpleMenuScreen extends AbstractGameScreen {
             }
         });
         layer.row();
-        // + Levels Button
-//        btnLevels = new ImageButton(Assets.instance.buttons.levelsButtonStyle);
-//        layer.add(btnLevels).size(110,60).padBottom(10);
-//        btnLevels.addListener(new ChangeListener() {
-//            @Override
-//            public void changed (ChangeEvent event, Actor actor) {
-//                onLevelsClicked();
-//            }
-//        });
-//        layer.row();
+        // + Reset Button
+        btnMenuReset = new ImageButton(Assets.instance.buttons.resetButtonStyle);
+        layer.add(btnMenuReset).size(110,60).padBottom(10);
+        btnMenuReset.addListener(new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                onResetClicked();
+            }
+        });
+        layer.row();
+        // + Tutorial Button
+        btnMenuTutorial = new ImageButton(Assets.instance.buttons.tutorialButtonStyle);
+        layer.add(btnMenuTutorial).size(110,60).padBottom(10);
+        btnMenuTutorial.addListener(new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                onTutorialClicked();
+            }
+        });
+        layer.row();
+
         // + Exit Button
         btnMenuExit = new ImageButton(Assets.instance.buttons.exitButtonStyle);
         layer.add(btnMenuExit).size(45,55).padBottom(10);
@@ -143,6 +155,19 @@ public class SimpleMenuScreen extends AbstractGameScreen {
 
     private void onExitClicked () {
         Gdx.app.exit();
+    }
+
+    private void onResetClicked(){
+        game.getLevelsManager().forceLevel(1);
+        game.getLevelsManager().goToFirstUncompletedLevel(true);
+    }
+
+    private void onTutorialClicked(){
+        if(Constants.WITH_CV)
+            game.setScreen(new TutorialCvScreen(game), ScreenTransitionFade.init(1));
+        else
+            game.setScreen(new TutorialScreen(game), ScreenTransitionFade.init(1));
+
     }
 
 }

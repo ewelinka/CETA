@@ -28,7 +28,7 @@ public class ResultsManager {
     private int response;
     private ArrayList<Integer> responseBlocks;
     private int levelNumber;
-    private FileHandle intentsFile;
+    // private FileHandle intentsFile; COMMENTED FOR FINAL APP
     private  SimpleDateFormat sdf;
     private  SimpleDateFormat justTime;
     private long collectionTimeMillis;
@@ -47,16 +47,14 @@ public class ResultsManager {
         justTime = new SimpleDateFormat("HH:mm:ss.SSS");
         randomId = GamePreferences.instance.randomId;
 
-       // intentsFile = Gdx.files.local(randomId+"-results.csv");
-        intentsFile = Gdx.files.external("./ceta-results/"+randomId+"-results.csv");
-        //intentsFile = Gdx.files.external("./Download/results_"+randomId+".csv");
-        Gdx.app.log(TAG, " AAAAAAA "+ Gdx.files.getLocalStoragePath()+ " available: "+Gdx.files.isLocalStorageAvailable());
+        //intentsFile = Gdx.files.external("./ceta-results/"+randomId+"-results.csv"); COMMENTED FOR FINAL APP
+        //Gdx.app.log(TAG, " AAAAAAA "+ Gdx.files.getLocalStoragePath()+ " available: "+Gdx.files.isLocalStorageAvailable());
         lastSolution = new ArrayList<VirtualBlock>();
         lastFinalSolution = new ArrayList<Solution>();
         lastFinalSolutionNr = 0;
         lastSolutionNr = 0;
 
-        //String text = intentsFile.readString();
+        //String text = intentsFile.readString(); COMMENTED FOR FINAL APP
         //Gdx.app.log(TAG,text);
     }
 
@@ -72,7 +70,7 @@ public class ResultsManager {
 
     public synchronized void addIntent(boolean wasSuccessful, int kidResponse, int priceVal, int priceDisplayNr, ArrayList<Integer> toReadVals, int score){
         Gdx.app.log(TAG," addIntent +1 to "+intentsNr);
-        //String id = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+        //String id = Secure.getString(getContentResolver(), Secure.ANDROID_ID); COMMENTED FOR FINAL APP
 
 
         responseBlocks = toReadVals;
@@ -100,7 +98,7 @@ public class ResultsManager {
                 +score+","+GamePreferences.instance.totalScore+","
                 +randomId+"\n";
         Gdx.app.log(TAG,"save data "+toSave);
-        intentsFile.writeString(toSave,true);
+        //intentsFile.writeString(toSave,true); COMMENTED FOR FINAL APP
 
         // now we reset the start
         intentStartDate = intentEndDate;
@@ -133,7 +131,6 @@ public class ResultsManager {
     }
 
     public void setLastToFinal(){
-        Gdx.app.log(TAG," final solution set!");
         lastFinalSolution.clear();
         for(int i =0;i<lastSolution.size();i++) {
             VirtualBlock last = lastSolution.get(i);
@@ -157,7 +154,6 @@ public class ResultsManager {
     public synchronized void onCollisionRecord(int correctAnswer, int displayNr, int score){
         Gdx.app.log(TAG," onCollisionRecord, intent: "+ intentsNr);
 
-        //intentsNr+=1;
         if(intentsNr == 0) {
             intentEndDate = new Date();
             collectionTimeMillis = intentEndDate.getTime() - intentStartDate.getTime();
@@ -177,7 +173,7 @@ public class ResultsManager {
                     + score + "," + GamePreferences.instance.totalScore + ","
                     + randomId + "\n";
             Gdx.app.log(TAG, "save data " + toSave);
-            intentsFile.writeString(toSave, true);
+            //intentsFile.writeString(toSave, true); COMMENTED FOR FINAL APP
 
             // now we reset the start
             intentStartDate = intentEndDate;
@@ -187,11 +183,5 @@ public class ResultsManager {
             Gdx.app.log(TAG," ignore on collision");
 
     }
-
-    public void resetIntentStart(){
-        intentStartDate = new Date();
-    }
-
-    public int getIntentsNr(){return intentsNr;}
 
 }

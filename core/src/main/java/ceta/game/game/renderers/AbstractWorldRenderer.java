@@ -113,31 +113,10 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
-    protected void renderDetectionZoneImgOrDebug(SpriteBatch batch){
-        if(GamePreferences.instance.getUseDebug() && (Gdx.app.getType() == Application.ApplicationType.Android)) // TODO when PC implemented, add PC debug case
-//        if(GamePreferences.instance.getUseDebug()) // TODO when PC implemented, add PC debug case
-            renderDetectionZoneDebugImgAndroid(batch);
-        else
+    protected void renderDetectionZoneImgOrDebug(SpriteBatch batch){ // debug out!
             renderDetectionZoneImg(batch);
-
     }
 
-    int update = 0;
-    protected void renderDetectionZoneDebugImgAndroid(SpriteBatch batch){
-        if(update==0){
-	    	ScannerAndroid scannerAndroid = (ScannerAndroid)(((TopCodeDetectorAndroid)worldController.getCVBlocksManager().getTopCodeDetector()).getScanner());
-	
-	        pixmap = scannerAndroid.getGdxPreview();
-	        tex = new Texture(new PixmapTextureData(pixmap, pixmap.getFormat(), false, false, true));
-	
-	        batch.setProjectionMatrix(camera.combined);
-	        batch.begin();
-	        batch.draw(tex,-debugImgSize/2, Constants.DETECTION_LIMIT,debugImgSize,debugImgSize); // scale the image to fit to detection zone 360 x 360
-	        batch.end();
-        }
-        update++;
-        update = update%30;
-    }
 
     protected void renderDetectionZoneImg(SpriteBatch batch){
         TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
@@ -236,23 +215,6 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
-    protected void renderDebugNumbersHorizontal(SpriteBatch batch){
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-
-
-        for(int i = -300; i<300;i+=80){
-
-            fontNumberLine.setColor(0,0,0,1);
-            fontNumberLine.draw(batch, i+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false);
-        }
-
-        batch.end();
-    }
-
-
-
-
     protected void renderHelperNumbersHorizontal(SpriteBatch batch, float aColor){
         int chosenNr = worldController.level.price.getDisplayNumber();
 
@@ -299,21 +261,6 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
-    protected void renderDebugNumbersVertical(SpriteBatch batch){
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-
-        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=80){
-            GlyphLayout layout = new GlyphLayout(fontNumberLine, i+"");
-
-            fontNumberLine.setColor(0,0,0,1);
-            fontNumberLine.draw(batch, i+"", -258, i + layout.height/2,0,Align.left,false);
-
-        }
-
-        batch.end();
-
-    }
 
     protected void renderHelperNumbers(SpriteBatch batch, float delta){
         if(fadeIn){
@@ -332,13 +279,6 @@ public abstract class AbstractWorldRenderer implements Disposable {
             renderHelperNumbersHorizontal(batch, alphaColor);
         else
             renderHelperNumbersVertical(batch,alphaColor);
-    }
-
-    protected void renderDebugNumbers(SpriteBatch batch){
-        if(numberLineIsHorizontal)
-            renderDebugNumbersHorizontal(batch);
-        else
-            renderDebugNumbersVertical(batch);
     }
 
     protected void renderHelperNumberLines(ShapeRenderer shRenderer) {
