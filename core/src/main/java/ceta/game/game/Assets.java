@@ -201,6 +201,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion clouds1,clouds2,clouds3,clouds4;
         public final TextureAtlas.AtlasRegion tubes1, tubes2,tubes3,tubes4,tubes5;
         public final TextureAtlas.AtlasRegion belowTheGround;
+        public final TextureAtlas.AtlasRegion sea1, sea2, sea3, sea4, sea5, factory1, factory2, factory3, factory4, factory5, battle1, battle2, battle3, battle4;
 
         public AssetStaticBackground (TextureAtlas atlas) {
             backStart = atlas.findRegion("inicio");
@@ -221,6 +222,24 @@ public class Assets implements Disposable, AssetErrorListener {
             tubes3 = atlas.findRegion("tubo03");
             tubes4 = atlas.findRegion("tubo04");
             tubes5 = atlas.findRegion("tubo02B");
+
+            sea1 = atlas.findRegion("mar-1");
+            sea2 = atlas.findRegion("mar-1");
+            sea3 = atlas.findRegion("mar-1");
+            sea4 = atlas.findRegion("mar-2");
+            sea5 = atlas.findRegion("mar-2");
+
+            factory1 = atlas.findRegion("fabrica-1");
+            factory2 = atlas.findRegion("fabrica-1");
+            factory3 = atlas.findRegion("fabrica-1");
+            factory4 = atlas.findRegion("fabrica-2");
+            factory5 = atlas.findRegion("fabrica-2");
+
+            battle1 = atlas.findRegion("batalla-1");
+            battle2 = atlas.findRegion("batalla-2");
+            battle3 = atlas.findRegion("batalla-3");
+            battle4 = atlas.findRegion("batalla-4");
+
 
             belowTheGround= atlas.findRegion("abajo5");
         }

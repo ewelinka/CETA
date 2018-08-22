@@ -428,6 +428,13 @@ repeat: none
   orig: 55, 200
   offset: 0, 0
   index: -1
+batalla-1
+  rotate: false
+  xy: 454, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
 brunoGrande_cabeza
   rotate: false
   xy: 2, 122
@@ -440,13 +447,6 @@ casitarbol
   xy: 906, 465
   size: 102, 62
   orig: 102, 62
-  offset: 0, 0
-  index: -1
-ciudad01
-  rotate: false
-  xy: 454, 2
-  size: 450, 525
-  orig: 450, 525
   offset: 0, 0
   index: -1
 engranaje
@@ -832,14 +832,14 @@ abajo5
   orig: 600, 390
   offset: 0, 0
   index: -1
-ciudad02
+batalla-2
   rotate: false
   xy: 2, 477
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
-ciudad03
+batalla-3
   rotate: false
   xy: 454, 477
   size: 450, 525
@@ -880,9 +880,16 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-ciudad04
+batalla-4
   rotate: false
   xy: 2, 474
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+batalla-5
+  rotate: false
+  xy: 454, 474
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
@@ -915,13 +922,6 @@ niveles-2
   orig: 219, 116
   offset: 0, 0
   index: -1
-nubes01
-  rotate: false
-  xy: 454, 474
-  size: 450, 525
-  orig: 450, 525
-  offset: 0, 0
-  index: -1
 reset-2
   rotate: false
   xy: 431, 93
@@ -949,6 +949,20 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+ciudad01
+  rotate: false
+  xy: 2, 204
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+ciudad02
+  rotate: false
+  xy: 454, 204
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
 feedbackTablet
   rotate: false
   xy: 2, 2
@@ -956,22 +970,68 @@ feedbackTablet
   orig: 600, 200
   offset: 0, 0
   index: -1
+
+pack9.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ciudad03
+  rotate: false
+  xy: 2, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+ciudad04
+  rotate: false
+  xy: 454, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+
+pack10.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+fabrica-2
+  rotate: false
+  xy: 2, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+nubes01
+  rotate: false
+  xy: 454, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+
+pack11.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 nubes02
   rotate: false
-  xy: 2, 204
+  xy: 2, 2
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
 nubes03
   rotate: false
-  xy: 454, 204
+  xy: 454, 2
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
 
-pack9.png
+pack12.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -991,7 +1051,7 @@ tubo01
   offset: 0, 0
   index: -1
 
-pack10.png
+pack13.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1011,7 +1071,7 @@ tubo03
   offset: 0, 0
   index: -1
 
-pack11.png
+pack14.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1028,5 +1088,38 @@ tubo04
   xy: 2, 2
   size: 450, 525
   orig: 450, 525
+  offset: 0, 0
+  index: -1
+
+pack15.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+fabrica-1
+  rotate: false
+  xy: 2, 2
+  size: 450, 524
+  orig: 450, 524
+  offset: 0, 0
+  index: -1
+mar-2
+  rotate: false
+  xy: 454, 2
+  size: 450, 524
+  orig: 450, 524
+  offset: 0, 0
+  index: -1
+
+pack16.png
+size: 512,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+mar-1
+  rotate: false
+  xy: 2, 2
+  size: 449, 525
+  orig: 449, 525
   offset: 0, 0
   index: -1

@@ -189,7 +189,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public void goToRepeatLevelScreen(){
-        AudioManager.instance.play(Assets.instance.sounds.repeatLevel);
         game.setScreen(new RepeatLevelScreen(game),oneSegFadeIn);
     }
 

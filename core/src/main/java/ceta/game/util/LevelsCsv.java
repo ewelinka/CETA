@@ -14,7 +14,7 @@ public class LevelsCsv {
     private String[] csvLines;
 
     private LevelsCsv () {
-        FileHandle levelsFile = Gdx.files.internal(Constants.LEVELS_FOLDER+"/levels.csv");
+        FileHandle levelsFile = Gdx.files.internal(Constants.LEVELS_FOLDER+"/levels-fer.csv");
         String csvContentString = levelsFile.readString();
         csvLines = csvContentString.split("\n");
         Gdx.app.log(TAG,"csvContentString "+csvContentString);
@@ -69,6 +69,7 @@ public class LevelsCsv {
         levelCharacteristics.island = Integer.parseInt(splittedLine[0]); //first column
         levelCharacteristics.representation = Integer.parseInt(splittedLine[1]); //second column
         levelCharacteristics.isHorizontal = (splittedLine[2].trim().equals("H") || splittedLine[2].trim().equals("h")); //third column
+        levelCharacteristics.backgroundNr = Integer.parseInt(splittedLine[10]);
         return levelCharacteristics;
 
     }
