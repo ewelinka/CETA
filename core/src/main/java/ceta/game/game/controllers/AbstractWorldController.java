@@ -70,6 +70,32 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         checkLevelParamsAndSetOperationsToPassToNext();
         AudioManager.instance.setStage(stage);
 
+        // check if works
+        switch(levelParams.islandNr){
+            case 1:
+                AudioManager.instance.play(Assets.instance.music.musicCity);
+                break;
+            case 2:
+                AudioManager.instance.play(Assets.instance.music.musicClouds);
+                break;
+            case 3:
+                AudioManager.instance.play(Assets.instance.music.musicTubes);
+                break;
+            case 4:
+                AudioManager.instance.play(Assets.instance.music.musicUnderwater);
+                break;
+            case 5:
+                AudioManager.instance.play(Assets.instance.music.musicFactory);
+                break;
+            case 6:
+                //TODO batalla final tiene otro audio
+                if(levelNr == Constants.LAST_LEVEL_NR)
+                    AudioManager.instance.play(Assets.instance.music.musicBattle);
+                else
+                    AudioManager.instance.play(Assets.instance.music.musicCity);
+                break;
+
+        }
 
         timeToWait = Constants.ACTION_SUBMIT_WAIT;
 

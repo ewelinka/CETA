@@ -90,6 +90,12 @@ public class Assets implements Disposable, AssetErrorListener {
 
         // load music
         assetManager.load("music/song1.mp3", Music.class);
+        assetManager.load("music/1_CIUDAD.wav", Music.class);
+        assetManager.load("music/2_NUBES.wav", Music.class);
+        assetManager.load("music/3_TUBERIAS.wav", Music.class);
+        assetManager.load("music/4_SUBMARINO.wav", Music.class);
+        assetManager.load("music/5_RESORTES.wav", Music.class);
+        assetManager.load("music/6_BATALLAFINAL.wav", Music.class);
 
         // start loading assets and wait until finished
         assetManager.finishLoading();
@@ -573,10 +579,17 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
     public class AssetMusic {
-        public final Music song01;
+        public final Music song01, musicCity, musicClouds, musicTubes, musicUnderwater, musicFactory, musicNight, musicBattle;
 
         public AssetMusic (AssetManager am) {
             song01 = am.get("music/song1.mp3", Music.class);
+            musicCity = am.get("music/1_CIUDAD.wav", Music.class);
+            musicClouds = am.get("music/2_NUBES.wav", Music.class);
+            musicTubes = am.get("music/3_TUBERIAS.wav", Music.class);
+            musicUnderwater = am.get("music/4_SUBMARINO.wav", Music.class);
+            musicFactory = am.get("music/5_RESORTES.wav", Music.class);
+            musicNight = musicCity;
+            musicBattle = am.get("music/6_BATALLAFINAL.wav", Music.class);
 
         }
     }
