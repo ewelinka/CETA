@@ -40,7 +40,7 @@ public class Level2VerticalCvController extends CvController {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        energyManager.updateAlpha(deltaTime);
+       // energyManager.updateAlpha(deltaTime);
     }
 
 

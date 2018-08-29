@@ -40,9 +40,8 @@ public class Level2VerticalController extends NoCvController {
 
     @Override
     public void update(float deltaTime) {
-       // Gdx.app.log(TAG," update me and my alpha");
         super.update(deltaTime);
-        energyManager.updateAlpha(deltaTime);
+       // energyManager.updateAlpha(deltaTime);
     }
 
 
