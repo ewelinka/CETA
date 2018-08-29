@@ -52,7 +52,7 @@ public class LevelsManager {
     private void resetToZeroAndAddRepeat(){
         lastLevelCompleted = 0;
         GamePreferences.instance.setLastLevel(lastLevelCompleted);
-        GamePreferences.instance.addOneRepeat();
+        //GamePreferences.instance.addOneRepeat();
 
     }
 

@@ -64,10 +64,10 @@ public class EmergencyScreen extends AbstractGameScreen  {
         txtLastScore.setPosition(230, 730);
         stage.addActor(txtLastScore);
 
-        txtRepeat= new TextField("",skin);
-        txtRepeat.setMessageText("Repeat round");
-        txtRepeat.setPosition(230, 630);
-        stage.addActor(txtRepeat);
+//        txtRepeat= new TextField("",skin);
+//        txtRepeat.setMessageText("Repeat round");
+//        txtRepeat.setPosition(230, 630);
+//        stage.addActor(txtRepeat);
 
 //        txtTopCodeFValue= new TextField("",skin);
 //        txtTopCodeFValue.setMessageText("FValue");
@@ -82,7 +82,7 @@ public class EmergencyScreen extends AbstractGameScreen  {
 
         
         btnPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
-        btnPlay.setPosition(230,430);
+        btnPlay.setPosition(230,530);
         btnPlay.addListener(new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
@@ -129,14 +129,14 @@ public class EmergencyScreen extends AbstractGameScreen  {
                 e.printStackTrace();
         }
 
-        try {
-            if(!txtRepeat.getText().equals("")) {
-                repeat = Integer.parseInt(txtRepeat.getText());
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            if(!txtRepeat.getText().equals("")) {
+//                repeat = Integer.parseInt(txtRepeat.getText());
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         
 //        try {
 //            if(!txtTopCodeFValue.getText().equals("")) {
@@ -153,7 +153,7 @@ public class EmergencyScreen extends AbstractGameScreen  {
         game.levelsManager.forceLevel(goToLevel);
                 
         GamePreferences.instance.forceGlobalScore(lastScore);
-        GamePreferences.instance.forceRepeatNr(repeat );
+        //GamePreferences.instance.forceRepeatNr(repeat );
  //       GamePreferences.instance.setFvalue(fvalue);
 //        GamePreferences.instance.setUseDebug(chkUseDebug.isChecked());
         game.levelsManager.goToFirstUncompletedLevel(true);

@@ -42,7 +42,8 @@ public class GamePreferences {
         prefs.putString("randomId", randomId);
         prefs.flush();
         // TODO now start in 0 always, just for testing than remove!!
-        //lastLevel = 69;
+        //lastLevel = 25;
+        repeatNr = 0; // forever and ever 0, if we want to loop we should remove it!
     }
 
     public void save () {
@@ -86,22 +87,22 @@ public class GamePreferences {
         return fvalue;
     }
 
-    public void addOneRepeat(){
-        Gdx.app.log(TAG,"===== addOneRepeat ===== "+repeatNr);
-        repeatNr=repeatNr+1;
-        prefs.putInteger("repeatNr", repeatNr);
-        prefs.flush();
-    }
-
+//    public void addOneRepeat(){
+//        Gdx.app.log(TAG,"===== addOneRepeat ===== "+repeatNr);
+//        repeatNr=repeatNr+1;
+//        prefs.putInteger("repeatNr", repeatNr);
+//        prefs.flush();
+//    }
+//
     public int getRepeatNr(){
         return repeatNr;
     }
-
-    public void forceRepeatNr(int newRepeatNr){
-        repeatNr = newRepeatNr;
-        prefs.putInteger("repeatNr", repeatNr);
-        prefs.flush();
-    }
+//
+//    public void forceRepeatNr(int newRepeatNr){
+//        repeatNr = newRepeatNr;
+//        prefs.putInteger("repeatNr", repeatNr);
+//        prefs.flush();
+//    }
 
     public boolean getUseDebug(){
         return useDebug;
