@@ -291,14 +291,14 @@ public class LevelsManager {
                 return Assets.instance.staticBackground.factory4;
             case "5-5":
                 return Assets.instance.staticBackground.factory5;
-            case "6-1": //battle
-                return Assets.instance.staticBackground.battle1;
+            case "6-1": //night city and final battle
+                return Assets.instance.staticBackground.night1;
             case "6-2":
-                return Assets.instance.staticBackground.battle2;
+                return Assets.instance.staticBackground.night2;
             case "6-3":
-                return Assets.instance.staticBackground.battle3;
+                return Assets.instance.staticBackground.night3;
             case "6-4":
-                return Assets.instance.staticBackground.battle4;
+                return Assets.instance.staticBackground.battle1;
             default:
                 return Assets.instance.staticBackground.tubes5;
 

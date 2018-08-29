@@ -688,133 +688,133 @@ filter: Nearest,Nearest
 repeat: none
 01bruno
   rotate: false
-  xy: 136, 25
+  xy: 431, 453
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 3premios
   rotate: false
-  xy: 178, 25
+  xy: 883, 818
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
-abajo5
+ciudad01
   rotate: false
-  xy: 2, 104
-  size: 600, 390
-  orig: 600, 390
-  offset: 0, 0
-  index: -1
-batalla-2
-  rotate: false
-  xy: 2, 496
-  size: 450, 525
-  orig: 450, 525
-  offset: 0, 0
-  index: -1
-batalla-3
-  rotate: false
-  xy: 454, 496
+  xy: 431, 495
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
 engranaje1 A
   rotate: false
-  xy: 906, 926
+  xy: 883, 860
   size: 88, 95
   orig: 88, 95
   offset: 0, 0
   index: -1
-iman
+fondoAutos
   rotate: false
-  xy: 604, 141
-  size: 303, 353
-  orig: 303, 353
+  xy: 2, 125
+  size: 475, 252
+  orig: 475, 252
+  offset: 0, 0
+  index: -1
+manoSola
+  rotate: false
+  xy: 479, 39
+  size: 496, 454
+  orig: 496, 454
   offset: 0, 0
   index: -1
 premio1
   rotate: false
-  xy: 220, 25
+  xy: 431, 411
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 premio2
   rotate: false
-  xy: 262, 25
+  xy: 883, 776
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 premio3
   rotate: false
-  xy: 304, 25
+  xy: 925, 818
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 premio4
   rotate: false
-  xy: 346, 25
+  xy: 883, 734
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 premio5
   rotate: false
-  xy: 388, 25
+  xy: 925, 776
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 premio6
   rotate: false
-  xy: 430, 25
+  xy: 883, 692
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 rectaH
   rotate: false
-  xy: 2, 67
+  xy: 446, 2
   size: 520, 35
   orig: 520, 35
   offset: 0, 0
   index: -1
 rectaV
   rotate: false
-  xy: 948, 364
+  xy: 977, 395
   size: 35, 560
   orig: 35, 560
   offset: 0, 0
   index: -1
 reset-1
   rotate: false
-  xy: 726, 21
+  xy: 2, 5
   size: 220, 118
   orig: 220, 118
   offset: 0, 0
   index: -1
+reset-2
+  rotate: false
+  xy: 224, 5
+  size: 220, 118
+  orig: 220, 118
+  offset: 0, 0
+  index: -1
+submarino
+  rotate: false
+  xy: 2, 379
+  size: 427, 641
+  orig: 427, 641
+  offset: 0, 0
+  index: -1
 tubo
   rotate: false
-  xy: 472, 25
+  xy: 925, 734
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
-tubo200
-  rotate: false
-  xy: 524, 35
-  size: 200, 67
-  orig: 200, 67
-  offset: 0, 0
-  index: -1
 tubo_final
   rotate: false
-  xy: 2, 2
+  xy: 883, 957
   size: 132, 63
   orig: 132, 63
   offset: 0, 0
@@ -827,65 +827,65 @@ filter: Nearest,Nearest
 repeat: none
 brunoGrande_cuerpo
   rotate: false
-  xy: 823, 491
+  xy: 860, 250
   size: 151, 112
   orig: 151, 112
   offset: 0, 0
   index: -1
 cityO1
   rotate: false
-  xy: 325, 792
+  xy: 2, 808
   size: 640, 201
   orig: 640, 201
   offset: 0, 0
   index: -1
-fondoAutos
-  rotate: false
-  xy: 273, 26
-  size: 475, 252
-  orig: 475, 252
-  offset: 0, 0
-  index: -1
 guiGearR
   rotate: false
-  xy: 2, 19
+  xy: 307, 478
   size: 269, 259
   orig: 269, 259
   offset: 0, 0
   index: -1
-jugar-2
+iman
   rotate: false
-  xy: 823, 674
-  size: 174, 116
-  orig: 174, 116
+  xy: 2, 453
+  size: 303, 353
+  orig: 303, 353
   offset: 0, 0
   index: -1
-manoSola
+manitoarriba
   rotate: false
-  xy: 325, 336
-  size: 496, 454
-  orig: 496, 454
+  xy: 644, 433
+  size: 363, 576
+  orig: 363, 576
   offset: 0, 0
   index: -1
-submarino
+mega
   rotate: false
-  xy: 2, 280
-  size: 321, 713
-  orig: 321, 713
+  xy: 2, 2
+  size: 427, 429
+  orig: 427, 429
+  offset: 0, 0
+  index: -1
+mega2
+  rotate: false
+  xy: 431, 2
+  size: 427, 429
+  orig: 427, 429
   offset: 0, 0
   index: -1
 tubo160
   rotate: false
-  xy: 823, 605
+  xy: 860, 364
   size: 160, 67
   orig: 160, 67
   offset: 0, 0
   index: -1
-tuboVertical2
+tubo200
   rotate: false
-  xy: 750, 2
-  size: 194, 332
-  orig: 194, 332
+  xy: 431, 739
+  size: 200, 67
+  orig: 200, 67
   offset: 0, 0
   index: -1
 
@@ -894,58 +894,58 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-batalla-4
+abajo5
   rotate: false
-  xy: 2, 282
+  xy: 2, 62
+  size: 600, 390
+  orig: 600, 390
+  offset: 0, 0
+  index: -1
+ciudad02
+  rotate: false
+  xy: 2, 454
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
-feedbackTablet
+ciudad03
   rotate: false
-  xy: 2, 809
-  size: 600, 200
-  orig: 600, 200
+  xy: 454, 454
+  size: 450, 525
+  orig: 450, 525
   offset: 0, 0
   index: -1
-manitoarriba
+jugar-2
   rotate: false
-  xy: 604, 433
-  size: 363, 576
-  orig: 363, 576
-  offset: 0, 0
-  index: -1
-mega
-  rotate: false
-  xy: 454, 2
-  size: 427, 429
-  orig: 427, 429
+  xy: 825, 100
+  size: 174, 116
+  orig: 174, 116
   offset: 0, 0
   index: -1
 niveles-2
   rotate: false
-  xy: 224, 164
+  xy: 604, 2
   size: 219, 116
   orig: 219, 116
   offset: 0, 0
   index: -1
-reset-2
+tuboVertical2
   rotate: false
-  xy: 2, 162
-  size: 220, 118
-  orig: 220, 118
+  xy: 604, 120
+  size: 194, 332
+  orig: 194, 332
   offset: 0, 0
   index: -1
 tutorial-1
   rotate: false
-  xy: 224, 46
+  xy: 800, 336
   size: 219, 116
   orig: 219, 116
   offset: 0, 0
   index: -1
 tutorial-2
   rotate: false
-  xy: 2, 44
+  xy: 800, 218
   size: 219, 116
   orig: 219, 116
   offset: 0, 0
@@ -956,25 +956,25 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-batalla-5
+ciudad04
   rotate: false
-  xy: 2, 433
+  xy: 2, 204
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
-ciudad01
+fabrica-1
   rotate: false
-  xy: 454, 433
+  xy: 454, 204
   size: 450, 525
   orig: 450, 525
   offset: 0, 0
   index: -1
-mega2
+feedbackTablet
   rotate: false
   xy: 2, 2
-  size: 427, 429
-  orig: 427, 429
+  size: 600, 200
+  orig: 600, 200
   offset: 0, 0
   index: -1
 
@@ -983,27 +983,7 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-ciudad02
-  rotate: false
-  xy: 2, 2
-  size: 450, 525
-  orig: 450, 525
-  offset: 0, 0
-  index: -1
-ciudad03
-  rotate: false
-  xy: 454, 2
-  size: 450, 525
-  orig: 450, 525
-  offset: 0, 0
-  index: -1
-
-pack10.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-ciudad04
+fabrica-2
   rotate: false
   xy: 2, 2
   size: 450, 525
@@ -1018,7 +998,47 @@ fabrica-2
   offset: 0, 0
   index: -1
 
+pack10.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+mar-1
+  rotate: false
+  xy: 2, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+mar-2
+  rotate: false
+  xy: 454, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+
 pack11.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+noche-1
+  rotate: false
+  xy: 2, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+noche-2
+  rotate: false
+  xy: 454, 2
+  size: 450, 525
+  orig: 450, 525
+  offset: 0, 0
+  index: -1
+
+pack12.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1038,7 +1058,7 @@ nubes02
   offset: 0, 0
   index: -1
 
-pack12.png
+pack13.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1058,7 +1078,7 @@ nubes04
   offset: 0, 0
   index: -1
 
-pack13.png
+pack14.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1078,7 +1098,7 @@ tubo02
   offset: 0, 0
   index: -1
 
-pack14.png
+pack15.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1098,7 +1118,7 @@ tubo04
   offset: 0, 0
   index: -1
 
-pack15.png
+pack16.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1118,7 +1138,7 @@ tubo02B
   offset: 0, 0
   index: -1
 
-pack16.png
+pack17.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest

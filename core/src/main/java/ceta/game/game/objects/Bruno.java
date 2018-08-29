@@ -44,7 +44,7 @@ public class Bruno extends AbstractGameObject {
     @Override
     public void init () {
         Gdx.app.log(TAG, "in init --- brunoooo");
-        regTex = Assets.instance.bruno.mega;
+        regTex = Assets.instance.bruno.underWater;
         mask = Assets.instance.roboticParts.mask;
         tube = Assets.instance.roboticParts.finalTube;
         this.setSize(regTex.getRegionWidth(),regTex.getRegionHeight());
