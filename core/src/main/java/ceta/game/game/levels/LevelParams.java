@@ -16,6 +16,7 @@ public class LevelParams {
     public int numberMax;
     public int priceReturn; // will define if dynamic or not
     public int priceVelocity;
+    public int islandNr; // options: 1,2,3,4,5,6
     public boolean visibleNumberLine;
 
 }

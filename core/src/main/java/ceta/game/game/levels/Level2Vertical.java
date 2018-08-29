@@ -24,7 +24,7 @@ public class Level2Vertical extends AbstractLevel {
 
         // bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X , -bruno.getHeight());
         // change default horizontal to horizontal moving by first param "false"
-        price = new Price(false,3,levelParams, worldController);
+        price = new Price(false,levelParams, worldController);
 
         // add actors
         //stage.addActor(bruno);

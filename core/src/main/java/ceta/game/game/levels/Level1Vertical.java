@@ -26,7 +26,7 @@ public class Level1Vertical extends AbstractLevel {
         //addClouds(3);
         adjustX = -40;
         Gdx.app.log(TAG,"init Level 1 Vertical");
-        price = new Price(false, 1, levelParams, worldController);
+        price = new Price(false,levelParams, worldController);
 
         tube = new Tube();
         tube.setPosition(Constants.VERTICAL_MIDDLE_X-tube.getWidth()/2 + adjustX,Constants.GROUND_LEVEL -tube.getHeight());

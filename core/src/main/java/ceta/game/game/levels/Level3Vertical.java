@@ -32,7 +32,7 @@ public class Level3Vertical extends  AbstractLevel {
 
         // bruno.setPosition(-Constants.VIEWPORT_WIDTH/2 + Constants.OFFSET_X , -bruno.getHeight());
         // change default horizontal to horizontal moving by first param "false"
-        price = new Price(false, 4, levelParams, worldController);
+        price = new Price(false, levelParams, worldController);
         if(price.isDynamic())
             bruno.addAction(Actions.moveTo(-Constants.VIEWPORT_WIDTH/4,Constants.GROUND_LEVEL-bruno.getHeight()/2,1.5f));
         else

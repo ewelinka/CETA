@@ -23,7 +23,7 @@ public class Level3Horizontal extends AbstractLevel {
     public void init() {
         bruno = new BrunoMovingHorizontal();
         // default horizontal
-        price = new Price(4,levelParams, worldController);
+        price = new Price(levelParams, worldController);
 
         gear = new Gear(-Constants.VIEWPORT_WIDTH/2 -110,Constants.DETECTION_ZONE_END);
         // add actors

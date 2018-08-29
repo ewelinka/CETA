@@ -1,4 +1,4 @@
-isla,representacion,V o H,linea numerica empieza en:,termina en:,nro de operaciones,lista de operaciones,premio vuelve:,velocidad del premio:,linea numerica visible,fondo
+isla,representacion,V o H,linea numerica empieza en:,termina en:,nro de operaciones,lista de operaciones,premio vuelve:,velocidad del premio:,linea numerica visible,fondo:
 1,3,H,0,10,6,1 2 3 5 7 9 ,-1,0,1,1
 1,3,H,0,10,10,2 4 2 6 4 8 10 8 6 8,-1,0,1,2
 1,3,H,0,10,6,3 6 9 6 3 9,-1,0,1,3
@@ -11,12 +11,12 @@ isla,representacion,V o H,linea numerica empieza en:,termina en:,nro de operacio
 3,1,V,0,13,10,,3,-40,1,2
 3,1,V,0,13,10,,3,-45,1,3
 3,1,V,0,13,10,,3,-45,1,4
-4,2,H,10,20,6,2 6 10 8 6 4 ,3,-45,1,1
+4,2,H,10,20,6,12 16 20 18 16 14 ,3,-45,1,1
 4,2,H,10,20,10,,3,-50,1,2
 4,2,H,10,20,10,,3,-50,1,3
 4,2,H,10,20,10,,3,-60,1,4
 4,2,H,10,20,10,,3,-60,1,5
-5,2,V,10,23,6,1 2 3 5 7 9 ,3,-70,1,1
+5,2,V,10,23,6,11 12 13 15 17 19 ,3,-70,1,1
 5,2,V,10,23,10,,3,-70,1,2
 5,2,V,10,23,10,,3,-80,1,3
 5,2,V,10,23,10,,3,-80,1,4

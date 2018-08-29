@@ -47,7 +47,7 @@ public class EnergyManager extends BrunosManager {
         brunoVertical.setPosition(Constants.VERTICAL_MIDDLE_X - brunoVertical.getWidth()/2,
                 Constants.GROUND_LEVEL-brunoVertical.getHeight()/2);
 
-        energyUnit = new Image(Assets.instance.bruno.energy);
+        energyUnit = new Image(Assets.instance.bruno.spring);
         energyUnit.setSize(Constants.BASE-8,Constants.BASE);
         energyUnit.setScale(1,0);
         energyUnit.setPosition(Constants.VERTICAL_MIDDLE_X - energyUnit.getWidth()/2+2, brunoVertical.getY()+10);

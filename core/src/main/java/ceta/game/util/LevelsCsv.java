@@ -28,6 +28,7 @@ public class LevelsCsv {
         levelParams.numberMin = Integer.parseInt(splittedLine[3]); //fourth column (nr3 if we start in 0)
         levelParams.numberMax = Integer.parseInt(splittedLine[4]);
         levelParams.operationsToFinishLevel = Integer.parseInt(splittedLine[5]);
+        levelParams.islandNr = Integer.parseInt(splittedLine[0]);
 
         int [] operations;
         if(splittedLine[6].length() > 0){
