@@ -264,6 +264,30 @@ public class AudioManager {
             case 15:
                 playWithoutInterruptionLoud(Assets.instance.sounds.fifteen);
                 break;
+            case 16:
+                playWithoutInterruptionLoud(Assets.instance.sounds.s16);
+                break;
+            case 17:
+                playWithoutInterruptionLoud(Assets.instance.sounds.s17);
+                break;
+            case 18:
+                playWithoutInterruptionLoud(Assets.instance.sounds.s18);
+                break;
+            case 19:
+                playWithoutInterruptionLoud(Assets.instance.sounds.s19);
+                break;
+            case 20:
+                playWithoutInterruptionLoud(Assets.instance.sounds.s20);
+                break;
+            case 21:
+                playWithoutInterruptionLoud(Assets.instance.sounds.s21);
+                break;
+            case 22:
+                playWithoutInterruptionLoud(Assets.instance.sounds.s22);
+                break;
+            case 23:
+                playWithoutInterruptionLoud(Assets.instance.sounds.s23);
+                break;
         }
 
     }

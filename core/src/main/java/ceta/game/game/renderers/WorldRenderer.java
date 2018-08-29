@@ -169,7 +169,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 );
         batch.setColor(1,1,1,1);
 
-        String text = worldController.getNowDetectedSum()+"";
+        String text = worldController.getNowDetectedSumWithStartNumberLineValue()+"";
         GlyphLayout layout = new GlyphLayout(bigGuiFont, text);
 //        counterFont.setColor(Color.RED);
         bigGuiFont.draw(batch, text, 0 , feedbackRenderer.getFeedbackMiddlePoint()+layout.height/2,0,Align.center,false);

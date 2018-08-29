@@ -119,7 +119,8 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
 
     protected void renderDetectionZoneImg(SpriteBatch batch){
-        TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
+        boolean plus10 = worldController.getMinimumNumber() >= 10;
+        TextureAtlas.AtlasRegion feedbackZone = plus10 ? Assets.instance.background.feedbackZoneTabletPlus10 : Assets.instance.background.feedbackZoneTablet;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 

@@ -99,18 +99,19 @@ public class WorldRendererCV extends WorldRenderer {
 
     @Override
     protected void renderDetectionZoneImg(SpriteBatch batch){
+        boolean plus10 = worldController.getMinimumNumber() >= 10;
+        TextureAtlas.AtlasRegion feedbackZone = plus10 ? Assets.instance.background.feedbackZoneCVPlus10 : Assets.instance.background.feedbackZoneCV;
 
-        TextureAtlas.AtlasRegion b = Assets.instance.background.feedbackZoneCV;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(b.getTexture(),
+        batch.draw(feedbackZone.getTexture(),
                 -Constants.CV_DETECTION_EDGE_TABLET/2, -Constants.VIEWPORT_HEIGHT/2,
-                b.getRegionWidth()/2, b.getRegionHeight()/2,
+                feedbackZone.getRegionWidth()/2, feedbackZone.getRegionHeight()/2,
                 Constants.CV_DETECTION_EDGE_TABLET, Constants.CV_DETECTION_EDGE_TABLET,
                 1, 1,
                 0,
-                b.getRegionX(), b.getRegionY(),
-                b.getRegionWidth(), b.getRegionHeight(), false,false);
+                feedbackZone.getRegionX(), feedbackZone.getRegionY(),
+                feedbackZone.getRegionWidth(), feedbackZone.getRegionHeight(), false,false);
         batch.end();
 
 

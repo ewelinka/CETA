@@ -112,7 +112,7 @@ public class NoCvController extends AbstractWorldController {
         for( Integer v : toReadValues ) {
             sum += v;
         }
-        AudioManager.instance.readNumber(sum);
+        AudioManager.instance.readNumber(levelParams.numberMin+ sum);
         addIntentToResults(sum,level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), toReadValues);
 
     }

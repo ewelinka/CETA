@@ -70,6 +70,14 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/13.wav", Sound.class);
         assetManager.load("sounds/14.wav", Sound.class);
         assetManager.load("sounds/15.wav", Sound.class);
+        assetManager.load("sounds/16.wav", Sound.class);
+        assetManager.load("sounds/17.wav", Sound.class);
+        assetManager.load("sounds/18.wav", Sound.class);
+        assetManager.load("sounds/19.wav", Sound.class);
+        assetManager.load("sounds/20.wav", Sound.class);
+        assetManager.load("sounds/21.wav", Sound.class);
+        assetManager.load("sounds/22.wav", Sound.class);
+        assetManager.load("sounds/23.wav", Sound.class);
         assetManager.load("sounds/muchas.wav", Sound.class);
         assetManager.load("sounds/pocas.wav", Sound.class);
         assetManager.load("sounds/quita.wav", Sound.class);
@@ -252,8 +260,8 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class AssetBackground {
-        public final TextureAtlas.AtlasRegion feedbackZoneTablet;
-        public final TextureAtlas.AtlasRegion feedbackZoneCV;
+        public final TextureAtlas.AtlasRegion feedbackZoneTablet, feedbackZoneTabletPlus10;
+        public final TextureAtlas.AtlasRegion feedbackZoneCV, feedbackZoneCVPlus10;
         public final TextureAtlas.AtlasRegion feedbackZoneV1CV;
         public final TextureAtlas.AtlasRegion feedbackZoneV1Tablet;
         public final TextureAtlas.AtlasRegion gearGray1;
@@ -275,7 +283,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public AssetBackground (TextureAtlas atlas) {
             feedbackZoneTablet= atlas.findRegion("feedbackTablet");
+            feedbackZoneTabletPlus10= atlas.findRegion("plus10tablet");
             feedbackZoneCV = atlas.findRegion("feedbackZone360x360") ;
+            feedbackZoneCVPlus10 = atlas.findRegion("plus10") ;
             feedbackZoneV1CV = atlas.findRegion("workZoneV2");
             feedbackZoneV1Tablet = atlas.findRegion("workZoneV2tablet2");
             gearGray1 = atlas.findRegion("engrana01");
@@ -530,7 +540,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound two;
         public final Sound three;
         public final Sound four;
-        public final Sound five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen;
+        public final Sound five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen, s16, s17, s18, s19, s20, s21, s22, s23;
         public final Sound tooMuch;
         public final Sound tooFew;
         public final Sound cleanTable;
@@ -559,6 +569,15 @@ public class Assets implements Disposable, AssetErrorListener {
             thirteen= am.get("sounds/13.wav", Sound.class);
             fourteen= am.get("sounds/14.wav", Sound.class);
             fifteen= am.get("sounds/15.wav", Sound.class);
+            s16 = am.get("sounds/16.wav", Sound.class);
+            s17 = am.get("sounds/17.wav", Sound.class);
+            s18 = am.get("sounds/18.wav", Sound.class);
+            s19 = am.get("sounds/19.wav", Sound.class);
+            s20 = am.get("sounds/20.wav", Sound.class);
+            s21 = am.get("sounds/21.wav", Sound.class);
+            s22 = am.get("sounds/22.wav", Sound.class);
+            s23 = am.get("sounds/23.wav", Sound.class);
+
             levelPassed = am.get("sounds/levelPassed.wav", Sound.class);
             repeatLevel = am.get("sounds/repetirNivel.wav", Sound.class);
             inTheZone= am.get("sounds/marcada.wav", Music.class);
