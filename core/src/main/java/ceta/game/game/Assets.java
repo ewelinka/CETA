@@ -51,8 +51,16 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
         // load sounds
         assetManager.load("sounds/yuju.wav", Sound.class);
+        assetManager.load("positive/a1-iupi.wav", Sound.class);
+        assetManager.load("positive/a2-MuyBien.wav", Sound.class);
+        assetManager.load("positive/a3-Buenisimo.wav", Sound.class);
+        assetManager.load("positive/b2-AndasVolando.wav", Sound.class);
+        assetManager.load("positive/b3-QueBuenosAmigos.wav", Sound.class);
+        assetManager.load("positive/b4-BienPescado.wav", Sound.class);
+        assetManager.load("positive/b5-QueBuenSalto.wav", Sound.class);
+        assetManager.load("positive/b6-YaEstamosMasCerca.wav", Sound.class);
         assetManager.load("sounds/pickup_coin.wav", Sound.class);
-        assetManager.load("sounds/live_lost.wav", Sound.class);
+        assetManager.load("sounds/error.wav", Sound.class);
         assetManager.load("sounds/buzz.wav", Sound.class);
         assetManager.load("sounds/meteroid.wav", Sound.class);
         assetManager.load("sounds/1.wav", Sound.class);
@@ -83,6 +91,10 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/quita.wav", Sound.class);
         // assetManager.load("sounds/yupii.wav", Sound.class);
         assetManager.load("sounds/levelPassed.wav", Sound.class);
+        assetManager.load("sounds/BuenTrabajo.wav", Sound.class);
+        assetManager.load("sounds/ExcelenteSeguimosAvanzando.wav", Sound.class);
+        assetManager.load("sounds/MuyBienProximoNivel.wav", Sound.class);
+
         assetManager.load("sounds/repetirNivel.wav", Sound.class);
         assetManager.load("sounds/marcada.wav", Music.class);
 
@@ -95,6 +107,12 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/gracias.wav", Music.class);
         assetManager.load("sounds/poniendoFichas.wav", Music.class);
         assetManager.load("sounds/creepy-min.mp3", Music.class);
+
+        assetManager.load("island-intro/de1a2.wav", Sound.class);
+        assetManager.load("island-intro/de2a3.wav", Sound.class);
+        assetManager.load("island-intro/de3a4.wav", Sound.class);
+        assetManager.load("island-intro/de4a5.wav", Sound.class);
+        assetManager.load("island-intro/de5a6.wav", Sound.class);
 
         // load music
         assetManager.load("music/song1.mp3", Music.class);
@@ -533,7 +551,7 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class AssetSounds {
-        public final Sound pickupPrice;
+        public final Sound a1, a2, a3, b2,b3,b4,b5,b6;
         public final Sound liveLost;
         public final Sound buzz;
         public final Sound one;
@@ -544,15 +562,25 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound tooMuch;
         public final Sound tooFew;
         public final Sound cleanTable;
-        public final Sound levelPassed,repeatLevel;
+        public final Sound levelPassed,levelPassed2, levelPassed3, levelPassed4, repeatLevel;
 
         public final Sound welcome;
+        public final Sound intro2, intro3, intro4, intro5, intro6;
         public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,gracias,poniendo,creepy;
 
 
         public AssetSounds (AssetManager am) {
-            pickupPrice = am.get("sounds/yuju.wav", Sound.class);
-            liveLost = am.get("sounds/live_lost.wav", Sound.class);
+
+            a1 = am.get("positive/a1-iupi.wav", Sound.class);
+            a2 = am.get("positive/a2-MuyBien.wav", Sound.class);
+            a3 = am.get("positive/a3-Buenisimo.wav", Sound.class);
+            b2 = am.get("positive/b2-AndasVolando.wav", Sound.class);
+            b3 = am.get("positive/b3-QueBuenosAmigos.wav", Sound.class);
+            b4 = am.get("positive/b4-BienPescado.wav", Sound.class);
+            b5 = am.get("positive/b5-QueBuenSalto.wav", Sound.class);
+            b6 = am.get("positive/b6-YaEstamosMasCerca.wav", Sound.class);
+
+            liveLost = am.get("sounds/error.wav", Sound.class);
             buzz = am.get("sounds/meteroid.wav", Sound.class);
             one = am.get("sounds/1.wav", Sound.class);
             two = am.get("sounds/2.wav", Sound.class);
@@ -579,6 +607,10 @@ public class Assets implements Disposable, AssetErrorListener {
             s23 = am.get("sounds/23.wav", Sound.class);
 
             levelPassed = am.get("sounds/levelPassed.wav", Sound.class);
+            levelPassed2 = am.get("sounds/BuenTrabajo.wav", Sound.class);
+            levelPassed3 = am.get("sounds/ExcelenteSeguimosAvanzando.wav", Sound.class);
+            levelPassed4 = am.get("sounds/MuyBienProximoNivel.wav", Sound.class);
+
             repeatLevel = am.get("sounds/repetirNivel.wav", Sound.class);
             inTheZone= am.get("sounds/marcada.wav", Music.class);
             tooMuch = am.get("sounds/muchas.wav", Sound.class);
@@ -593,6 +625,13 @@ public class Assets implements Disposable, AssetErrorListener {
             gracias = am.get("sounds/gracias.wav", Music.class);
             poniendo = am.get("sounds/poniendoFichas.wav", Music.class);
             creepy = am.get("sounds/creepy-min.mp3", Music.class);
+
+            intro2 = am.get("island-intro/de1a2.wav", Sound.class);
+            intro3 = am.get("island-intro/de2a3.wav", Sound.class);
+            intro4 = am.get("island-intro/de3a4.wav", Sound.class);
+            intro5 = am.get("island-intro/de4a5.wav", Sound.class);
+            intro6 = am.get("island-intro/de5a6.wav", Sound.class);
+
 
 
         }

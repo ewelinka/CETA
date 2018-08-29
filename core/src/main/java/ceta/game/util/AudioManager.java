@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
@@ -27,6 +28,7 @@ public class AudioManager {
     private SequenceAction readMe;
     private Actor reader;
     private Stage stage;
+    private Sound[] positiveNormalSounds = new Sound[]{Assets.instance.sounds.a1, Assets.instance.sounds.a2, Assets.instance.sounds.a3};
 
     // singleton: prevent instantiation from other classes
     private AudioManager () { }
@@ -302,7 +304,8 @@ public class AudioManager {
             playingMusic = music;
 
             music.setLooping(true);
-            music.setVolume(0.15f);
+           // music.setVolume(0.15f);
+            music.setVolume(1.0f);
             music.play();
         }
     }
@@ -318,6 +321,36 @@ public class AudioManager {
         Music creepy = Assets.instance.sounds.creepy;
         creepy.setVolume(0.25f);
         playWithoutInterruption(creepy);
+
+    }
+
+    public Sound getPositiveFeedbackForIsland(int islandNr){
+        float decideFeedback = MathUtils.random();
+        Sound positiveSound = Assets.instance.sounds.a1;
+        if(decideFeedback < 0.8){
+            int decideWhichNormal = MathUtils.random(0,2);
+            positiveSound = positiveNormalSounds[decideWhichNormal];
+            Gdx.app.log(TAG,"decideWhichNormal "+decideWhichNormal);
+        }else{
+            switch(islandNr){
+                case 2:
+                    positiveSound = Assets.instance.sounds.b2;
+                    break;
+                case 3:
+                    positiveSound = Assets.instance.sounds.b3;
+                    break;
+                case 4:
+                    positiveSound = Assets.instance.sounds.b4;
+                    break;
+                case 5:
+                    positiveSound = Assets.instance.sounds.b5;
+                    break;
+                case 6:
+                    positiveSound = Assets.instance.sounds.b6;
+                    break;
+            }
+        }
+        return positiveSound;
 
     }
 

@@ -16,6 +16,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -443,15 +444,15 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     private void genericOnCollision(){
-        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
+        AudioManager.instance.playWithoutInterruption(AudioManager.instance.getPositiveFeedbackForIsland(levelParams.islandNr));
         currentErrors = 0;
         game.resultsManager.setLastToFinal();
         game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(),score);
         score += 1;
     }
 
+
     protected void onCollisionBrunoWithPrice(Price price, AbstractGameObject collisionObject) {
-        Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (price.getActions().size == 0) { // we act just one time!
             genericOnCollision();
             if (notYetPassTheLevel()) {
@@ -470,7 +471,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             bruno.moveHead();
             genericOnCollision();
             if (notYetPassTheLevel()) {
-                Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+price.getX()+" y "+price.getY());
+                //Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+price.getX()+" y "+price.getY());
                 //price.wasEaten(bruno.getX(), bruno.getEatPointY());
                 price.onCollision(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
 

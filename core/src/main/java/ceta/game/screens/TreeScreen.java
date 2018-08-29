@@ -11,6 +11,7 @@ import ceta.game.util.Constants;
 import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -171,7 +172,7 @@ public class TreeScreen extends AbstractGameScreen {
         level6gear.setPosition(gearsPositions[5][0], gearsPositions[5][1]);
         stage.addActor(level6gear);
 
-        arrow = new TreeArrow(Assets.instance.tree.arrow);
+        arrow = new TreeArrow(Assets.instance.bruno.body01);
         stage.addActor(arrow); // now add to place the arrow most to front
     }
 
@@ -306,6 +307,8 @@ public class TreeScreen extends AbstractGameScreen {
                 part1.setColor(1,1,1,0);
                 part1.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level2gear.setIsMoving(true,3.5f);
+                automaticPassTime = 8.0f;
+                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro2);
                 break;
             case 2:
                 arrow.setPosition(arrowPositions[1][0],arrowPositions[1][1]);
@@ -315,6 +318,8 @@ public class TreeScreen extends AbstractGameScreen {
                 part2.setColor(1,1,1,0);
                 part2.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level3gear.setIsMoving(true,3.5f);
+                automaticPassTime = 6.0f;
+                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro3);
                 break;
             case 3:
                 arrow.setPosition(arrowPositions[2][0],arrowPositions[2][1]);
@@ -324,6 +329,8 @@ public class TreeScreen extends AbstractGameScreen {
                 part3.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level3gear.activateGear();
                 level4gear.setIsMoving(true,3.5f);
+                automaticPassTime = 12.0f;
+                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro4);
                 break;
             case 4:
                 arrow.setPosition(arrowPositions[3][0],arrowPositions[3][1]);
@@ -333,6 +340,8 @@ public class TreeScreen extends AbstractGameScreen {
                 part4.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level4gear.activateGear();
                 level5gear.setIsMoving(true,3.5f);
+                automaticPassTime = 7.0f;
+                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro5);
                 break;
             case 5:
                 arrow.setPosition(arrowPositions[4][0],arrowPositions[4][1]);
@@ -342,6 +351,8 @@ public class TreeScreen extends AbstractGameScreen {
                 part5.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level5gear.activateGear();
                 level6gear.setIsMoving(true,3.5f);
+                automaticPassTime = 9.0f;
+                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro6);
                 break;
             case 6:
                 arrow.setPosition(arrowPositions[5][0],arrowPositions[5][1]);
@@ -350,9 +361,9 @@ public class TreeScreen extends AbstractGameScreen {
                 part6.setColor(1,1,1,0);
                 part6.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level6gear.activateGear();
-                // TODO thats all falks!
+                // TODO that's all folks!
                 Gdx.app.log(TAG,"something special for the end");
-                automaticPassTime = Constants.AUTOMATIC_LEVEL_PASS + 3.0f;
+                automaticPassTime = 12.0f;
                 AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.gracias);
                 addBrunos();
 

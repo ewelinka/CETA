@@ -41,9 +41,6 @@ public class Constants {
 
     public static final int NO_MOVEMENT_DIST = 25;
 
-
-
-
     public static int PRICE_Y_HORIZONTAL; // where price will be if number line horizontal
     public static int DRAW_START;
 
