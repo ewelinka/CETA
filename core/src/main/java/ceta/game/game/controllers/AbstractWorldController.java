@@ -83,6 +83,9 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 AudioManager.instance.play(Assets.instance.music.musicTubes);
                 break;
             case 4:
+                Gdx.app.log(TAG,"plus 10!!! "+levelNr+" "+Constants.L2_COMPLETED_NR);
+                if(levelNr == Constants.L3_COMPLETED_NR+1)
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.plus10);
                 AudioManager.instance.play(Assets.instance.music.musicUnderwater);
                 break;
             case 5:

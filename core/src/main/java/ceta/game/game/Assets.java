@@ -94,7 +94,6 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/BuenTrabajo.wav", Sound.class);
         assetManager.load("sounds/ExcelenteSeguimosAvanzando.wav", Sound.class);
         assetManager.load("sounds/MuyBienProximoNivel.wav", Sound.class);
-
         assetManager.load("sounds/repetirNivel.wav", Sound.class);
         assetManager.load("sounds/marcada.wav", Music.class);
 
@@ -107,12 +106,14 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/gracias.wav", Music.class);
         assetManager.load("sounds/poniendoFichas.wav", Music.class);
         assetManager.load("sounds/creepy-min.mp3", Music.class);
+        assetManager.load("sounds/plus10.wav", Sound.class);
 
         assetManager.load("island-intro/de1a2.wav", Sound.class);
         assetManager.load("island-intro/de2a3.wav", Sound.class);
         assetManager.load("island-intro/de3a4.wav", Sound.class);
         assetManager.load("island-intro/de4a5.wav", Sound.class);
         assetManager.load("island-intro/de5a6.wav", Sound.class);
+
 
         // load music
         assetManager.load("music/song1.mp3", Music.class);
@@ -565,7 +566,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound levelPassed,levelPassed2, levelPassed3, levelPassed4, repeatLevel;
 
         public final Sound welcome;
-        public final Sound intro2, intro3, intro4, intro5, intro6;
+        public final Sound intro2, intro3, intro4, intro5, intro6, plus10;
         public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,gracias,poniendo,creepy;
 
 
@@ -631,6 +632,7 @@ public class Assets implements Disposable, AssetErrorListener {
             intro4 = am.get("island-intro/de3a4.wav", Sound.class);
             intro5 = am.get("island-intro/de4a5.wav", Sound.class);
             intro6 = am.get("island-intro/de5a6.wav", Sound.class);
+            plus10 = am.get("sounds/plus10.wav", Sound.class);
 
 
 

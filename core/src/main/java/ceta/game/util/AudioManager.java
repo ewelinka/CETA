@@ -304,8 +304,8 @@ public class AudioManager {
             playingMusic = music;
 
             music.setLooping(true);
-           // music.setVolume(0.15f);
-            music.setVolume(1.0f);
+            music.setVolume(0.15f);
+           // music.setVolume(1.0f);
             music.play();
         }
     }
@@ -326,12 +326,10 @@ public class AudioManager {
 
     public Sound getPositiveFeedbackForIsland(int islandNr){
         float decideFeedback = MathUtils.random();
-        Sound positiveSound = Assets.instance.sounds.a1;
-        if(decideFeedback < 0.8){
-            int decideWhichNormal = MathUtils.random(0,2);
-            positiveSound = positiveNormalSounds[decideWhichNormal];
-            Gdx.app.log(TAG,"decideWhichNormal "+decideWhichNormal);
-        }else{
+        int decideWhichNormal = MathUtils.random(0,2);
+        Sound positiveSound = positiveNormalSounds[decideWhichNormal];
+
+        if(decideFeedback >= 0.8){
             switch(islandNr){
                 case 2:
                     positiveSound = Assets.instance.sounds.b2;

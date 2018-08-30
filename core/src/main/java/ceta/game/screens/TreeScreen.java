@@ -40,6 +40,7 @@ public class TreeScreen extends AbstractGameScreen {
     protected int[][] arrowPositions,partsPositions,gearsPositions;
     private float automaticPassTime;
     private boolean shouldPass;
+    private boolean introStarted;
 
     protected boolean gameInit;
 
@@ -51,6 +52,7 @@ public class TreeScreen extends AbstractGameScreen {
         super(game);
         automaticPassTime = Constants.AUTOMATIC_LEVEL_PASS;
         shouldPass = true;
+        introStarted = false;
         this.gameInit = gameInit;
         gearsPositions = new int[][]{
                 {228, 437},
@@ -308,7 +310,10 @@ public class TreeScreen extends AbstractGameScreen {
                 part1.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level2gear.setIsMoving(true,3.5f);
                 automaticPassTime = 8.0f;
-                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro2);
+                if(!introStarted){
+                    introStarted = true;
+                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro2);
+                }
                 break;
             case 2:
                 arrow.setPosition(arrowPositions[1][0],arrowPositions[1][1]);
@@ -319,7 +324,10 @@ public class TreeScreen extends AbstractGameScreen {
                 part2.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level3gear.setIsMoving(true,3.5f);
                 automaticPassTime = 6.0f;
-                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro3);
+                if(!introStarted){
+                    introStarted = true;
+                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro3);
+                }
                 break;
             case 3:
                 arrow.setPosition(arrowPositions[2][0],arrowPositions[2][1]);
@@ -330,7 +338,10 @@ public class TreeScreen extends AbstractGameScreen {
                 level3gear.activateGear();
                 level4gear.setIsMoving(true,3.5f);
                 automaticPassTime = 12.0f;
-                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro4);
+                if(!introStarted) {
+                    introStarted = true;
+                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro4);
+                }
                 break;
             case 4:
                 arrow.setPosition(arrowPositions[3][0],arrowPositions[3][1]);
@@ -341,7 +352,10 @@ public class TreeScreen extends AbstractGameScreen {
                 level4gear.activateGear();
                 level5gear.setIsMoving(true,3.5f);
                 automaticPassTime = 7.0f;
-                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro5);
+                if(!introStarted){
+                    introStarted = true;
+                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro5);
+                }
                 break;
             case 5:
                 arrow.setPosition(arrowPositions[4][0],arrowPositions[4][1]);
@@ -352,7 +366,10 @@ public class TreeScreen extends AbstractGameScreen {
                 level5gear.activateGear();
                 level6gear.setIsMoving(true,3.5f);
                 automaticPassTime = 9.0f;
-                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro6);
+                if(!introStarted){
+                    introStarted = true;
+                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro6);
+                }
                 break;
             case 6:
                 arrow.setPosition(arrowPositions[5][0],arrowPositions[5][1]);
@@ -364,9 +381,11 @@ public class TreeScreen extends AbstractGameScreen {
                 // TODO that's all folks!
                 Gdx.app.log(TAG,"something special for the end");
                 automaticPassTime = 12.0f;
-                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.gracias);
+                if(!introStarted){
+                    introStarted = true;
+                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.gracias);
+                }
                 addBrunos();
-
                 break;
 
         }
