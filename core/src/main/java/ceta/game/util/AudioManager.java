@@ -55,7 +55,7 @@ public class AudioManager {
     }
 
     public void playWithoutInterruption(Sound sound) {
-        sound.play(defaultVolSound , 1, 1);
+        sound.play(defaultVolSound , 1, 0);
     }
 
     public void playWithoutInterruption(Music m) {
@@ -64,7 +64,7 @@ public class AudioManager {
 
 
     public void playWithoutInterruptionLoud(Sound sound) {
-        sound.play(1 , 1, 1);
+        sound.play(1 , 1, 0);
     }
 
     public void playWithoutInterruptionLoud(Music m) {
