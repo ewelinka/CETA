@@ -212,7 +212,7 @@ public class TreeHalfScreen extends TreeScreen {
                 level6gear.setActiveTexture(Assets.instance.tree.gear5half);
                 level6gear.setActive(false);
                 level6gear.activateGear();
-                // TODO thats all falks!
+                // TODO thats all folks!
                 break;
 
         }

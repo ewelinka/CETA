@@ -512,7 +512,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void setCountdownOn(boolean isOn){
         //Gdx.app.log(TAG, " setCountdownOn "+isOn);
         if(isOn) {
-            AudioManager.instance.play(Assets.instance.sounds.buzz);
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.buzz);
         }
         else {
             AudioManager.instance.stopSound();

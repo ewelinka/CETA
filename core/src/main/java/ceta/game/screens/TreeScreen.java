@@ -80,6 +80,7 @@ public class TreeScreen extends AbstractGameScreen {
                 {502,833},
                 {481,573}
         };
+        AudioManager.instance.stopMusic();
 
 
     }

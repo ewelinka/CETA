@@ -210,7 +210,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
 //        batch.setProjectionMatrix(camera.combined);
 //        batch.begin();
         bigGuiFont.setColor(0,0,0,0.7f);
-        bigGuiFont.draw(batch, levelTxt+(worldController.getLevelNr()+Constants.LAST_LEVEL_NR*GamePreferences.instance.getRepeatNr()), 0, 500,0, Align.center,false);
+        bigGuiFont.draw(batch, levelTxt+(worldController.getLevelNr()+Constants.LAST_LEVEL_NR*GamePreferences.instance.getRepeatNr()), 0, 490,0, Align.center,false);
 //        batch.end();
 
 

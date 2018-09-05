@@ -66,7 +66,6 @@ public class IntroScreen extends AbstractGameScreen {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(false);
         buildIntro();
-
     }
 
     @Override
@@ -242,7 +241,6 @@ public class IntroScreen extends AbstractGameScreen {
                     public void run() {
                         AudioManager.instance.setMusicVol(0.05f);
                         AudioManager.instance.playCreepy();
-
                     }
                 }),
                 alpha(0.7f,1.7f),
@@ -255,7 +253,13 @@ public class IntroScreen extends AbstractGameScreen {
                 alpha(0.2f,0.1f),
                 alpha(0.9f,0.1f),
                 delay(3.0f),
-                alpha(0.0f,0.1f)
+                alpha(0.0f,0.1f),
+                run(new Runnable() {
+                    @Override
+                    public void run() {
+                        AudioManager.instance.setMusicVol(0.15f);
+                    }
+                })
         ));
     }
 

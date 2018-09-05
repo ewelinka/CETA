@@ -299,12 +299,14 @@ public class AudioManager {
     }
 
     public void play (Music music) {
+        if(!music.isPlaying()){
+            music.setVolume(0.15f);
+            music.play();
+        }
         if(music != playingMusic){
             stopMusic();
             playingMusic = music;
-
             music.setLooping(true);
-            music.setVolume(0.15f);
            // music.setVolume(1.0f);
             music.play();
         }
