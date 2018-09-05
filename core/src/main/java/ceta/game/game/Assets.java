@@ -59,9 +59,9 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("positive/b4-BienPescado.wav", Sound.class);
         assetManager.load("positive/b5-QueBuenSalto.wav", Sound.class);
         assetManager.load("positive/b6-YaEstamosMasCerca.wav", Sound.class);
+        assetManager.load("positive/brunoPositive.wav", Sound.class);
         assetManager.load("sounds/pickup_coin.wav", Sound.class);
         assetManager.load("sounds/error.wav", Sound.class);
-        assetManager.load("sounds/buzz.wav", Sound.class);
         assetManager.load("sounds/meteroid.wav", Sound.class);
         assetManager.load("sounds/1.wav", Sound.class);
         assetManager.load("sounds/2.wav", Sound.class);
@@ -86,27 +86,29 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/21.wav", Sound.class);
         assetManager.load("sounds/22.wav", Sound.class);
         assetManager.load("sounds/23.wav", Sound.class);
-        assetManager.load("sounds/muchas.wav", Sound.class);
-        assetManager.load("sounds/pocas.wav", Sound.class);
-        assetManager.load("sounds/quita.wav", Sound.class);
+        assetManager.load("sounds/ProbaConMenosFichas.wav", Sound.class);
+        assetManager.load("sounds/ProbaConMasFichas.wav", Sound.class);
+        assetManager.load("sounds/TenesQueSacarLasFichas.wav", Sound.class);
         // assetManager.load("sounds/yupii.wav", Sound.class);
-        assetManager.load("sounds/levelPassed.wav", Sound.class);
+        assetManager.load("sounds/PasasteDeNIvel.wav", Sound.class);
         assetManager.load("sounds/BuenTrabajo.wav", Sound.class);
         assetManager.load("sounds/ExcelenteSeguimosAvanzando.wav", Sound.class);
         assetManager.load("sounds/MuyBienProximoNivel.wav", Sound.class);
-        assetManager.load("sounds/repetirNivel.wav", Sound.class);
+        assetManager.load("sounds/VamosAHacerEsteNivelUNaVezMas.wav", Sound.class);
         assetManager.load("sounds/marcada.wav", Music.class);
 
-        assetManager.load("sounds/brunoUnaAventura2.wav", Sound.class);
+        assetManager.load("sounds/brunoUnaAventura2.mp3", Sound.class);
         assetManager.load("sounds/erase.wav", Music.class);
         assetManager.load("sounds/malvado.wav", Music.class);
         assetManager.load("sounds/estirarse.wav", Music.class);
         assetManager.load("sounds/agarrar.wav", Music.class);
         assetManager.load("sounds/fichasRobo.wav", Music.class);
-        assetManager.load("sounds/gracias.wav", Music.class);
+        assetManager.load("sounds/GraciasFin.wav", Music.class);
         assetManager.load("sounds/poniendoFichas.wav", Music.class);
         assetManager.load("sounds/creepy-min.mp3", Music.class);
         assetManager.load("sounds/plus10.wav", Sound.class);
+        assetManager.load("sounds/IntroTutorial.mp3", Sound.class);
+        assetManager.load("sounds/Tutorial.mp3", Sound.class);
 
         assetManager.load("island-intro/de1a2.wav", Sound.class);
         assetManager.load("island-intro/de2a3.wav", Sound.class);
@@ -116,13 +118,13 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         // load music
-        assetManager.load("music/song1.mp3", Music.class);
-        assetManager.load("music/1_CIUDAD.wav", Music.class);
-        assetManager.load("music/2_NUBES.wav", Music.class);
-        assetManager.load("music/3_TUBERIAS.wav", Music.class);
-        assetManager.load("music/4_SUBMARINO.wav", Music.class);
-        assetManager.load("music/5_RESORTES.wav", Music.class);
-        assetManager.load("music/6_BATALLAFINAL.wav", Music.class);
+        //assetManager.load("music/song1.mp3", Music.class);
+        assetManager.load("music/1_CIUDAD.mp3", Music.class);
+        assetManager.load("music/2_NUBES.mp3", Music.class);
+        assetManager.load("music/3_TUBERIAS.mp3", Music.class);
+        assetManager.load("music/4_SUBMARINO.mp3", Music.class);
+        assetManager.load("music/5_RESORTES.mp3", Music.class);
+        assetManager.load("music/6_BATALLAFINAL.mp3", Music.class);
 
         // start loading assets and wait until finished
         assetManager.finishLoading();
@@ -257,21 +259,21 @@ public class Assets implements Disposable, AssetErrorListener {
             tubes5 = atlas.findRegion("tubo02B");
 
             sea1 = atlas.findRegion("mar-1");
-            sea2 = atlas.findRegion("mar-1");
-            sea3 = atlas.findRegion("mar-1");
-            sea4 = atlas.findRegion("mar-2");
-            sea5 = atlas.findRegion("mar-2");
+            sea2 = atlas.findRegion("mar-2");
+            sea3 = atlas.findRegion("mar-3");
+            sea4 = atlas.findRegion("mar-4");
+            sea5 = atlas.findRegion("mar-5");
 
             factory1 = atlas.findRegion("fabrica-1");
-            factory2 = atlas.findRegion("fabrica-1");
-            factory3 = atlas.findRegion("fabrica-1");
-            factory4 = atlas.findRegion("fabrica-2");
-            factory5 = atlas.findRegion("fabrica-2");
+            factory2 = atlas.findRegion("fabrica-2");
+            factory3 = atlas.findRegion("fabrica-3");
+            factory4 = atlas.findRegion("fabrica-4");
+            factory5 = atlas.findRegion("fabrica-5");
 
             battle1 = atlas.findRegion("batalla-1");
-            night1 = atlas.findRegion("noche-1");
+            night1 = atlas.findRegion("noche-4");
             night2 = atlas.findRegion("noche-2");
-            night3 = atlas.findRegion("noche-2");
+            night3 = atlas.findRegion("noche-3");
 
 
             belowTheGround= atlas.findRegion("abajo5");
@@ -559,14 +561,14 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound two;
         public final Sound three;
         public final Sound four;
-        public final Sound five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen, s16, s17, s18, s19, s20, s21, s22, s23;
+        public final Sound five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen, s16, s17, s18, s19, s20, s21, s22, s23, positive;
         public final Sound tooMuch;
         public final Sound tooFew;
         public final Sound cleanTable;
         public final Sound levelPassed,levelPassed2, levelPassed3, levelPassed4, repeatLevel;
 
         public final Sound welcome;
-        public final Sound intro2, intro3, intro4, intro5, intro6, plus10;
+        public final Sound intro2, intro3, intro4, intro5, intro6, plus10, introAndTutorial, tutorial;
         public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,gracias,poniendo,creepy;
 
 
@@ -580,6 +582,7 @@ public class Assets implements Disposable, AssetErrorListener {
             b4 = am.get("positive/b4-BienPescado.wav", Sound.class);
             b5 = am.get("positive/b5-QueBuenSalto.wav", Sound.class);
             b6 = am.get("positive/b6-YaEstamosMasCerca.wav", Sound.class);
+            positive = am.get("positive/brunoPositive.wav", Sound.class);
 
             liveLost = am.get("sounds/error.wav", Sound.class);
             buzz = am.get("sounds/meteroid.wav", Sound.class);
@@ -607,23 +610,23 @@ public class Assets implements Disposable, AssetErrorListener {
             s22 = am.get("sounds/22.wav", Sound.class);
             s23 = am.get("sounds/23.wav", Sound.class);
 
-            levelPassed = am.get("sounds/levelPassed.wav", Sound.class);
+            levelPassed = am.get("sounds/PasasteDeNIvel.wav", Sound.class);
             levelPassed2 = am.get("sounds/BuenTrabajo.wav", Sound.class);
             levelPassed3 = am.get("sounds/ExcelenteSeguimosAvanzando.wav", Sound.class);
             levelPassed4 = am.get("sounds/MuyBienProximoNivel.wav", Sound.class);
 
-            repeatLevel = am.get("sounds/repetirNivel.wav", Sound.class);
+            repeatLevel = am.get("sounds/VamosAHacerEsteNivelUNaVezMas.wav", Sound.class);
             inTheZone= am.get("sounds/marcada.wav", Music.class);
-            tooMuch = am.get("sounds/muchas.wav", Sound.class);
-            tooFew = am.get("sounds/pocas.wav", Sound.class);
-            cleanTable = am.get("sounds/quita.wav", Sound.class);
-            welcome = am.get("sounds/brunoUnaAventura2.wav", Sound.class);
+            tooMuch = am.get("sounds/ProbaConMenosFichas.wav", Sound.class);
+            tooFew = am.get("sounds/ProbaConMasFichas.wav", Sound.class);
+            cleanTable = am.get("sounds/TenesQueSacarLasFichas.wav", Sound.class);
+            welcome = am.get("sounds/brunoUnaAventura2.mp3", Sound.class);
             erase = am.get("sounds/erase.wav", Music.class);
             malvado = am.get("sounds/malvado.wav", Music.class);
             estirarse = am.get("sounds/estirarse.wav", Music.class);
             agarrar = am.get("sounds/agarrar.wav", Music.class);
             fichas = am.get("sounds/fichasRobo.wav", Music.class);
-            gracias = am.get("sounds/gracias.wav", Music.class);
+            gracias = am.get("sounds/GraciasFin.wav", Music.class);
             poniendo = am.get("sounds/poniendoFichas.wav", Music.class);
             creepy = am.get("sounds/creepy-min.mp3", Music.class);
 
@@ -634,7 +637,8 @@ public class Assets implements Disposable, AssetErrorListener {
             intro6 = am.get("island-intro/de5a6.wav", Sound.class);
             plus10 = am.get("sounds/plus10.wav", Sound.class);
 
-
+            introAndTutorial =  am.get("sounds/IntroTutorial.mp3", Sound.class);
+            tutorial =  am.get("sounds/Tutorial.mp3", Sound.class);
 
         }
     }
@@ -642,14 +646,15 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Music song01, musicCity, musicClouds, musicTubes, musicUnderwater, musicFactory, musicNight, musicBattle;
 
         public AssetMusic (AssetManager am) {
-            song01 = am.get("music/song1.mp3", Music.class);
-            musicCity = am.get("music/1_CIUDAD.wav", Music.class);
-            musicClouds = am.get("music/2_NUBES.wav", Music.class);
-            musicTubes = am.get("music/3_TUBERIAS.wav", Music.class);
-            musicUnderwater = am.get("music/4_SUBMARINO.wav", Music.class);
-            musicFactory = am.get("music/5_RESORTES.wav", Music.class);
+
+            musicCity = am.get("music/1_CIUDAD.mp3", Music.class);
+            song01 = musicCity;
+            musicClouds = am.get("music/2_NUBES.mp3", Music.class);
+            musicTubes = am.get("music/3_TUBERIAS.mp3", Music.class);
+            musicUnderwater = am.get("music/4_SUBMARINO.mp3", Music.class);
+            musicFactory = am.get("music/5_RESORTES.mp3", Music.class);
             musicNight = musicCity;
-            musicBattle = am.get("music/6_BATALLAFINAL.wav", Music.class);
+            musicBattle = am.get("music/6_BATALLAFINAL.mp3", Music.class);
 
         }
     }

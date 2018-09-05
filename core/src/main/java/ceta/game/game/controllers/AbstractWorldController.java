@@ -447,11 +447,19 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     private void genericOnCollision(){
-        AudioManager.instance.playWithoutInterruption(AudioManager.instance.getPositiveFeedbackForIsland(levelParams.islandNr));
-        currentErrors = 0;
-        game.resultsManager.setLastToFinal();
-        game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(),score);
-        score += 1;
+        if(notYetPassTheLevel()){
+            AudioManager.instance.playWithoutInterruption(AudioManager.instance.getPositiveFeedbackForIsland(levelParams.islandNr));
+            currentErrors = 0;
+            game.resultsManager.setLastToFinal();
+            game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), score);
+            score += 1;
+        }else{
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.positive);
+            currentErrors = 0;
+            game.resultsManager.setLastToFinal();
+            game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), score);
+            score += 1;
+        }
     }
 
 
