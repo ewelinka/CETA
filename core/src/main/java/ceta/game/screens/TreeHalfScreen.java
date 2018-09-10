@@ -6,7 +6,9 @@ import ceta.game.game.objects.TreeGear;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
@@ -23,6 +25,13 @@ public class TreeHalfScreen extends TreeScreen {
 
     public TreeHalfScreen(DirectedGame game, boolean gameInit) {
         super(game, gameInit);
+    }
+
+    @Override
+    public void show() {
+        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
+        Gdx.input.setCatchBackKey(true);
+        buildStage();
     }
 
     @Override

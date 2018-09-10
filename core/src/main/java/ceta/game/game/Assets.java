@@ -103,7 +103,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/estirarse.wav", Music.class);
         assetManager.load("sounds/agarrar.wav", Music.class);
         assetManager.load("sounds/fichasRobo.wav", Music.class);
-        assetManager.load("sounds/GraciasFin.wav", Music.class);
+        assetManager.load("sounds/GraciasFin.wav", Sound.class);
         assetManager.load("sounds/poniendoFichas.wav", Music.class);
         assetManager.load("sounds/creepy-min.mp3", Music.class);
         assetManager.load("sounds/plus10.wav", Sound.class);
@@ -568,8 +568,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound levelPassed,levelPassed2, levelPassed3, levelPassed4, repeatLevel;
 
         public final Sound welcome;
-        public final Sound intro2, intro3, intro4, intro5, intro6, plus10, introAndTutorial, tutorial;
-        public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,gracias,poniendo,creepy;
+        public final Sound intro2, intro3, intro4, intro5, intro6, plus10, introAndTutorial, tutorial, gracias;
+        public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,poniendo,creepy;
 
 
         public AssetSounds (AssetManager am) {
@@ -626,7 +626,7 @@ public class Assets implements Disposable, AssetErrorListener {
             estirarse = am.get("sounds/estirarse.wav", Music.class);
             agarrar = am.get("sounds/agarrar.wav", Music.class);
             fichas = am.get("sounds/fichasRobo.wav", Music.class);
-            gracias = am.get("sounds/GraciasFin.wav", Music.class);
+            gracias = am.get("sounds/GraciasFin.wav", Sound.class);
             poniendo = am.get("sounds/poniendoFichas.wav", Music.class);
             creepy = am.get("sounds/creepy-min.mp3", Music.class);
 

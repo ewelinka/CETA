@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.game.objects.TreeArrow;
 import ceta.game.game.objects.TreeGear;
+import ceta.game.game.objects.VirtualBlock;
 import ceta.game.managers.BrunosManager;
 import ceta.game.managers.LevelsManager;
 import ceta.game.util.AudioManager;
@@ -12,6 +13,7 @@ import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -80,7 +82,7 @@ public class TreeScreen extends AbstractGameScreen {
                 {502,833},
                 {481,573}
         };
-        AudioManager.instance.stopMusic();
+
 
 
     }
@@ -111,8 +113,8 @@ public class TreeScreen extends AbstractGameScreen {
     public void show() {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(true);
-
         buildStage();
+        AudioManager.instance.stopMusic();
 
     }
 
@@ -132,7 +134,7 @@ public class TreeScreen extends AbstractGameScreen {
         return stage;
     }
 
-    private void buildStage() {
+    protected void buildStage() {
         Gdx.app.log(TAG," build stageeeee ...... !! last level "+ game.levelsManager.getLastLevelCompleted()+" last -> "+Constants.LAST_LEVEL_NR );
         imgBackground = new Image(Assets.instance.tree.tree);
         imgBackground.setSize(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
@@ -310,10 +312,10 @@ public class TreeScreen extends AbstractGameScreen {
                 part1.setColor(1,1,1,0);
                 part1.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level2gear.setIsMoving(true,3.5f);
-                automaticPassTime = 8.0f;
+                automaticPassTime = 8.0f+4.0f;
                 if(!introStarted){
                     introStarted = true;
-                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro2);
+                    readIntroWithDelay(Assets.instance.sounds.intro2);
                 }
                 break;
             case 2:
@@ -324,10 +326,10 @@ public class TreeScreen extends AbstractGameScreen {
                 part2.setColor(1,1,1,0);
                 part2.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level3gear.setIsMoving(true,3.5f);
-                automaticPassTime = 6.0f;
+                automaticPassTime = 6.0f+4.0f;
                 if(!introStarted){
                     introStarted = true;
-                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro3);
+                    readIntroWithDelay(Assets.instance.sounds.intro3);
                 }
                 break;
             case 3:
@@ -338,10 +340,10 @@ public class TreeScreen extends AbstractGameScreen {
                 part3.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level3gear.activateGear();
                 level4gear.setIsMoving(true,3.5f);
-                automaticPassTime = 12.0f;
+                automaticPassTime = 12.0f+4.0f;
                 if(!introStarted) {
                     introStarted = true;
-                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro4);
+                    readIntroWithDelay(Assets.instance.sounds.intro4);
                 }
                 break;
             case 4:
@@ -352,10 +354,10 @@ public class TreeScreen extends AbstractGameScreen {
                 part4.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level4gear.activateGear();
                 level5gear.setIsMoving(true,3.5f);
-                automaticPassTime = 7.0f;
+                automaticPassTime = 7.0f+4.0f;
                 if(!introStarted){
                     introStarted = true;
-                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro5);
+                    readIntroWithDelay(Assets.instance.sounds.intro5);
                 }
                 break;
             case 5:
@@ -366,10 +368,10 @@ public class TreeScreen extends AbstractGameScreen {
                 part5.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level5gear.activateGear();
                 level6gear.setIsMoving(true,3.5f);
-                automaticPassTime = 9.0f;
+                automaticPassTime = 9.0f+4.0f;
                 if(!introStarted){
                     introStarted = true;
-                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.intro6);
+                    readIntroWithDelay(Assets.instance.sounds.intro6);
                 }
                 break;
             case 6:
@@ -381,10 +383,10 @@ public class TreeScreen extends AbstractGameScreen {
                 level6gear.activateGear();
                 // TODO that's all folks!
                 Gdx.app.log(TAG,"something special for the end");
-                automaticPassTime = 12.0f;
+                automaticPassTime = 12.0f+4.0f;
                 if(!introStarted){
                     introStarted = true;
-                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.gracias);
+                    readIntroWithDelay(Assets.instance.sounds.gracias);
                 }
                 addBrunos();
                 break;
@@ -548,6 +550,22 @@ public class TreeScreen extends AbstractGameScreen {
         ));
         stage.addActor(b4);
 
+    }
+
+    private void readIntroWithDelay(final Sound introSound){
+        Actor reader = new Actor();
+        stage.addActor(reader);
+
+        reader.addAction(sequence(
+                delay(2.0f),
+                run(new Runnable() {
+                    @Override
+                    public void run() {
+                        AudioManager.instance.playWithoutInterruptionLoud(introSound);
+                    }
+                })
+
+        ));
     }
 
 }
