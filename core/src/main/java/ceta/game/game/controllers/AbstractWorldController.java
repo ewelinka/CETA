@@ -16,7 +16,6 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -260,14 +259,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                 moveMade = false;
             }
         }
@@ -291,7 +290,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     moveMade = false;
                 }else {
                     if (moveMade) {
-                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                         moveMade = false;
                     }
 
@@ -299,7 +298,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                 moveMade = false;
             }
         }
@@ -320,14 +319,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                 moveMade = false;
             }
         }
@@ -354,7 +353,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     }
                     else {
                         if (moveMade) {
-                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                             moveMade = false;
                         }
 
@@ -363,7 +362,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             }
             else{
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                     moveMade = false;
                 }
             }
@@ -387,7 +386,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 }
                 else {
                     if (moveMade) {
-                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                         moveMade = false;
                     }
 
@@ -396,7 +395,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
         else {
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                 moveMade = false;
             }
 
@@ -422,7 +421,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     }
                     else {
                         if (moveMade) {
-                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                             moveMade = false;
                         }
 
@@ -431,7 +430,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             }
             else {
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
                     moveMade = false;
                 }
 
@@ -454,11 +453,15 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), score);
             score += 1;
         }else{
-            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.positive);
+
             currentErrors = 0;
             game.resultsManager.setLastToFinal();
             game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), score);
             score += 1;
+            if(score >= getOperationsToPassToNextLevel())
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.positive);
+            else
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
         }
     }
 

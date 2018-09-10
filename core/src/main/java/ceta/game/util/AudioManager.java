@@ -221,6 +221,9 @@ public class AudioManager {
 
     public void readNumber(int nr){
         switch (nr){
+            case 0:
+                playWithoutInterruptionLoud(Assets.instance.sounds.zero);
+                break;
             case 1:
                 playWithoutInterruptionLoud(Assets.instance.sounds.one);
                 break;
