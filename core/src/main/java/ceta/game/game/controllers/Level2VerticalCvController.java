@@ -77,14 +77,14 @@ public class Level2VerticalCvController extends CvController {
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
+                    playErrorSound();
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
+                playErrorSound();
                 moveMade = false;
             }
         }

@@ -71,14 +71,14 @@ public class Level2VerticalController extends NoCvController {
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
+                    playErrorSound();
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
+                playErrorSound();
                 moveMade = false;
             }
         }

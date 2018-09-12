@@ -24,15 +24,9 @@ public class TreeHalfScreen extends TreeScreen {
     }
 
     public TreeHalfScreen(DirectedGame game, boolean gameInit) {
-        super(game, gameInit);
+        super(game, gameInit, false); // all half-tree screens do NOT fade out music
     }
 
-    @Override
-    public void show() {
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
-        Gdx.input.setCatchBackKey(true);
-        buildStage();
-    }
 
     @Override
     protected void addGears(){

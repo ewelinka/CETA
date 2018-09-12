@@ -84,7 +84,7 @@ public class Level1VerticalCvController extends CvController {
                 }
                 else {
                     if (moveMade) {
-                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
+                        playErrorSound();
                         moveMade = false;
                     }
 
@@ -93,7 +93,7 @@ public class Level1VerticalCvController extends CvController {
         }
         else {
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
+                playErrorSound();
                 moveMade = false;
             }
 

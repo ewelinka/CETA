@@ -24,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
@@ -43,19 +44,21 @@ public class TreeScreen extends AbstractGameScreen {
     private float automaticPassTime;
     private boolean shouldPass;
     private boolean introStarted;
-
+    private boolean shouldFadeOutMusic;
     protected boolean gameInit;
 
-    public TreeScreen(DirectedGame game) {
-        this(game, false);
+
+    public TreeScreen(DirectedGame game, boolean gameInit){
+        this(game, gameInit, true); // all tree screens fade out music!
     }
 
-    public TreeScreen(DirectedGame game, boolean gameInit) {
+    protected TreeScreen(DirectedGame game, boolean gameInit, boolean shouldFadeOutMusic) {
         super(game);
         automaticPassTime = Constants.AUTOMATIC_LEVEL_PASS;
         shouldPass = true;
         introStarted = false;
         this.gameInit = gameInit;
+        this.shouldFadeOutMusic = shouldFadeOutMusic;
         gearsPositions = new int[][]{
                 {228, 437},
                 {162,354},
@@ -89,6 +92,16 @@ public class TreeScreen extends AbstractGameScreen {
 
     @Override
     public void render(float deltaTime) {
+        if(shouldFadeOutMusic && AudioManager.instance.getMusicVolume() > 0){
+            float newVol = AudioManager.instance.getMusicVolume() -  0.001f;
+            if(newVol >= 0 )
+                AudioManager.instance.setMusicVol(newVol);
+            else{
+                AudioManager.instance.stopMusic();
+                shouldFadeOutMusic = false;
+            }
+
+        }
         if(automaticPassTime < 0 && shouldPass){
             game.getLevelsManager().goToUncompletedLevel();
             shouldPass = false;
@@ -114,8 +127,6 @@ public class TreeScreen extends AbstractGameScreen {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(true);
         buildStage();
-        AudioManager.instance.stopMusic();
-
     }
 
     @Override

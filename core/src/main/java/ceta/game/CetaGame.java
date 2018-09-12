@@ -39,7 +39,7 @@ public class CetaGame extends DirectedGame {
 		// load music
 		AudioManager.instance.play(Assets.instance.music.song01);
 		ScreenTransition transition = ScreenTransitionFade.init(1);
-		//setScreen(new MenuScreen(this),transition);
+		//setScreen(new SimpleMenuScreen(this),transition);
 		//setScreen(new Level3VerticalScreen(this,1),transition);
 		//setScreen(new TutorialScreen(this),transition);
 		//setScreen(new IntroBrunoScreen(this),transition);
@@ -47,7 +47,7 @@ public class CetaGame extends DirectedGame {
 		//setScreen(new Level1VerticalScreen(this, 2, Assets.instance.staticBackground.city1), transition);
 		//setScreen(new Level3HorizontalCvScreen(this, 1, Assets.instance.staticBackground.city1), transition);
 		//setScreen(new Level2VerticalScreen(this, 13, Assets.instance.staticBackground.clouds3), transition);
-		//setScreen(new IntroScreen(this));
+		//setScreen(new SimpleMenuScreen(this));
 
 		//setScreen(new Level1VerticalScreen(this, 17, Assets.instance.staticBackground.city1), transition);
 		//setScreen(new TutorialScreen(this));

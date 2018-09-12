@@ -11,14 +11,22 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 
 import edu.ceta.vision.android.topcode.ScannerAndroid;
 import edu.ceta.vision.android.topcode.TopCodeDetectorAndroid;
+import org.opencv.core.Mat;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
 
 
 /**
@@ -50,6 +58,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     private Pixmap pixmap;
     private Sprite sprite;
     private int debugImgSize =360;
+    private Actor magnet, arrow;
 
 
     public abstract void init();
@@ -133,11 +142,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
                 feedbackZone.getRegionX(), feedbackZone.getRegionY(),
                 feedbackZone.getRegionWidth(), feedbackZone.getRegionHeight(), false,false);
 
-
-
-
         batch.end();
-
     }
 
     private void drawDottedLine(ShapeRenderer shapeRenderer, int dotDist, float x1, float y1, float x2, float y2) {
@@ -410,12 +415,56 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
 
 
+    protected void renderMagnet(){
+        if(!magnet.hasActions()){
+            magnet.addAction(sequence(
+                    moveTo(Constants.VIEWPORT_WIDTH/2 - 20,magnet.getY(), 5.0f* MathUtils.random(1.0f,3.0f), Interpolation.bounceOut),
+                    delay(0.3f),
+                    moveTo(-magnet.getWidth()-100,magnet.getY(), 6.7f * MathUtils.random(1.0f,3.0f), Interpolation.bounceOut)
+            ));
+        }
 
-    protected int getCurrentPriceImgNr(){
-        return worldController.getCurrentPriceType();
+
+    }
+    protected void addMagnet(){
+        magnet = new Image(Assets.instance.tree.magnet);
+        magnet.setScale(0.66f);
+        magnet.setPosition(-magnet.getWidth(),Constants.VIEWPORT_HEIGHT/2- magnet.getHeight()* magnet.getScaleY() + 20);
+        stage.addActor(magnet);
+
     }
 
+    protected void addArrow(){
+        arrow = new Image(Assets.instance.tree.arrowWhite);
+        float changeSpeed = 0.5f;
 
+        arrow.setColor(1,1,0,0);
+        arrow.setPosition(-arrow.getWidth()/2,-280);
+        arrow.setRotation(0);
+        arrow.addAction(sequence(
+                delay(0.1f),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                run(new Runnable() {
+                    public void run() {
+                        arrow.remove();
+                    }
+                })
+
+        ));
+
+        stage.addActor(arrow);
+    }
 
     @Override
     public void dispose() {

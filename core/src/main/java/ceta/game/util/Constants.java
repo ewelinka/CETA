@@ -38,6 +38,8 @@ public class Constants {
     public static final int L4_HALF_COMPLETED_NR = L4_COMPLETED_NR-2;
     public static final int L5_HALF_COMPLETED_NR = L5_COMPLETED_NR-2;
     public static final int L6_HALF_COMPLETED_NR = L6_COMPLETED_NR-2;
+    public static final int PLUS_10_LEVEL = Constants.L3_COMPLETED_NR+1;
+
 
     public static final int NO_MOVEMENT_DIST = 25;
 
