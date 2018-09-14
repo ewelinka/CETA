@@ -13,6 +13,7 @@ import ceta.game.util.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
@@ -337,7 +338,7 @@ public class TreeScreen extends AbstractGameScreen {
                 part2.setColor(1,1,1,0);
                 part2.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level3gear.setIsMoving(true,3.5f);
-                automaticPassTime = 6.0f+4.0f;
+                automaticPassTime = 7.0f+4.0f;
                 if(!introStarted){
                     introStarted = true;
                     readIntroWithDelay(Assets.instance.sounds.intro3);
@@ -365,7 +366,7 @@ public class TreeScreen extends AbstractGameScreen {
                 part4.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level4gear.activateGear();
                 level5gear.setIsMoving(true,3.5f);
-                automaticPassTime = 7.0f+4.0f;
+                automaticPassTime = 8.0f+4.0f;
                 if(!introStarted){
                     introStarted = true;
                     readIntroWithDelay(Assets.instance.sounds.intro5);
@@ -394,12 +395,12 @@ public class TreeScreen extends AbstractGameScreen {
                 level6gear.activateGear();
                 // TODO that's all folks!
                 Gdx.app.log(TAG,"something special for the end");
-                automaticPassTime = 12.0f+4.0f;
+                addBrunos();
+                automaticPassTime = 14.0f+4.0f;
                 if(!introStarted){
                     introStarted = true;
-                    readIntroWithDelay(Assets.instance.sounds.gracias);
+                    readIntroWithDelayMusic(Assets.instance.sounds.gracias);
                 }
-                addBrunos();
                 break;
 
         }
@@ -578,5 +579,22 @@ public class TreeScreen extends AbstractGameScreen {
 
         ));
     }
+
+    private void readIntroWithDelayMusic(final Music introSound) {
+        Actor reader = new Actor();
+        stage.addActor(reader);
+
+        reader.addAction(sequence(
+                delay(2.0f),
+                run(new Runnable() {
+                    @Override
+                    public void run() {
+                        AudioManager.instance.playWithoutInterruptionLoud(introSound);
+                    }
+                })
+
+        ));
+    }
+
 
 }

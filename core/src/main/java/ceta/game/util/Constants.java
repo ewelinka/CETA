@@ -24,7 +24,7 @@ public class Constants {
     public static final int BASE = 40;
     public static final int ERRORS_FOR_HINT = 2;
 
-    public static final int L1_COMPLETED_NR = 4; // 7 = last level, 8 first level in L2
+    public static final int L1_COMPLETED_NR = 4; // 4 = last level, 5 first level in L2
     public static final int L2_COMPLETED_NR = 8;
     public static final int L3_COMPLETED_NR = 12;
     public static final int L4_COMPLETED_NR = 17;

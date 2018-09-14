@@ -97,13 +97,13 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/HayQuePonerLasFichas.mp3", Music.class);
 
         assetManager.load("sounds/brunoUnaAventura2.mp3", Sound.class);
-        assetManager.load("sounds/erase.wav", Music.class);
-        assetManager.load("sounds/malvado.wav", Music.class);
-        assetManager.load("sounds/estirarse.wav", Music.class);
-        assetManager.load("sounds/agarrar.wav", Music.class);
-        assetManager.load("sounds/fichasRobo.wav", Music.class);
-        assetManager.load("sounds/GraciasFin.mp3", Sound.class);
-        assetManager.load("sounds/poniendoFichas.wav", Music.class);
+        assetManager.load("sounds/erase.mp3", Music.class);
+        assetManager.load("sounds/malvado.mp3", Music.class);
+        assetManager.load("sounds/estirarse.mp3", Music.class);
+        assetManager.load("sounds/agarrar.mp3", Music.class);
+        assetManager.load("sounds/fichasRobo.mp3", Music.class);
+        assetManager.load("sounds/GraciasFin.mp3", Music.class);
+        assetManager.load("sounds/poniendoFichas.mp3", Music.class);
         assetManager.load("sounds/creepy-min.mp3", Music.class);
         assetManager.load("sounds/plus10.mp3", Sound.class);
 
@@ -112,7 +112,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("island-intro/de3a4.mp3", Sound.class);
         assetManager.load("island-intro/de4a5.mp3", Sound.class);
         assetManager.load("island-intro/de5a6.mp3", Sound.class);
-
+        assetManager.load("island-intro/de6a7.mp3", Sound.class);
 
         // load music
         //assetManager.load("music/song1.mp3", Music.class);
@@ -565,8 +565,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound levelPassed,levelPassed2, levelPassed3, levelPassed4, repeatLevel;
 
         public final Sound welcome;
-        public final Sound intro2, intro3, intro4, intro5, intro6, finalBattleIntro, plus10, gracias;
-        public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,poniendo,creepy;
+        public final Sound intro2, intro3, intro4, intro5, intro6, finalBattleIntro, plus10;
+        public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,poniendo,creepy,gracias;
 
 
         public AssetSounds (AssetManager am) {
@@ -619,13 +619,13 @@ public class Assets implements Disposable, AssetErrorListener {
             tooFew = am.get("sounds/ProbaConMasFichas.mp3", Sound.class);
             cleanTable = am.get("sounds/TenesQueSacarLasFichas.mp3", Sound.class);
             welcome = am.get("sounds/brunoUnaAventura2.mp3", Sound.class);
-            erase = am.get("sounds/erase.wav", Music.class);
-            malvado = am.get("sounds/malvado.wav", Music.class);
-            estirarse = am.get("sounds/estirarse.wav", Music.class);
-            agarrar = am.get("sounds/agarrar.wav", Music.class);
-            fichas = am.get("sounds/fichasRobo.wav", Music.class);
-            gracias = am.get("sounds/GraciasFin.mp3", Sound.class);
-            poniendo = am.get("sounds/poniendoFichas.wav", Music.class);
+            erase = am.get("sounds/erase.mp3", Music.class);
+            malvado = am.get("sounds/malvado.mp3", Music.class);
+            estirarse = am.get("sounds/estirarse.mp3", Music.class);
+            agarrar = am.get("sounds/agarrar.mp3", Music.class);
+            fichas = am.get("sounds/fichasRobo.mp3", Music.class);
+            gracias = am.get("sounds/GraciasFin.mp3", Music.class);
+            poniendo = am.get("sounds/poniendoFichas.mp3", Music.class);
             creepy = am.get("sounds/creepy-min.mp3", Music.class);
 
             intro2 = am.get("island-intro/de1a2.mp3", Sound.class);
@@ -633,7 +633,7 @@ public class Assets implements Disposable, AssetErrorListener {
             intro4 = am.get("island-intro/de3a4.mp3", Sound.class);
             intro5 = am.get("island-intro/de4a5.mp3", Sound.class);
             intro6 = am.get("island-intro/de5a6.mp3", Sound.class);
-            finalBattleIntro = intro6;
+            finalBattleIntro = am.get("island-intro/de6a7.mp3", Sound.class);
             plus10 = am.get("sounds/plus10.mp3", Sound.class);
 
         }
