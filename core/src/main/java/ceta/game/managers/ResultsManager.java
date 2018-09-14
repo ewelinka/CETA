@@ -46,12 +46,16 @@ public class ResultsManager {
         sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss.SSS");
         justTime = new SimpleDateFormat("HH:mm:ss.SSS");
         randomId = GamePreferences.instance.randomId;
-
         // COMMENTED FOR FINAL APK intentsFile = Gdx.files.external("./ceta-results/"+randomId+"-results.csv");
+        //Gdx.app.log(TAG, " AAAAAAA "+ Gdx.files.getLocalStoragePath()+ " available: "+Gdx.files.isLocalStorageAvailable());
+
         lastSolution = new ArrayList<VirtualBlock>();
         lastFinalSolution = new ArrayList<Solution>();
         lastFinalSolutionNr = 0;
         lastSolutionNr = 0;
+
+        //String text = intentsFile.readString(); COMMENTED FOR FINAL APP
+        //Gdx.app.log(TAG,text);
     }
 
 
@@ -64,6 +68,10 @@ public class ResultsManager {
     }
 
     public synchronized void addIntent(boolean wasSuccessful, int kidResponse, int priceVal, int priceDisplayNr, ArrayList<Integer> toReadVals, int score){
+
+        Gdx.app.log(TAG," addIntent +1 to "+intentsNr);
+        //String id = Secure.getString(getContentResolver(), Secure.ANDROID_ID); COMMENTED FOR FINAL APP
+
         responseBlocks = toReadVals;
         intentsNr+=1;
         intentEndDate = new Date();
@@ -88,6 +96,7 @@ public class ResultsManager {
                 +score+","+GamePreferences.instance.totalScore+","
                 +randomId+"\n";
 
+        Gdx.app.log(TAG,"save data "+toSave);
         //intentsFile.writeString(toSave,true); COMMENTED FOR FINAL APK
         // now we reset the start
         intentStartDate = intentEndDate;
@@ -132,6 +141,8 @@ public class ResultsManager {
     }
 
     public synchronized void onCollisionRecord(int correctAnswer, int displayNr, int score){
+        Gdx.app.log(TAG," onCollisionRecord, intent: "+ intentsNr);
+
         if(intentsNr == 0) {
             intentEndDate = new Date();
             collectionTimeMillis = intentEndDate.getTime() - intentStartDate.getTime();
@@ -151,7 +162,9 @@ public class ResultsManager {
                     + score + "," + GamePreferences.instance.totalScore + ","
                     + randomId + "\n";
 
+
             // COMMENTED FOR FINAL APK intentsFile.writeString(toSave, true);
+            Gdx.app.log(TAG, "save data " + toSave);
 
             // now we reset the start
             intentStartDate = intentEndDate;

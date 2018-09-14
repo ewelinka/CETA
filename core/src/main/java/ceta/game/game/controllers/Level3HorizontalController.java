@@ -66,14 +66,14 @@ public class Level3HorizontalController extends NoCvController  {
                     moveMade = false;
                 } else {
                     if (moveMade) {
-                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        playErrorSound();
                         moveMade = false;
                     }
 
                 }
             }else{ // no blocks on the table
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    playErrorSound();
                     moveMade = false;
                 }
             }

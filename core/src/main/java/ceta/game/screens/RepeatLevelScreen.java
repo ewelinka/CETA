@@ -3,6 +3,7 @@ package ceta.game.screens;
 import ceta.game.game.Assets;
 import ceta.game.game.objects.Gear;
 import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -30,6 +31,7 @@ public class RepeatLevelScreen extends AbstractGameScreen {
     private int gearsNr = 5;
     private boolean moveToNextLevel;
 
+
     public RepeatLevelScreen(DirectedGame game) {
         super(game);
     }
@@ -53,6 +55,7 @@ public class RepeatLevelScreen extends AbstractGameScreen {
             game.getLevelsManager().goToUncompletedLevel();
             moveToNextLevel = false;
         }
+
         //blue!
         //Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
         Gdx.gl.glClearColor(98 / 255.0f, 151/255.0f , 173/ 255.0f, 1);
@@ -73,6 +76,7 @@ public class RepeatLevelScreen extends AbstractGameScreen {
     public void show() {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(true); // from congrats you con go to menu
+        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.repeatLevel);
         buildStage();
     }
 
@@ -98,7 +102,6 @@ public class RepeatLevelScreen extends AbstractGameScreen {
             //gear = new Gear();
             stage.addActor(new Gear(i));
         }
-
 
         stage.addActor(repeat);
         repeat.setOrigin(repeat.getWidth() / 2, repeat.getHeight() / 2);

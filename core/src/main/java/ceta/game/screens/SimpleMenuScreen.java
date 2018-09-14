@@ -164,7 +164,6 @@ public class SimpleMenuScreen extends AbstractGameScreen {
 
     private void onTutorialClicked(){
         game.setScreen(new TutorialScreen(game), ScreenTransitionFade.init(1));
-
     }
 
 }

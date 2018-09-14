@@ -11,12 +11,18 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
 
 
 /**
@@ -48,6 +54,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     private Pixmap pixmap;
     private Sprite sprite;
     private int debugImgSize =360;
+    private Actor magnet, arrow;
 
 
     public abstract void init();
@@ -117,7 +124,8 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
 
     protected void renderDetectionZoneImg(SpriteBatch batch){
-        TextureAtlas.AtlasRegion feedbackZone = Assets.instance.background.feedbackZoneTablet;
+        boolean plus10 = worldController.getMinimumNumber() >= 10;
+        TextureAtlas.AtlasRegion feedbackZone = plus10 ? Assets.instance.background.feedbackZoneTabletPlus10 : Assets.instance.background.feedbackZoneTablet;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
@@ -130,11 +138,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
                 feedbackZone.getRegionX(), feedbackZone.getRegionY(),
                 feedbackZone.getRegionWidth(), feedbackZone.getRegionHeight(), false,false);
 
-
-
-
         batch.end();
-
     }
 
     private void drawDottedLine(ShapeRenderer shapeRenderer, int dotDist, float x1, float y1, float x2, float y2) {
@@ -207,28 +211,11 @@ public abstract class AbstractWorldRenderer implements Disposable {
 //        batch.setProjectionMatrix(camera.combined);
 //        batch.begin();
         bigGuiFont.setColor(0,0,0,0.7f);
-        bigGuiFont.draw(batch, levelTxt+(worldController.getLevelNr()+Constants.LAST_LEVEL_NR*GamePreferences.instance.getRepeatNr()), 0, 500,0, Align.center,false);
+        bigGuiFont.draw(batch, levelTxt+(worldController.getLevelNr()+Constants.LAST_LEVEL_NR*GamePreferences.instance.getRepeatNr()), 0, 490,0, Align.center,false);
 //        batch.end();
 
 
     }
-
-    protected void renderDebugNumbersHorizontal(SpriteBatch batch){
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-
-
-        for(int i = -300; i<300;i+=80){
-
-            fontNumberLine.setColor(0,0,0,1);
-            fontNumberLine.draw(batch, i+"", i, Constants.VIEWPORT_HEIGHT/2 -120,0, Align.center,false);
-        }
-
-        batch.end();
-    }
-
-
-
 
     protected void renderHelperNumbersHorizontal(SpriteBatch batch, float aColor){
         int chosenNr = worldController.level.price.getDisplayNumber();
@@ -276,21 +263,6 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
     }
 
-    protected void renderDebugNumbersVertical(SpriteBatch batch){
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-
-        for(int i = Constants.GROUND_LEVEL; i<=(Constants.GROUND_LEVEL +Constants.BASE*maxShift); i+=80){
-            GlyphLayout layout = new GlyphLayout(fontNumberLine, i+"");
-
-            fontNumberLine.setColor(0,0,0,1);
-            fontNumberLine.draw(batch, i+"", -258, i + layout.height/2,0,Align.left,false);
-
-        }
-
-        batch.end();
-
-    }
 
     protected void renderHelperNumbers(SpriteBatch batch, float delta){
         if(fadeIn){
@@ -309,13 +281,6 @@ public abstract class AbstractWorldRenderer implements Disposable {
             renderHelperNumbersHorizontal(batch, alphaColor);
         else
             renderHelperNumbersVertical(batch,alphaColor);
-    }
-
-    protected void renderDebugNumbers(SpriteBatch batch){
-        if(numberLineIsHorizontal)
-            renderDebugNumbersHorizontal(batch);
-        else
-            renderDebugNumbersVertical(batch);
     }
 
     protected void renderHelperNumberLines(ShapeRenderer shRenderer) {
@@ -446,12 +411,56 @@ public abstract class AbstractWorldRenderer implements Disposable {
 
 
 
+    protected void renderMagnet(){
+        if(!magnet.hasActions()){
+            magnet.addAction(sequence(
+                    moveTo(Constants.VIEWPORT_WIDTH/2 - 20,magnet.getY(), 5.0f* MathUtils.random(1.0f,3.0f), Interpolation.bounceOut),
+                    delay(0.3f),
+                    moveTo(-magnet.getWidth()-100,magnet.getY(), 6.7f * MathUtils.random(1.0f,3.0f), Interpolation.bounceOut)
+            ));
+        }
 
-    protected int getCurrentPriceImgNr(){
-        return worldController.getCurrentPriceType();
+
+    }
+    protected void addMagnet(){
+        magnet = new Image(Assets.instance.tree.magnet);
+        magnet.setScale(0.66f);
+        magnet.setPosition(-magnet.getWidth(),Constants.VIEWPORT_HEIGHT/2- magnet.getHeight()* magnet.getScaleY() + 20);
+        stage.addActor(magnet);
+
     }
 
+    protected void addArrow(){
+        arrow = new Image(Assets.instance.tree.arrowWhite);
+        float changeSpeed = 0.5f;
 
+        arrow.setColor(1,1,0,0);
+        arrow.setPosition(-arrow.getWidth()/2,-280);
+        arrow.setRotation(0);
+        arrow.addAction(sequence(
+                delay(0.1f),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                alpha(1,changeSpeed),
+                alpha(0,changeSpeed),
+                run(new Runnable() {
+                    public void run() {
+                        arrow.remove();
+                    }
+                })
+
+        ));
+
+        stage.addActor(arrow);
+    }
 
     @Override
     public void dispose() {

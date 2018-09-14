@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 
@@ -75,6 +76,12 @@ public class WorldRenderer extends AbstractWorldRenderer {
         camera.update();
         stage.getViewport().setCamera(camera);
 
+        if(worldController.getLevelNr() == Constants.LAST_LEVEL_NR)
+            addMagnet();
+
+        if(worldController.getLevelNr() == Constants.PLUS_10_LEVEL)
+            addArrow();
+
     }
 
 
@@ -86,7 +93,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
         renderDetectionZoneImgOrDebug(spriteBatch);
         renderBackgroundImg(spriteBatch);
 
-
+        if(worldController.getLevelNr() == Constants.LAST_LEVEL_NR)
+            renderMagnet();
 
         if(worldController.isNumberLineVisible())
             renderHelperNumberLines(shapeRenderer);
@@ -103,6 +111,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
 
     }
+
 
     protected void renderFeedback(){
        // renderWorld(spriteBatch);
@@ -127,6 +136,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 }
             }, 10);
         }else { // if its not cleaning table problem, we give hint
+
             if (worldController.isPlayerInactive()) {
                 if (!feedbackRenderer.getManoImg().hasActions()) {
                     feedbackRenderer.renderClue(worldController.isTooMuch());
@@ -169,7 +179,7 @@ public class WorldRenderer extends AbstractWorldRenderer {
                 );
         batch.setColor(1,1,1,1);
 
-        String text = worldController.getNowDetectedSum()+"";
+        String text = worldController.getNowDetectedSumWithStartNumberLineValue()+"";
         GlyphLayout layout = new GlyphLayout(bigGuiFont, text);
 //        counterFont.setColor(Color.RED);
         bigGuiFont.draw(batch, text, 0 , feedbackRenderer.getFeedbackMiddlePoint()+layout.height/2,0,Align.center,false);

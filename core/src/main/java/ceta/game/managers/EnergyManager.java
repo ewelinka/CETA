@@ -47,11 +47,11 @@ public class EnergyManager extends BrunosManager {
         brunoVertical.setPosition(Constants.VERTICAL_MIDDLE_X - brunoVertical.getWidth()/2,
                 Constants.GROUND_LEVEL-brunoVertical.getHeight()/2);
 
-        energyUnit = new Image(Assets.instance.bruno.energy);
+        energyUnit = new Image(Assets.instance.bruno.spring);
         energyUnit.setSize(Constants.BASE-8,Constants.BASE);
         energyUnit.setScale(1,0);
         energyUnit.setPosition(Constants.VERTICAL_MIDDLE_X - energyUnit.getWidth()/2+2, brunoVertical.getY()+10);
-        energyUnit.setColor(Color.YELLOW);
+        //energyUnit.setColor(Color.YELLOW);
 
 
         base = new Image(Assets.instance.bruno.baseEnergy);
@@ -59,11 +59,8 @@ public class EnergyManager extends BrunosManager {
         base.setPosition(Constants.VERTICAL_MIDDLE_X - base.getWidth()/2+2,
                 brunoVertical.getY());
 
-//
         stage.addActor(base);
         stage.addActor(energyUnit);
-//        stage.addActor(thorax);
-//        stage.addActor(head);
         stage.addActor(brunoVertical);
 
 
@@ -95,16 +92,7 @@ public class EnergyManager extends BrunosManager {
         lastY+=(Constants.BASE*howMany);
 
         energyUnit.addAction(Actions.scaleTo(1,units,terminalDelay));
-        // calculate delay
-        // calculate size
-
-
-
-//        head.addAction(Actions.moveTo(head.getX(),lastY,terminalDelay));
-//        thorax.addAction(Actions.moveTo(head.getX(),lastY-thorax.getHeight()+2,terminalDelay));
         brunoVertical.addAction(Actions.moveTo(brunoVertical.getX(),lastY-brunoVertical.getHeight()/2,terminalDelay));
-        //thorax.toFront();
-        //brunoVertical.toFront();
     }
 
 
@@ -115,13 +103,8 @@ public class EnergyManager extends BrunosManager {
         units-=toRemoveSum;
         Gdx.app.log(TAG, " toRemoveSum "+toRemoveSum);
 
-
-//        head.addAction(Actions.moveTo(head.getX(),lastY,terminalDelay));
-//        thorax.addAction(Actions.moveTo(head.getX(),lastY-thorax.getHeight()+2,terminalDelay));
-//        thorax.toFront();
         energyUnit.addAction(Actions.scaleTo(1,units,terminalDelay));
         brunoVertical.addAction(Actions.moveTo(brunoVertical.getX(),lastY-brunoVertical.getHeight()/2,terminalDelay));
-
         brunoVertical.toFront();
 
     }

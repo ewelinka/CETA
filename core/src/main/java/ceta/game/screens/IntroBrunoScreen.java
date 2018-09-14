@@ -25,7 +25,6 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  */
 public class IntroBrunoScreen extends AbstractGameScreen {
     public static final String TAG = IntroBrunoScreen.class.getName();
-    private ImageButton btnMenuPlay, btnMenuExit, btnLevels;
     private Image imgBackground, brunoHead,brunoBody,screw,shadow, logo;
 
     public IntroBrunoScreen(DirectedGame game) {
@@ -95,7 +94,7 @@ public class IntroBrunoScreen extends AbstractGameScreen {
         //imgBackground.setSize(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         imgBackground.setOrigin(imgBackground.getWidth() / 2, imgBackground.getHeight() / 2);
         imgBackground.setPosition((Constants.VIEWPORT_WIDTH-imgBackground.getWidth())/2, 0);
-       //
+        //
         layer.add(imgBackground);
         return layer;
     }
@@ -109,7 +108,7 @@ public class IntroBrunoScreen extends AbstractGameScreen {
         brunoHead = new Image(Assets.instance.bruno.initHead);
         shadow = new Image(Assets.instance.background.shadow);
         Gdx.app.log(TAG," body "+brunoBody.getImageWidth());
-       // brunoBody.setOrigin(brunoBody.getWidth() / 2, brunoBody.getHeight() / 2);
+        // brunoBody.setOrigin(brunoBody.getWidth() / 2, brunoBody.getHeight() / 2);
         shadow.setSize(105,12);
         shadow.setPosition(32,37);
 
@@ -166,17 +165,17 @@ public class IntroBrunoScreen extends AbstractGameScreen {
         logo.setSize(566/2,562/2);
         logo.setPosition(10,Constants.VIEWPORT_HEIGHT/2);
         logo.addAction(
-                    sequence(
-                            delay(1.5f),
-                            run(new Runnable() {
-                                @Override
-                                public void run() {
-                                    AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.welcome);
+                sequence(
+                        delay(1.5f),
+                        run(new Runnable() {
+                            @Override
+                            public void run() {
+                                AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.welcome);
 
-                                }
-                            }),
-                            Actions.moveTo(logo.getX(),Constants.VIEWPORT_HEIGHT/2-281,3.0f, Interpolation.bounceOut)
-                    )
+                            }
+                        }),
+                        Actions.moveTo(logo.getX(),Constants.VIEWPORT_HEIGHT/2-281,3.0f, Interpolation.bounceOut)
+                )
         );
 
         layer.addActor(shadow);

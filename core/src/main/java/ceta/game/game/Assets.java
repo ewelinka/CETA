@@ -50,46 +50,78 @@ public class Assets implements Disposable, AssetErrorListener {
         // load texture atlas
         assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
         // load sounds
-        assetManager.load("sounds/yuju.wav", Sound.class);
-        assetManager.load("sounds/pickup_coin.wav", Sound.class);
-        assetManager.load("sounds/live_lost.wav", Sound.class);
-        assetManager.load("sounds/buzz.wav", Sound.class);
-        assetManager.load("sounds/meteroid.wav", Sound.class);
-        assetManager.load("sounds/1.wav", Sound.class);
-        assetManager.load("sounds/2.wav", Sound.class);
-        assetManager.load("sounds/3.wav", Sound.class);
-        assetManager.load("sounds/4.wav", Sound.class);
-        assetManager.load("sounds/5.wav", Sound.class);
-        assetManager.load("sounds/6.wav", Sound.class);
-        assetManager.load("sounds/7.wav", Sound.class);
-        assetManager.load("sounds/8.wav", Sound.class);
-        assetManager.load("sounds/9.wav", Sound.class);
-        assetManager.load("sounds/10.wav", Sound.class);
-        assetManager.load("sounds/11.wav", Sound.class);
-        assetManager.load("sounds/12.wav", Sound.class);
-        assetManager.load("sounds/13.wav", Sound.class);
-        assetManager.load("sounds/14.wav", Sound.class);
-        assetManager.load("sounds/15.wav", Sound.class);
-        assetManager.load("sounds/muchas.wav", Sound.class);
-        assetManager.load("sounds/pocas.wav", Sound.class);
-        assetManager.load("sounds/quita.wav", Sound.class);
-       // assetManager.load("sounds/yupii.wav", Sound.class);
-        assetManager.load("sounds/levelPassed.wav", Sound.class);
-        assetManager.load("sounds/repetirNivel.wav", Sound.class);
-        assetManager.load("sounds/marcada.wav", Music.class);
+        assetManager.load("positive/a1-iupi.mp3", Sound.class);
+        assetManager.load("positive/a2-MuyBien.mp3", Sound.class);
+        assetManager.load("positive/a3-Buenisimo.mp3", Sound.class);
+        assetManager.load("positive/b2-AndasVolando.mp3", Sound.class);
+        assetManager.load("positive/b3-QueBuenosAmigos.mp3", Sound.class);
+        assetManager.load("positive/b4-BienPescado.mp3", Sound.class);
+        assetManager.load("positive/b5-QueBuenSalto.mp3", Sound.class);
+        assetManager.load("positive/b6-YaEstamosMasCerca.mp3", Sound.class);
+        assetManager.load("positive/brunoPositive.mp3", Sound.class);
+        assetManager.load("sounds/error.mp3", Sound.class);
+        assetManager.load("sounds/BrUNOneutro.mp3", Sound.class);
+        assetManager.load("sounds/0.mp3", Sound.class);
+        assetManager.load("sounds/1.mp3", Sound.class);
+        assetManager.load("sounds/2.mp3", Sound.class);
+        assetManager.load("sounds/3.mp3", Sound.class);
+        assetManager.load("sounds/4.mp3", Sound.class);
+        assetManager.load("sounds/5.mp3", Sound.class);
+        assetManager.load("sounds/6.mp3", Sound.class);
+        assetManager.load("sounds/7.mp3", Sound.class);
+        assetManager.load("sounds/8.mp3", Sound.class);
+        assetManager.load("sounds/9.mp3", Sound.class);
+        assetManager.load("sounds/10.mp3", Sound.class);
+        assetManager.load("sounds/11.mp3", Sound.class);
+        assetManager.load("sounds/12.mp3", Sound.class);
+        assetManager.load("sounds/13.mp3", Sound.class);
+        assetManager.load("sounds/14.mp3", Sound.class);
+        assetManager.load("sounds/15.mp3", Sound.class);
+        assetManager.load("sounds/16.mp3", Sound.class);
+        assetManager.load("sounds/17.mp3", Sound.class);
+        assetManager.load("sounds/18.mp3", Sound.class);
+        assetManager.load("sounds/19.mp3", Sound.class);
+        assetManager.load("sounds/20.mp3", Sound.class);
+        assetManager.load("sounds/21.mp3", Sound.class);
+        assetManager.load("sounds/22.mp3", Sound.class);
+        assetManager.load("sounds/23.mp3", Sound.class);
+        assetManager.load("sounds/ProbaConMenosFichas.mp3", Sound.class);
+        assetManager.load("sounds/ProbaConMasFichas.mp3", Sound.class);
+        assetManager.load("sounds/TenesQueSacarLasFichas.mp3", Sound.class);
+        // assetManager.load("sounds/yupii.mp3", Sound.class);
+        assetManager.load("sounds/PasasteDeNIvel.mp3", Sound.class);
+        assetManager.load("sounds/BuenTrabajo.mp3", Sound.class);
+        assetManager.load("sounds/ExcelenteSeguimosAvanzando.mp3", Sound.class);
+        assetManager.load("sounds/MuyBienProximoNivel.mp3", Sound.class);
+        assetManager.load("sounds/VamosAHacerEsteNivelUNaVezMas.mp3", Sound.class);
+        assetManager.load("sounds/HayQuePonerLasFichas.mp3", Music.class);
 
-        assetManager.load("sounds/brunoUnaAventura2.wav", Sound.class);
-        assetManager.load("sounds/erase.wav", Music.class);
-        assetManager.load("sounds/malvado.wav", Music.class);
-        assetManager.load("sounds/estirarse.wav", Music.class);
-        assetManager.load("sounds/agarrar.wav", Music.class);
-        assetManager.load("sounds/fichasRobo.wav", Music.class);
-        assetManager.load("sounds/gracias.wav", Music.class);
-        assetManager.load("sounds/poniendoFichas.wav", Music.class);
+        assetManager.load("sounds/brunoUnaAventura2.mp3", Sound.class);
+        assetManager.load("sounds/erase.mp3", Music.class);
+        assetManager.load("sounds/malvado.mp3", Music.class);
+        assetManager.load("sounds/estirarse.mp3", Music.class);
+        assetManager.load("sounds/agarrar.mp3", Music.class);
+        assetManager.load("sounds/fichasRobo.mp3", Music.class);
+        assetManager.load("sounds/GraciasFin.mp3", Music.class);
+        assetManager.load("sounds/poniendoFichas.mp3", Music.class);
         assetManager.load("sounds/creepy-min.mp3", Music.class);
+        assetManager.load("sounds/plus10.mp3", Sound.class);
+
+        assetManager.load("island-intro/de1a2.mp3", Sound.class);
+        assetManager.load("island-intro/de2a3.mp3", Sound.class);
+        assetManager.load("island-intro/de3a4.mp3", Sound.class);
+        assetManager.load("island-intro/de4a5.mp3", Sound.class);
+        assetManager.load("island-intro/de5a6.mp3", Sound.class);
+        assetManager.load("island-intro/de6a7.mp3", Sound.class);
 
         // load music
-        assetManager.load("music/song1.mp3", Music.class);
+        //assetManager.load("music/song1.mp3", Music.class);
+        assetManager.load("music/1_CIUDAD.mp3", Music.class);
+        assetManager.load("music/2_NUBES.mp3", Music.class);
+        assetManager.load("music/3_TUBERIAS.mp3", Music.class);
+        assetManager.load("music/4_SUBMARINO.mp3", Music.class);
+        assetManager.load("music/5_RESORTES.mp3", Music.class);
+        assetManager.load("music/6_BATALLAFINAL.mp3", Music.class);
 
         // start loading assets and wait until finished
         assetManager.finishLoading();
@@ -201,6 +233,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion clouds1,clouds2,clouds3,clouds4;
         public final TextureAtlas.AtlasRegion tubes1, tubes2,tubes3,tubes4,tubes5;
         public final TextureAtlas.AtlasRegion belowTheGround;
+        public final TextureAtlas.AtlasRegion sea1, sea2, sea3, sea4, sea5, factory1, factory2, factory3, factory4, factory5, night1, night2, night3, battle1;
 
         public AssetStaticBackground (TextureAtlas atlas) {
             backStart = atlas.findRegion("inicio");
@@ -222,13 +255,31 @@ public class Assets implements Disposable, AssetErrorListener {
             tubes4 = atlas.findRegion("tubo04");
             tubes5 = atlas.findRegion("tubo02B");
 
+            sea1 = atlas.findRegion("mar-1");
+            sea2 = atlas.findRegion("mar-2");
+            sea3 = atlas.findRegion("mar-3");
+            sea4 = atlas.findRegion("mar-4");
+            sea5 = atlas.findRegion("mar-5");
+
+            factory1 = atlas.findRegion("fabrica-1");
+            factory2 = atlas.findRegion("fabrica-2");
+            factory3 = atlas.findRegion("fabrica-3");
+            factory4 = atlas.findRegion("fabrica-4");
+            factory5 = atlas.findRegion("fabrica-5");
+
+            battle1 = atlas.findRegion("batalla-1");
+            night1 = atlas.findRegion("noche-4");
+            night2 = atlas.findRegion("noche-2");
+            night3 = atlas.findRegion("noche-3");
+
+
             belowTheGround= atlas.findRegion("abajo5");
         }
     }
 
     public class AssetBackground {
-        public final TextureAtlas.AtlasRegion feedbackZoneTablet;
-        public final TextureAtlas.AtlasRegion feedbackZoneCV;
+        public final TextureAtlas.AtlasRegion feedbackZoneTablet, feedbackZoneTabletPlus10;
+        public final TextureAtlas.AtlasRegion feedbackZoneCV, feedbackZoneCVPlus10;
         public final TextureAtlas.AtlasRegion feedbackZoneV1CV;
         public final TextureAtlas.AtlasRegion feedbackZoneV1Tablet;
         public final TextureAtlas.AtlasRegion gearGray1;
@@ -250,7 +301,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public AssetBackground (TextureAtlas atlas) {
             feedbackZoneTablet= atlas.findRegion("feedbackTablet");
+            feedbackZoneTabletPlus10= atlas.findRegion("plus10tablet");
             feedbackZoneCV = atlas.findRegion("feedbackZone360x360") ;
+            feedbackZoneCVPlus10 = atlas.findRegion("plus10") ;
             feedbackZoneV1CV = atlas.findRegion("workZoneV2");
             feedbackZoneV1Tablet = atlas.findRegion("workZoneV2tablet2");
             gearGray1 = atlas.findRegion("engrana01");
@@ -298,6 +351,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion fire;
         public final TextureAtlas.AtlasRegion initHead;
         public final TextureAtlas.AtlasRegion initBody;
+        public final TextureAtlas.AtlasRegion underWater;
+        public final TextureAtlas.AtlasRegion spring;
 
 
         public AssetBruno (TextureAtlas atlas) {
@@ -326,6 +381,8 @@ public class Assets implements Disposable, AssetErrorListener {
             fire = atlas.findRegion("fuegoJetpack");
             initHead  = atlas.findRegion("brunoGrande_cabeza");
             initBody  = atlas.findRegion("brunoGrande_cuerpo");
+            underWater = atlas.findRegion("submarino");
+            spring = atlas.findRegion("resorte");
 
             Array<TextureAtlas.AtlasRegion> regions = null;
             regions = atlas.findRegions("camina");
@@ -494,66 +551,106 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class AssetSounds {
-        public final Sound pickupPrice;
-        public final Sound liveLost;
+        public final Sound a1, a2, a3, b2,b3,b4,b5,b6;
+        public final Sound error;
         public final Sound buzz;
-        public final Sound one;
+        public final Sound zero, one;
         public final Sound two;
         public final Sound three;
         public final Sound four;
-        public final Sound five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen;
+        public final Sound five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen, s16, s17, s18, s19, s20, s21, s22, s23, positive;
         public final Sound tooMuch;
         public final Sound tooFew;
         public final Sound cleanTable;
-        public final Sound levelPassed,repeatLevel;
+        public final Sound levelPassed,levelPassed2, levelPassed3, levelPassed4, repeatLevel;
 
         public final Sound welcome;
-        public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,gracias,poniendo,creepy;
+        public final Sound intro2, intro3, intro4, intro5, intro6, finalBattleIntro, plus10;
+        public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,poniendo,creepy,gracias;
 
 
         public AssetSounds (AssetManager am) {
-            pickupPrice = am.get("sounds/yuju.wav", Sound.class);
-            liveLost = am.get("sounds/live_lost.wav", Sound.class);
-            buzz = am.get("sounds/meteroid.wav", Sound.class);
-            one = am.get("sounds/1.wav", Sound.class);
-            two = am.get("sounds/2.wav", Sound.class);
-            three = am.get("sounds/3.wav", Sound.class);
-            four = am.get("sounds/4.wav", Sound.class);
-            five = am.get("sounds/5.wav", Sound.class);
-            six=am.get("sounds/6.wav", Sound.class);
-            seven=am.get("sounds/7.wav", Sound.class);
-            eight=am.get("sounds/8.wav", Sound.class);
-            nine =am.get("sounds/9.wav", Sound.class);
-            ten = am.get("sounds/10.wav", Sound.class);
-            eleven= am.get("sounds/11.wav", Sound.class);
-            twelve= am.get("sounds/12.wav", Sound.class);
-            thirteen= am.get("sounds/13.wav", Sound.class);
-            fourteen= am.get("sounds/14.wav", Sound.class);
-            fifteen= am.get("sounds/15.wav", Sound.class);
-            levelPassed = am.get("sounds/levelPassed.wav", Sound.class);
-            repeatLevel = am.get("sounds/repetirNivel.wav", Sound.class);
-            inTheZone= am.get("sounds/marcada.wav", Music.class);
-            tooMuch = am.get("sounds/muchas.wav", Sound.class);
-            tooFew = am.get("sounds/pocas.wav", Sound.class);
-            cleanTable = am.get("sounds/quita.wav", Sound.class);
-            welcome = am.get("sounds/brunoUnaAventura2.wav", Sound.class);
-            erase = am.get("sounds/erase.wav", Music.class);
-            malvado = am.get("sounds/malvado.wav", Music.class);
-            estirarse = am.get("sounds/estirarse.wav", Music.class);
-            agarrar = am.get("sounds/agarrar.wav", Music.class);
-            fichas = am.get("sounds/fichasRobo.wav", Music.class);
-            gracias = am.get("sounds/gracias.wav", Music.class);
-            poniendo = am.get("sounds/poniendoFichas.wav", Music.class);
+
+            a1 = am.get("positive/a1-iupi.mp3", Sound.class);
+            a2 = am.get("positive/a2-MuyBien.mp3", Sound.class);
+            a3 = am.get("positive/a3-Buenisimo.mp3", Sound.class);
+            b2 = am.get("positive/b2-AndasVolando.mp3", Sound.class);
+            b3 = am.get("positive/b3-QueBuenosAmigos.mp3", Sound.class);
+            b4 = am.get("positive/b4-BienPescado.mp3", Sound.class);
+            b5 = am.get("positive/b5-QueBuenSalto.mp3", Sound.class);
+            b6 = am.get("positive/b6-YaEstamosMasCerca.mp3", Sound.class);
+            positive = am.get("positive/brunoPositive.mp3", Sound.class);
+
+            error = am.get("sounds/error.mp3", Sound.class);
+            buzz = am.get("sounds/BrUNOneutro.mp3", Sound.class);
+            zero = am.get("sounds/0.mp3", Sound.class);
+            one = am.get("sounds/1.mp3", Sound.class);
+            two = am.get("sounds/2.mp3", Sound.class);
+            three = am.get("sounds/3.mp3", Sound.class);
+            four = am.get("sounds/4.mp3", Sound.class);
+            five = am.get("sounds/5.mp3", Sound.class);
+            six=am.get("sounds/6.mp3", Sound.class);
+            seven=am.get("sounds/7.mp3", Sound.class);
+            eight=am.get("sounds/8.mp3", Sound.class);
+            nine =am.get("sounds/9.mp3", Sound.class);
+            ten = am.get("sounds/10.mp3", Sound.class);
+            eleven= am.get("sounds/11.mp3", Sound.class);
+            twelve= am.get("sounds/12.mp3", Sound.class);
+            thirteen= am.get("sounds/13.mp3", Sound.class);
+            fourteen= am.get("sounds/14.mp3", Sound.class);
+            fifteen= am.get("sounds/15.mp3", Sound.class);
+            s16 = am.get("sounds/16.mp3", Sound.class);
+            s17 = am.get("sounds/17.mp3", Sound.class);
+            s18 = am.get("sounds/18.mp3", Sound.class);
+            s19 = am.get("sounds/19.mp3", Sound.class);
+            s20 = am.get("sounds/20.mp3", Sound.class);
+            s21 = am.get("sounds/21.mp3", Sound.class);
+            s22 = am.get("sounds/22.mp3", Sound.class);
+            s23 = am.get("sounds/23.mp3", Sound.class);
+
+            levelPassed = am.get("sounds/PasasteDeNIvel.mp3", Sound.class);
+            levelPassed2 = am.get("sounds/BuenTrabajo.mp3", Sound.class);
+            levelPassed3 = am.get("sounds/ExcelenteSeguimosAvanzando.mp3", Sound.class);
+            levelPassed4 = am.get("sounds/MuyBienProximoNivel.mp3", Sound.class);
+
+            repeatLevel = am.get("sounds/VamosAHacerEsteNivelUNaVezMas.mp3", Sound.class);
+            inTheZone= am.get("sounds/HayQuePonerLasFichas.mp3", Music.class);
+            tooMuch = am.get("sounds/ProbaConMenosFichas.mp3", Sound.class);
+            tooFew = am.get("sounds/ProbaConMasFichas.mp3", Sound.class);
+            cleanTable = am.get("sounds/TenesQueSacarLasFichas.mp3", Sound.class);
+            welcome = am.get("sounds/brunoUnaAventura2.mp3", Sound.class);
+            erase = am.get("sounds/erase.mp3", Music.class);
+            malvado = am.get("sounds/malvado.mp3", Music.class);
+            estirarse = am.get("sounds/estirarse.mp3", Music.class);
+            agarrar = am.get("sounds/agarrar.mp3", Music.class);
+            fichas = am.get("sounds/fichasRobo.mp3", Music.class);
+            gracias = am.get("sounds/GraciasFin.mp3", Music.class);
+            poniendo = am.get("sounds/poniendoFichas.mp3", Music.class);
             creepy = am.get("sounds/creepy-min.mp3", Music.class);
 
+            intro2 = am.get("island-intro/de1a2.mp3", Sound.class);
+            intro3 = am.get("island-intro/de2a3.mp3", Sound.class);
+            intro4 = am.get("island-intro/de3a4.mp3", Sound.class);
+            intro5 = am.get("island-intro/de4a5.mp3", Sound.class);
+            intro6 = am.get("island-intro/de5a6.mp3", Sound.class);
+            finalBattleIntro = am.get("island-intro/de6a7.mp3", Sound.class);
+            plus10 = am.get("sounds/plus10.mp3", Sound.class);
 
         }
     }
     public class AssetMusic {
-        public final Music song01;
+        public final Music song01, musicCity, musicClouds, musicTubes, musicUnderwater, musicFactory, musicNight, musicBattle;
 
         public AssetMusic (AssetManager am) {
-            song01 = am.get("music/song1.mp3", Music.class);
+
+            musicCity = am.get("music/1_CIUDAD.mp3", Music.class);
+            song01 = musicCity;
+            musicClouds = am.get("music/2_NUBES.mp3", Music.class);
+            musicTubes = am.get("music/3_TUBERIAS.mp3", Music.class);
+            musicUnderwater = am.get("music/4_SUBMARINO.mp3", Music.class);
+            musicFactory = am.get("music/5_RESORTES.mp3", Music.class);
+            musicNight = musicCity;
+            musicBattle = am.get("music/6_BATALLAFINAL.mp3", Music.class);
 
         }
     }

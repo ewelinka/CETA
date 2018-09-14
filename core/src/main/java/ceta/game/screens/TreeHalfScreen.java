@@ -6,7 +6,9 @@ import ceta.game.game.objects.TreeGear;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
@@ -22,8 +24,9 @@ public class TreeHalfScreen extends TreeScreen {
     }
 
     public TreeHalfScreen(DirectedGame game, boolean gameInit) {
-        super(game, gameInit);
+        super(game, gameInit, false); // all half-tree screens do NOT fade out music
     }
+
 
     @Override
     protected void addGears(){
@@ -53,7 +56,7 @@ public class TreeHalfScreen extends TreeScreen {
         level6gear.setPosition(gearsPositions[5][0], gearsPositions[5][1]);
         stage.addActor(level6gear);
 
-        arrow = new TreeArrow(Assets.instance.tree.arrow);
+        arrow = new TreeArrow(Assets.instance.bruno.body01);
         stage.addActor(arrow); // now add to place the arrow most to front
     }
 
@@ -111,6 +114,7 @@ public class TreeHalfScreen extends TreeScreen {
                     break;
                 case 1:
                     part1.setColor(1,1,1,0);
+                    arrow.setPosition(arrowPositions[0][0],arrowPositions[0][1]);
                     level1gear.setActiveTexture(Assets.instance.tree.gear3half);
                     level1gear.setActive(true);
                     //level1gear.setIsMoving(true,0.2f);
@@ -211,7 +215,7 @@ public class TreeHalfScreen extends TreeScreen {
                 level6gear.setActiveTexture(Assets.instance.tree.gear5half);
                 level6gear.setActive(false);
                 level6gear.activateGear();
-                // TODO thats all falks!
+                // TODO thats all folks!
                 break;
 
         }

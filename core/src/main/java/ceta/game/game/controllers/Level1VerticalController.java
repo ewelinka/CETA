@@ -84,9 +84,10 @@ public class Level1VerticalController extends NoCvController {
                 if (r1.overlaps(r2)) {
                     onCollisionBrunoWithPriceOpenMouth(level.price, objectToCheck);
                     moveMade = false;
-                }else {
+                }
+                else {
                     if (moveMade) {
-                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        playErrorSound();
                         moveMade = false;
                     }
 
@@ -95,13 +96,12 @@ public class Level1VerticalController extends NoCvController {
         }
         else {
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                playErrorSound();
                 moveMade = false;
             }
 
         }
     }
-
 
     public BrunoVertical getLastBruno(){
         return brunosManager.getLastBruno();

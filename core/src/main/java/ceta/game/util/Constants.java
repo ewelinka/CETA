@@ -24,25 +24,24 @@ public class Constants {
     public static final int BASE = 40;
     public static final int ERRORS_FOR_HINT = 2;
 
-    public static final int L1_COMPLETED_NR = 7; // 7 = last level, 8 first level in L2
-    public static final int L2_COMPLETED_NR = 18;
-    public static final int L3_COMPLETED_NR = 29;
-    public static final int L4_COMPLETED_NR = 40;
-    public static final int L5_COMPLETED_NR = 54;
-    public static final int L6_COMPLETED_NR = 70;
+    public static final int L1_COMPLETED_NR = 4; // 4 = last level, 5 first level in L2
+    public static final int L2_COMPLETED_NR = 8;
+    public static final int L3_COMPLETED_NR = 12;
+    public static final int L4_COMPLETED_NR = 17;
+    public static final int L5_COMPLETED_NR = 22;
+    public static final int L6_COMPLETED_NR = 26;
     public static final int LAST_LEVEL_NR = L6_COMPLETED_NR;
 
-    public static final int L1_HALF_COMPLETED_NR = 4; // 4 = last level, 5 first level in L1
-    public static final int L2_HALF_COMPLETED_NR = 13;
-    public static final int L3_HALF_COMPLETED_NR = 24;
-    public static final int L4_HALF_COMPLETED_NR = 35;
-    public static final int L5_HALF_COMPLETED_NR = 47;
-    public static final int L6_HALF_COMPLETED_NR = 62;
+    public static final int L1_HALF_COMPLETED_NR = L1_COMPLETED_NR-2;
+    public static final int L2_HALF_COMPLETED_NR = L2_COMPLETED_NR-2;
+    public static final int L3_HALF_COMPLETED_NR = L3_COMPLETED_NR-2;
+    public static final int L4_HALF_COMPLETED_NR = L4_COMPLETED_NR-2;
+    public static final int L5_HALF_COMPLETED_NR = L5_COMPLETED_NR-2;
+    public static final int L6_HALF_COMPLETED_NR = L6_COMPLETED_NR-2;
+    public static final int PLUS_10_LEVEL = Constants.L3_COMPLETED_NR+1;
+
 
     public static final int NO_MOVEMENT_DIST = 25;
-
-
-
 
     public static int PRICE_Y_HORIZONTAL; // where price will be if number line horizontal
     public static int DRAW_START;

@@ -52,7 +52,7 @@ public class LevelsManager {
     private void resetToZeroAndAddRepeat(){
         lastLevelCompleted = 0;
         GamePreferences.instance.setLastLevel(lastLevelCompleted);
-        GamePreferences.instance.addOneRepeat();
+        //GamePreferences.instance.addOneRepeat();
 
     }
 
@@ -146,17 +146,17 @@ public class LevelsManager {
             switch(levelCharacteristics.representation){
                 case 1:
                     game.setScreen(new Level1HorizontalScreen(
-                            game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
+                            game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.backgroundNr)),
                             transition);
                     break;
                 case 2:
                     game.setScreen(new Level2HorizontalScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
+                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.backgroundNr)),
                             transition);
                     break;
                 case 3:
                     game.setScreen(new Level3HorizontalScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
+                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.backgroundNr)),
                             transition);
                     break;
             }
@@ -164,24 +164,23 @@ public class LevelsManager {
             switch(levelCharacteristics.representation){
                 case 1:
                     game.setScreen(new Level1VerticalScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
+                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.backgroundNr)),
                             transition);
                     break;
                 case 2:
                     game.setScreen(new Level2VerticalScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
+                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.backgroundNr)),
                             transition);
                     break;
                 case 3:
                     game.setScreen(new Level3VerticalScreen(
-                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.isHorizontal)),
+                                    game, lev, getIslandBack(levelCharacteristics.island,levelCharacteristics.backgroundNr)),
                             transition);
                     break;
             }
 
         }
     }
-
 
 
     public void forceLevel(int forcedLevel){
@@ -194,43 +193,63 @@ public class LevelsManager {
 
     }
 
-    private TextureAtlas.AtlasRegion getIslandBack(int islandNr, boolean isHorizontal){
-        if(isHorizontal){ // HORIZONTAL
-            switch (islandNr){
-                case 1:
-                    return Assets.instance.staticBackground.city1;
-                case 2:
-                    return Assets.instance.staticBackground.city3;
-                case 3:
-                    return Assets.instance.staticBackground.tubes1;
-                case 4:
-                    return Assets.instance.staticBackground.tubes2;
-                case 5:
-                    return Assets.instance.staticBackground.tubes3;
-                case 6:
-                    return Assets.instance.staticBackground.tubes4;
-                default:
-                    return Assets.instance.staticBackground.tubes5;
-            }
-
-        }
-        else{ // VERTICAL
-            switch (islandNr){
-                case 1:
-                    return Assets.instance.staticBackground.city4;
-                case 2:
-                    return Assets.instance.staticBackground.city2;
-                case 3:
-                    return Assets.instance.staticBackground.clouds1;
-                case 4:
-                    return Assets.instance.staticBackground.clouds3;
-                case 5:
-                    return Assets.instance.staticBackground.clouds2;
-                case 6:
-                    return Assets.instance.staticBackground.clouds4;
-                default:
-                    return Assets.instance.staticBackground.clouds2;
-            }
+    private TextureAtlas.AtlasRegion getIslandBack(int islandNr, int backgroundNr){
+        String islandBack = islandNr+"-"+backgroundNr;
+        switch (islandBack) {
+            case "1-1": //city
+                return Assets.instance.staticBackground.city1;
+            case "1-2":
+                return Assets.instance.staticBackground.city2;
+            case "1-3":
+                return Assets.instance.staticBackground.city3;
+            case "1-4":
+                return Assets.instance.staticBackground.city3;
+            case "2-1": // clouds
+                return Assets.instance.staticBackground.clouds1;
+            case "2-2":
+                return Assets.instance.staticBackground.clouds2;
+            case "2-3":
+                return Assets.instance.staticBackground.clouds3;
+            case "2-4":
+                return Assets.instance.staticBackground.clouds4;
+            case "3-1": //tubes
+                return Assets.instance.staticBackground.tubes1;
+            case "3-2":
+                return Assets.instance.staticBackground.tubes2;
+            case "3-3":
+                return Assets.instance.staticBackground.tubes3;
+            case "3-4":
+                return Assets.instance.staticBackground.tubes4;
+            case "4-1": // underwater
+                return Assets.instance.staticBackground.sea1;
+            case "4-2":
+                return Assets.instance.staticBackground.sea2;
+            case "4-3":
+                return Assets.instance.staticBackground.sea3;
+            case "4-4":
+                return Assets.instance.staticBackground.sea4;
+            case "4-5":
+                return Assets.instance.staticBackground.sea5;
+            case "5-1": // factory
+                return Assets.instance.staticBackground.factory1;
+            case "5-2":
+                return Assets.instance.staticBackground.factory2;
+            case "5-3":
+                return Assets.instance.staticBackground.factory3;
+            case "5-4":
+                return Assets.instance.staticBackground.factory4;
+            case "5-5":
+                return Assets.instance.staticBackground.factory5;
+            case "6-1": //night city and final battle
+                return Assets.instance.staticBackground.night1;
+            case "6-2":
+                return Assets.instance.staticBackground.night2;
+            case "6-3":
+                return Assets.instance.staticBackground.night3;
+            case "6-4":
+                return Assets.instance.staticBackground.battle1;
+            default:
+                return Assets.instance.staticBackground.tubes5;
 
         }
     }

@@ -6,8 +6,10 @@ import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -110,7 +112,23 @@ public class CongratulationsScreen extends AbstractGameScreen {
 
 
     protected void playLevelPassed(){
-        AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.levelPassed);
+        int whichLevelPassed = MathUtils.random(0,3);
+        Sound wePassed = Assets.instance.sounds.levelPassed;
+        switch (whichLevelPassed){
+            case 1:
+                wePassed = Assets.instance.sounds.levelPassed2;
+                break;
+            case 2:
+                wePassed = Assets.instance.sounds.levelPassed3;
+                break;
+            case 3:
+                wePassed = Assets.instance.sounds.levelPassed4;
+                break;
+        }
+
+        if(game.levelsManager.getLastLevelCompleted() != 26)
+            AudioManager.instance.playWithoutInterruptionLoud(wePassed);
+
     }
 
     @Override
@@ -119,5 +137,5 @@ public class CongratulationsScreen extends AbstractGameScreen {
     }
 
 
-    }
+}
 

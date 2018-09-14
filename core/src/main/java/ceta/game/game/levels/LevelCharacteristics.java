@@ -11,8 +11,9 @@ public class LevelCharacteristics {
     public int island;
     public int representation;
     public boolean isHorizontal;
+    public int backgroundNr;
 
     public void printLevelCharacteristics(){
-        Gdx.app.log(TAG, "island "+island + "rep "+representation+" isH "+isHorizontal);
+        Gdx.app.log(TAG, "island "+island + "rep "+representation+" isH "+isHorizontal+" backgroundNr "+backgroundNr);
     }
 }

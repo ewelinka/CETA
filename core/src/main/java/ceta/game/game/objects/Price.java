@@ -53,20 +53,16 @@ public class Price extends AbstractGameObject {
 
 
 
-    public Price( int priceType, LevelParams levelParams, AbstractWorldController worldController){
-        // by default horizontal
-        this(true, priceType, levelParams, worldController);}
-
     public Price(LevelParams levelParams, AbstractWorldController worldController) {
         // by default horizontal, and by default first price type
-        this(true, 1, levelParams, worldController);
+        this(true, levelParams, worldController);
     }
 
 
-    public Price(boolean isMovingVertical, int priceType, LevelParams levelParams, AbstractWorldController worldController) {
+    public Price(boolean isMovingVertical, LevelParams levelParams, AbstractWorldController worldController) {
         this.worldController = worldController;
         this.isMovingVertical = isMovingVertical;
-        this.priceTypeNr = MathUtils.random(1,6);
+        this.priceTypeNr = levelParams.islandNr;
         init();
         velocity = levelParams.priceVelocity;
         startNumber = levelParams.numberMin;
@@ -113,25 +109,24 @@ public class Price extends AbstractGameObject {
 
     private void setTexture(){
         Gdx.app.log(TAG,"set price texture -> texture nr "+priceTypeNr);
-
         switch(priceTypeNr){
             case 1:
-                regTex = Assets.instance.toCollect.price1;
+                regTex = Assets.instance.toCollect.price1; // yellow screw
                 break;
             case 2:
-                regTex = Assets.instance.toCollect.price2;
+                regTex = Assets.instance.toCollect.price5; // orange disc
                 break;
             case 3:
-                regTex = Assets.instance.toCollect.price3;
+                regTex = Assets.instance.toCollect.price4; // yellow hex
                 break;
             case 4:
-                regTex = Assets.instance.toCollect.price4;
+                regTex = Assets.instance.toCollect.price3; // orange screw
                 break;
             case 5:
-                regTex = Assets.instance.toCollect.price5;
+                regTex = Assets.instance.toCollect.price6; // yellow disc
                 break;
             case 6:
-                regTex = Assets.instance.toCollect.price6;
+                regTex = Assets.instance.toCollect.price2; // orange hex
                 break;
         }
 

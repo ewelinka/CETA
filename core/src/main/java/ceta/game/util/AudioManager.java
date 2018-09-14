@@ -4,6 +4,7 @@ import ceta.game.game.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
@@ -24,9 +25,10 @@ public class AudioManager {
     private Music playingMusic;
     private Sound currentSound;
     private float defaultVolSound = 0.6f;
-    private SequenceAction readMe;
+    private SequenceAction readMe, readNumberWithDelay, readFeedbackAction;
     private Actor reader;
     private Stage stage;
+    private Sound[] positiveNormalSounds = new Sound[]{Assets.instance.sounds.a1, Assets.instance.sounds.a2, Assets.instance.sounds.a3};
 
     // singleton: prevent instantiation from other classes
     private AudioManager () { }
@@ -35,7 +37,7 @@ public class AudioManager {
         this.stage = stage;
         reader = new Actor();
         stage.addActor(reader);
-        readMe = new SequenceAction();
+        readMe = readNumberWithDelay = readFeedbackAction = new SequenceAction();
     }
 
     public void play (Sound sound) {
@@ -53,7 +55,7 @@ public class AudioManager {
     }
 
     public void playWithoutInterruption(Sound sound) {
-        sound.play(defaultVolSound , 1, 1);
+        sound.play(defaultVolSound , 1, 0);
     }
 
     public void playWithoutInterruption(Music m) {
@@ -62,7 +64,7 @@ public class AudioManager {
 
 
     public void playWithoutInterruptionLoud(Sound sound) {
-        sound.play(1 , 1, 1);
+        sound.play(1 , 1, 0);
     }
 
     public void playWithoutInterruptionLoud(Music m) {
@@ -218,53 +220,90 @@ public class AudioManager {
     }
 
     public void readNumber(int nr){
+        Sound toRead = Assets.instance.sounds.buzz;
         switch (nr){
+            case 0:
+                toRead = Assets.instance.sounds.zero;
+                break;
             case 1:
-                playWithoutInterruptionLoud(Assets.instance.sounds.one);
+                toRead = Assets.instance.sounds.one;
                 break;
             case 2:
-                playWithoutInterruptionLoud(Assets.instance.sounds.two);
+                toRead = Assets.instance.sounds.two;
                 break;
             case 3:
-                playWithoutInterruptionLoud(Assets.instance.sounds.three);
+                toRead = Assets.instance.sounds.three;
                 break;
             case 4:
-                playWithoutInterruptionLoud(Assets.instance.sounds.four);
+                toRead = Assets.instance.sounds.four;
                 break;
             case 5:
-                playWithoutInterruptionLoud(Assets.instance.sounds.five);
+                toRead = Assets.instance.sounds.five;
                 break;
             case 6:
-                playWithoutInterruptionLoud(Assets.instance.sounds.six);
+                toRead = Assets.instance.sounds.six;
                 break;
             case 7:
-                playWithoutInterruptionLoud(Assets.instance.sounds.seven);
+                toRead = Assets.instance.sounds.seven;
                 break;
             case 8:
-                playWithoutInterruptionLoud(Assets.instance.sounds.eight);
+                toRead = Assets.instance.sounds.eight;
                 break;
             case 9:
-                playWithoutInterruptionLoud(Assets.instance.sounds.nine);
+                toRead = Assets.instance.sounds.nine;
                 break;
             case 10:
-                playWithoutInterruptionLoud(Assets.instance.sounds.ten);
+                toRead = Assets.instance.sounds.ten;
                 break;
             case 11:
-                playWithoutInterruptionLoud(Assets.instance.sounds.eleven);
+                toRead = Assets.instance.sounds.eleven;
                 break;
             case 12:
-                playWithoutInterruptionLoud(Assets.instance.sounds.twelve);
+                toRead = Assets.instance.sounds.twelve;
                 break;
             case 13:
-                playWithoutInterruptionLoud(Assets.instance.sounds.thirteen);
+                toRead = Assets.instance.sounds.thirteen;
                 break;
             case 14:
-                playWithoutInterruptionLoud(Assets.instance.sounds.fourteen);
+                toRead = Assets.instance.sounds.fourteen;
                 break;
             case 15:
-                playWithoutInterruptionLoud(Assets.instance.sounds.fifteen);
+                toRead = Assets.instance.sounds.fifteen;
+                break;
+            case 16:
+                toRead = Assets.instance.sounds.s16;
+                break;
+            case 17:
+                toRead = Assets.instance.sounds.s17;
+                break;
+            case 18:
+                toRead = Assets.instance.sounds.s18;
+                break;
+            case 19:
+                toRead = Assets.instance.sounds.s19;
+                break;
+            case 20:
+                toRead = Assets.instance.sounds.s20;
+                break;
+            case 21:
+                toRead = Assets.instance.sounds.s21;
+                break;
+            case 22:
+                toRead = Assets.instance.sounds.s22;
+                break;
+            case 23:
+                toRead = Assets.instance.sounds.s23;
                 break;
         }
+        readNumberWithDelay.reset();
+        readNumberWithDelay.addAction(delay(1.0f));
+        final Sound finalToRead = toRead;
+        readNumberWithDelay.addAction(run(new Runnable() {
+            public void run() {
+                playWithoutInterruption(finalToRead);
+            }
+        }));
+        reader.addAction(readNumberWithDelay);
 
     }
 
@@ -273,17 +312,29 @@ public class AudioManager {
     }
 
     public void play (Music music) {
-        stopMusic();
-        playingMusic = music;
 
-        music.setLooping(true);
-        music.setVolume(0.15f);
-        music.play();
+        if(music != playingMusic){
+            stopMusic();
+            playingMusic = music;
+            music.setVolume(0.15f);
+            music.setLooping(true);
+           // music.setVolume(1.0f);
+            music.play();
+        }else{
+            if(!music.isPlaying()){
+                music.setVolume(0.15f);
+                music.play();
 
+            }
+        }
     }
 
     public void setMusicVol(float val){
         playingMusic.setVolume(val);
+    }
+
+    public float getMusicVolume(){
+        return playingMusic.getVolume();
     }
     public void stopMusic () {
         if (playingMusic != null) playingMusic.stop();
@@ -294,6 +345,91 @@ public class AudioManager {
         creepy.setVolume(0.25f);
         playWithoutInterruption(creepy);
 
+    }
+
+    public Sound getPositiveFeedbackForIslandRandom(int islandNr){
+        float decideFeedback = MathUtils.random();
+        int decideWhichNormal = MathUtils.random(0,2);
+        Sound positiveSound = positiveNormalSounds[decideWhichNormal];
+
+        if(decideFeedback >= 0.8){
+            switch(islandNr){
+                case 2:
+                    positiveSound = Assets.instance.sounds.b2;
+                    break;
+                case 3:
+                    positiveSound = Assets.instance.sounds.b3;
+                    break;
+                case 4:
+                    positiveSound = Assets.instance.sounds.b4;
+                    break;
+                case 5:
+                    positiveSound = Assets.instance.sounds.b5;
+                    break;
+                case 6:
+                    positiveSound = Assets.instance.sounds.b6;
+                    break;
+            }
+        }
+        return positiveSound;
+
+    }
+
+    public Sound getPositiveFeedbackForIsland(int islandNr) {
+        float decideFeedback = MathUtils.random();
+        //a1- 35%, a2- 30%, a3- 25%, bx- 10%
+        Sound positiveSound = Assets.instance.sounds.a1; // 0-35%
+        if(decideFeedback <= 0.35){
+            positiveSound = Assets.instance.sounds.a1;
+        }
+        else if ( decideFeedback < 0.65){ //35%-65%
+            positiveSound = Assets.instance.sounds.a2;
+        }else if(decideFeedback < 0.9){ // 65% - 90%
+            positiveSound = Assets.instance.sounds.a3;
+        }else { //90%-100%
+            switch(islandNr){
+                case 2:
+                    positiveSound = Assets.instance.sounds.b2;
+                    break;
+                case 3:
+                    positiveSound = Assets.instance.sounds.b3;
+                    break;
+                case 4:
+                    positiveSound = Assets.instance.sounds.b4;
+                    break;
+                case 5:
+                    positiveSound = Assets.instance.sounds.b5;
+                    break;
+                case 6:
+                    positiveSound = Assets.instance.sounds.b6;
+                    break;
+            }
+        }
+
+        return positiveSound;
+
+    }
+
+    public void playErrorSound(){
+        readFeedbackAction.reset();
+        readFeedbackAction.addAction(delay(0.7f));
+        readFeedbackAction.addAction(run(new Runnable() {
+            public void run() {
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
+            }
+        }));
+        reader.addAction(readFeedbackAction);
+    }
+
+    public void playPositiveSound(final Sound toPlay){
+        readFeedbackAction.reset();
+        readFeedbackAction.addAction(delay(0.7f));
+        readFeedbackAction.addAction(run(new Runnable() {
+            public void run() {
+                AudioManager.instance.playWithoutInterruption(toPlay);
+            }
+        }));
+        reader.addAction(readFeedbackAction);
     }
 
 }

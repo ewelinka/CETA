@@ -11,16 +11,17 @@ import ceta.game.transitions.ScreenTransition;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.*;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
 import java.util.ArrayList;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 
 
 /**
@@ -69,6 +70,36 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         checkLevelParamsAndSetOperationsToPassToNext();
         AudioManager.instance.setStage(stage);
 
+        // check if works
+        switch(levelParams.islandNr){
+            case 1:
+                AudioManager.instance.play(Assets.instance.music.musicCity);
+                break;
+            case 2:
+                AudioManager.instance.play(Assets.instance.music.musicClouds);
+                break;
+            case 3:
+                AudioManager.instance.play(Assets.instance.music.musicTubes);
+                break;
+            case 4:
+                if(levelNr == Constants.PLUS_10_LEVEL)
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.plus10);
+                AudioManager.instance.play(Assets.instance.music.musicUnderwater);
+                break;
+            case 5:
+                AudioManager.instance.play(Assets.instance.music.musicFactory);
+                break;
+            case 6:
+                if(levelNr == Constants.LAST_LEVEL_NR){
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.finalBattleIntro);
+                    AudioManager.instance.play(Assets.instance.music.musicBattle);
+                }
+
+                else
+                    AudioManager.instance.play(Assets.instance.music.musicCity);
+                break;
+
+        }
 
         timeToWait = Constants.ACTION_SUBMIT_WAIT;
 
@@ -115,7 +146,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     protected void testCollisions(){
-       // Gdx.app.log(TAG," testCollisions with price dynamic: "+level.price.isDynamic());
+        // Gdx.app.log(TAG," testCollisions with price dynamic: "+level.price.isDynamic());
         if(level.price.isDynamic()) {
             testCollisionsInController(true);
         }
@@ -146,7 +177,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             Gdx.app.debug(TAG, "Action submit");
         }
         else if(keycode == Input.Keys.N){
-           // GamePreferences.instance.addOneToLastLevelAndSave();
+            // GamePreferences.instance.addOneToLastLevelAndSave();
             game.getLevelsManager().goToNextLevelWorkaround();
         }
 
@@ -178,7 +209,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         // switch to menu screen
         ScreenTransition transition = ScreenTransitionFade.init(0.75f);
         game.setScreen(new SimpleMenuScreen(game), transition);
-       // game.getLevelsManager().goToFirstUncompletedLevel(true);
     }
 
     public void goToCongratulationsScreen () {
@@ -188,7 +218,6 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     public void goToRepeatLevelScreen(){
-        AudioManager.instance.play(Assets.instance.sounds.repeatLevel);
         game.setScreen(new RepeatLevelScreen(game),oneSegFadeIn);
     }
 
@@ -230,21 +259,21 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    playErrorSound();
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                playErrorSound();
                 moveMade = false;
             }
         }
     }
 
     protected void testCollisionsHorizontalDynamic(AbstractGameObject objectToCheck){
-       // Gdx.app.log(TAG, " testCollisionsHorizontalDynamic W "+ Constants.VIEWPORT_HEIGHT/2);
+        // Gdx.app.log(TAG, " testCollisionsHorizontalDynamic W "+ Constants.VIEWPORT_HEIGHT/2);
         if(objectToCheck != null ) {
 
             if (level.price.getY() < Constants.GROUND_LEVEL + Constants.VIEWPORT_HEIGHT / 2) { // price in detection zone
@@ -261,7 +290,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     moveMade = false;
                 }else {
                     if (moveMade) {
-                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        playErrorSound();
                         moveMade = false;
                     }
 
@@ -269,7 +298,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                playErrorSound();
                 moveMade = false;
             }
         }
@@ -290,14 +319,14 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 moveMade = false;
             } else {
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    playErrorSound();
                     moveMade = false;
                 }
 
             }
         }else{
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                playErrorSound();
                 moveMade = false;
             }
         }
@@ -324,7 +353,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     }
                     else {
                         if (moveMade) {
-                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                            playErrorSound();
                             moveMade = false;
                         }
 
@@ -333,7 +362,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             }
             else{
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    playErrorSound();
                     moveMade = false;
                 }
             }
@@ -357,7 +386,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 }
                 else {
                     if (moveMade) {
-                        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                        playErrorSound();
                         moveMade = false;
                     }
 
@@ -366,7 +395,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
         }
         else {
             if (moveMade) {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                playErrorSound();
                 moveMade = false;
             }
 
@@ -392,7 +421,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                     }
                     else {
                         if (moveMade) {
-                            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                            playErrorSound();
                             moveMade = false;
                         }
 
@@ -401,14 +430,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             }
             else {
                 if (moveMade) {
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.liveLost);
+                    playErrorSound();
                     moveMade = false;
                 }
 
             }
         }
     }
-
 
     private void moveCamera (float x, float y) {
         x += cameraHelper.getPosition().x;
@@ -417,15 +445,26 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     private void genericOnCollision(){
-        AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.pickupPrice);
-        currentErrors = 0;
-        game.resultsManager.setLastToFinal();
-        game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(),score);
-        score += 1;
+        if(notYetPassTheLevel()){
+            playPositiveSound(AudioManager.instance.getPositiveFeedbackForIsland(levelParams.islandNr));
+            currentErrors = 0;
+            game.resultsManager.setLastToFinal();
+            game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), score);
+            score += 1;
+        }else{
+            currentErrors = 0;
+            game.resultsManager.setLastToFinal();
+            game.resultsManager.onCollisionRecord(level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), score);
+            score += 1;
+            if(score >= getOperationsToPassToNextLevel())
+                playPositiveSound(Assets.instance.sounds.positive);
+            else
+                playErrorSound();
+        }
     }
 
+
     protected void onCollisionBrunoWithPrice(Price price, AbstractGameObject collisionObject) {
-        Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (price.getActions().size == 0) { // we act just one time!
             genericOnCollision();
             if (notYetPassTheLevel()) {
@@ -439,12 +478,12 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     }
 
     protected void onCollisionBrunoWithPriceOpenMouth(Price price, Bruno bruno){
-       // Gdx.app.log(TAG, "NO updates in progress and collision!");
+        // Gdx.app.log(TAG, "NO updates in progress and collision!");
         if (price.getActions().size == 0) { // we act just one time!
             bruno.moveHead();
             genericOnCollision();
             if (notYetPassTheLevel()) {
-                Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+price.getX()+" y "+price.getY());
+                //Gdx.app.log(TAG,"=== to eat bruno x"+bruno.getX()+" bruno y "+bruno.getEatPointY()+" price x "+price.getX()+" y "+price.getY());
                 //price.wasEaten(bruno.getX(), bruno.getEatPointY());
                 price.onCollision(bruno.getX()+bruno.getWidth()/2, bruno.getEatPointY());
 
@@ -474,7 +513,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
     public void setCountdownOn(boolean isOn){
         //Gdx.app.log(TAG, " setCountdownOn "+isOn);
         if(isOn) {
-            AudioManager.instance.play(Assets.instance.sounds.buzz);
+            AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.buzz);
         }
         else {
             AudioManager.instance.stopSound();
@@ -625,7 +664,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             toReadVals.add(AbstractBlocksManager.getValueById(id));
         }
 
-        AudioManager.instance.readNumber(sum);
+        AudioManager.instance.readNumber(levelParams.numberMin+sum);
         addIntentToResults(sum,level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), toReadVals);
 
     }
@@ -663,13 +702,13 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             if ((correctAnswer + lastFinalSolutionNr) == nowSolutionNr) {
                 for (int i = 0; i < lastFinalSolution.size(); i++) {
                     Solution lastSolutionBlock = lastFinalSolution.get(i);
-                   /// Gdx.app.log(TAG, " for i " + i + " id " + lastSolutionBlock.getId());
+                    /// Gdx.app.log(TAG, " for i " + i + " id " + lastSolutionBlock.getId());
                     boolean lastBlockPresent = false;
                     for (int j = 0; j < nowSolution.size(); j++) {
                         VirtualBlock nowSolutionBlock = nowSolution.get(j);
                         //Gdx.app.log(TAG, " for j " + j + " id " + nowSolutionBlock.getBlockId());
                         if (lastSolutionBlock.getId() == nowSolutionBlock.getBlockId()) {
-                         //   Gdx.app.log(TAG, "i id == j id");
+                            //   Gdx.app.log(TAG, "i id == j id");
                             lastBlockPresent = true;
                             if (nowSolutionBlock.getCenterVector().dst(lastSolutionBlock.getPosition()) > Constants.NO_MOVEMENT_DIST) {
                                 Gdx.app.log(TAG, " same id but big distance!!");
@@ -757,8 +796,17 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
 
 
 
+    public int getNowDetectedSumWithStartNumberLineValue(){
+        return (getNowDetectedSum()+levelParams.numberMin) ;
+    }
 
 
+    protected void playErrorSound(){
+        AudioManager.instance.playErrorSound();
+    }
 
+    protected void playPositiveSound(final Sound toPlay){
+        AudioManager.instance.playPositiveSound(toPlay);
+    }
 
 }

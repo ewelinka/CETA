@@ -78,7 +78,6 @@ public class TreeGear extends Actor {
     }
 
     public void setIsMoving(final boolean moving, float delay){
-        Gdx.app.log(TAG,"IS MOVINGGGGG........");
         addAction(sequence(
                 Actions.delay(delay),
                 run(new Runnable() {
@@ -99,12 +98,10 @@ public class TreeGear extends Actor {
     public void setActive(boolean setIsActive){
         isActive = setIsActive;
         if(!isActive) {
-            Gdx.app.log(TAG, " set me gray ");
             regTex = regTexInactive;
             isMoving = false;
            // setColor(Color.BLUE);
         }else{
-            Gdx.app.log(TAG, " set me color! ");
             regTex  =regTexActive;
             isMoving = true;
         }
