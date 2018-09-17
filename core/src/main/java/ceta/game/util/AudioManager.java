@@ -37,7 +37,9 @@ public class AudioManager {
         this.stage = stage;
         reader = new Actor();
         stage.addActor(reader);
-        readMe = readNumberWithDelay = readFeedbackAction = new SequenceAction();
+        readMe  = new SequenceAction();
+        readFeedbackAction = new SequenceAction();
+        readNumberWithDelay = new SequenceAction();
     }
 
     public void play (Sound sound) {
@@ -296,7 +298,7 @@ public class AudioManager {
                 break;
         }
         readNumberWithDelay.reset();
-        readNumberWithDelay.addAction(delay(1.0f));
+        readNumberWithDelay.addAction(delay(0.4f));
         final Sound finalToRead = toRead;
         readNumberWithDelay.addAction(run(new Runnable() {
             public void run() {
@@ -423,7 +425,7 @@ public class AudioManager {
 
     public void playPositiveSound(final Sound toPlay){
         readFeedbackAction.reset();
-        readFeedbackAction.addAction(delay(0.7f));
+        readFeedbackAction.addAction(delay(0.9f));
         readFeedbackAction.addAction(run(new Runnable() {
             public void run() {
                 AudioManager.instance.playWithoutInterruption(toPlay);
