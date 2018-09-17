@@ -664,7 +664,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             toReadVals.add(AbstractBlocksManager.getValueById(id));
         }
 
-        AudioManager.instance.readNumber(levelParams.numberMin+sum);
+        AudioManager.instance.readNumber(levelParams.numberMin+sum, (levelParams.numberMin+ sum) == level.price.getDisplayNumber());
         addIntentToResults(sum,level.price.getCorrectAnswerToPut(), level.price.getDisplayNumber(), toReadVals);
 
     }

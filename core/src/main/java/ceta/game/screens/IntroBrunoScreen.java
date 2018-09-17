@@ -127,7 +127,7 @@ public class IntroBrunoScreen extends AbstractGameScreen {
                 run(new Runnable() {
                     @Override
                     public void run() {
-                        if(game.levelsManager.getLastLevelCompleted() >= 7)
+                        if(game.levelsManager.getLastLevelCompleted() > Constants.L1_COMPLETED_NR)
                             //game.getLevelsManager().goToFirstUncompletedLevel(true);
                             game.setScreen(new SimpleMenuScreen(game),ScreenTransitionFade.init(0.75f));
                         else

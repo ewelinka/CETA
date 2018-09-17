@@ -221,7 +221,7 @@ public class AudioManager {
 
     }
 
-    public void readNumber(int nr){
+    public void readNumber(int nr, boolean isCorrect){
         Sound toRead = Assets.instance.sounds.buzz;
         switch (nr){
             case 0:
@@ -305,6 +305,14 @@ public class AudioManager {
                 playWithoutInterruption(finalToRead);
             }
         }));
+        if(!isCorrect) {
+            readNumberWithDelay.addAction(delay(0.8f));
+            readNumberWithDelay.addAction(run(new Runnable() {
+                public void run() {
+                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
+                }
+            }));
+        }
         reader.addAction(readNumberWithDelay);
 
     }
@@ -412,15 +420,15 @@ public class AudioManager {
 
     }
 
-    public void playErrorSound(){
-        readFeedbackAction.reset();
-        readFeedbackAction.addAction(delay(0.7f));
-        readFeedbackAction.addAction(run(new Runnable() {
-            public void run() {
-                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
-            }
-        }));
-        reader.addAction(readFeedbackAction);
+    public void playErrorSound(){ // now we comment it but leave the function if we need in the future error sound without the number vocalization
+//        readFeedbackAction.reset();
+//        readFeedbackAction.addAction(delay(0.7f));
+//        readFeedbackAction.addAction(run(new Runnable() {
+//            public void run() {
+//                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.error);
+//            }
+//        }));
+//        reader.addAction(readFeedbackAction);
     }
 
     public void playPositiveSound(final Sound toPlay){
