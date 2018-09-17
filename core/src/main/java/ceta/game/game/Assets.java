@@ -58,7 +58,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("positive/b4-BienPescado.mp3", Sound.class);
         assetManager.load("positive/b5-QueBuenSalto.mp3", Sound.class);
         assetManager.load("positive/b6-YaEstamosMasCerca.mp3", Sound.class);
-        assetManager.load("positive/brunoPositive.mp3", Sound.class);
+        assetManager.load("positive/BrUNO+.mp3", Sound.class);
         assetManager.load("sounds/error.mp3", Sound.class);
         assetManager.load("sounds/BrUNOneutro.mp3", Sound.class);
         assetManager.load("sounds/0.mp3", Sound.class);
@@ -96,7 +96,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/VamosAHacerEsteNivelUNaVezMas.mp3", Sound.class);
         assetManager.load("sounds/HayQuePonerLasFichas.mp3", Music.class);
 
-        assetManager.load("sounds/brunoUnaAventura2.mp3", Sound.class);
+        assetManager.load("sounds/PreIntro.mp3", Sound.class);
         assetManager.load("sounds/erase.mp3", Music.class);
         assetManager.load("sounds/malvado.mp3", Music.class);
         assetManager.load("sounds/estirarse.mp3", Music.class);
@@ -579,7 +579,7 @@ public class Assets implements Disposable, AssetErrorListener {
             b4 = am.get("positive/b4-BienPescado.mp3", Sound.class);
             b5 = am.get("positive/b5-QueBuenSalto.mp3", Sound.class);
             b6 = am.get("positive/b6-YaEstamosMasCerca.mp3", Sound.class);
-            positive = am.get("positive/brunoPositive.mp3", Sound.class);
+            positive = am.get("positive/BrUNO+.mp3", Sound.class);
 
             error = am.get("sounds/error.mp3", Sound.class);
             buzz = am.get("sounds/BrUNOneutro.mp3", Sound.class);
@@ -618,7 +618,7 @@ public class Assets implements Disposable, AssetErrorListener {
             tooMuch = am.get("sounds/ProbaConMenosFichas.mp3", Sound.class);
             tooFew = am.get("sounds/ProbaConMasFichas.mp3", Sound.class);
             cleanTable = am.get("sounds/TenesQueSacarLasFichas.mp3", Sound.class);
-            welcome = am.get("sounds/brunoUnaAventura2.mp3", Sound.class);
+            welcome = am.get("sounds/PreIntro.mp3", Sound.class);
             erase = am.get("sounds/erase.mp3", Music.class);
             malvado = am.get("sounds/malvado.mp3", Music.class);
             estirarse = am.get("sounds/estirarse.mp3", Music.class);
