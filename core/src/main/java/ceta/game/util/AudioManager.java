@@ -25,7 +25,7 @@ public class AudioManager {
     private Music playingMusic;
     private Sound currentSound;
     private float defaultVolSound = 0.6f;
-    private SequenceAction readMe, readNumberWithDelay, readFeedbackAction;
+    private SequenceAction readMe, readNumberWithDelay, readFeedbackAction, readCleanTable;
     private Actor reader;
     private Stage stage;
     private Sound[] positiveNormalSounds = new Sound[]{Assets.instance.sounds.a1, Assets.instance.sounds.a2, Assets.instance.sounds.a3};
@@ -40,6 +40,7 @@ public class AudioManager {
         readMe  = new SequenceAction();
         readFeedbackAction = new SequenceAction();
         readNumberWithDelay = new SequenceAction();
+        readCleanTable = new SequenceAction();
     }
 
     public void play (Sound sound) {
@@ -440,6 +441,17 @@ public class AudioManager {
             }
         }));
         reader.addAction(readFeedbackAction);
+    }
+
+    public void playCleanTable(){
+        readCleanTable.reset();
+        readCleanTable.addAction(delay(2.0f));
+        readCleanTable.addAction(run(new Runnable() {
+            public void run() {
+                AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.cleanTable);
+            }
+        }));
+        reader.addAction(readCleanTable);
     }
 
 }

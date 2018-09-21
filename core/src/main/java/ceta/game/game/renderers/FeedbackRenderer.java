@@ -88,6 +88,21 @@ public class FeedbackRenderer {
 
     }
 
+
+    public void renderCleanTableClue(){
+        manoImg.toFront();
+        manoImg.setColor(1,1,1,0);
+        manoImg.setPosition(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth()/2,feedbackMiddlePoint - manoImg.getHeight()+50);
+        manoImg.addAction(sequence(
+                delay(2.0f),
+                alpha(1,0.3f),
+                moveTo(-Constants.CV_DETECTION_EDGE_TABLET/2-manoImg.getWidth(),-Constants.VIEWPORT_HEIGHT/2-manoImg.getHeight(),2.0f),
+                delay(5.0f)
+        ));
+
+    }
+
+
     private void renderAndReadTooFewClue(){
         AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.tooFew);
         renderTooFewClue();
