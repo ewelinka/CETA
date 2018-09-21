@@ -126,8 +126,8 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
         if(!worldController.wasTableCleaned() && !isPlayingCleanTable ){
             //renderOldBlocks();
-            AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.cleanTable);
-            feedbackRenderer.renderTooMuchClue();
+            AudioManager.instance.playCleanTable();
+            feedbackRenderer.renderCleanTableClue();
             isPlayingCleanTable = true;
             Timer.schedule(new Timer.Task(){
                 @Override
