@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
@@ -68,7 +67,6 @@ public class CongratulationsScreen extends AbstractGameScreen {
         stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(true); // from congrats you con go to menu
         buildStage();
-        playLevelPassed();
     }
     public void hide (){
 
@@ -91,10 +89,17 @@ public class CongratulationsScreen extends AbstractGameScreen {
         congrats.addAction(sequence(
                 scaleTo(0, 0),
                 delay(0.3f),
-                parallel(moveBy(0, -100, 3.0f, Interpolation.swingOut),
+                parallel(sequence(delay(0.55f),
+                        run(new Runnable() {
+                            @Override
+                            public void run() {
+                                playLevelPassed();
+                            }
+                        })),
+                        moveBy(0, -100, 3.0f, Interpolation.swingOut),
                         scaleTo(1.0f, 1.0f, 0.25f, Interpolation.linear),
                         alpha(1.0f, 0.5f)),
-//                delay(1.0f),
+                delay(1.2f),
                 run(new Runnable() {
                     public void run() {
                         moveToNextLevel = true;
