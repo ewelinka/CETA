@@ -352,7 +352,7 @@ public class TreeScreen extends AbstractGameScreen {
                 part3.addAction(sequence(delay(0.8f),alpha(1,0.5f),alpha(0,0.5f),alpha(1,0.2f),alpha(0,0.2f),alpha(1,0.1f)));
                 level3gear.activateGear();
                 level4gear.setIsMoving(true,3.5f);
-                automaticPassTime = 12.0f+4.0f;
+                automaticPassTime = 14.0f+4.0f;
                 if(!introStarted) {
                     introStarted = true;
                     readIntroWithDelay(Assets.instance.sounds.intro4);
@@ -399,7 +399,7 @@ public class TreeScreen extends AbstractGameScreen {
                 automaticPassTime = 14.0f+4.0f;
                 if(!introStarted){
                     introStarted = true;
-                    readIntroWithDelayMusic(Assets.instance.sounds.gracias);
+                    readIntroWithDelay(Assets.instance.sounds.gracias);
                 }
                 break;
 
@@ -580,7 +580,7 @@ public class TreeScreen extends AbstractGameScreen {
         ));
     }
 
-    private void readIntroWithDelayMusic(final Music introSound) {
+    private void readIntroWithDelay(final Music introSound) {
         Actor reader = new Actor();
         stage.addActor(reader);
 

@@ -89,7 +89,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/ProbaConMasFichas.mp3", Sound.class);
         assetManager.load("sounds/TenesQueSacarLasFichas.mp3", Sound.class);
         // assetManager.load("sounds/yupii.mp3", Sound.class);
-        assetManager.load("sounds/PasasteDeNIvel.mp3", Sound.class);
+        assetManager.load("sounds/PasasteDeNivel.mp3", Sound.class);
         assetManager.load("sounds/BuenTrabajo.mp3", Sound.class);
         assetManager.load("sounds/ExcelenteSeguimosAvanzando.mp3", Sound.class);
         assetManager.load("sounds/MuyBienProximoNivel.mp3", Sound.class);
@@ -109,7 +109,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         assetManager.load("island-intro/de1a2.mp3", Sound.class);
         assetManager.load("island-intro/de2a3.mp3", Sound.class);
-        assetManager.load("island-intro/de3a4.mp3", Sound.class);
+        assetManager.load("island-intro/de3a4.mp3", Music.class);
         assetManager.load("island-intro/de4a5.mp3", Sound.class);
         assetManager.load("island-intro/de5a6.mp3", Sound.class);
         assetManager.load("island-intro/de6a7.mp3", Sound.class);
@@ -565,8 +565,9 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound levelPassed,levelPassed2, levelPassed3, levelPassed4, repeatLevel;
 
         public final Sound welcome;
-        public final Sound intro2, intro3, intro4, intro5, intro6, finalBattleIntro, plus10;
-        public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,poniendo,creepy,gracias;
+        public final Sound intro2, intro3, intro5, intro6, finalBattleIntro, plus10;
+
+        public final Music erase, malvado,estirarse,agarrar,inTheZone,fichas,poniendo,creepy,gracias,intro4;
 
 
         public AssetSounds (AssetManager am) {
@@ -608,7 +609,7 @@ public class Assets implements Disposable, AssetErrorListener {
             s22 = am.get("sounds/22.mp3", Sound.class);
             s23 = am.get("sounds/23.mp3", Sound.class);
 
-            levelPassed = am.get("sounds/PasasteDeNIvel.mp3", Sound.class);
+            levelPassed = am.get("sounds/PasasteDeNivel.mp3", Sound.class);
             levelPassed2 = am.get("sounds/BuenTrabajo.mp3", Sound.class);
             levelPassed3 = am.get("sounds/ExcelenteSeguimosAvanzando.mp3", Sound.class);
             levelPassed4 = am.get("sounds/MuyBienProximoNivel.mp3", Sound.class);
@@ -630,7 +631,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
             intro2 = am.get("island-intro/de1a2.mp3", Sound.class);
             intro3 = am.get("island-intro/de2a3.mp3", Sound.class);
-            intro4 = am.get("island-intro/de3a4.mp3", Sound.class);
+            intro4 = am.get("island-intro/de3a4.mp3", Music.class);
             intro5 = am.get("island-intro/de4a5.mp3", Sound.class);
             intro6 = am.get("island-intro/de5a6.mp3", Sound.class);
             finalBattleIntro = am.get("island-intro/de6a7.mp3", Sound.class);

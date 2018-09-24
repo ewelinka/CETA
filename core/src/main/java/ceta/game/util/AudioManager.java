@@ -73,6 +73,7 @@ public class AudioManager {
     public void playWithoutInterruptionLoud(Music m) {
         m.play();
     }
+
     private void addMusicToPlay(final Music toPlay, float delayTime){
         readMe.addAction(run(new Runnable() {
             public void run() {
@@ -198,6 +199,17 @@ public class AudioManager {
         addMusicToPlay(Assets.instance.sounds.inTheZone,0.0f);
         reader.addAction(readMe);
 
+    }
+
+    public void playSoundWithDelay(final Sound introLevel){
+        readMe.reset();
+        readMe.addAction(delay(1.0f));
+        readMe.addAction(run(new Runnable() {
+            public void run() {
+                playWithoutInterruption(introLevel);
+            }
+        }));
+        reader.addAction(readMe);
     }
 
     public void readCV(){

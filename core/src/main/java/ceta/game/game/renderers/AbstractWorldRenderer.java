@@ -442,7 +442,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
         arrow.setPosition(-arrow.getWidth()/2,-280);
         arrow.setRotation(0);
         arrow.addAction(sequence(
-                delay(0.1f),
+                delay(1.1f),
                 alpha(1,changeSpeed),
                 alpha(0,changeSpeed),
                 alpha(1,changeSpeed),

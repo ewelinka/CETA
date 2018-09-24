@@ -22,7 +22,6 @@ import com.badlogic.gdx.utils.Disposable;
 import java.util.ArrayList;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 
 
 /**
@@ -84,7 +83,7 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 break;
             case 4:
                 if(levelNr == Constants.PLUS_10_LEVEL)
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.plus10);
+                    AudioManager.instance.playSoundWithDelay(Assets.instance.sounds.plus10);
                 AudioManager.instance.play(Assets.instance.music.musicUnderwater);
                 break;
             case 5:
@@ -92,7 +91,8 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
                 break;
             case 6:
                 if(levelNr == Constants.LAST_LEVEL_NR){
-                    AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.finalBattleIntro);
+                    AudioManager.instance.playSoundWithDelay(Assets.instance.sounds.finalBattleIntro);
+                   // AudioManager.instance.playWithoutInterruption(Assets.instance.sounds.finalBattleIntro);
                     AudioManager.instance.play(Assets.instance.music.musicBattle);
                 }
 
