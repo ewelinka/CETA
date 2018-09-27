@@ -434,8 +434,10 @@ public abstract class AbstractWorldRenderer implements Disposable {
         arrow = new Image(Assets.instance.tree.arrowWhite);
         float changeSpeed = 0.5f;
 
+        int arrowY = Constants.WITH_CV ? -440 : -280;
+
         arrow.setColor(1,1,0,0);
-        arrow.setPosition(-arrow.getWidth()/2,-280);
+        arrow.setPosition(-arrow.getWidth()/2,arrowY);
         arrow.setRotation(0);
         arrow.addAction(sequence(
                 delay(1.1f),
