@@ -580,17 +580,24 @@ public abstract class  AbstractWorldController extends InputAdapter implements D
             if (screenX > 570 && screenY < 40) {
                 game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
             }
+            else if(screenX < 40 && screenY < 40) {
+                //game.getLevelsManager().goToNextLevelWorkaround();
+                forceSuccess();
+            }
+
         }else {
 
             if (screenX > 440 && screenY < 10) {
                 game.setScreen(new EmergencyScreen(game), oneSegFadeIn);
             }
+            else if(screenX < 10 && screenY < 10) {
+                forceSuccess();
+                //game.getLevelsManager().goToNextLevelWorkaround();
+            }
+
         }
 
 
-//        else if(screenY < 150) {
-//            game.getLevelsManager().goToNextLevelWorkaround();
-//        }
 
         return true;
     }
