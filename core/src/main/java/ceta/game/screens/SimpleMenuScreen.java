@@ -3,6 +3,7 @@ package ceta.game.screens;
 import ceta.game.game.Assets;
 import ceta.game.transitions.ScreenTransitionFade;
 import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
@@ -158,6 +159,7 @@ public class SimpleMenuScreen extends AbstractGameScreen {
     }
 
     private void onResetClicked(){
+        GamePreferences.instance.forceGlobalScore(0);
         game.getLevelsManager().forceLevel(1);
         game.getLevelsManager().goToFirstUncompletedLevel(true);
     }
