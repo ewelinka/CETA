@@ -1,10 +1,10 @@
 package ceta.game.game.objects;
 
-import ceta.game.game.Assets;
-import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
+
+import ceta.game.game.Assets;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 3/22/17.

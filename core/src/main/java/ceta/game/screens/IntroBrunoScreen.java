@@ -1,24 +1,25 @@
 package ceta.game.screens;
 
-import ceta.game.game.Assets;
-import ceta.game.transitions.ScreenTransitionFade;
-import ceta.game.util.AudioManager;
-import ceta.game.util.Constants;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import ceta.game.game.Assets;
+import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 1/17/17.
@@ -45,12 +46,15 @@ public class IntroBrunoScreen extends AbstractGameScreen {
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
         buildStage();
-
+        System.out.println("width: "+width + "\theight: "+height+"\tnew width:"+stage.getViewport().getScreenWidth()+
+        		"\tnew height:"+stage.getViewport().getScreenHeight());
+        
+        
     }
 
     @Override
     public void show() {
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2));
+        stage = new Stage(new StretchViewport(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2));
         Gdx.input.setCatchBackKey(false);
 
         //AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.thirteen);

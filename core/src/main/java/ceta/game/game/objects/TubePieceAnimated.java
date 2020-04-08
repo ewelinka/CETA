@@ -1,12 +1,12 @@
 package ceta.game.game.objects;
 
-import ceta.game.game.Assets;
-import ceta.game.managers.AnimatedRoboticTubeManager;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+
+import ceta.game.game.Assets;
+import ceta.game.managers.AnimatedRoboticTubeManager;
 
 /**
  * Created by ewe on 10/27/16.

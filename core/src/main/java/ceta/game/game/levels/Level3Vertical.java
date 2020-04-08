@@ -1,15 +1,15 @@
 package ceta.game.game.levels;
 
-import ceta.game.game.controllers.AbstractWorldController;
-import ceta.game.game.objects.BrunoJetPack;
-import ceta.game.game.objects.BrunoVertical;
-import ceta.game.game.objects.Price;
-import ceta.game.managers.BrunosManager;
-import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+
+import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.game.objects.BrunoJetPack;
+import ceta.game.game.objects.Price;
+import ceta.game.managers.BrunosManager;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 12/29/16.

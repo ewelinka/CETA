@@ -1,34 +1,34 @@
 package ceta.game.screens;
 
-import ceta.game.game.Assets;
-import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+
+import ceta.game.game.Assets;
+import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 
 /**
  * Created by ewe on 2/7/17.
  */
 public class EmergencyScreen extends AbstractGameScreen  {
-    private static final String TAG = EmergencyScreen.class.getName();
-    private TextField txtLastLevel,txtLastScore, txtRepeat;
+//    private static final String TAG = EmergencyScreen.class.getName();
+    private TextField txtLastLevel,txtLastScore/*, txtRepeat*/;
     // private CheckBox chkUseDebug; also out txtTopCodeFValue
 
     private Skin skin;
     private ImageButton btnPlay;
     private int goToLevel = 1;
     private int lastScore = 0;
-    private int repeat = 0;
-    private float fvalue = GamePreferences.instance.getFvalue();// 0.85f; //default TopCode f value for adaptive thresholding algorithm
+//    private int repeat = 0;
+//    private float fvalue = GamePreferences.instance.getFvalue();// 0.85f; //default TopCode f value for adaptive thresholding algorithm
 
     public EmergencyScreen(DirectedGame game){
         super(game);
@@ -54,7 +54,7 @@ public class EmergencyScreen extends AbstractGameScreen  {
     @Override
     public void show() {
         skin = new Skin(Gdx.files.internal(Constants.SKIN_UI));
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
+        stage = new Stage(new StretchViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         txtLastLevel = new TextField("",skin);
         txtLastLevel.setMessageText("Go to level");
         txtLastLevel.setPosition(230, 830);

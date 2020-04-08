@@ -1,14 +1,14 @@
 package ceta.game.managers;
 
-import ceta.game.game.objects.VirtualBlock;
-import ceta.game.util.GamePreferences;
-import ceta.game.util.Solution;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.badlogic.gdx.Gdx;
+
+import ceta.game.game.objects.VirtualBlock;
+import ceta.game.util.GamePreferences;
+import ceta.game.util.Solution;
 
 
 /**

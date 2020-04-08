@@ -1,16 +1,16 @@
 package ceta.game.game.objects;
 
-import ceta.game.game.Assets;
-import ceta.game.util.Constants;
-import ceta.game.managers.RoboticArmManager;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+
+import ceta.game.game.Assets;
+import ceta.game.managers.RoboticArmManager;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 8/23/16.

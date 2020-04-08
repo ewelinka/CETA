@@ -1,29 +1,34 @@
 package ceta.game.screens;
 
-import ceta.game.game.Assets;
-import ceta.game.game.objects.Gear;
-import ceta.game.util.AudioManager;
-import ceta.game.util.Constants;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
+import ceta.game.game.Assets;
+import ceta.game.game.objects.Gear;
+import ceta.game.util.AudioManager;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 9/21/16.
  */
 public class CongratulationsScreen extends AbstractGameScreen {
-    private static final String TAG = CongratulationsScreen.class.getName();
+//    private static final String TAG = CongratulationsScreen.class.getName();
 
     private Image congrats;
     private Image thumb;
@@ -64,7 +69,7 @@ public class CongratulationsScreen extends AbstractGameScreen {
         buildStage();
     }
     public void show (){
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
+        stage = new Stage(new StretchViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(true); // from congrats you con go to menu
         buildStage();
     }

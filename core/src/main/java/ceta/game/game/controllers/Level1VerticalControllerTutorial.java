@@ -1,15 +1,9 @@
 package ceta.game.game.controllers;
 
-import ceta.game.game.Assets;
-import ceta.game.game.levels.Level1Vertical;
-import ceta.game.managers.BrunosManager;
-import ceta.game.managers.VirtualBlocksManager;
-import ceta.game.managers.VirtualBlocksManagerTutorial;
-import ceta.game.screens.CongratulationsScreen;
-import ceta.game.screens.CongratulationsScreenTutorial;
-import ceta.game.screens.DirectedGame;
-import ceta.game.transitions.ScreenTransitionFade;
-import ceta.game.util.GamePreferences;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,9 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import ceta.game.game.Assets;
+import ceta.game.game.levels.Level1Vertical;
+import ceta.game.managers.BrunosManager;
+import ceta.game.managers.VirtualBlocksManagerTutorial;
+import ceta.game.screens.CongratulationsScreenTutorial;
+import ceta.game.screens.DirectedGame;
+import ceta.game.transitions.ScreenTransitionFade;
 
 /**
  * Created by ewe on 2/8/17.

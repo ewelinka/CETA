@@ -100,7 +100,7 @@ public class BrunosManager {
             negativeInitY+=brunosToAdd.get(i).getHeight();
         }
         brunosToAdd.addAll(brunos);
-        brunos = new ArrayList(brunosToAdd);
+        brunos = new ArrayList<BrunoVertical>(brunosToAdd);
         brunosToAdd.clear();
     }
 

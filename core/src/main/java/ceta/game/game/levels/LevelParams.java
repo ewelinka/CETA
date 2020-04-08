@@ -1,10 +1,5 @@
 package ceta.game.game.levels;
 
-import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-
 /**
  * Created by ewe on 10/17/16.
  */

@@ -1,23 +1,19 @@
 package ceta.game.game.renderers;
 
-import ceta.game.game.Assets;
-import ceta.game.game.controllers.AbstractWorldController;
-import ceta.game.game.objects.VirtualBlock;
-import ceta.game.util.AudioManager;
-import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 
-import java.util.ArrayList;
+import ceta.game.game.Assets;
+import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.util.AudioManager;
+import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 
 /**
  * Created by ewe on 7/25/16.
@@ -154,12 +150,12 @@ public class WorldRenderer extends AbstractWorldRenderer {
 
 
     }
-    private void renderOldBlocks(ArrayList<VirtualBlock> oldblocks){
-        for(int i = 0; i < oldblocks.size();i++){
-            oldblocks.get(i).setColor(Color.RED);
-            oldblocks.get(i).draw(spriteBatch,1);
-        }
-    }
+//    private void renderOldBlocks(ArrayList<VirtualBlock> oldblocks){
+//        for(int i = 0; i < oldblocks.size();i++){
+//            oldblocks.get(i).setColor(Color.RED);
+//            oldblocks.get(i).draw(spriteBatch,1);
+//        }
+//    }
 
 
 

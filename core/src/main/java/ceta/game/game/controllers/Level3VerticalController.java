@@ -1,18 +1,17 @@
 package ceta.game.game.controllers;
 
-import ceta.game.game.Assets;
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import ceta.game.game.levels.Level3Vertical;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
-import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
 import ceta.game.util.Pair;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-
-import java.util.ArrayList;
 
 /**
  * Created by ewe on 11/9/16.

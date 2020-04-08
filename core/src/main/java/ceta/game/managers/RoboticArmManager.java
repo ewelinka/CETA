@@ -1,18 +1,14 @@
 package ceta.game.managers;
 
-import ceta.game.game.objects.ArmPiece;
-import ceta.game.util.Constants;
-import ceta.game.util.Pair;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import ceta.game.game.objects.ArmPiece;
+import ceta.game.util.Constants;
+import ceta.game.util.Pair;
 
 /**
  * Created by ewe on 8/23/16.
@@ -84,7 +80,7 @@ public class RoboticArmManager {
             negativeInitX+=armsToAdd.get(i).getWidth();
         }
         armsToAdd.addAll(armPieces);
-        armPieces = new ArrayList(armsToAdd);
+        armPieces = new ArrayList<ArmPiece>(armsToAdd);
         armsToAdd.clear();
     }
 
@@ -111,24 +107,24 @@ public class RoboticArmManager {
         }
     }
 
-    private void removeOneByIndex(int which){
-        armPieces.get(which).disappearAndRemove(); // remove Actor
-        armPieces.remove(which); //remove from armPieces
-    }
+//    private void removeOneByIndex(int which){
+//        armPieces.get(which).disappearAndRemove(); // remove Actor
+//        armPieces.remove(which); //remove from armPieces
+//    }
 
     protected void removeActorByIndex(int which){
         Gdx.app.log(TAG, "removeArmPieceByIndex "+ which + " with id "+armPieces.get(which).getId());
         armPieces.get(which).disappearAndRemove(); // remove Actor
     }
 
-    private void removeOneById(int id){
-        for(int i=armPieces.size()-1;i>=0;i--){
-            if(armPieces.get(i).getId() == id){
-                armPieces.get(i).disappearAndRemove(); // remove Actor
-                armPieces.remove(i); //remove from armPieces array
-            }
-        }
-    }
+//    private void removeOneById(int id){
+//        for(int i=armPieces.size()-1;i>=0;i--){
+//            if(armPieces.get(i).getId() == id){
+//                armPieces.get(i).disappearAndRemove(); // remove Actor
+//                armPieces.remove(i); //remove from armPieces array
+//            }
+//        }
+//    }
 
     protected void removeFromArrayByIdAndUpdatePositions(int id){
 

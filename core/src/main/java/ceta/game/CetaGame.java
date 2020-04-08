@@ -1,27 +1,27 @@
 package ceta.game;
 
-import ceta.game.game.Assets;
-import ceta.game.managers.ResultsManager;
-import ceta.game.screens.*;
-import ceta.game.transitions.ScreenTransition;
-import ceta.game.transitions.ScreenTransitionFade;
-import ceta.game.util.AudioManager;
-import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
-import ceta.game.managers.LevelsManager;
-
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+
+import ceta.game.game.Assets;
+import ceta.game.managers.LevelsManager;
+import ceta.game.managers.ResultsManager;
+import ceta.game.screens.DirectedGame;
+import ceta.game.screens.IntroBrunoScreen;
+import ceta.game.transitions.ScreenTransition;
+import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
+import ceta.game.util.GamePreferences;
 
 
 
 public class CetaGame extends DirectedGame {
 
-	private Object syncObject = new Object();
+//	private Object syncObject = new Object();
 	@Override
 	public void create () {
-		Constants c = new Constants(); // to set the constants (tablet or cv)
+//		Constants c = new Constants(); // to set the constants (tablet or cv)
 
 		// Set Libgdx log level
 		Gdx.app.setLogLevel(Application.LOG_NONE);

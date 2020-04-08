@@ -1,23 +1,18 @@
 package ceta.game.game.objects;
 
-import ceta.game.game.Assets;
-import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import static java.lang.Math.abs;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.sin;
+import ceta.game.game.Assets;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 8/2/16.
@@ -30,7 +25,7 @@ public class VirtualBlock extends AbstractGameObject {
     private boolean wasDetected;
     private boolean isAtHome;
     public float[] vertices;
-    private float rotLast = 0;
+//    private float rotLast = 0;
     private float myAlpha;
     private int pixelsPerUnit;
     private boolean disappearing;
@@ -91,7 +86,7 @@ public class VirtualBlock extends AbstractGameObject {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button){
-                rotLast = 0;
+//                rotLast = 0;
                 wasMoved = true;
                 //Gdx.app.debug(TAG, "wasMoved!!! " + blockValue);
             }

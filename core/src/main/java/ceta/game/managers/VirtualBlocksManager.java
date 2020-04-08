@@ -1,9 +1,7 @@
 package ceta.game.managers;
 
-import ceta.game.game.objects.VirtualBlock;
-import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
-import ceta.game.util.Pair;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.TimeUtils;
 //import javafx.scene.layout.VBox;
 
-
-import java.util.ArrayList;
+import ceta.game.game.objects.VirtualBlock;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 8/11/16.

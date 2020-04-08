@@ -1,19 +1,14 @@
 package ceta.game.screens;
 
-import ceta.game.game.controllers.AbstractWorldController;
-import ceta.game.game.levels.LevelParams;
-import ceta.game.game.renderers.AbstractWorldRenderer;
-import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
-import ceta.game.game.Assets;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Json;
-import com.sun.org.apache.bcel.internal.generic.TABLESWITCH;
+
+import ceta.game.game.Assets;
+import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.game.renderers.AbstractWorldRenderer;
 
 /**
  * Created by ewe on 7/25/16.

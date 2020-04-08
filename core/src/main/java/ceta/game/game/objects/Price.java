@@ -21,8 +21,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 public class Price extends AbstractGameObject {
     public static final String TAG = Price.class.getName();
     private int velocity;
-    private float priceScale;
-    private int multiplicationFactorForScale;
+//    private float priceScale;
+//    private int multiplicationFactorForScale;
     // numbers/operations that it will represent
     private int [] operations;
     private int currentOperationNr;
@@ -137,8 +137,8 @@ public class Price extends AbstractGameObject {
         myStartX = Constants.HORIZONTAL_ZERO_X;
         myStartY = Constants.GROUND_LEVEL;
         rotationVelocity = 30;
-        priceScale = 1;
-        multiplicationFactorForScale = 1;
+//        priceScale = 1;
+//        multiplicationFactorForScale = 1;
 
         setInitialPosition();
         isLast = false;
@@ -164,16 +164,16 @@ public class Price extends AbstractGameObject {
 
     }
 
-    private void adjustScale(float deltaTime){
-        priceScale += (deltaTime/2*multiplicationFactorForScale);
-        if(priceScale >= 1.5 )
-            multiplicationFactorForScale=-1;
-
-        if( priceScale <= 0.85)
-            multiplicationFactorForScale=1;
-
-        setScale(priceScale);
-    }
+//    private void adjustScale(float deltaTime){
+//        priceScale += (deltaTime/2*multiplicationFactorForScale);
+//        if(priceScale >= 1.5 )
+//            multiplicationFactorForScale=-1;
+//
+//        if( priceScale <= 0.85)
+//            multiplicationFactorForScale=1;
+//
+//        setScale(priceScale);
+//    }
 
     public void updateAlpha(float delta){
         if(fadeIn){
@@ -304,8 +304,8 @@ public class Price extends AbstractGameObject {
 
 
         ));
-        priceScale = 1;
-        multiplicationFactorForScale = 1;
+//        priceScale = 1;
+//        multiplicationFactorForScale = 1;
    }
 
 

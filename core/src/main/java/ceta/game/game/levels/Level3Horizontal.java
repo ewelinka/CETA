@@ -1,13 +1,12 @@
 package ceta.game.game.levels;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import ceta.game.game.controllers.AbstractWorldController;
-import ceta.game.game.objects.Bruno;
 import ceta.game.game.objects.BrunoMovingHorizontal;
 import ceta.game.game.objects.Gear;
 import ceta.game.game.objects.Price;
 import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Created by ewe on 12/2/16.

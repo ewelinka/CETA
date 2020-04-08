@@ -1,17 +1,11 @@
 package ceta.game.screens;
 
+import com.badlogic.gdx.Gdx;
+
 import ceta.game.game.Assets;
 import ceta.game.game.objects.TreeArrow;
 import ceta.game.game.objects.TreeGear;
-import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
 
 /**
  * Created by ewe on 4/24/17.

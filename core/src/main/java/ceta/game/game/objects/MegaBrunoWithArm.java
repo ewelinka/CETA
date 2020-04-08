@@ -1,8 +1,8 @@
 package ceta.game.game.objects;
 
-import ceta.game.game.Assets;
-import ceta.game.util.Constants;
 import com.badlogic.gdx.graphics.g2d.Batch;
+
+import ceta.game.game.Assets;
 
 /**
  * Created by ewe on 12/27/16.

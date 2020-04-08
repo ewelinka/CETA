@@ -1,12 +1,10 @@
 package ceta.game.util;
 
+import static java.util.UUID.randomUUID;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.MathUtils;
-
-import java.util.UUID;
-
-import static java.util.UUID.randomUUID;
 
 /**
  * Created by ewe on 10/6/16.

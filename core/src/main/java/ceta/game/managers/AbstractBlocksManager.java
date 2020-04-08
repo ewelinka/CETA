@@ -55,16 +55,16 @@ public abstract class AbstractBlocksManager {
 
 
 
-    public ArrayList getToRemove(){
+    public ArrayList<Integer> getToRemove(){
         // we return the array because until the update function we don't have to carry about this array
         return toRemoveFromDetectedIds;
     }
 
-    public ArrayList getToRemoveValues(){
+    public ArrayList<Integer> getToRemoveValues(){
         return toRemoveFromDetectedValues;
     }
 
-    public ArrayList getNewDetected(){
+    public ArrayList<Pair> getNewDetected(){
         return newDetectedPairs;
     }
 

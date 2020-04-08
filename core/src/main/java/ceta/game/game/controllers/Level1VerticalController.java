@@ -1,16 +1,15 @@
 package ceta.game.game.controllers;
 
-import ceta.game.game.Assets;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import ceta.game.game.levels.Level1Vertical;
 import ceta.game.game.objects.BrunoVertical;
 import ceta.game.managers.BrunosManager;
+import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
-import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
 import ceta.game.util.GamePreferences;
-import ceta.game.managers.VirtualBlocksManager;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Created by ewe on 10/19/16.

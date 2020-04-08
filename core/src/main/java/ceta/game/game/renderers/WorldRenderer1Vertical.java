@@ -1,12 +1,12 @@
 package ceta.game.game.renderers;
 
-import ceta.game.game.Assets;
-import ceta.game.game.controllers.AbstractWorldController;
-import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
+import ceta.game.game.Assets;
+import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 12/27/16.

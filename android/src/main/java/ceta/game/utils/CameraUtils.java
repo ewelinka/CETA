@@ -15,11 +15,10 @@ package ceta.game.utils;
  * limitations under the License.
  */
 
-import android.graphics.ImageFormat;
+import java.util.List;
+
 import android.hardware.Camera;
 import android.util.Log;
-
-import java.util.List;
 
 /**
  * Camera-related utility functions.

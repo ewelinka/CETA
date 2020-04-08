@@ -1,18 +1,16 @@
 package ceta.game.managers;
 
-import ceta.game.game.Assets;
-import ceta.game.game.objects.BrunoVertical;
-import ceta.game.util.Constants;
-import ceta.game.util.Pair;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import java.util.ArrayList;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import ceta.game.game.Assets;
+import ceta.game.game.objects.BrunoVertical;
+import ceta.game.util.Constants;
+import ceta.game.util.Pair;
 
 /**
  * Created by ewe on 11/9/16.

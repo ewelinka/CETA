@@ -113,7 +113,7 @@
 					
 					
 					<sdk>
-						<platform>20</platform>
+						<platform>29</platform>
 					</sdk>
 					<undeployBeforeDeploy>true</undeployBeforeDeploy>
 					<dex>

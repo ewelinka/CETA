@@ -1,28 +1,33 @@
 package ceta.game.game.renderers;
 
-import ceta.game.game.Assets;
-import ceta.game.game.controllers.AbstractWorldController;
-import ceta.game.util.Constants;
-import ceta.game.util.GamePreferences;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
+import ceta.game.game.Assets;
+import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 
 
 /**
@@ -50,10 +55,10 @@ public abstract class AbstractWorldRenderer implements Disposable {
     protected float alphaColor=0.5f;
     protected boolean fadeIn=true;
     protected int brunoNowVal = 0;
-    private Texture tex;
-    private Pixmap pixmap;
-    private Sprite sprite;
-    private int debugImgSize =360;
+//    private Texture tex;
+//    private Pixmap pixmap;
+//    private Sprite sprite;
+//    private int debugImgSize =360;
     private Actor magnet, arrow;
 
 
@@ -207,7 +212,7 @@ public abstract class AbstractWorldRenderer implements Disposable {
     }
 
     protected void renderLevelNumber(SpriteBatch batch){
-        GlyphLayout layout = new GlyphLayout(bigGuiFont, levelTxt+(worldController.getLevelNr()+Constants.LAST_LEVEL_NR* GamePreferences.instance.getRepeatNr()));
+        /*GlyphLayout layout = */new GlyphLayout(bigGuiFont, levelTxt+(worldController.getLevelNr()+Constants.LAST_LEVEL_NR* GamePreferences.instance.getRepeatNr()));
 //        batch.setProjectionMatrix(camera.combined);
 //        batch.begin();
         bigGuiFont.setColor(0,0,0,0.7f);

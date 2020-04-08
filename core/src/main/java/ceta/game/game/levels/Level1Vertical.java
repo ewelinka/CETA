@@ -1,13 +1,13 @@
 package ceta.game.game.levels;
 
-import ceta.game.game.controllers.AbstractWorldController;
-import ceta.game.game.objects.Cloud;
-import ceta.game.game.objects.Tube;
-import ceta.game.game.objects.Price;
-import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
+import ceta.game.game.controllers.AbstractWorldController;
+import ceta.game.game.objects.Price;
+import ceta.game.game.objects.Tube;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 11/11/16.

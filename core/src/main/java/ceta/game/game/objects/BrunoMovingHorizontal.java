@@ -1,10 +1,10 @@
 package ceta.game.game.objects;
 
-import ceta.game.game.Assets;
-import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import ceta.game.game.Assets;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 12/2/16.

@@ -1,26 +1,39 @@
 package ceta.game.game.controllers;
 
-import ceta.game.game.Assets;
-import ceta.game.game.levels.AbstractLevel;
-import ceta.game.game.levels.Level3Horizontal;
-import ceta.game.game.levels.LevelParams;
-import ceta.game.game.objects.*;
-import ceta.game.managers.AbstractBlocksManager;
-import ceta.game.screens.*;
-import ceta.game.transitions.ScreenTransition;
-import ceta.game.transitions.ScreenTransitionFade;
-import ceta.game.util.*;
+import java.util.ArrayList;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
-import java.util.ArrayList;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import ceta.game.game.Assets;
+import ceta.game.game.levels.AbstractLevel;
+import ceta.game.game.levels.Level3Horizontal;
+import ceta.game.game.levels.LevelParams;
+import ceta.game.game.objects.AbstractGameObject;
+import ceta.game.game.objects.Bruno;
+import ceta.game.game.objects.BrunoVertical;
+import ceta.game.game.objects.Price;
+import ceta.game.game.objects.VirtualBlock;
+import ceta.game.managers.AbstractBlocksManager;
+import ceta.game.screens.CongratulationsScreen;
+import ceta.game.screens.DirectedGame;
+import ceta.game.screens.EmergencyScreen;
+import ceta.game.screens.RepeatLevelScreen;
+import ceta.game.screens.SimpleMenuScreen;
+import ceta.game.transitions.ScreenTransition;
+import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
+import ceta.game.util.CameraHelper;
+import ceta.game.util.Constants;
+import ceta.game.util.LevelsCsv;
+import ceta.game.util.Solution;
 
 
 /**

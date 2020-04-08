@@ -1,11 +1,11 @@
 package ceta.game.game.renderers;
 
-import ceta.game.game.controllers.AbstractWorldController;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
+
+import ceta.game.game.controllers.AbstractWorldController;
 
 /**
  * Created by ewe on 2/16/17.
@@ -18,7 +18,7 @@ public class WorldRendererTutorial extends  WorldRenderer {
 
     @Override
     protected void renderLevelNumber(SpriteBatch batch){
-        GlyphLayout layout = new GlyphLayout(bigGuiFont, levelTxt);
+//        GlyphLayout layout = new GlyphLayout(bigGuiFont, levelTxt);
 //        batch.setProjectionMatrix(camera.combined);
 //        batch.begin();
         bigGuiFont.setColor(0,0,0,0.7f);

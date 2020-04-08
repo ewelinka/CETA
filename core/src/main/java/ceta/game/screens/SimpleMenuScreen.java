@@ -13,13 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 /**
  * Created by ewe on 6/21/18.
  */
 public class SimpleMenuScreen extends AbstractGameScreen {
-    private static final String TAG = SimpleMenuScreen.class.getName();
+//    private static final String TAG = SimpleMenuScreen.class.getName();
     private Image imgBackground;
     private ImageButton btnMenuPlay, btnMenuExit, btnMenuReset, btnMenuTutorial;
 
@@ -46,7 +46,7 @@ public class SimpleMenuScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2));
+        stage = new Stage(new StretchViewport(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2));
         Gdx.input.setCatchBackKey(false);
 
         //AudioManager.instance.playWithoutInterruptionLoud(Assets.instance.sounds.thirteen);

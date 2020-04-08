@@ -1,20 +1,19 @@
 package ceta.game.game.controllers;
 
-import ceta.game.managers.AbstractBlocksManager;
+import java.util.ArrayList;
+
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import ceta.game.managers.VirtualBlocksManager;
 import ceta.game.screens.DirectedGame;
 import ceta.game.util.AudioManager;
 import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-
-import java.util.ArrayList;
 
 /**
  * Created by ewe on 12/2/16.
  */
 public class NoCvController extends AbstractWorldController {
-    private static final String TAG = NoCvController.class.getName();
+//    private static final String TAG = NoCvController.class.getName();
     protected VirtualBlocksManager virtualBlocksManager;
 
     public NoCvController(DirectedGame game, Stage stage, int levelNr) {

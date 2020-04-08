@@ -1,8 +1,6 @@
 package ceta.game.game.objects;
 
 import ceta.game.game.Assets;
-import ceta.game.util.Constants;
-import com.badlogic.gdx.Gdx;
 
 
 

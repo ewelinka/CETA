@@ -27,14 +27,14 @@ public class AudioManager {
     private float defaultVolSound = 0.6f;
     private SequenceAction readMe, readNumberWithDelay, readFeedbackAction, readCleanTable;
     private Actor reader;
-    private Stage stage;
+//    private Stage stage;
     private Sound[] positiveNormalSounds = new Sound[]{Assets.instance.sounds.a1, Assets.instance.sounds.a2, Assets.instance.sounds.a3};
 
     // singleton: prevent instantiation from other classes
     private AudioManager () { }
 
     public void setStage(Stage stage){
-        this.stage = stage;
+        //this.stage = stage;
         reader = new Actor();
         stage.addActor(reader);
         readMe  = new SequenceAction();
@@ -86,16 +86,16 @@ public class AudioManager {
     }
 
 
-    private void addSoundToPlay(final Sound toPlay, float delayTime){
-        readMe.addAction(run(new Runnable() {
-            public void run() {
-                playWithoutInterruption(toPlay);
-            }
-        }));
-        Gdx.app.log(TAG,"delay "+delayTime);
-        readMe.addAction(delay(delayTime));
-
-    }
+//    private void addSoundToPlay(final Sound toPlay, float delayTime){
+//        readMe.addAction(run(new Runnable() {
+//            public void run() {
+//                playWithoutInterruption(toPlay);
+//            }
+//        }));
+//        Gdx.app.log(TAG,"delay "+delayTime);
+//        readMe.addAction(delay(delayTime));
+//
+//    }
 
     public void addToPlay (int nr) {
 

@@ -1,14 +1,14 @@
 package ceta.game.screens;
 
-import ceta.game.managers.ResultsManager;
-import ceta.game.transitions.ScreenTransition;
-import ceta.game.managers.LevelsManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+
+import ceta.game.managers.LevelsManager;
+import ceta.game.managers.ResultsManager;
+import ceta.game.transitions.ScreenTransition;
 
 /**
  * Created by ewe on 7/25/16.
