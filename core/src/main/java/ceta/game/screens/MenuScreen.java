@@ -1,11 +1,14 @@
 package ceta.game.screens;
 
-import ceta.game.game.Assets;
-import ceta.game.transitions.ScreenTransition;
-import ceta.game.transitions.ScreenTransitionFade;
-import ceta.game.util.Constants;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.touchable;
 
-import ceta.game.util.GamePreferences;
+import java.text.DecimalFormat;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,19 +17,29 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import java.text.DecimalFormat;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import ceta.game.game.Assets;
+import ceta.game.util.Constants;
+import ceta.game.util.GamePreferences;
 
 /**
  * Created by ewe on 7/25/16.
  */
 public class MenuScreen extends AbstractGameScreen {
-    private static final String TAG = MenuScreen.class.getName();
+//    private static final String TAG = MenuScreen.class.getName();
     //private Stage stage;
     private Skin skin;
 
@@ -82,7 +95,7 @@ public class MenuScreen extends AbstractGameScreen {
         buildStage();
     };
     public void show (){
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2));
+        stage = new Stage(new StretchViewport(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2));
         Gdx.input.setCatchBackKey(false);
         buildStage();
     };
@@ -111,7 +124,7 @@ public class MenuScreen extends AbstractGameScreen {
         winOptions.setColor(1, 1, 1, 0.8f);
         // Hide options window by default
         showOptionsWindow(false, false);
-        if (false) winOptions.debug();
+//        if (false) winOptions.debug();
         // Let TableLayout recalculate widget sizes and positions
         winOptions.pack();
         // Move options window to bottom right corner
@@ -158,7 +171,7 @@ public class MenuScreen extends AbstractGameScreen {
         layer.row();
 
 
-        if (false) layer.debug();
+//        if (false) layer.debug();
         return layer;
     }
 

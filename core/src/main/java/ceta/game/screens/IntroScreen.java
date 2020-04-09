@@ -1,31 +1,32 @@
 package ceta.game.screens;
 
-import ceta.game.game.Assets;
-import ceta.game.game.objects.BlackShadow;
-import ceta.game.game.objects.TreeArrow;
-import ceta.game.game.objects.TreeGear;
-import ceta.game.transitions.ScreenTransitionFade;
-import ceta.game.util.AudioManager;
-import ceta.game.util.Constants;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import ceta.game.game.Assets;
+import ceta.game.game.objects.BlackShadow;
+import ceta.game.game.objects.TreeGear;
+import ceta.game.transitions.ScreenTransitionFade;
+import ceta.game.util.AudioManager;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 2/14/17.
  */
 public class IntroScreen extends AbstractGameScreen {
-    private Image imgBackground,b1,b2,b3,b4,b5,magnet,black;
+    private Image imgBackground,b1,b2,b3,b4,b5,magnet/*,black*/;
     private TreeGear g1,g2,g3,g4,g5,g6;
     private BlackShadow blackShadow;
     private int[][] gearsPositions;
@@ -63,7 +64,7 @@ public class IntroScreen extends AbstractGameScreen {
     @Override
     public void show() {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
+        stage = new Stage(new StretchViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(false);
         buildIntro();
     }

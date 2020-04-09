@@ -1,18 +1,15 @@
 package ceta.game.screens;
 
-import ceta.game.game.Assets;
-import ceta.game.game.controllers.Level1HorizontalController;
-import ceta.game.game.controllers.Level1VerticalController;
-import ceta.game.game.controllers.Level1VerticalControllerTutorial;
-import ceta.game.game.renderers.WorldRenderer;
-import ceta.game.game.renderers.WorldRendererTutorial;
-import ceta.game.util.AudioManager;
-import ceta.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+
+import ceta.game.game.controllers.Level1VerticalControllerTutorial;
+import ceta.game.game.renderers.WorldRendererTutorial;
+import ceta.game.util.AudioManager;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 2/2/17.
@@ -45,13 +42,13 @@ public class TutorialScreen extends AbstractGameScreen{
     public void resize(int width, int height) {
         Gdx.app.log(TAG," we start the RESIZE of the screen ! "+Gdx.graphics.getWidth()+" h "+Gdx.graphics.getHeight());
         worldRenderer.resize(width, height);
-
+        System.out.println("resize tutorial screen");
     }
 
     @Override
     public void show() {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
+        stage = new Stage(new StretchViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1VerticalControllerTutorial(game,stage,levelJson);
         //worldController = new Level1HorizontalController(game, stage);
         worldRenderer = new WorldRendererTutorial(worldController,stage,false,regTex); // default set number line to horizontal

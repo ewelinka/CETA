@@ -1,41 +1,35 @@
 package ceta.game.screens;
 
-import ceta.game.game.Assets;
-import ceta.game.game.objects.BrunoVertical;
-import ceta.game.game.objects.TreeArrow;
-import ceta.game.game.objects.TreeGear;
-import ceta.game.game.objects.VirtualBlock;
-import ceta.game.managers.BrunosManager;
-import ceta.game.managers.LevelsManager;
-import ceta.game.util.AudioManager;
-import ceta.game.util.Constants;
-import ceta.game.util.Pair;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import ceta.game.game.Assets;
+import ceta.game.game.objects.TreeArrow;
+import ceta.game.game.objects.TreeGear;
+import ceta.game.util.AudioManager;
+import ceta.game.util.Constants;
 
 /**
  * Created by ewe on 1/9/17.
  */
 public class TreeScreen extends AbstractGameScreen {
     private static final String TAG = TreeScreen.class.getName();
-    private Button btnMenuPlay;
+//    private Button btnMenuPlay;
     private Image imgBackground;
     protected TreeGear level1gear, level2gear,level3gear,level4gear, level5gear, level6gear;
     protected Image part1,part2,part3,part4,part5,part6;
@@ -125,7 +119,7 @@ public class TreeScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
+        stage = new Stage(new StretchViewport(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT));
         Gdx.input.setCatchBackKey(true);
         buildStage();
     }
@@ -219,19 +213,19 @@ public class TreeScreen extends AbstractGameScreen {
 
     }
 
-    private void addPlayButton(){
-        btnMenuPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
-        stage.addActor(btnMenuPlay);
-        btnMenuPlay.setSize(88*2,60*2);
-        btnMenuPlay.setPosition(Constants.VIEWPORT_WIDTH/2 - 100, 100);
-        btnMenuPlay.addListener(new ChangeListener() {
-            @Override
-            public void changed (ChangeEvent event, Actor actor) {
-                onPlayClicked();
-            }
-        });
-
-    }
+//    private void addPlayButton(){
+//        btnMenuPlay = new ImageButton(Assets.instance.buttons.playButtonStyle);
+//        stage.addActor(btnMenuPlay);
+//        btnMenuPlay.setSize(88*2,60*2);
+//        btnMenuPlay.setPosition(Constants.VIEWPORT_WIDTH/2 - 100, 100);
+//        btnMenuPlay.addListener(new ChangeListener() {
+//            @Override
+//            public void changed (ChangeEvent event, Actor actor) {
+//                onPlayClicked();
+//            }
+//        });
+//
+//    }
 
 
     protected void enableGears(){
@@ -407,10 +401,10 @@ public class TreeScreen extends AbstractGameScreen {
 
     }
 
-    private void onPlayClicked () {
-        game.getLevelsManager().goToUncompletedLevel();
-
-    }
+//    private void onPlayClicked () {
+//        game.getLevelsManager().goToUncompletedLevel();
+//
+//    }
 
     private void addBrunos(){
         float s = 0.2f;

@@ -8,7 +8,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 /**
  * Created by ewe on 1/17/17.
@@ -44,7 +44,7 @@ public class Level1VerticalMovingScreen extends AbstractGameScreen {
     @Override
     public void show() {
         Gdx.app.log(TAG," we start the SHOW! "+Gdx.graphics.getWidth());
-        stage = new Stage(new FitViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
+        stage = new Stage(new StretchViewport(Constants.VIEWPORT_WIDTH , Constants.VIEWPORT_HEIGHT));
         worldController = new Level1VerticalController(game, stage,levelJson);
         worldRenderer = new WorldRenderer1VerticalMoving(worldController,stage,false,regTex);
         // android back key
