@@ -89,7 +89,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load("sounds/ProbaConMasFichas.mp3", Sound.class);
         assetManager.load("sounds/TenesQueSacarLasFichas.mp3", Sound.class);
         // assetManager.load("sounds/yupii.mp3", Sound.class);
-        assetManager.load("sounds/PasasteDeNivel.mp3", Sound.class);
+        assetManager.load("sounds/PasasteDeNIvel.mp3", Sound.class);
         assetManager.load("sounds/BuenTrabajo.mp3", Sound.class);
         assetManager.load("sounds/ExcelenteSeguimosAvanzando.mp3", Sound.class);
         assetManager.load("sounds/MuyBienProximoNivel.mp3", Sound.class);
@@ -609,7 +609,7 @@ public class Assets implements Disposable, AssetErrorListener {
             s22 = am.get("sounds/22.mp3", Sound.class);
             s23 = am.get("sounds/23.mp3", Sound.class);
 
-            levelPassed = am.get("sounds/PasasteDeNivel.mp3", Sound.class);
+            levelPassed = am.get("sounds/PasasteDeNIvel.mp3", Sound.class);
             levelPassed2 = am.get("sounds/BuenTrabajo.mp3", Sound.class);
             levelPassed3 = am.get("sounds/ExcelenteSeguimosAvanzando.mp3", Sound.class);
             levelPassed4 = am.get("sounds/MuyBienProximoNivel.mp3", Sound.class);
